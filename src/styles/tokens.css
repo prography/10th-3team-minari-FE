@@ -109,6 +109,42 @@
   --bg-disabled: */
 
   /* Typography */
+  --font-size-275: 11px;
+  --font-size-300: 12px;
+  --font-size-325: 13px;
+  --font-size-350: 14px;
+  --font-size-400: 16px;
+  --font-size-450: 18px;
+  --font-size-500: 20px;
+  --font-size-550: 22px;
+  --font-size-600: 24px;
+  --font-size-650: 26px;
+  --font-size-800: 30px;
+  --font-size-850: 32px;
+  --font-size-900: 36px;
+  --font-size-1100: 44px;
+  --font-size-1600: 64px;
+
+  --line-height-400: 16px;
+  --line-height-450: 18px;
+  --line-height-500: 20px;
+  --line-height-550: 22px;
+  --line-height-650: 26px;
+  --line-height-700: 28px;
+  --line-height-750: 30px;
+  --line-height-800: 32px;
+  --line-height-900: 36px;
+  --line-height-1000: 40px;
+  --line-height-1050: 42px;
+  --line-height-1200: 48px;
+  --line-height-1400: 56px;
+  --line-height-1500: 60px;
+  --line-height-1900: 76px;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
   /* Grid */
 
