@@ -21,11 +21,11 @@ const SelectDeviceBox = ({type, deviceList, selected, onSelect}: SelectDeviceBox
   return (
     <div className={styles.wrapper}>
       <button onClick={() => setOpen((prev) => !prev)} className={styles.selected}>
-        {selected?.label ?? `${type === 'videoInput' ? '카메라' : '마이크'}를 선택하세요`} ▼
+        {selected?.label ?? `${type === 'videoInput' ? '카메라' : '마이크'}를 선택하세요`}
       </button>
-      {open && (
+      {open && deviceList && (
         <ul className={styles.options}>
-          {deviceList?.map((device) => (
+          {deviceList.map((device) => (
             <li key={device.deviceId} onClick={() => handleItemClick(device)}>
               {device.label}
             </li>
