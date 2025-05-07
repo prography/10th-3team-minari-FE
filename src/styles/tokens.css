@@ -92,22 +92,6 @@
   --secondary-800: var(--gray-800);
   --secondary-900: var(--gray-900);
 
-  /* --bg-primary:
-  --bg-secondary:
-  --bg-tertiary:
-  --bg-brand:
-  --bg-info-subtle:
-  --bg-info-bold:
-  --bg-warning-subtle:
-  --bg-warning-bold:
-  --bg-success-subtle:
-  --bg-success-bold:
-  --bg-danger-subtle:
-  --bg-danger-bold:
-  --bg-inverse-bold:
-  --bg-inverse-bolder:
-  --bg-disabled: */
-
   /* Typography */
   --font-size-275: 11px;
   --font-size-300: 12px;
