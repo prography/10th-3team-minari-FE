@@ -66,5 +66,6 @@
     "*.{css,scss,md,json}": [
       "prettier --write"
     ]
-  }
+  },
+  "packageManager": "pnpm@9.1.3"
 }
