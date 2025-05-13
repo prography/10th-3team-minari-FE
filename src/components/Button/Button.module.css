@@ -1,0 +1,17 @@
+.button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--gray-200) !important;
+}
+
+.button:active {
+  background-color: var(--gray-300) !important;
+}
