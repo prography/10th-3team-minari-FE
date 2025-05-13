@@ -1,0 +1,135 @@
+/* 폰트 및 typography */
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/font/PretendardVariable.woff2') format('woff2-variations');
+}
+
+.display-lg {
+  color: var(--secondary-700);
+  font-size: var(--font-size-1600);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1900);
+  letter-spacing: -1.2px;
+}
+.display-md {
+  color: var(--secondary-700);
+  font-size: var(--font-size-1100);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1500);
+  letter-spacing: -1px;
+}
+.display-sm {
+  color: var(--secondary-700);
+  font-size: var(--font-size-900);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1200);
+  letter-spacing: -0.6px;
+}
+.title-lg {
+  color: var(--secondary-700);
+  font-size: var(--font-size-800);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1050);
+  letter-spacing: -0.4px;
+}
+.title-md {
+  color: var(--secondary-700);
+  font-size: var(--font-size-650);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-900);
+  letter-spacing: -0.3px;
+}
+.title-sm {
+  color: var(--secondary-700);
+  font-size: var(--font-size-450);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-700);
+  letter-spacing: -0.2px;
+}
+
+.title-xs {
+  color: var(--secondary-700);
+  font-size: var(--font-size-550);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-700);
+  letter-spacing: -0.2px;
+}
+.body-lg {
+  color: var(--secondary-700);
+  font-size: var(--font-size-400);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-650);
+  letter-spacing: 0;
+}
+.body-md {
+  color: var(--secondary-700);
+  font-size: var(--font-size-350);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-550);
+  letter-spacing: 0.1px;
+}
+.body-sm {
+  color: var(--secondary-700);
+  font-size: var(--font-size-325);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-500);
+  letter-spacing: 0.2px;
+}
+.label-lg {
+  color: var(--secondary-700);
+  font-size: var(--font-size-400);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-600);
+  letter-spacing: 0.2px;
+}
+.label-mg {
+  color: var(--secondary-700);
+  font-size: var(--font-size-300);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-450);
+  letter-spacing: 0.2px;
+}
+.label-mg {
+  color: var(--secondary-700);
+  font-size: var(--font-size-275);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-400);
+  letter-spacing: 0.2px;
+}
+
+@media screen and (max-width: 768px) {
+  .display-lg {
+    font-size: var(--font-size-1100);
+    line-height: var(--line-height-1400);
+    letter-spacing: -0.5px;
+  }
+  .display-md {
+    font-size: var(--font-size-900);
+    line-height: var(--line-height-1200);
+    letter-spacing: -0.4px;
+  }
+  .display-sm {
+    font-size: var(--font-size-650);
+    line-height: var(--line-height-1000);
+    letter-spacing: -0.3px;
+  }
+  .title-lg {
+    font-size: var(--font-size-600);
+    line-height: var(--line-height-800);
+    letter-spacing: -0.2px;
+  }
+  .title-md {
+    font-size: var(--font-size-500);
+    line-height: var(--line-height-700);
+    letter-spacing: -0.1px;
+  }
+  .title-sm {
+    color: var(--secondary-700);
+    font-size: var(--font-size-450);
+    line-height: var(--line-height-650);
+    letter-spacing: 0;
+  }
+}

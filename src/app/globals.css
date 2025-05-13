@@ -33,9 +33,7 @@ textarea,
 select,
 button,
 table {
-  font-family:
-    -apple-system, BlinkMacSystemFont, helvetica, 'Apple SD Gothic Neo', '나눔고딕', NanumGothic,
-    '맑은 고딕', MalgunGothic, sans-serif;
+  font-family: 'Pretendard', sans-serif;
   font-size: 14px;
 }
 body {
