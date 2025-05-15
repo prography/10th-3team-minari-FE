@@ -4,15 +4,17 @@ import BlackArrow from '@/assets/icon/arrow-black.svg';
 import Refresh from '@/assets/icon/refresh-cw.svg';
 import Pause from '@/assets/icon/circle-pause.svg';
 import Stop from '@/assets/icon/circle-stop.svg';
+import Loading from '@/assets/icon/loader-circle.svg';
 import Image from 'next/image';
 
 interface ButtonProps {
-  children?: string;
+  children: string;
   onClick?: () => void;
   disabled?: boolean;
+  loading?: boolean;
+  type?: 'primary' | 'secondary' | 'white' | 'black';
   iconRight?: string;
   iconLeft?: string;
-  bgColor?: string;
   border?: boolean;
 }
 
@@ -35,6 +37,9 @@ const Button = (props: ButtonProps) => {
       case 'stop':
         url = Stop;
         break;
+      case 'loading':
+        url = Loading;
+        break;
       default:
         url = '';
         break;
@@ -42,54 +47,30 @@ const Button = (props: ButtonProps) => {
     return url;
   };
 
-  const getColor = (color: string | undefined, type: string) => {
-    let bgColor = '';
-    let fontColor = '';
-    if (props.disabled) {
-      bgColor = '#D4D4D4 !important';
-      fontColor = '#A3A3A3 !important';
-    } else {
-      switch (color) {
-        case 'white':
-          bgColor = '#FFFFFF';
-          fontColor = '#525252';
-          break;
-        case 'black':
-          bgColor = '#262626';
-          fontColor = '#FFFFFF';
-          break;
-        case 'gray':
-          bgColor = '#FAFAFA';
-          fontColor = '#525252';
-          break;
-        default:
-          bgColor = props.bgColor ? props.bgColor : '#FAFAFA';
-          fontColor = '#525252';
-          break;
-      }
-    }
-    if (type === 'background') {
-      return bgColor;
-    } else {
-      return fontColor;
-    }
+  const getClassName = () => {
+    const type = props.type || 'primary';
+    const border = props.border ? '-border' : '';
+    return `${type}${border}`;
   };
 
   return (
     <button
       onClick={props.onClick}
       disabled={props.disabled}
-      className={`${styles.button} label-lg`}
-      style={{
-        backgroundColor: getColor(props.bgColor, 'background'),
-        color: getColor(props.bgColor, 'font'),
-        border: props.border ? '1.5px solid #737373' : '',
-      }}
+      className={`${styles.button} ${styles[getClassName()]} label-lg`}
     >
-      {props.iconLeft && (
-        <span>
-          <Image src={getIcon(props.iconLeft)} alt="icon" width={24} height={24} />
+      {props.loading ? (
+        <span className={styles.rotation}>
+          <Image src={getIcon('loading')} alt="icon" width={24} height={24} />
         </span>
+      ) : (
+        <>
+          {props.iconLeft && (
+            <span>
+              <Image src={getIcon(props.iconLeft)} alt="icon" width={24} height={24} />
+            </span>
+          )}
+        </>
       )}
       <div>{props.children}</div>
       {props.iconRight && (
