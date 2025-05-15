@@ -1,0 +1,16 @@
+.wrapper {
+}
+.hero-grid {
+  background-size: cover;
+  background-image: url('../../../assets/grid.png');
+}
+
+.hero-text {
+  padding: 102px 168px 110px 168px;
+  max-width: 944px;
+}
+
+.hero-text > div {
+  display: flex;
+  align-items: center;
+}

@@ -246,7 +246,9 @@
 .pd-left-24 {
   padding-left: 24px;
 }
-
+.mg-left-4 {
+  margin-left: 4px;
+}
 .mg-left-13 {
   margin-left: 13px;
 }
@@ -262,4 +264,8 @@
 }
 .mg-right-16 {
   margin-right: 16px;
+}
+
+.mg-bottom-20 {
+  margin-bottom: 20px;
 }
