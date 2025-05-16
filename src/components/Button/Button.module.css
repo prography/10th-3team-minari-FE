@@ -1,0 +1,126 @@
+/* 버튼 전체 스타일 */
+.button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  border-radius: var(--border-radius-lg);
+  padding: 12px 16px;
+  cursor: pointer;
+}
+
+/* Primary 버튼 */
+.primary {
+  background-color: var(--color-bg-interactive-primary);
+  color: var(--black);
+}
+.primary:hover {
+  background-color: var(--color-bg-interactive-primary-hovered) !important;
+}
+.primary:active {
+  background-color: var(--color-bg-interactive-primary-pressed) !important;
+}
+.primary:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+}
+
+/* Primary 버튼 w/border */
+.primary-border {
+  background-color: var(--color-bg-interactive-primary);
+  color: var(--black);
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary);
+}
+.primary-border:hover {
+  background-color: var(--color-bg-interactive-primary-hovered) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary);
+}
+.primary-border:active {
+  background-color: var(--color-bg-interactive-primary-pressed) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary-pressed);
+}
+.primary-border:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+  border: var(--border-width-md) solid var(--color-border-disabled) !important;
+}
+
+/* Secondary 버튼 */
+.secondary {
+  color: var(--black);
+  background-color: var(--color-bg-interactive-secondary);
+}
+.secondary:hover {
+  background-color: var(--color-bg-interactive-secondary-hovered) !important;
+}
+.secondary:active {
+  background-color: var(--color-bg-interactive-secondary-pressed) !important;
+}
+.secondary:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+}
+
+/* Secondary 버튼 w/border */
+.secondary-border {
+  background-color: var(--color-bg-interactive-secondary);
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary);
+}
+.secondary-border:hover {
+  background-color: var(--color-bg-interactive-secondary-hovered) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary-hovered);
+}
+.secondary-border:active {
+  background-color: var(--color-bg-interactive-secondary-pressed) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary-pressed);
+}
+.secondary-border:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+  border: var(--border-width-md) solid var(--color-border-disabled) !important;
+}
+
+/* White 버튼 */
+.white {
+  color: var(--color-text-interactive-secondary);
+  background-color: var(--white);
+}
+.white:hover {
+  color: var(--color-text-interactive-secondary-hovered) !important;
+}
+.white:active {
+  color: var(--color-text-interactive-secondary-pressed) !important;
+}
+.white:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+}
+
+/* Black 버튼 */
+.black {
+  color: var(--color-text-interactive-primary);
+  background-color: var(--black);
+}
+.black:hover {
+  color: var(--color-text-interactive-primary-hovered) !important;
+}
+.black:active {
+  color: var(--color-text-interactive-primary-pressed) !important;
+}
+.black:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+}
+
+/* 로딩 상태 아이콘 돌려주기 */
+.rotation {
+  animation: rotation 3s infinite linear;
+}
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}

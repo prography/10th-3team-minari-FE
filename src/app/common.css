@@ -1,0 +1,271 @@
+/* 폰트 및 typography */
+@font-face {
+  font-family: 'Pretendard';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('../assets/font/PretendardVariable.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Paperlogy Light';
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.otf')
+      format('opentype'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.ttf')
+      format('truetype');
+}
+@font-face {
+  font-family: 'Paperlogy Regular';
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.otf')
+      format('opentype'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.ttf')
+      format('truetype');
+}
+@font-face {
+  font-family: 'Paperlogy Medium';
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.otf')
+      format('opentype'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.ttf')
+      format('truetype');
+}
+@font-face {
+  font-family: 'Paperlogy SemiBold';
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.otf')
+      format('opentype'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.ttf')
+      format('truetype');
+}
+@font-face {
+  font-family: 'Paperlogy Bold';
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff2') format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.otf')
+      format('opentype'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.ttf')
+      format('truetype');
+}
+@font-face {
+  font-family: 'Paperlogy ExtraBold';
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.otf')
+      format('opentype'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.ttf')
+      format('truetype');
+}
+@font-face {
+  font-family: 'Paperlogy Black';
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+  src:
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.woff') format('woff'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.otf')
+      format('opentype'),
+    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.ttf')
+      format('truetype');
+}
+
+.display-lg {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-1600);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1900);
+  letter-spacing: -1.2px;
+  font-family: 'Paperlogy SemiBold', sans-serif;
+}
+.display-md {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-1100);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1500);
+  letter-spacing: -1px;
+  font-family: 'Paperlogy SemiBold', sans-serif;
+}
+.display-sm {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-900);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1200);
+  letter-spacing: -0.6px;
+  font-family: 'Paperlogy SemiBold', sans-serif;
+}
+.title-lg {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-800);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-1050);
+  letter-spacing: -0.4px;
+  font-family: 'Paperlogy SemiBold', sans-serif;
+}
+.title-md {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-650);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-900);
+  letter-spacing: -0.3px;
+  font-family: 'Paperlogy Medium', sans-serif;
+}
+.title-sm {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-450);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-700);
+  letter-spacing: -0.2px;
+  font-family: 'Paperlogy Medium', sans-serif;
+}
+
+.title-xs {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-550);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-700);
+  letter-spacing: -0.2px;
+  font-family: 'Paperlogy Medium', sans-serif;
+}
+.body-lg {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-400);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-650);
+  letter-spacing: 0;
+}
+.body-md {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-350);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-550);
+  letter-spacing: 0.1px;
+}
+.body-sm {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-325);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-500);
+  letter-spacing: 0.2px;
+}
+.label-lg {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-400);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--line-height-600);
+  letter-spacing: 0.2px;
+}
+.label-md {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-300);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-450);
+  letter-spacing: 0.2px;
+}
+.label-sm {
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-275);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-400);
+  letter-spacing: 0.2px;
+}
+
+@media screen and (max-width: 768px) {
+  .display-lg {
+    font-size: var(--font-size-1100);
+    line-height: var(--line-height-1400);
+    letter-spacing: -0.5px;
+  }
+  .display-md {
+    font-size: var(--font-size-900);
+    line-height: var(--line-height-1200);
+    letter-spacing: -0.4px;
+  }
+  .display-sm {
+    font-size: var(--font-size-650);
+    line-height: var(--line-height-1000);
+    letter-spacing: -0.3px;
+  }
+  .title-lg {
+    font-size: var(--font-size-600);
+    line-height: var(--line-height-800);
+    letter-spacing: -0.2px;
+  }
+  .title-md {
+    font-size: var(--font-size-500);
+    line-height: var(--line-height-700);
+    letter-spacing: -0.1px;
+  }
+  .title-sm {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-450);
+    line-height: var(--line-height-650);
+    letter-spacing: 0;
+  }
+}
+
+/* margin & padding */
+.pd-left-24 {
+  padding-left: 24px;
+}
+.mg-left-4 {
+  margin-left: 4px;
+}
+.mg-left-13 {
+  margin-left: 13px;
+}
+
+.mg-right-4 {
+  margin-right: 4px;
+}
+.mg-right-8 {
+  margin-right: 8px;
+}
+.mg-right-13 {
+  margin-right: 13px;
+}
+.mg-right-16 {
+  margin-right: 16px;
+}
+
+.mg-bottom-20 {
+  margin-bottom: 20px;
+}

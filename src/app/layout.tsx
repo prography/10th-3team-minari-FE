@@ -1,5 +1,7 @@
 import './globals.css';
+import './common.css';
 import Providers from '@/contexts/Providers';
+import Header from '@/components/Header/Header';
 
 export default function RootLayout({
   children,
@@ -9,7 +11,10 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );
