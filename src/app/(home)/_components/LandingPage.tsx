@@ -3,6 +3,7 @@ import TextSlider from '@/app/(home)/_components/TextSlider';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
 import Button from '@/components/Button/Button';
+import BlackArrow from '@/assets/icon/arrow-black.svg';
 
 const LandingPage = () => {
   return (
@@ -14,7 +15,7 @@ const LandingPage = () => {
           </div>
           <div className="display-md">매일 한줄의 질문으로 자라나는</div>
           <div className="display-md mg-bottom-20">개발자의 여정</div>
-          <Button iconRight="arrow-black" border>
+          <Button iconRight={BlackArrow} border>
             카카오 로그인
           </Button>
         </div>

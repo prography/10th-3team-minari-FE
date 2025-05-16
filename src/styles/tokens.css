@@ -303,17 +303,17 @@
   --unit-48: calc(var(--unit) * 48); /* 48px */
   --unit-64: calc(var(--unit) * 64); /* 64px */
 
-  --space-0: var(--unit-0); /* 0px */
-  --space-2: var(--unit-2); /* 2px */
-  --space-4: var(--unit-4); /* 4px */
-  --space-8: var(--unit-8); /* 8px */
-  --space-12: var(--unit-12); /* 12px */
-  --space-16: var(--unit-16); /* 16px */
-  --space-24: var(--unit-24); /* 24px */
-  --space-32: var(--unit-32); /* 32px */
-  --space-40: var(--unit-40); /* 40px */
-  --space-48: var(--unit-48); /* 48px */
-  --space-64: var(--unit-64); /* 64px */
+  --spacing-0: var(--unit-0); /* 0px */
+  --spacing-2: var(--unit-2); /* 2px */
+  --spacing-4: var(--unit-4); /* 4px */
+  --spacing-8: var(--unit-8); /* 8px */
+  --spacing-12: var(--unit-12); /* 12px */
+  --spacing-16: var(--unit-16); /* 16px */
+  --spacing-24: var(--unit-24); /* 24px */
+  --spacing-32: var(--unit-32); /* 32px */
+  --spacing-40: var(--unit-40); /* 40px */
+  --spacing-48: var(--unit-48); /* 48px */
+  --spacing-64: var(--unit-64); /* 64px */
 
   --border-radius-sm: var(--unit-2); /* 2px */
   --border-radius-md: var(--unit-4); /* 4px */

@@ -1,83 +1,40 @@
 import styles from './Button.module.css';
-import WhiteArrow from '@/assets/icon/arrow-white.png';
-import BlackArrow from '@/assets/icon/arrow-black.svg';
-import Refresh from '@/assets/icon/refresh-cw.svg';
-import Pause from '@/assets/icon/circle-pause.svg';
-import Stop from '@/assets/icon/circle-stop.svg';
-import Loading from '@/assets/icon/loader-circle.svg';
-import Image from 'next/image';
+import Image, {type StaticImageData} from 'next/image';
 
-interface ButtonProps {
-  children: string;
-  onClick?: () => void;
-  disabled?: boolean;
-  loading?: boolean;
-  type?: 'primary' | 'secondary' | 'white' | 'black';
-  iconRight?: string;
-  iconLeft?: string;
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  theme?: 'primary' | 'secondary' | 'white' | 'black';
+  iconRight?: StaticImageData;
+  iconLeft?: StaticImageData;
   border?: boolean;
+  loading?: boolean;
 }
 
-const Button = (props: ButtonProps) => {
-  const getIcon = (icon: string) => {
-    let url;
-    switch (icon) {
-      case 'arrow-white':
-        url = WhiteArrow;
-        break;
-      case 'arrow-black':
-        url = BlackArrow;
-        break;
-      case 'pause':
-        url = Pause;
-        break;
-      case 'refresh':
-        url = Refresh;
-        break;
-      case 'stop':
-        url = Stop;
-        break;
-      case 'loading':
-        url = Loading;
-        break;
-      default:
-        url = '';
-        break;
-    }
-    return url;
-  };
-
-  const getClassName = () => {
-    const type = props.type || 'primary';
-    const border = props.border ? '-border' : '';
-    return `${type}${border}`;
-  };
+const Button = ({
+  children,
+  theme = 'primary',
+  iconRight,
+  iconLeft,
+  border,
+  loading,
+  ...restProps
+}: ButtonProps) => {
+  const borderValid = border ? '-border' : '';
+  const themeClass = `${theme}${borderValid}`;
 
   return (
-    <button
-      onClick={props.onClick}
-      disabled={props.disabled}
-      className={`${styles.button} ${styles[getClassName()]} label-lg`}
-    >
-      {props.loading ? (
-        <span className={styles.rotation}>
-          <Image src={getIcon('loading')} alt="icon" width={24} height={24} />
-        </span>
-      ) : (
-        <>
-          {props.iconLeft && (
-            <span>
-              <Image src={getIcon(props.iconLeft)} alt="icon" width={24} height={24} />
-            </span>
-          )}
-        </>
-      )}
-      <div>{props.children}</div>
-      {props.iconRight && (
-        <span>
-          <Image src={getIcon(props.iconRight)} alt="icon" width={24} height={24} />
-        </span>
-      )}
+    <button className={`${styles.button} ${styles[themeClass]} label-lg`} {...restProps}>
+      {iconRight != null ? (
+        <Image
+          className={loading ? styles.rotation : ''}
+          src={iconRight}
+          alt="icon"
+          width={24}
+          height={24}
+        />
+      ) : null}
+      <div>{children}</div>
+      {iconLeft != null ? <Image src={iconLeft} alt="icon" width={24} height={24} /> : null}
     </button>
   );
 };
