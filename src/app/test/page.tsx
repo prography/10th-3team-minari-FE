@@ -1,5 +1,8 @@
 'use client';
 import Button from '@/components/Button/Button';
+import IconButton from '@/components/IconButton/IconButton';
+import Instagram from '@/assets/icon/instagram.svg';
+import Loading from '@/assets/icon/loader-circle.svg';
 
 const TestPage = () => {
   // TODO : icon button 컴포넌트 추가
@@ -83,6 +86,17 @@ const TestPage = () => {
       <br />
       <br />
       <div className="title-sm">‼️ 아이콘 버튼 추가 예정</div>
+      <div style={{display: 'flex', gap: '12px'}}>
+        <IconButton icon={Instagram} />
+        <IconButton icon={Instagram} theme="secondary" />
+        <IconButton icon={Instagram} theme="white" />
+      </div>
+      <br />
+      <br />
+      <div style={{display: 'flex', gap: '12px'}}>
+        <IconButton icon={Loading} theme="primary" loading />
+        <IconButton icon={Loading} theme="white" />
+      </div>
     </div>
   );
 };
