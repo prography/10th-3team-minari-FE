@@ -1,5 +1,10 @@
 'use client';
 import Button from '@/components/Button/Button';
+import Pause from '@/assets/icon/circle-pause.svg';
+import BlackArrow from '@/assets/icon/arrow-black.svg';
+import Refresh from '@/assets/icon/refresh-cw.svg';
+import Stop from '@/assets/icon/circle-stop.svg';
+import Loading from '@/assets/icon/loader-circle.svg';
 
 const TestPage = () => {
   // TODO : icon button 컴포넌트 추가
@@ -15,60 +20,60 @@ const TestPage = () => {
       <div className="title-sm">text only</div>
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button type="primary">Primary Button</Button>
-        <Button type="primary" border>
+        <Button theme="primary">Primary Button</Button>
+        <Button theme="primary" border>
           Primary w/Border
         </Button>
       </div>
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button type="primary" disabled>
+        <Button theme="primary" disabled>
           Primary Disabled
         </Button>
-        <Button type="primary" border disabled>
+        <Button theme="primary" border disabled>
           Primary w/Border Disabled
         </Button>
       </div>
       <br />
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button type="secondary">Secondary Button</Button>
-        <Button type="secondary" border>
+        <Button theme="secondary">Secondary Button</Button>
+        <Button theme="secondary" border>
           Secondary w/Border
         </Button>
       </div>
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button type="secondary" disabled>
+        <Button theme="secondary" disabled>
           Secondary Disabled
         </Button>
-        <Button type="secondary" border disabled>
+        <Button theme="secondary" border disabled>
           Secondary w/Border Disabled
         </Button>
       </div>
       <br />
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button type="white">White Button</Button>
-        <Button type="black">Black Button</Button>
+        <Button theme="white">White Button</Button>
+        <Button theme="black">Black Button</Button>
       </div>
       <br />
       <br />
       <div className="title-sm">with icon</div>
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button iconLeft="pause" type="secondary" loading>
+        <Button iconLeft={Pause} theme="secondary" iconRight={Loading}>
           동일버튼 로딩ㅇ
         </Button>
-        <Button iconLeft="pause" type="secondary" loading={false}>
+        <Button iconLeft={Pause} theme="secondary">
           동일버튼 로딩x
         </Button>
       </div>
       <br />
       <div className="body-lg">오른쪽 아이콘 &apos;arrow-black&apos;</div>
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button iconRight="arrow-black">카카오 로그인</Button>
-        <Button iconRight="arrow-black" onClick={onClickButton}>
+        <Button iconRight={BlackArrow}>카카오 로그인</Button>
+        <Button iconRight={BlackArrow} onClick={onClickButton}>
           클릭하면 ?
         </Button>
       </div>
@@ -76,9 +81,9 @@ const TestPage = () => {
       <div className="body-lg">왼쪽 아이콘</div>
       <div className="body-lg">refresh / pause / stop</div>
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button iconLeft="refresh">다시시작</Button>
-        <Button iconLeft="pause">일시정지</Button>
-        <Button iconLeft="stop">면접종료</Button>
+        <Button iconLeft={Refresh}>다시시작</Button>
+        <Button iconLeft={Pause}>일시정지</Button>
+        <Button iconLeft={Stop}>면접종료</Button>
       </div>
       <br />
       <br />
