@@ -62,10 +62,10 @@ const TestPage = () => {
       <div className="title-sm">with icon</div>
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
-        <Button iconLeft={Pause} theme="secondary" iconRight={Loading}>
+        <Button iconLeft={Pause} theme="secondary" iconRight={Loading} loading>
           동일버튼 로딩ㅇ
         </Button>
-        <Button iconLeft={Pause} theme="secondary">
+        <Button iconLeft={Pause} theme="secondary" iconRight={Loading} loading={false}>
           동일버튼 로딩x
         </Button>
       </div>
