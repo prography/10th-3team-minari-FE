@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  width: 1280px;
+  padding: 16px 70px;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  flex: 1 0 0;
+}
+
+.subtitle {
+  color: var(--color-text-interactive-inverse-white, #fff);
+}
+.keyword {
+  color: var(--color-text-interactive-primary, #d8ff64);
+}
