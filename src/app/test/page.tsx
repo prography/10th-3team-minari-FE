@@ -7,6 +7,7 @@ import BlackArrow from '@/assets/icon/arrow-black.svg';
 import Refresh from '@/assets/icon/refresh-cw.svg';
 import Stop from '@/assets/icon/circle-stop.svg';
 import Loading from '@/assets/icon/loader-circle.svg';
+import LayoutWrapper from '@/components/LayoutWrapper/LayoutWrapper';
 
 const TestPage = () => {
   // TODO : icon button 컴포넌트 추가
@@ -16,7 +17,7 @@ const TestPage = () => {
   };
 
   return (
-    <div style={{padding: '32px'}}>
+    <LayoutWrapper>
       <div className="title-md">버튼</div>
       <br />
       <div className="title-sm">text only</div>
@@ -101,7 +102,7 @@ const TestPage = () => {
         <IconButton icon={Loading} theme="primary" loading />
         <IconButton icon={Loading} theme="white" />
       </div>
-    </div>
+    </LayoutWrapper>
   );
 };
 
