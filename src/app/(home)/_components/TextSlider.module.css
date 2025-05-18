@@ -12,7 +12,6 @@
 }
 .slide-dark {
   background: var(--color-bg-brand-subtle) !important;
-  padding-left: 100px;
   border-bottom: var(--border-width-sm) solid var(--color-border-interactive-secondary-hovered);
 }
 .slide-dark * {
@@ -23,7 +22,7 @@
   white-space: nowrap;
   overflow: hidden;
   display: inline-block;
-  animation: slide-container 17s linear infinite;
+  animation: slide-container linear infinite;
 }
 
 .slide-texts {
