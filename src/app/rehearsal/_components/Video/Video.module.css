@@ -1,0 +1,15 @@
+.video_wrapper {
+  z-index: var(--z-index-video);
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 9 / 16 = 0.5625 */
+  background-color: black;
+  border-radius: var(--border-radius-lg);
+}
+
+.video_wrapper video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
