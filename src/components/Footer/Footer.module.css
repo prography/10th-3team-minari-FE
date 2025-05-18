@@ -1,0 +1,32 @@
+.container {
+  background-color: var(--white);
+  padding: 40px 70px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logo-button__wrap {
+  display: flex;
+  gap: 24px;
+}
+
+.logo-button__container {
+  display: flex;
+  width: 48px;
+  height: 48px;
+  justify-content: center;
+  align-items: center;
+  border-radius: var(--border-radius-rounded);
+  background: var(--color-bg-interactive-secondary);
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 40px 20px;
+  }
+
+  .logo-button__wrap {
+    gap: 4px;
+  }
+}
