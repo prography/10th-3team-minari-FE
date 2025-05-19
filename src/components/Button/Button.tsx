@@ -8,6 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconLeft?: StaticImageData;
   border?: boolean;
   loading?: boolean;
+  rounded?: boolean;
 }
 
 const Button = ({
@@ -16,6 +17,7 @@ const Button = ({
   iconRight,
   iconLeft,
   border,
+  rounded,
   loading,
   ...restProps
 }: ButtonProps) => {
@@ -23,7 +25,10 @@ const Button = ({
   const themeClass = `${theme}${borderValid}`;
 
   return (
-    <button className={`${styles.button} ${styles[themeClass]} label-lg`} {...restProps}>
+    <button
+      className={`${styles.button} ${styles[themeClass]} ${rounded && styles.round} label-lg`}
+      {...restProps}
+    >
       {iconRight != null ? (
         <Image
           className={loading ? styles.rotation : ''}

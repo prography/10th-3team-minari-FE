@@ -7,23 +7,23 @@ import BlackArrow from '@/assets/icon/arrow-black.svg';
 import Refresh from '@/assets/icon/refresh-cw.svg';
 import Stop from '@/assets/icon/circle-stop.svg';
 import Loading from '@/assets/icon/loader-circle.svg';
-import LayoutWrapper from '@/components/LayoutWrapper/LayoutWrapper';
 
 const TestPage = () => {
-  // TODO : icon button 컴포넌트 추가
-
   const onClickButton = () => {
     window.alert('button clicked !!');
   };
 
   return (
-    <LayoutWrapper>
+    <>
       <div className="title-md">버튼</div>
       <br />
       <div className="title-sm">text only</div>
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
         <Button theme="primary">Primary Button</Button>
+        <Button theme="primary" rounded>
+          Primary Button Rounded
+        </Button>
         <Button theme="primary" border>
           Primary w/Border
         </Button>
@@ -90,7 +90,7 @@ const TestPage = () => {
       </div>
       <br />
       <br />
-      <div className="title-sm">‼️ 아이콘 버튼 추가 예정</div>
+      <div className="title-sm">아이콘 버튼</div>
       <div style={{display: 'flex', gap: '12px'}}>
         <IconButton icon={Instagram} />
         <IconButton icon={Instagram} theme="secondary" />
@@ -102,7 +102,7 @@ const TestPage = () => {
         <IconButton icon={Loading} theme="primary" loading />
         <IconButton icon={Loading} theme="white" />
       </div>
-    </LayoutWrapper>
+    </>
   );
 };
 

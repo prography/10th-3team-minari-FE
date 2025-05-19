@@ -112,6 +112,11 @@
   background-color: var(--color-bg-disabled) !important;
 }
 
+/* 동그란 버튼 */
+.round {
+  border-radius: var(--border-radius-rounded) !important;
+}
+
 /* 로딩 상태 아이콘 돌려주기 */
 .rotation {
   animation: rotation 3s infinite linear;
