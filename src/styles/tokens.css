@@ -159,8 +159,8 @@
   --color-text-interactive-secondary-hovered: var(--gray-700);
   --color-text-interactive-secondary-pressed: var(--gray-800);
   --color-text-interactive-selected: var(--lime-600);
-  --color-text-interactive-black: var(--black);
-  --color-text-interactive-white: var(--white);
+  --color-text-interactive-inverse-black: var(--black);
+  --color-text-interactive-inverse-white: var(--white);
 
   --color-bg-primary: var(--white);
   --color-bg-secondary: var(--gray-50);
@@ -180,8 +180,8 @@
   --color-bg-success-bold: var(--green-400);
   --color-bg-danger-subtle: var(--red-50);
   --color-bg-danger-bold: var(--red-400);
-  --color-bg-bold: var(--gray-600);
-  --color-bg-bolder: var(--gray-800);
+  --color-bg-inverse-bold: var(--gray-600);
+  --color-bg-inverse-bolder: var(--gray-800);
   --color-bg-disabled: var(--gray-300);
   --color-bg-interactive-primary: var(--lime-300);
   --color-bg-interactive-primary-hovered: var(--lime-500);
