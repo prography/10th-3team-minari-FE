@@ -13,3 +13,46 @@
   height: 100%;
   object-fit: cover;
 }
+
+.count_wrapper {
+  z-index: var(--z-index-video-state);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: var(--border-radius-lg, 8px);
+  border: var(--border-width-md, 1.5px) solid var(--color-border-interactive-secondary, #737373);
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.6) 100%);
+
+  box-shadow:
+    0px var(--effect-shadow-4-cast-y, 2px) var(--effect-shadow-4-cast-blur, 4px) 0px
+      var(--color-effect-shadow-cast, rgba(0, 0, 0, 0.16)),
+    0px var(--effect-shadow-4-core-y, 0px) var(--effect-shadow-4-core-blur, 2px) 0px
+      var(--color-effect-shadow-core, rgba(0, 0, 0, 0.12));
+}
+
+.video_state_wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ellipse {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video_state_wrapper span {
+  color: var(--color-text-interactive-inverse-white, #fff);
+}
