@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  align-self: stretch;
+}
+
+.bar-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: var(--spacing-12);
+  width: 219px;
+  height: 16px;
+}
+
+.bar {
+  width: 6px;
+  height: 100%;
+  border-radius: var(--border-radius-rounded);
+  background: var(--color-bg-interactive-secondary-pressed);
+  align-self: center;
+}
+
+.active {
+  background: var(--color-text-interactive-primary);
+}
