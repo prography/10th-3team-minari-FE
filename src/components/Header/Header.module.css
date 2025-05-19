@@ -5,7 +5,14 @@
   position: sticky;
   top: 0;
   z-index: 99;
+}
+
+.light {
   background-color: var(--white);
+}
+
+.dark {
+  background-color: var(--color-bg-inverse-bolder);
 }
 
 .container {
@@ -35,6 +42,9 @@
   display: none;
 }
 
+.user-image {
+  border-radius: 50%;
+}
 @media screen and (max-width: 768px) {
   .wrapper {
     min-width: 320px;

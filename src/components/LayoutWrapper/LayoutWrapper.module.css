@@ -1,11 +1,20 @@
 .wrapper {
   display: flex;
   justify-content: center;
+  height: calc(100dvh - 64px);
+}
+
+.light {
+  background-color: var(--white);
+}
+.dark {
+  background-color: var(--color-bg-inverse-bolder);
 }
 
 .container {
   margin: 0 74px;
   width: 100%;
+  /*min-height: 100dvh;*/
   max-width: 1140px;
 }
 
