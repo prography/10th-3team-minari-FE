@@ -1,12 +1,10 @@
-import {useDeviceStore} from '@/stores/devicsStore';
+import {type SelectDevice} from '@/stores/devicsStore';
 import {useMediaStore} from '@/stores/mediaStore';
-import {getDevices} from '@/utils/device';
-import {getMediaStream} from '@/utils/media';
+import {closeMediaStream, getMediaStream} from '@/utils/media';
 import {useCallback, useEffect} from 'react';
 
 const useMedia = () => {
   const {mediaStream, setMediaStream, mediaStreamStatus, setMediaStreamStatus} = useMediaStore();
-  const {setSelectDevice} = useDeviceStore();
 
   const startMedia = useCallback(
     async ({
@@ -23,11 +21,6 @@ const useMedia = () => {
           videoInput,
           audioInput,
         });
-
-        const newDevices = await getDevices();
-
-        setSelectDevice('audioInput', newDevices.audioInputDevices[0]);
-        setSelectDevice('videoInput', newDevices.videoInputDevices[0]);
 
         if (newMedia) {
           setMediaStream(newMedia);
@@ -49,8 +42,21 @@ const useMedia = () => {
         }
       }
     },
-    [mediaStream],
+    [setMediaStream, setMediaStreamStatus],
   );
+
+  const stopMedia = () => {
+    closeMediaStream(mediaStream);
+    setMediaStream(null);
+    setMediaStreamStatus('idle');
+  };
+
+  const changeMedia = (selectDevice: SelectDevice) => {
+    const {videoInput, audioInput} = selectDevice;
+
+    stopMedia();
+    startMedia({videoInput, audioInput});
+  };
 
   useEffect(() => {
     if (!mediaStream) return;
@@ -60,15 +66,17 @@ const useMedia = () => {
     };
 
     const tracks = mediaStream.getTracks();
+
     tracks.forEach((track) => {
       track.addEventListener('ended', checkTrackEnded);
     });
+
     return () => {
       tracks.forEach((track) => {
         track.removeEventListener('ended', checkTrackEnded);
       });
     };
-  }, [mediaStream, mediaStreamStatus]);
+  }, [mediaStream, mediaStreamStatus, setMediaStreamStatus]);
 
   return {
     mediaStream,
@@ -76,6 +84,8 @@ const useMedia = () => {
     setMediaStream,
     setMediaStreamStatus,
     startMedia,
+    stopMedia,
+    changeMedia,
   };
 };
 
