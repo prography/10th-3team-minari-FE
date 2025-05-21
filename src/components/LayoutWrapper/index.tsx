@@ -23,7 +23,15 @@ const LayoutWrapper = ({children}: {children: ReactNode}) => {
 
   return (
     <>
-      <Header isLoggedIn={userStore.isLoggedIn} userImage={userStore.userKakaoImage} />
+      <Header
+        menu={
+          userStore.isLoggedIn ? (
+            <Header.UserMenu userImage={userStore.userKakaoImage} />
+          ) : (
+            <Header.LangingMenu />
+          )
+        }
+      />
       <div className={!avoidWrapper ? `${styles.wrapper} ${styles[wrapperStyle()]}` : ''}>
         <div className={!avoidWrapper ? styles.container : ''}>{children}</div>
       </div>
