@@ -1,0 +1,4 @@
+.wrapper {
+  color: var(--color-text-interactive-primary, #d8ff64);
+  text-align: right;
+}
