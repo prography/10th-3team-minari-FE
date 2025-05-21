@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import styles from './Header.module.css';
 import Image from 'next/image';
@@ -5,15 +7,18 @@ import MenuButton from '@/assets/icon/menu.svg';
 import Link from 'next/link';
 import LogoImageBlack from '@/assets/logo-black.png';
 import LogoImageWhite from '@/assets/logo-white.png';
+import {usePathname} from 'next/navigation';
 
 interface HeaderProps {
-  pageLoaded: boolean;
-  theme: 'light' | 'dark';
   isLoggedIn: boolean;
   userImage?: string | undefined;
 }
 
-const Header = ({pageLoaded, theme = 'light', isLoggedIn = false, userImage}: HeaderProps) => {
+const Header = ({isLoggedIn = false, userImage}: HeaderProps) => {
+  const pathname = usePathname();
+
+  const theme = pathname.includes('rehearsal') ? 'dark' : 'light';
+
   const userMenu = () => {
     return (
       <Link href="/">
@@ -27,6 +32,7 @@ const Header = ({pageLoaded, theme = 'light', isLoggedIn = false, userImage}: He
       </Link>
     );
   };
+
   const landingMenu = () => {
     return (
       <>
@@ -42,18 +48,17 @@ const Header = ({pageLoaded, theme = 'light', isLoggedIn = false, userImage}: He
       </>
     );
   };
+
   const logo = theme === 'light' ? LogoImageBlack : LogoImageWhite;
 
   return (
     <div className={`${styles.wrapper} ${styles[`${theme}`]}`}>
-      {pageLoaded && (
-        <div className={styles.container}>
-          <Link href="/">
-            <Image src={logo} alt="logo" height={40} />
-          </Link>
-          <div>{isLoggedIn ? userMenu() : landingMenu()}</div>
-        </div>
-      )}
+      <div className={styles.container}>
+        <Link href="/">
+          <Image src={logo} alt="logo" height={40} />
+        </Link>
+        <div>{isLoggedIn ? userMenu() : landingMenu()}</div>
+      </div>
     </div>
   );
 };
