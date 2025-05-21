@@ -14,7 +14,7 @@ const ReharsalSettingPage = () => {
 
   useEffect(() => {
     if (mediaStreamStatus === 'idle' || mediaStreamStatus === 'pending') {
-      void startMedia({videoInput, audioInput});
+      void startMedia({videoInput, audioInput}, true);
     }
   }, []);
 
