@@ -5,21 +5,16 @@ import styles from './LayoutWrapper.module.css';
 import Header from '@/components/Header';
 import {usePathname} from 'next/navigation';
 import {useUserStore} from '@/stores/userStore';
+import useTheme from '@/hooks/useTheme';
+import {PATH} from '@/constants/path';
 
 const LayoutWrapper = ({children}: {children: ReactNode}) => {
   const pathname = usePathname();
   const userStore = useUserStore();
+  const theme = useTheme();
 
   // 랜딩 페이지는 LayoutWrapper 스타일 적용 x
-  const avoidWrapper = pathname === '/' && !userStore.isLoggedIn;
-
-  const wrapperStyle = () => {
-    if (pathname.includes('rehearsal')) {
-      return 'dark';
-    } else {
-      return 'light';
-    }
-  };
+  const avoidWrapper = pathname === PATH.ROOT && !userStore.isLoggedIn;
 
   return (
     <>
@@ -32,7 +27,7 @@ const LayoutWrapper = ({children}: {children: ReactNode}) => {
           )
         }
       />
-      <div className={!avoidWrapper ? `${styles.wrapper} ${styles[wrapperStyle()]}` : ''}>
+      <div className={!avoidWrapper ? `${styles.wrapper} ${styles[theme]}` : ''}>
         <div className={!avoidWrapper ? styles.container : ''}>{children}</div>
       </div>
     </>
