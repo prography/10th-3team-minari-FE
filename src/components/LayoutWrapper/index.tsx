@@ -8,12 +8,18 @@ import {useUserStore} from '@/stores/userStore';
 const LayoutWrapper = ({children}: {children: ReactNode}) => {
   const pathname = usePathname();
   const userStore = useUserStore();
+  const [pageLoaded, setPageLoaded] = useState(false);
+
+  useEffect(() => {
+    setPageLoaded(true);
+  }, []);
 
   // Header 배경 색
   const themeColor = pathname.includes('rehearsal') ? 'dark' : 'light';
 
   // 랜딩 페이지는 LayoutWrapper 스타일 적용 x
   const avoidWrapper = pathname === '/' && !userStore.isLoggedIn;
+
   const wrapperStyle = () => {
     if (pathname.includes('rehearsal')) {
       return 'dark';
@@ -21,11 +27,6 @@ const LayoutWrapper = ({children}: {children: ReactNode}) => {
       return 'light';
     }
   };
-
-  const [pageLoaded, setPageLoaded] = useState(false);
-  useEffect(() => {
-    setPageLoaded(true);
-  }, []);
 
   return (
     <>

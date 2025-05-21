@@ -7,8 +7,10 @@ import {useEffect, useState} from 'react';
 export default function Page() {
   const store = useUserStore();
   const [pageLoaded, setPageLoaded] = useState(false);
+
   useEffect(() => {
     setPageLoaded(true);
   }, [store.isLoggedIn]);
+
   return <>{pageLoaded && (store.isLoggedIn ? <MainPage /> : <LandingPage />)}</>;
 }

@@ -5,6 +5,25 @@ import Image from 'next/image';
 import {useEffect, useState} from 'react';
 
 const TextSlider = () => {
+  // viewport 크기에 따라 텍스트 길이 조정
+  const [nodeCopyCount, setNodeCopyCount] = useState(1);
+  useEffect(() => {
+    if (visualViewport && document) {
+      const element = document.getElementById('child');
+      if (visualViewport.width >= 700) {
+        setNodeCopyCount(Math.ceil((visualViewport.width - 1000) / 700) + 2);
+        for (let i = 0; i < nodeCopyCount; i++) {
+          const newNode1 = element?.cloneNode(true);
+          const newNode2 = element?.cloneNode(true);
+          if (newNode1 && newNode2) {
+            document?.getElementById('parent')?.lastChild?.after(newNode1);
+            document?.getElementById('parent-2')?.lastChild?.after(newNode2);
+          }
+        }
+      }
+    }
+  }, [nodeCopyCount]);
+
   const textFirst = () => {
     return (
       <span className={styles['slide-texts']}>
@@ -31,25 +50,6 @@ const TextSlider = () => {
       </span>
     );
   };
-
-  // viewport 크기에 따라 텍스트 길이 조정
-  const [nodeCopyCount, setNodeCopyCount] = useState(1);
-  useEffect(() => {
-    if (visualViewport && document) {
-      const element = document.getElementById('child');
-      if (visualViewport.width >= 700) {
-        setNodeCopyCount(Math.ceil((visualViewport.width - 1000) / 700) + 2);
-        for (let i = 0; i < nodeCopyCount; i++) {
-          const newNode1 = element?.cloneNode(true);
-          const newNode2 = element?.cloneNode(true);
-          if (newNode1 && newNode2) {
-            document?.getElementById('parent')?.lastChild?.after(newNode1);
-            document?.getElementById('parent-2')?.lastChild?.after(newNode2);
-          }
-        }
-      }
-    }
-  }, [nodeCopyCount]);
 
   return (
     <div className={styles.wrapper}>
