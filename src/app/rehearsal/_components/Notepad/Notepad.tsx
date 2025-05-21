@@ -5,6 +5,7 @@ import {useState} from 'react';
 const Notepad = () => {
   const [note, setNote] = useState('');
   const {open} = useNotepad();
+
   return (
     <>
       {open && (

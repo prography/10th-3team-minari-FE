@@ -3,8 +3,8 @@
 import {useEffect} from 'react';
 import {useDeviceStore} from '@/stores/devicsStore';
 import useMedia from '@/hooks/useMedia';
-import RehearsalHeader from '../_components/Header/RehearsalHeader';
-import OptionGroup from './_components/OptionGroup/OptionGroup';
+import RehearsalHeader from '../_components/RehearsalHeader';
+import OptionGroup from './_components/OptionGroup';
 import OnlyVideo from '../_components/Video/OnlyVideo';
 
 const ReharsalSettingPage = () => {

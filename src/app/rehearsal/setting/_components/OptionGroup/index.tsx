@@ -1,4 +1,4 @@
-import Button from '@/components/Button/Button';
+import Button from '@/components/Button';
 import CameraSelectOption from '../DeviceSelectOption/CameraSelectOption';
 import MicSelectOption from '../DeviceSelectOption/MicSelectOption';
 import ArrowBlack from '@/assets/icon/arrow-black.svg';

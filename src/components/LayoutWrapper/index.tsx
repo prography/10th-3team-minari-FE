@@ -1,7 +1,7 @@
 'use client';
 import {ReactNode, useEffect, useState} from 'react';
 import styles from './LayoutWrapper.module.css';
-import Header from '@/components/Header/Header';
+import Header from '@/components/Header';
 import {usePathname} from 'next/navigation';
 import {useUserStore} from '@/stores/userStore';
 

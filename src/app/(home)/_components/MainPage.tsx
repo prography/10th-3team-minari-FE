@@ -1,7 +1,7 @@
 import styles from './MainPage.module.css';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
-import Button from '@/components/Button/Button';
+import Button from '@/components/Button';
 import Link from 'next/link';
 
 const MainPage = () => {

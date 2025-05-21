@@ -1,16 +1,22 @@
 'use client';
 
-import Video from './_components/Video/Video';
-import RehearsalHeader from './_components/Header/RehearsalHeader';
-import Timer from './_components/Timer/Timer';
+// import {useMediaStore} from '@/stores/mediaStore';
+// import {useEffect} from 'react';
+// import {useRouter} from 'next/navigation';
+import Video from './_components/Video';
+import RehearsalHeader from './_components/RehearsalHeader';
+import Timer from './_components/Timer';
 import {TimerProvider} from '@/contexts/TimerProvider';
-import Buttons from './_components/Buttons/Buttons';
+import Buttons from './_components/Buttons';
 import styles from './page.module.css';
 import Notepad from './_components/Notepad/Notepad';
 import {NotepadProvider} from '@/contexts/NotepadProvider';
 import {VideoStateProvider} from '@/contexts/VideoStateProvider';
 
 const RehearsalPage = () => {
+  // const {mediaStreamStatus} = useMediaStore();
+  // const router = useRouter();
+
   // useEffect(() => {
   //   if (mediaStreamStatus !== 'connected') {
   //     router.push('/rehearsal/setting');

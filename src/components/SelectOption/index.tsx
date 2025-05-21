@@ -4,6 +4,7 @@ import styles from './SelectOption.module.css';
 import ChevronDown from '@/assets/icon/chevron-down.svg';
 import Check from '@/assets/icon/check.svg';
 import Image from 'next/image';
+import {Fragment} from 'react';
 
 export type OptionType = {id: string | number; option: string};
 
@@ -118,6 +119,7 @@ const OptionsDevices = ({type}: {type: 'videoInputDevices' | 'audioInputDevices'
 
   const handleItemClick = (device: MediaDeviceInfo) => {
     setSelectDevice(selectDevicsType, device);
+
     handleClose();
   };
 
@@ -154,13 +156,13 @@ const OptionsDevices = ({type}: {type: 'videoInputDevices' | 'audioInputDevices'
       {open && devices && (
         <ul className={styles.options}>
           {devices[type].map((device) => (
-            <>
+            <Fragment key={device.deviceId}>
               {selectDeviceId === device.deviceId ? (
                 <>{selectedLi(device)}</>
               ) : (
                 <>{unSelectedLi(device)}</>
               )}
-            </>
+            </Fragment>
           ))}
         </ul>
       )}

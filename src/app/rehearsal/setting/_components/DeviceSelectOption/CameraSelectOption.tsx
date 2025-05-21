@@ -1,4 +1,4 @@
-import SelectOption from '@/components/SelectOption/SelectOption';
+import SelectOption from '@/components/SelectOption';
 import useMedia from '@/hooks/useMedia';
 import Image from 'next/image';
 import ChevronDown from '@/assets/icon/chevron-down.svg';
