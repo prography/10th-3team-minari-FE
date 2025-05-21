@@ -24,7 +24,7 @@ const LandingPage = () => {
           <div className={styles['hero__container']}>
             <div className={styles['hero__text']}>
               <div className="display-md">
-                미나리와 함께 <Image src={Minari} alt="" className="mg-left-4" />
+                미나리와 함께 <Image src={Minari} alt="" className="mg-left-4" width={34} />
               </div>
               <div className={styles['hero__text-split__wrap']}>
                 <div className={`${styles['hero__text-everyday']} display-md`}>
