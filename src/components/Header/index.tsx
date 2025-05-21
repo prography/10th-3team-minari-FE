@@ -36,15 +36,15 @@ const Header = ({isLoggedIn = false, userImage}: HeaderProps) => {
   const landingMenu = () => {
     return (
       <>
-        <div className={styles['menu-landing']}>
+        <nav className={styles['menu-landing']}>
           <button className="label-md">서비스 소개</button>
           <button className="label-md">문의사항</button>
           <button className="label-md">FAQ</button>
           <button className="label-md">BLOG</button>
-        </div>
-        <div className={styles['menu-landing-mobile']}>
+        </nav>
+        <nav className={styles['menu-landing-mobile']}>
           <Image src={MenuButton} alt="menu-button" />
-        </div>
+        </nav>
       </>
     );
   };
