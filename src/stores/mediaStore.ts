@@ -11,7 +11,7 @@ type MediaStreamStatus =
 
 type MediaStore = {
   mediaStream: MediaStream | null;
-  setMediaStream: (stream: MediaStream) => void;
+  setMediaStream: (stream: MediaStream | null) => void;
   mediaStreamStatus: MediaStreamStatus;
   setMediaStreamStatus: (mediaStreamStatus: MediaStreamStatus) => void;
 };
