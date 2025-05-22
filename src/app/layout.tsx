@@ -1,7 +1,7 @@
 import './globals.css';
 import './common.css';
 import Providers from '@/contexts/Providers';
-import LayoutWrapper from '@/components/LayoutWrapper/LayoutWrapper';
+import LayoutWrapper from '@/components/LayoutWrapper';
 
 export default function RootLayout({
   children,

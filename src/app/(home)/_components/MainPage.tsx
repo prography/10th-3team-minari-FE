@@ -1,7 +1,7 @@
 import styles from './MainPage.module.css';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
-import Button from '@/components/Button/Button';
+import Button from '@/components/Button';
 import Link from 'next/link';
 
 const MainPage = () => {
@@ -10,7 +10,7 @@ const MainPage = () => {
   return (
     <div className={styles.container}>
       <div className="title-lg">
-        오늘의 미나리 <Image src={Minari} alt="" className="mg-top-4" />
+        오늘의 미나리 <Image src={Minari} alt="" className="mg-top-4" width={28} />
       </div>
       <div className="title-xs mg-top-8 txt-tertiary">
         나에게 맞는 미나리를 선택하고, 풀어보세요!

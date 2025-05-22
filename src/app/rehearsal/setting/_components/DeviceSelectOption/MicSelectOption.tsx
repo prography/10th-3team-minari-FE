@@ -1,10 +1,10 @@
-import SelectOption from '@/components/SelectOption/SelectOption';
+import SelectOption from '@/components/SelectOption';
 import useMedia from '@/hooks/useMedia';
 import Mic from '@/assets/icon/mic.svg';
 import Image from 'next/image';
 import ChevronDown from '@/assets/icon/chevron-down.svg';
 import styles from './DeviceSelectOption.module.css';
-import SoundBar from '../SoundBar/SoundBar';
+import SoundBar from '../SoundBar';
 import {useDeviceSelect} from '@/contexts/DeviceSelectProvider';
 
 const MicSelectOption = () => {

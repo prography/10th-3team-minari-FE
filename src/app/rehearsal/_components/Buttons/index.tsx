@@ -1,16 +1,18 @@
-import Button from '@/components/Button/Button';
+import Button from '@/components/Button';
 import React, {useEffect} from 'react';
 import CircleArrowLeft from '@/assets/icon/circle-arrow-left.svg';
 import CirclePause from '@/assets/icon/circle-pause.svg';
 import CirclePlay from '@/assets/icon/circle-play.svg';
 import CircleStop from '@/assets/icon/circle-stop.svg';
 import Pen from '@/assets/icon/pen.svg';
+// import useRearsal from '@/hooks/useRearsal';
 import styles from './Buttons.module.css';
 import {useTimer} from '@/contexts/TimerProvider';
 import {useNotepad} from '@/contexts/NotepadProvider';
 import {useVideoState} from '@/contexts/VideoStateProvider';
 
 const Buttons = () => {
+  // const {handleStartClick, handleCloseClick} = useRearsal();
   const {handlePause, handleRestart, handleStart, handleStop} = useTimer();
   const {handleOpen} = useNotepad();
   const {handleCount, videoState, handleStop: handleVideoStop} = useVideoState();

@@ -4,6 +4,8 @@ import styles from './SelectOption.module.css';
 import ChevronDown from '@/assets/icon/chevron-down.svg';
 import Check from '@/assets/icon/check.svg';
 import Image from 'next/image';
+import useMedia from '@/hooks/useMedia';
+import {Fragment} from 'react';
 
 export type OptionType = {id: string | number; option: string};
 
@@ -113,11 +115,16 @@ const InputFieldDevics = ({type, disabled, ...restProps}: InputFieldDevicsProps)
 const OptionsDevices = ({type}: {type: 'videoInputDevices' | 'audioInputDevices'}) => {
   const {devices, selectDevice, setSelectDevice} = useDeviceStore();
   const {handleClose, open} = useSelectOption();
+  const {changeMedia} = useMedia();
 
   const selectDevicsType = type === 'videoInputDevices' ? 'videoInput' : 'audioInput';
 
   const handleItemClick = (device: MediaDeviceInfo) => {
     setSelectDevice(selectDevicsType, device);
+
+    const latestSelectDevice = useDeviceStore.getState().selectDevice;
+
+    changeMedia(latestSelectDevice);
     handleClose();
   };
 
@@ -154,13 +161,13 @@ const OptionsDevices = ({type}: {type: 'videoInputDevices' | 'audioInputDevices'
       {open && devices && (
         <ul className={styles.options}>
           {devices[type].map((device) => (
-            <>
+            <Fragment key={device.deviceId}>
               {selectDeviceId === device.deviceId ? (
                 <>{selectedLi(device)}</>
               ) : (
                 <>{unSelectedLi(device)}</>
               )}
-            </>
+            </Fragment>
           ))}
         </ul>
       )}

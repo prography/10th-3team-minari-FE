@@ -8,8 +8,8 @@ import Person from '@/assets/image/hero_person.png';
 import DescImageOne from '@/assets/image/desc_image_1.png';
 import DescImageTwo from '@/assets/image/desc_image_2.png';
 import Image from 'next/image';
-import Button from '@/components/Button/Button';
-import Footer from '@/components/Footer/Footer';
+import Button from '@/components/Button';
+import Footer from '@/components/Footer';
 import BlackArrow from '@/assets/icon/arrow-black.svg';
 import {loginKaKao} from '@/api/user';
 
@@ -24,7 +24,7 @@ const LandingPage = () => {
           <div className={styles['hero__container']}>
             <div className={styles['hero__text']}>
               <div className="display-md">
-                미나리와 함께 <Image src={Minari} alt="" className="mg-left-4" />
+                미나리와 함께 <Image src={Minari} alt="" className="mg-left-4" width={34} />
               </div>
               <div className={styles['hero__text-split__wrap']}>
                 <div className={`${styles['hero__text-everyday']} display-md`}>

@@ -46,3 +46,7 @@ export const getMediaStream = async ({videoInput, audioInput}: GetMediaStreamPro
     }
   }
 };
+
+export const closeMediaStream = (mediaStream: MediaStream | null) => {
+  mediaStream?.getTracks().forEach((track) => track.stop());
+};

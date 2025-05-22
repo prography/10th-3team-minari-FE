@@ -1,6 +1,6 @@
 'use client';
-import Button from '@/components/Button/Button';
-import IconButton from '@/components/IconButton/IconButton';
+import Button from '@/components/Button';
+import IconButton from '@/components/IconButton';
 import Instagram from '@/assets/icon/instagram.svg';
 import Pause from '@/assets/icon/circle-pause.svg';
 import BlackArrow from '@/assets/icon/arrow-black.svg';
