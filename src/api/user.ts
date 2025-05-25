@@ -6,7 +6,7 @@ export const loginKaKao = () => {
 export const getKakaoProfile = async (code: string) => {
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/users/oauth/kakao?code=${code}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/users/oauth/kakao?code=${code}&redirect-uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}`,
     );
     return response;
   } catch (error) {
