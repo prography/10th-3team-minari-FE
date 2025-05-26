@@ -1,0 +1,63 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+
+  display: flex;
+  padding: var(--spacing-16, 16px);
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-8, 8px);
+  align-self: stretch;
+
+  border-radius: var(--border-radius-lg, 8px);
+  background: var(--color-bg-inverse-bolder, #262626);
+
+  margin-top: 40px;
+}
+
+.flower {
+  position: absolute;
+  z-index: 0;
+}
+
+.flower.left {
+  width: 180px;
+  height: auto;
+  right: 330;
+  bottom: -70;
+}
+
+.flower.right {
+  width: 280px;
+  height: auto;
+  right: 45;
+  top: -110;
+}
+
+.content {
+  z-index: 1;
+  color: var(--color-text-interactive-inverse-white, #fff);
+}
+
+.core {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4, 4px);
+  align-self: stretch;
+}
+
+.description {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-4, 4px);
+  align-self: stretch;
+}
+
+.time {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
