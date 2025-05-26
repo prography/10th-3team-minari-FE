@@ -247,6 +247,18 @@
   color: var(--color-text-tertiary) !important;
 }
 
+.txt-primary {
+  color: var(--color-text-primary) !important;
+}
+
+.txt-white {
+  color: var(--color-text-white) !important;
+}
+
+.txt-brand {
+  color: var(--color-text-brand) !important;
+}
+
 /* margin & padding */
 .pd-left-24 {
   padding-left: 24px;
