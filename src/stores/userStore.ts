@@ -10,6 +10,8 @@ type UserStore = {
   setUsername: (value: string) => void;
   isUserRegistered: boolean;
   setIsUserRegistered: (value: boolean) => void;
+  userId: string;
+  setUserId: (value: string) => void;
 };
 
 export const useUserStore = create<UserStore>()(
@@ -23,6 +25,8 @@ export const useUserStore = create<UserStore>()(
       setUsername: (value) => set({username: value}),
       isUserRegistered: false,
       setIsUserRegistered: (value) => set({isUserRegistered: value}),
+      userId: '',
+      setUserId: (value) => set({userId: value}),
     }),
     {
       name: 'user-storage', // name of the item in the storage (must be unique)
