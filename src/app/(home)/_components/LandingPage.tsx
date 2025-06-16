@@ -11,7 +11,7 @@ import Image from 'next/image';
 import Button from '@/components/Button';
 import Footer from '@/components/Footer';
 import BlackArrow from '@/assets/icon/arrow-black.svg';
-import {loginKaKao} from '@/api/user';
+import {loginKaKao} from '@/apis/user';
 
 const LandingPage = () => {
   const onClickLogin = () => {
