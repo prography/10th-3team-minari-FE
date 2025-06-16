@@ -5,7 +5,13 @@ export const postFile = async (userId: string, questionId: number, formData: For
   return response;
 };
 
+export interface AnswerType {
+  answer: string;
+  question: string;
+  reply: string;
+}
+
 export const getAnswer = async (userId: string, questionId: number) => {
-  const response = await fetch.get<string>(`/${userId}/questions/${questionId}`);
+  const response = await fetch.get<AnswerType>(`/${userId}/questions/${questionId}`);
   return response;
 };
