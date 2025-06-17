@@ -27,10 +27,12 @@ jobs:
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
           echo "NEXT_PUBLIC_KAKAO_REDIRECT=${{ secrets.NEXT_PUBLIC_KAKAO_REDIRECT }}" >> .env
           echo "NEXT_PUBLIC_KAKAO_KEY=${{ secrets.NEXT_PUBLIC_KAKAO_KEY }}" >> .env
+          echo "NEXT_PUBLIC_GA_ID=${{ secrets.NEXT_PUBLIC_GA_ID }}" >> .env
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
           NEXT_PUBLIC_KAKAO_REDIRECT: ${{ secrets.NEXT_PUBLIC_KAKAO_REDIRECT }}
           NEXT_PUBLIC_KAKAO_KEY: ${{ secrets.NEXT_PUBLIC_KAKAO_KEY }}
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
           
       - name: build and push
         uses: docker/build-push-action@v3
