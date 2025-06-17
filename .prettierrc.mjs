@@ -8,6 +8,5 @@ export default {
   bracketSpacing: false,
   printWidth: 100,
   trailingComma: 'all',
-  plugins: ['prettier-plugin-tailwindcss'],
 };
 
