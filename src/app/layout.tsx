@@ -2,6 +2,7 @@ import './globals.css';
 import './common.css';
 import Providers from '@/contexts/Providers';
 import LayoutWrapper from '@/components/LayoutWrapper';
+import {GoogleAnalytics} from '@next/third-parties/google';
 
 export default function RootLayout({
   children,
@@ -15,6 +16,7 @@ export default function RootLayout({
           <LayoutWrapper>{children}</LayoutWrapper>
         </Providers>
       </body>
+      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ? process.env.NEXT_PUBLIC_GA_ID : ''} />
     </html>
   );
 }
