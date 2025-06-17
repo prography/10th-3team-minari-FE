@@ -1,3 +1,5 @@
+'use client';
+
 import {useDeviceStore, type SelectDevice} from '@/stores/devicsStore';
 import {useMediaStore} from '@/stores/mediaStore';
 import {getDevices} from '@/utils/device';
@@ -57,11 +59,11 @@ const useMedia = () => {
     [setMediaStream, setMediaStreamStatus],
   );
 
-  const stopMedia = () => {
+  const stopMedia = useCallback(() => {
     closeMediaStream(mediaStream);
     setMediaStream(null);
     setMediaStreamStatus('idle');
-  };
+  }, [mediaStream]);
 
   const changeMedia = (selectDevice: SelectDevice) => {
     const {videoInput, audioInput} = selectDevice;
