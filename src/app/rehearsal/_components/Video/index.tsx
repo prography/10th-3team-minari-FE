@@ -1,3 +1,5 @@
+'use client';
+
 import React, {useEffect, useRef} from 'react';
 import styles from './Video.module.css';
 import {useMediaStore} from '@/stores/mediaStore';
@@ -5,11 +7,21 @@ import {useVideoState} from '@/contexts/VideoStateProvider';
 import Image from 'next/image';
 import Ellipse from '@/assets/icon/ellipse.svg';
 import Pause from '@/assets/icon/pause.svg';
+import {useRouter} from 'next/navigation';
 
 const Video = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const {mediaStream} = useMediaStore();
   const {videoState} = useVideoState();
+  const {mediaStreamStatus} = useMediaStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (mediaStreamStatus !== 'connected') {
+      router.push('/rehearsal/setting');
+      return;
+    }
+  }, [mediaStreamStatus, router]);
 
   useEffect(() => {
     if (videoRef.current) {
@@ -17,13 +29,9 @@ const Video = () => {
     }
   }, [mediaStream]);
 
-  const countValid = videoState !== 'PENDING' && videoState !== 'DONE';
-
-  const hiden = countValid ? {} : {overflow: 'hidden'};
-
   return (
-    <div className={styles.video_wrapper} style={hiden}>
-      {countValid && (
+    <div className={styles.video_wrapper}>
+      {videoState !== 'DONE' && (
         <div className={styles.count_wrapper}>
           <VideoState />
         </div>
@@ -48,6 +56,14 @@ const VideoState = () => {
     if (typeof videoState === 'number') return 'seconds';
     if (videoState === 'STOP') return 'stop';
   };
+
+  if (videoState === 'PENDING') {
+    return (
+      <div className={styles.video_state_wrapper}>
+        <span className="body-lg">시작을 눌러 실행해 주세요.</span>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.video_state_wrapper}>
