@@ -1,10 +1,10 @@
 'use client';
 
 import {useEffect} from 'react';
-import {getKakaoProfile} from '@/api/user';
 import {useUserStore} from '@/stores/userStore';
 import {useRouter} from 'next/navigation';
 import Loader from '@/components/Loader';
+import {getKakaoProfile} from '@/apis/user';
 
 const KakaoRedirectPage = () => {
   let code = '';
