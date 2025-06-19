@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/components/Button';
 import CameraSelectOption from '../DeviceSelectOption/CameraSelectOption';
 import MicSelectOption from '../DeviceSelectOption/MicSelectOption';
