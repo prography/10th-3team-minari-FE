@@ -1,11 +1,15 @@
+'use client';
+
 import {createContext, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 type VideoStateType = 3 | 2 | 1 | 'START' | 'DONE' | 'PENDING' | 'STOP';
 
 type ContextType = {
   videoState: VideoStateType;
-  handleCount: () => void;
-  handleStop: () => void;
+  handleCountStart: () => void;
+  handleCountPause: () => void;
+  handleCountStop: () => void;
+  handleCountRestart: () => void;
 };
 const VideoStateContext = createContext<ContextType | null>(null);
 
@@ -28,22 +32,33 @@ export const VideoStateProvider = ({children}: {children: React.ReactNode}) => {
     };
   }, [videoState]);
 
-  const handleCount = () => {
+  const handleCountStart = () => {
     if (videoState === 'PENDING') {
       setVideoState(3);
     } else if (videoState === 'DONE') return;
   };
 
-  const handleStop = () => {
+  const handleCountPause = () => {
+    if (videoState === 'DONE') setVideoState('STOP');
     if (videoState === 'STOP') setVideoState('START');
-    else setVideoState('STOP');
+    else return;
+  };
+
+  const handleCountStop = () => {
+    setVideoState('PENDING');
+  };
+
+  const handleCountRestart = () => {
+    setVideoState('PENDING');
   };
 
   const value = useMemo(
     () => ({
       videoState,
-      handleCount,
-      handleStop,
+      handleCountStart,
+      handleCountPause,
+      handleCountStop,
+      handleCountRestart,
     }),
     [videoState],
   );
