@@ -1,32 +1,22 @@
-'use client';
-
-import {useEffect} from 'react';
-import {useDeviceStore} from '@/stores/devicsStore';
-import useMedia from '@/hooks/useMedia';
 import RehearsalHeader from '../_components/RehearsalHeader';
 import OptionGroup from './_components/OptionGroup';
 import OnlyVideo from '../_components/Video/OnlyVideo';
+import {getTag} from '@/apis/question';
+import {pickRandom} from '@/utils/pickRandom';
 
-const ReharsalSettingPage = () => {
-  const {selectDevice} = useDeviceStore();
-  const {videoInput, audioInput} = selectDevice;
-  const {mediaStreamStatus, startMedia} = useMedia();
-
-  useEffect(() => {
-    if (mediaStreamStatus === 'idle' || mediaStreamStatus === 'pending') {
-      void startMedia({videoInput, audioInput}, true);
-    }
-  }, []);
+const ReharsalSettingPage = async () => {
+  const tags = await getTag(3);
+  const randomKeyword = pickRandom(tags?.result ?? []);
 
   return (
-    <div>
+    <>
       <RehearsalHeader
         subtitle={<RehearsalHeader.Subtitle>오늘의 미나리 키워드</RehearsalHeader.Subtitle>}
-        title={<RehearsalHeader.Title>키워드</RehearsalHeader.Title>}
+        title={<RehearsalHeader.Title>{randomKeyword}</RehearsalHeader.Title>}
         leftView={<OptionGroup />}
       />
       <OnlyVideo />
-    </div>
+    </>
   );
 };
 
