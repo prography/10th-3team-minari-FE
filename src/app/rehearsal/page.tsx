@@ -1,8 +1,3 @@
-'use client';
-
-// import {useMediaStore} from '@/stores/mediaStore';
-// import {useEffect} from 'react';
-// import {useRouter} from 'next/navigation';
 import Video from './_components/Video';
 import RehearsalHeader from './_components/RehearsalHeader';
 import Timer from './_components/Timer';
@@ -12,24 +7,22 @@ import styles from './page.module.css';
 import Notepad from './_components/Notepad/Notepad';
 import {NotepadProvider} from '@/contexts/NotepadProvider';
 import {VideoStateProvider} from '@/contexts/VideoStateProvider';
+import CompleteModal from './_components/CompleteModal';
+import {CompleteModalProvider} from '@/contexts/CompleteModalProvider';
+import Contents from './_components/Contents';
 
 const RehearsalPage = () => {
-  // const {mediaStreamStatus} = useMediaStore();
-  // const router = useRouter();
-
-  // useEffect(() => {
-  //   if (mediaStreamStatus !== 'connected') {
-  //     router.push('/rehearsal/setting');
-  //     return;
-  //   }
-  // }, [mediaStreamStatus, router]);
-
   return (
-    <div>
+    <CompleteModalProvider>
+      <CompleteModal />
       <TimerProvider>
         <RehearsalHeader
           subtitle={<RehearsalHeader.Subtitle>오늘의 미나리 질문</RehearsalHeader.Subtitle>}
-          title={<RehearsalHeader.Title>전체 질문 노출</RehearsalHeader.Title>}
+          title={
+            <RehearsalHeader.Title>
+              <Contents />
+            </RehearsalHeader.Title>
+          }
           leftView={<Timer />}
         />
         <NotepadProvider>
@@ -44,7 +37,7 @@ const RehearsalPage = () => {
           </div>
         </NotepadProvider>
       </TimerProvider>
-    </div>
+    </CompleteModalProvider>
   );
 };
 
