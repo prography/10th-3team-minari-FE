@@ -1,10 +1,12 @@
+'use client';
+
 import {createContext, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 type TimerStateType = 'pending' | 'start' | 'stop' | 'pause';
 
 type ContextType = {
   seconds: number;
-  type: TimerStateType;
+  timeState: TimerStateType;
   handleStart: () => void;
   handleStop: () => void;
   handlePause: () => void;
@@ -13,15 +15,17 @@ type ContextType = {
 
 const TimerContext = createContext<ContextType | null>(null);
 
+const allTime = 60 * 5;
+
 export const TimerProvider = ({children}: {children: React.ReactNode}) => {
-  const [type, setType] = useState<TimerStateType>('pending');
-  const [seconds, setSeconds] = useState(0);
+  const [timeState, setTimeState] = useState<TimerStateType>('pending');
+  const [seconds, setSeconds] = useState(allTime);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    if (type === 'start') {
+    if (timeState === 'start') {
       intervalRef.current = setInterval(() => {
-        setSeconds((prev) => prev + 1);
+        setSeconds((prev) => prev - 1);
       }, 1000);
     } else {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -30,36 +34,39 @@ export const TimerProvider = ({children}: {children: React.ReactNode}) => {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [type]);
+  }, [timeState]);
 
   const handleStart = () => {
-    setType('start');
+    setTimeState('start');
   };
 
   const handlePause = () => {
-    setType('pause');
+    if (timeState === 'start') setTimeState('pause');
+    else if (timeState === 'pause') setTimeState('start');
+    else return;
   };
 
   const handleStop = () => {
-    setType('stop');
-    setSeconds(0);
+    if (timeState !== 'start') return;
+    setTimeState('stop');
+    setSeconds(allTime);
   };
 
   const handleRestart = () => {
-    setSeconds(0);
-    setType('start');
+    setTimeState('pending');
+    setSeconds(allTime);
   };
 
   const value = useMemo(
     () => ({
       seconds,
-      type,
+      timeState,
       handleStart,
       handlePause,
       handleStop,
       handleRestart,
     }),
-    [seconds, type],
+    [seconds, timeState],
   );
 
   return <TimerContext.Provider value={value}>{children}</TimerContext.Provider>;
