@@ -1,3 +1,5 @@
+'use client';
+
 import {createContext, useContext, useMemo, useState} from 'react';
 
 type DeviceType = 'mic' | 'camera';

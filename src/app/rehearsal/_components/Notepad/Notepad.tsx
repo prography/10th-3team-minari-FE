@@ -1,10 +1,10 @@
+'use client';
+
 import {useNotepad} from '@/contexts/NotepadProvider';
 import styles from './Notepad.module.css';
-import {useState} from 'react';
 
 const Notepad = () => {
-  const [note, setNote] = useState('');
-  const {open} = useNotepad();
+  const {open, memo, handleChange} = useNotepad();
 
   return (
     <>
@@ -12,8 +12,8 @@ const Notepad = () => {
         <textarea
           className={`${styles.textarea} body-lg`}
           placeholder="메모를 입력해주세요."
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
+          value={memo}
+          onChange={handleChange}
         />
       )}
     </>

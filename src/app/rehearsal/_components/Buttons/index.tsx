@@ -1,3 +1,5 @@
+'use client';
+
 import Button from '@/components/Button';
 import React, {useEffect} from 'react';
 import CircleArrowLeft from '@/assets/icon/circle-arrow-left.svg';
@@ -10,37 +12,71 @@ import styles from './Buttons.module.css';
 import {useTimer} from '@/contexts/TimerProvider';
 import {useNotepad} from '@/contexts/NotepadProvider';
 import {useVideoState} from '@/contexts/VideoStateProvider';
+import {useUserStore} from '@/stores/userStore';
+// import {useQuestionId} from '@/hooks/queroes/useQuestionId';
+import {useCompleteModal} from '@/contexts/CompleteModalProvider';
 
 const Buttons = () => {
-  const {handleCloseClick} = useRearsal();
-  const {handlePause, handleRestart, handleStart, handleStop} = useTimer();
-  const {handleOpen} = useNotepad();
-  const {handleCount, videoState, handleStop: handleVideoStop} = useVideoState();
+  const {
+    recordingStatus,
+    handleRearsalStart,
+    handleRearsalClose,
+    handleRearsalPause,
+    handleRearsalRestart,
+  } = useRearsal();
+  const {seconds, handlePause, handleRestart, handleStart, handleStop} = useTimer();
+  const {videoState, handleCountStart, handleCountPause, handleCountStop, handleCountRestart} =
+    useVideoState();
+  const {handleOpen, memo} = useNotepad();
+  const {handleOpen: ModalOpen} = useCompleteModal();
+
+  const {userId} = useUserStore();
+  // const {questionId} = useQuestionId();
 
   useEffect(() => {
-    if (videoState === 'DONE') {
+    if (videoState === 'DONE' && recordingStatus !== 'recording') {
       handleStart();
+      handleRearsalStart();
     }
-  }, [videoState, handleStart]);
+  }, [videoState, recordingStatus, handleStart, handleRearsalStart]);
+
+  useEffect(() => {
+    if (seconds === 0) {
+      handleStop();
+      handleCountStop();
+      handleRearsalClose({userId, questionId: 3, memo});
+      // handleRearsalClose();
+    }
+  }, [seconds, handleStop, handleCountStop, handleRearsalClose]);
 
   const startClick = () => {
-    handleCount();
+    handleCountStart();
   };
 
   const pauseClick = () => {
-    handleVideoStop();
     handlePause();
+    handleCountPause();
+    handleRearsalPause();
+  };
+
+  const restartClick = () => {
+    handleRestart();
+    handleCountRestart();
+    handleRearsalRestart();
   };
 
   const stopClick = () => {
     handleStop();
-    handleCloseClick();
+    handleCountStop();
+    handleRearsalClose({userId, questionId: 3, memo});
+    // handleRearsalClose();
+    ModalOpen();
   };
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.control_buttons}>
-        <Button onClick={handleRestart} iconRight={CircleArrowLeft} theme="secondary">
+        <Button onClick={restartClick} iconRight={CircleArrowLeft} theme="secondary">
           처음부터
         </Button>
         <Button onClick={pauseClick} iconRight={CirclePause} theme="secondary">
