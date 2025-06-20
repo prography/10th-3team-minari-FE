@@ -32,6 +32,10 @@ jobs:
           node-version: '22'
           cache: 'pnpm'
 
+      - name: env setting
+        run: |
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - run: pnpm run build
