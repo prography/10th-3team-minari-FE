@@ -24,12 +24,16 @@ const KakaoRedirectPage = () => {
         }
       })
       .then((data) => {
-        store.setIsLoggedIn(true);
-        store.setUsername(data.name);
-        store.setUserKaKaoImage(data.image);
-        store.setIsUserRegistered(data.registered);
+        if (data.code === '200') {
+          store.setIsLoggedIn(true);
+          store.setUsername(data.result.name);
+          store.setUserKaKaoImage(data.result.image);
+          store.setIsUserRegistered(data.result.registered);
 
-        router.push('/');
+          router.push('/');
+        } else {
+          throw new Error();
+        }
       })
       .catch((err) => console.log(err));
   }, [code]);
