@@ -172,7 +172,6 @@ class APIClient {
       return responseData as ApiResponse<T>;
     } catch (error: unknown) {
       let errorCode = 'UNKNOWN';
-      let errorResult = null;
 
       if (
         typeof error === 'object' &&
@@ -181,7 +180,6 @@ class APIClient {
         typeof (error as ErrorResponse).code === 'string'
       ) {
         errorCode = (error as ErrorResponse).code;
-        errorResult = (error as ErrorResponse).result;
       }
 
       const message =
@@ -189,12 +187,9 @@ class APIClient {
           ? ErrorMessage[errorCode as keyof typeof ErrorMessage]
           : '알 수 없는 오류';
 
-      console.error(`[APIClient] Error occurred (${errorCode}):`, message);
+      console.error(`[APIClient] Error occurred (${errorCode}):`, `API_Url: ${fullUrl}`, message);
 
-      return {
-        code: errorCode,
-        result: errorResult as T | null,
-      };
+      throw new Error(message);
     }
   }
 }
