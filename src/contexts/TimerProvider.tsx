@@ -1,5 +1,6 @@
 'use client';
 
+import {ALL_TIME} from '@/constants/time';
 import {createContext, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 type TimerStateType = 'pending' | 'start' | 'stop' | 'pause';
@@ -15,11 +16,9 @@ type ContextType = {
 
 const TimerContext = createContext<ContextType | null>(null);
 
-const allTime = 60 * 5;
-
 export const TimerProvider = ({children}: {children: React.ReactNode}) => {
   const [timeState, setTimeState] = useState<TimerStateType>('pending');
-  const [seconds, setSeconds] = useState(allTime);
+  const [seconds, setSeconds] = useState(ALL_TIME);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -49,12 +48,12 @@ export const TimerProvider = ({children}: {children: React.ReactNode}) => {
   const handleStop = () => {
     if (timeState !== 'start') return;
     setTimeState('stop');
-    setSeconds(allTime);
+    setSeconds(ALL_TIME);
   };
 
   const handleRestart = () => {
     setTimeState('pending');
-    setSeconds(allTime);
+    setSeconds(ALL_TIME);
   };
 
   const value = useMemo(
