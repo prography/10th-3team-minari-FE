@@ -2,7 +2,7 @@
   position: relative;
   overflow: hidden;
 
-  width: 100%;
+  max-width: 100%;
 
   display: flex;
   padding: var(--spacing-16, 16px);
@@ -56,8 +56,14 @@
   align-self: stretch;
 }
 
-.time {
-  width: 100%;
+.flex_gap_4 {
   display: flex;
-  justify-content: end;
+  gap: 4;
+  align-items: center;
+}
+
+.flex_gap_16 {
+  display: flex;
+  gap: 16;
+  align-items: center;
 }

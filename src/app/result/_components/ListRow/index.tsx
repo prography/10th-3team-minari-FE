@@ -2,6 +2,8 @@ import React from 'react';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
 import styles from './ListRow.module.css';
+import ArrowBlack from '@/assets/icon/arrow-black.svg';
+import Button from '@/components/Button';
 
 interface ListRowProps {
   title: React.ReactNode;
@@ -33,7 +35,19 @@ const Contents = ({children}: {children: React.ReactNode}) => {
   return <div className={styles.contents_keywords}>{children}</div>;
 };
 
+const ContentsWithButton = ({children}: {children: React.ReactNode}) => {
+  return (
+    <div className={styles.contents_button}>
+      <p className={`${styles.contents} body-lg`}>{children}</p>
+      <Button theme="primary" iconRight={ArrowBlack} rounded shadow>
+        다시 도전하기
+      </Button>
+    </div>
+  );
+};
+
 ListRow.Title = Title;
 ListRow.Contents = Contents;
+ListRow.ContentsWithButton = ContentsWithButton;
 
 export default ListRow;
