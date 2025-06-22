@@ -7,10 +7,16 @@ import BlackArrow from '@/assets/icon/arrow-black.svg';
 import Refresh from '@/assets/icon/refresh-cw.svg';
 import Stop from '@/assets/icon/circle-stop.svg';
 import Loading from '@/assets/icon/loader-circle.svg';
+import Checkbox from '@/components/Checkbox';
+import {useState} from 'react';
 
 const TestPage = () => {
   const onClickButton = () => {
     window.alert('button clicked !!');
+  };
+  const [check, setCheck] = useState(false);
+  const checkHandler = () => {
+    setCheck(true);
   };
 
   return (
@@ -102,6 +108,24 @@ const TestPage = () => {
         <IconButton icon={Loading} theme="primary" loading />
         <IconButton icon={Loading} theme="white" />
       </div>
+      <br />
+      <br />
+      <div className="title-md">체크박스</div>
+      <br />
+      <Checkbox checked={check} onChangeCheck={checkHandler} setChecked={setCheck}>
+        클릭해서 체크 박스 테스트
+      </Checkbox>
+      <Checkbox checked={true} onChangeCheck={checkHandler} disabled={true}>
+        disabled / checked
+      </Checkbox>
+      <Checkbox checked={false} onChangeCheck={checkHandler} disabled={true}>
+        disabled / not-checked
+      </Checkbox>
+
+      <br />
+      <br />
+      <br />
+      <br />
     </>
   );
 };
