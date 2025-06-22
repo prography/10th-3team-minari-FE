@@ -259,6 +259,14 @@
   color: var(--color-text-brand) !important;
 }
 
+.txt-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.txt-danger {
+  color: var(--color-text-danger) !important;
+}
+
 /* margin & padding */
 .pd-left-24 {
   padding-left: 24px;
@@ -307,4 +315,11 @@
 
 .cp {
   cursor: pointer;
+}
+.fx {
+  display: flex;
+}
+.fx-align-center {
+  display: flex;
+  align-items: center;
 }
