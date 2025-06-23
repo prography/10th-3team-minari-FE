@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Spacing from '@/components/Spacing';
 import Question from './_components/Question';
 import ListRow from './_components/ListRow';
@@ -12,8 +14,8 @@ import {getContents, getTag} from '@/apis/question';
 const ReharsalResultPage = async () => {
   const [answer, tags, contents] = await Promise.all([
     getAnswer('1', 6),
-    getTag(5),
-    getContents(5),
+    getTag(6),
+    getContents(6),
   ]);
 
   return (
