@@ -7,13 +7,17 @@ export const getQuestionId = async (userId: string) => {
 };
 
 export const getContents = async (questionId: number) => {
-  const response = await fetch.get<string>(`/questions/${questionId}/contents`);
+  const response = await fetch.get<string>(`/questions/${questionId}/contents`, {
+    cache: 'no-store',
+  });
 
   return response;
 };
 
 export const getTag = async (questionId: number) => {
-  const response = await fetch.get<string[]>(`/questions/${questionId}/tag`);
+  const response = await fetch.get<string[]>(`/questions/${questionId}/tag`, {
+    cache: 'no-store',
+  });
 
   return response;
 };

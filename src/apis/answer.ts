@@ -9,9 +9,13 @@ export interface AnswerType {
   answer: string;
   question: string;
   reply: string;
+  createDate: string;
+  runningTime: number;
 }
 
 export const getAnswer = async (userId: string, questionId: number) => {
-  const response = await fetch.get<AnswerType>(`/${userId}/questions/${questionId}`);
+  const response = await fetch.get<AnswerType>(`/${userId}/questions/${questionId}`, {
+    cache: 'no-store',
+  });
   return response;
 };
