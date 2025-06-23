@@ -96,6 +96,25 @@
   background-color: var(--color-bg-disabled) !important;
 }
 
+/* Secondary 버튼 w/border */
+.white-border {
+  background-color: var(--color-bg-interactive-secondary);
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary);
+}
+.white-border:hover {
+  background-color: var(--color-bg-interactive-secondary-hovered) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary-hovered);
+}
+.white-border:active {
+  background-color: var(--color-bg-interactive-secondary-pressed) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary-pressed);
+}
+.white-border:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+  border: var(--border-width-md) solid var(--color-border-disabled) !important;
+}
+
 /* Black 버튼 */
 .black {
   color: var(--color-text-interactive-primary);
