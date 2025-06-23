@@ -2,7 +2,6 @@ import styles from './MainPage.module.css';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
 import Button from '@/components/Button';
-import Link from 'next/link';
 
 const MainPage = () => {
   const KEYWORDS = ['키워드1', '키워드2', '키워드3'];
@@ -26,9 +25,9 @@ const MainPage = () => {
         ))}
       </div>
       <div className={styles['button__wrapper']}>
-        <Link href="/rehearsal/setting">
+        <a href="/rehearsal" target="_blank" rel="noopener noreferrer">
           <Button rounded>면접 시작하기</Button>
-        </Link>
+        </a>
       </div>
     </div>
   );
