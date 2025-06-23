@@ -3,7 +3,7 @@ import {useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import type {ApiResponse} from '@/apis/instance/APIClient';
 
-export const useTag = (initialData: ApiResponse<string[]> | null, questionId: number) => {
+export const useTag = (questionId: number, initialData?: ApiResponse<string[]> | null) => {
   const result = useQuery({
     queryKey: ['tag', questionId],
     queryFn: () => getTag(questionId),
@@ -18,6 +18,7 @@ export const useTag = (initialData: ApiResponse<string[]> | null, questionId: nu
       const randomIndex = Math.floor(Math.random() * data.result.length);
       return data.result[randomIndex];
     }
+
     return null;
   }, [data]);
 
