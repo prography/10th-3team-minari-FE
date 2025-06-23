@@ -1,5 +1,3 @@
-'use client';
-
 import {ALL_TIME} from '@/constants/time';
 import {createContext, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
