@@ -1,5 +1,3 @@
-'use client';
-
 import {createContext, useContext, useEffect, useMemo, useRef, useState} from 'react';
 
 type VideoStateType = 3 | 2 | 1 | 'START' | 'DONE' | 'PENDING' | 'STOP';
