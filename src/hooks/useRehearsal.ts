@@ -3,10 +3,11 @@ import {useMediaStore} from '@/stores/mediaStore';
 import {startAudioRecording, startVideoRecording, stopRecording} from '@/utils/record';
 import {useRef, useState} from 'react';
 import {useFile} from './mutations/useFile';
+import {useRehearsal as useRehearsalInProvider} from '@/contexts/RehearsalProvider';
 
 type RecordingStatus = 'idle' | 'recording' | 'paused' | 'stopped';
 
-const useRearsal = () => {
+const useRehearsal = () => {
   const videoRecorderRef = useRef<MediaRecorder | null>(null);
   const audioRecorderRef = useRef<MediaRecorder | null>(null);
   const videoBlobsRef = useRef<Blob[]>([]);
@@ -14,11 +15,9 @@ const useRearsal = () => {
   const {mediaStream} = useMediaStore();
   const [recordingStatus, setRecordingStatus] = useState<RecordingStatus>('idle');
   const {handleIsUpload} = useCompleteModal();
-  const fileMutation = useFile({
-    onSuccess: () => {
-      handleIsUpload();
-    },
-  });
+  const {handleClose} = useCompleteModal();
+  const fileMutation = useFile();
+  const {handleIsSetting} = useRehearsalInProvider();
 
   const handleRearsalStart = () => {
     if (mediaStream) {
@@ -60,11 +59,19 @@ const useRearsal = () => {
 
     if (memo) formData.append('memo', memo);
 
-    try {
-      await fileMutation.mutateAsync({userId, questionId, formData});
-    } catch (err) {
-      console.error('업로드 실패:', err);
-    }
+    fileMutation.mutate(
+      {userId, questionId, formData},
+      {
+        onSuccess: () => {
+          handleIsUpload();
+        },
+        onError: () => {
+          setRecordingStatus('idle');
+          handleClose();
+          handleIsSetting();
+        },
+      },
+    );
 
     videoBlobsRef.current = [];
     audioBlobsRef.current = [];
@@ -98,7 +105,7 @@ const useRearsal = () => {
   };
 };
 
-export default useRearsal;
+export default useRehearsal;
 
 // <- 입력스트림을 webm 포맷 파일로 다운로드 하는 코드 ->
 // const handleRearsalClose = async () => {
