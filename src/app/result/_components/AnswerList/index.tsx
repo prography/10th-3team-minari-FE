@@ -1,11 +1,10 @@
-import {getAnswer} from '@/apis/answer';
 import {Fragment} from 'react';
 import ListRow from '../ListRow';
 import Spacing from '@/components/Spacing';
+import type {AnswerType} from '@/apis/answer';
+import type {ApiResponse} from '@/apis/instance/APIClient';
 
-const AnswerList = async () => {
-  const answer = await getAnswer('1', 5);
-
+const AnswerList = ({answer}: {answer: ApiResponse<AnswerType> | null}) => {
   const ResultList = [
     {
       id: 1,
