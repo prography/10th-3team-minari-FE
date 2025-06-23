@@ -1,18 +1,16 @@
-'use client';
-
 import Button from '@/components/Button';
 import CameraSelectOption from '../DeviceSelectOption/CameraSelectOption';
 import MicSelectOption from '../DeviceSelectOption/MicSelectOption';
 import ArrowBlack from '@/assets/icon/arrow-black.svg';
 import styles from './OptionGroup.module.css';
-import {useRouter} from 'next/navigation';
 import {DeviceSelectProvider} from '@/contexts/DeviceSelectProvider';
+import {useRehearsal} from '@/contexts/RehearsalProvider';
 
 const OptionGroup = () => {
-  const router = useRouter();
+  const {handleIsReharsal} = useRehearsal();
 
   const handleRehearsalStart = () => {
-    router.push('/rehearsal');
+    handleIsReharsal();
   };
 
   return (
