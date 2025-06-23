@@ -1,7 +1,5 @@
-'use client';
-
 import React, {useEffect, useState} from 'react';
-import ProgressBar from '../ProgressBar';
+import ProgressBar from './ProgressBar';
 import styles from './CompleteModal.module.css';
 import {useRouter} from 'next/navigation';
 import {useCompleteModal} from '@/contexts/CompleteModalProvider';

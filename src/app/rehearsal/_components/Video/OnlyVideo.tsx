@@ -1,5 +1,3 @@
-'use client';
-
 import {useMediaStore} from '@/stores/mediaStore';
 import React, {useEffect, useRef} from 'react';
 import styles from './Video.module.css';

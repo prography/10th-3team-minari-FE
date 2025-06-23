@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import styles from './Timer.module.css';
 import {useTimer} from '@/contexts/TimerProvider';
