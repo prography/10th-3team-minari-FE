@@ -129,3 +129,11 @@
     transform: rotate(359deg);
   }
 }
+
+.shadow {
+  box-shadow:
+    0px var(--effect-shadow-2-cast-y, 1px) var(--effect-shadow-2-cast-blur, 2px) 0px
+      var(--color-effect-shadow-cast, rgba(0, 0, 0, 0.16)),
+    0px var(--effect-shadow-2-core-y, 0px) var(--effect-shadow-2-core-blur, 1px) 0px
+      var(--color-effect-shadow-core, rgba(0, 0, 0, 0.12));
+}

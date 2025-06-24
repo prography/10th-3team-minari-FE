@@ -16,6 +16,9 @@
 
 .contents {
   color: var(--color-text-secondary, #404040);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .contents_keywords {
@@ -24,4 +27,17 @@
   align-items: center;
   gap: var(--spacing-12, 12px);
   align-self: stretch;
+}
+
+.contents_button {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.contents_button > p {
+  align-self: stretch;
+  text-align: left;
+  margin-bottom: var(--spacing-4, 4px);
 }
