@@ -1,5 +1,3 @@
-'use client';
-
 import React, {useEffect, useRef} from 'react';
 import styles from './Video.module.css';
 import {useMediaStore} from '@/stores/mediaStore';
@@ -7,21 +5,11 @@ import {useVideoState} from '@/contexts/VideoStateProvider';
 import Image from 'next/image';
 import Ellipse from '@/assets/icon/ellipse.svg';
 import Pause from '@/assets/icon/pause.svg';
-import {useRouter} from 'next/navigation';
 
 const Video = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const {mediaStream} = useMediaStore();
   const {videoState} = useVideoState();
-  const {mediaStreamStatus} = useMediaStore();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (mediaStreamStatus !== 'connected') {
-      router.push('/rehearsal/setting');
-      return;
-    }
-  }, [mediaStreamStatus, router]);
 
   useEffect(() => {
     if (videoRef.current) {

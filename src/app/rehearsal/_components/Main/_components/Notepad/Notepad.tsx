@@ -1,5 +1,3 @@
-'use client';
-
 import {useNotepad} from '@/contexts/NotepadProvider';
 import styles from './Notepad.module.css';
 

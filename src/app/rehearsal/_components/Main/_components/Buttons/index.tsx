@@ -1,5 +1,3 @@
-'use client';
-
 import Button from '@/components/Button';
 import React, {useEffect} from 'react';
 import CircleArrowLeft from '@/assets/icon/circle-arrow-left.svg';
@@ -7,13 +5,11 @@ import CirclePause from '@/assets/icon/circle-pause.svg';
 import CirclePlay from '@/assets/icon/circle-play.svg';
 import CircleStop from '@/assets/icon/circle-stop.svg';
 import Pen from '@/assets/icon/pen.svg';
-import useRearsal from '@/hooks/useRearsal';
+import useRehearsal from '@/hooks/useRehearsal';
 import styles from './Buttons.module.css';
 import {useTimer} from '@/contexts/TimerProvider';
 import {useNotepad} from '@/contexts/NotepadProvider';
 import {useVideoState} from '@/contexts/VideoStateProvider';
-import {useUserStore} from '@/stores/userStore';
-// import {useQuestionId} from '@/hooks/queroes/useQuestionId';
 import {useCompleteModal} from '@/contexts/CompleteModalProvider';
 
 const Buttons = () => {
@@ -23,15 +19,12 @@ const Buttons = () => {
     handleRearsalClose,
     handleRearsalPause,
     handleRearsalRestart,
-  } = useRearsal();
+  } = useRehearsal();
   const {seconds, handlePause, handleRestart, handleStart, handleStop} = useTimer();
   const {videoState, handleCountStart, handleCountPause, handleCountStop, handleCountRestart} =
     useVideoState();
   const {handleOpen, memo} = useNotepad();
   const {handleOpen: ModalOpen} = useCompleteModal();
-
-  const {userId} = useUserStore();
-  // const {questionId} = useQuestionId();
 
   useEffect(() => {
     if (videoState === 'DONE' && recordingStatus !== 'recording') {
@@ -44,8 +37,7 @@ const Buttons = () => {
     if (seconds === 0) {
       handleStop();
       handleCountStop();
-      handleRearsalClose({userId, questionId: 3, memo});
-      // handleRearsalClose();
+      handleRearsalClose({userId: '1', questionId: 5, memo});
     }
   }, [seconds, handleStop, handleCountStop, handleRearsalClose]);
 
@@ -68,8 +60,7 @@ const Buttons = () => {
   const stopClick = () => {
     handleStop();
     handleCountStop();
-    handleRearsalClose({userId, questionId: 3, memo});
-    // handleRearsalClose();
+    handleRearsalClose({userId: '1', questionId: 5, memo});
     ModalOpen();
   };
 
