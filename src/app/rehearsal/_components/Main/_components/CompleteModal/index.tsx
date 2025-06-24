@@ -14,7 +14,7 @@ const CompleteModal = () => {
 
     if (percent >= 100) {
       handleClose();
-      router.push('/rehearsal/result');
+      router.push('/result');
       return;
     }
 

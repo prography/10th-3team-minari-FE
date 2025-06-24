@@ -2,8 +2,9 @@ import React from 'react';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
 import styles from './ListRow.module.css';
-import ArrowBlack from '@/assets/icon/arrow-black.svg';
+import ArrowPrimary from '@/assets/icon/arrow-right-primary.svg';
 import Button from '@/components/Button';
+import Star from '@/assets/icon/star.svg';
 
 interface ListRowProps {
   title: React.ReactNode;
@@ -35,13 +36,30 @@ const Contents = ({children}: {children: React.ReactNode}) => {
   return <div className={styles.contents_keywords}>{children}</div>;
 };
 
-const ContentsWithButton = ({children}: {children: React.ReactNode}) => {
+const ContentsWithButton = ({
+  children,
+  onClick,
+}: {
+  children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+}) => {
   return (
     <div className={styles.contents_button}>
       <p className={`${styles.contents} body-lg`}>{children}</p>
-      <Button theme="primary" iconRight={ArrowBlack} rounded shadow>
-        다시 도전하기
-      </Button>
+
+      <div className={styles.restart}>
+        <div className={`${styles.restart_contents} body-lg`}>
+          <div className={styles.restart_title}>
+            <Image src={Star} alt="icon" width={24} height={24} />
+            <span className="title-sm">지금 프리미엄으로 실력 향상 이어가기</span>
+          </div>
+          <span>지금 답변이 아쉽다면, 미나리 씨앗을 사용해서 한 번 더 도전해보는건 어떠세요?</span>
+        </div>
+
+        <Button onClick={onClick} theme="black" iconRight={ArrowPrimary} shadow>
+          다시 도전하기
+        </Button>
+      </div>
     </div>
   );
 };

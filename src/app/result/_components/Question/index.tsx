@@ -2,16 +2,19 @@ import Image from 'next/image';
 import styles from './Question.module.css';
 import MinariGray from '@/assets/minari-gray.svg';
 import MinariWhite from '@/assets/minari-white.svg';
-import {getContents} from '@/apis/question';
 import Calendar from '@/assets/icon/calendar-white.svg';
 import Clock from '@/assets/icon/clock-5-white.svg';
-// import Time from '../Time';
+import type {ApiResponse} from '@/apis/instance/APIClient';
+import type {AnswerType} from '@/apis/answer';
+import Time from '../Time';
 
-const Question = async () => {
-  const contents = await getContents(5);
-  const today = new Date();
-  const formatted = today.toISOString().slice(0, 10).replace(/-/g, '.');
-
+const Question = ({
+  answer,
+  contents,
+}: {
+  answer: ApiResponse<AnswerType> | null;
+  contents: ApiResponse<string> | null;
+}) => {
   return (
     <div className={styles.wrapper}>
       <Image
@@ -37,12 +40,14 @@ const Question = async () => {
         <div className={styles.flex_gap_16}>
           <div className={styles.flex_gap_4}>
             <Image src={Calendar} alt="icon" width={24} height={24} />
-            <time className={`${styles.content} label-lg`}>{formatted}</time>
+            <time className={`${styles.content} label-lg`}>{answer?.result?.createDate}</time>
           </div>
 
           <div className={styles.flex_gap_4}>
             <Image src={Clock} alt="icon" width={24} height={24} />
-            <span className={`${styles.content} label-lg`}>{/* <Time /> */}</span>
+            <span className={`${styles.content} label-lg`}>
+              <Time runningTime={answer?.result?.runningTime} />
+            </span>
           </div>
         </div>
       </div>

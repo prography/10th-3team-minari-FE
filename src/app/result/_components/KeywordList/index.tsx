@@ -1,9 +1,7 @@
+import type {ApiResponse} from '@/apis/instance/APIClient';
 import Keywrod from '../Keyword';
-import {getTag} from '@/apis/question';
 
-const KeywordList = async () => {
-  const tags = await getTag(5);
-
+const KeywordList = ({tags}: {tags: ApiResponse<string[]> | null}) => {
   return <>{tags?.result?.map((v, index) => <Keywrod key={`${v}-${index}`}>{v}</Keywrod>)}</>;
 };
 

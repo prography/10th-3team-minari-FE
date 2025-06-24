@@ -33,11 +33,34 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: end;
+  gap: 16px;
 }
 
 .contents_button > p {
-  align-self: stretch;
   text-align: left;
   margin-bottom: var(--spacing-4, 4px);
+}
+
+.restart {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+
+  background-color: var(--color-bg-tertiary);
+  border: 1.5px solid var(--color-border-secondary);
+  border-radius: 8px;
+}
+
+.restart_title {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.restart_contents {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
