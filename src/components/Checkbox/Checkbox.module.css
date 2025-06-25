@@ -17,7 +17,7 @@
 }
 
 /* 기본 체크박스 숨기기 */
-.container input {
+.input {
   position: absolute;
   opacity: 0;
   cursor: pointer;
@@ -47,7 +47,7 @@
 }
 
 /* checked */
-.container input:checked ~ .checkmark {
+.input:checked ~ .checkmark {
   border-radius: var(--border-radius-md, 4px);
   background: var(--color-bg-interactive-primary, #d8ff64);
   border-color: var(--color-bg-interactive-primary, #d8ff64);
@@ -61,7 +61,7 @@
 }
 
 /* checkmark/indicator (checked) */
-.container input:checked ~ .checkmark:after {
+.input:checked ~ .checkmark:after {
   display: block;
 }
 
@@ -94,19 +94,19 @@
 }
 
 /* disabled && not-checked: 박스 배경 + 테두리 */
-.container input:disabled ~ .checkmark {
+.input:disabled ~ .checkmark {
   background: var(--color-bg-disabled);
   border: 1px solid var(--color-border-disabled);
 }
 
 /* disabled && checked : 박스 배경 + 테두리 */
-.container input:disabled:checked ~ .checkmark {
+.input:disabled:checked ~ .checkmark {
   background: var(--color-bg-disabled);
   border: 1px solid var(--color-bg-disabled);
 }
 
 /* disabled : 체크 마크 */
-.container input:disabled:checked ~ .checkmark:after {
+.input:disabled:checked ~ .checkmark:after {
   border-color: var(--color-border-disabled);
 }
 

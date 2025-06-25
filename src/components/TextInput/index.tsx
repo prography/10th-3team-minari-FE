@@ -36,11 +36,12 @@ const TextInput = ({
         id={`input-${label}`}
         type={type ? type : 'text'}
         disabled={disabled}
+        className={styles.input}
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
       />
-      <span className="body-md">
+      <span className={`body-md ${styles.message}`}>
         <Image src={redX} alt={''} />
         {helpMessage}
       </span>
