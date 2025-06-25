@@ -9,6 +9,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   border?: boolean;
   loading?: boolean;
   rounded?: boolean;
+  shadow?: boolean;
 }
 
 const Button = ({
@@ -19,6 +20,7 @@ const Button = ({
   border,
   rounded,
   loading,
+  shadow,
   ...restProps
 }: ButtonProps) => {
   const borderValid = border ? '-border' : '';
@@ -26,20 +28,20 @@ const Button = ({
 
   return (
     <button
-      className={`${styles.button} ${styles[themeClass]} ${rounded && styles.round} label-lg`}
+      className={`${styles.button} ${styles[themeClass]} ${rounded && styles.round} ${shadow && styles.shadow} label-lg`}
       {...restProps}
     >
-      {iconRight != null ? (
+      {iconLeft != null ? (
         <Image
           className={loading ? styles.rotation : ''}
-          src={iconRight}
+          src={iconLeft}
           alt="icon"
           width={24}
           height={24}
         />
       ) : null}
       <div>{children}</div>
-      {iconLeft != null ? <Image src={iconLeft} alt="icon" width={24} height={24} /> : null}
+      {iconRight != null ? <Image src={iconRight} alt="icon" width={24} height={24} /> : null}
     </button>
   );
 };

@@ -1,5 +1,5 @@
 import styles from './Footer.module.css';
-import Logo from '@/assets/image/logo_with_text.png';
+import Logo from '@/assets/image/logo_with_text.svg';
 import Image from 'next/image';
 import GithubIcon from '@/assets/icon/github.svg';
 import InstagramIcon from '@/assets/icon/instagram.svg';

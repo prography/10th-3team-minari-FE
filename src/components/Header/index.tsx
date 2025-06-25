@@ -3,8 +3,8 @@ import styles from './Header.module.css';
 import Image from 'next/image';
 import MenuButton from '@/assets/icon/menu.svg';
 import Link from 'next/link';
-import LogoImageBlack from '@/assets/logo-black.png';
-import LogoImageWhite from '@/assets/logo-white.png';
+import LogoImageBlack from '@/assets/logo-black.svg';
+import LogoImageWhite from '@/assets/logo-white.svg';
 import useTheme from '@/hooks/useTheme';
 
 interface HeaderProps {
