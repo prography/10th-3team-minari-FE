@@ -9,7 +9,7 @@ interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   disabled?: boolean;
   checked: boolean;
   setChecked?: (value: boolean) => void;
-  onChangeCheck: (value: boolean, id?: string) => void;
+  onChangeCheck?: (value: boolean, id?: string) => void;
   required?: boolean;
 }
 
@@ -24,8 +24,12 @@ const Checkbox = ({
   required,
 }: CheckboxProps) => {
   const onChangeCheckbox = () => {
-    onChangeCheck(!checked, id && id);
+    if (onChangeCheck) {
+      // 체크박스 여러개 일때
+      onChangeCheck(!checked, id && id);
+    }
     if (setChecked) {
+      // 체크박스 한개일때
       setChecked(!checked);
     }
   };
