@@ -6,6 +6,7 @@ import Link from 'next/link';
 import LogoImageBlack from '@/assets/logo-black.svg';
 import LogoImageWhite from '@/assets/logo-white.svg';
 import useTheme from '@/hooks/useTheme';
+import {OUT_LINK} from '@/constants/path';
 
 interface HeaderProps {
   menu: React.ReactNode;
@@ -28,14 +29,26 @@ const Header = ({menu}: HeaderProps) => {
   );
 };
 
+const openFAQLink = () => {
+  window.open(OUT_LINK.FAQ);
+};
+const openBlog = () => {
+  window.open(OUT_LINK.BLOG);
+};
+
 const LandingMenu = () => {
   return (
     <>
       <nav className={styles['menu-landing']}>
-        <button className="label-md">서비스 소개</button>
-        <button className="label-md">문의사항</button>
-        <button className="label-md">FAQ</button>
-        <button className="label-md">BLOG</button>
+        <Link href="/" className="fx-center">
+          <button className="label-md">서비스 소개</button>
+        </Link>
+        <button className="label-md" onClick={openFAQLink}>
+          문의사항
+        </button>
+        <button className="label-md" onClick={openBlog}>
+          BLOG
+        </button>
       </nav>
       <nav className={styles['menu-landing-mobile']}>
         <Image src={MenuButton} alt="menu-button" />
