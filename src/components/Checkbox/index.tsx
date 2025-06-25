@@ -39,6 +39,7 @@ const Checkbox = ({
         <span className="label-lg">{children}</span>
         <input
           id={id}
+          className={styles.input}
           type="checkbox"
           disabled={disabled}
           checked={checked}

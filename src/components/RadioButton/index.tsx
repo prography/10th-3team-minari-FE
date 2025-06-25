@@ -18,6 +18,7 @@ const RadioButton = ({name, children, disabled, checked, setChecked}: RadioButto
         type="radio"
         checked={checked}
         disabled={disabled}
+        className={styles.input}
         onChange={() => setChecked(true)}
       />
       <span className={styles.checkmark} />
