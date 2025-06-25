@@ -150,7 +150,7 @@
 }
 .title-sm {
   color: var(--color-text-secondary);
-  font-size: var(--font-size-450);
+  font-size: var(--font-size-550);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-700);
   letter-spacing: -0.2px;
@@ -159,8 +159,8 @@
 
 .title-xs {
   color: var(--color-text-secondary);
-  font-size: var(--font-size-550);
-  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-450);
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-700);
   letter-spacing: -0.2px;
   font-family: 'Paperlogy Medium', sans-serif;
@@ -267,6 +267,10 @@
   color: var(--color-text-danger) !important;
 }
 
+.txt-inverse-gray {
+  color: var(--gray-400) !important;
+}
+
 /* margin & padding */
 .pd-left-24 {
   padding-left: 24px;
@@ -296,6 +300,12 @@
   margin-right: 16px;
 }
 
+.mg-bottom-8 {
+  margin-bottom: 8px;
+}
+.mg-bottom-12 {
+  margin-bottom: 12px;
+}
 .mg-bottom-20 {
   margin-bottom: 20px;
 }
@@ -319,7 +329,16 @@
 .fx {
   display: flex;
 }
+.fx-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .fx-align-center {
   display: flex;
   align-items: center;
+}
+.fx-space-between {
+  display: flex;
+  justify-content: space-between;
 }
