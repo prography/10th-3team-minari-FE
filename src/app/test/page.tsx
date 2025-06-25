@@ -9,6 +9,8 @@ import Stop from '@/assets/icon/circle-stop.svg';
 import Loading from '@/assets/icon/loader-circle.svg';
 import Checkbox from '@/components/Checkbox';
 import {useState} from 'react';
+import TextInput from '@/components/TextInput';
+import {fetch} from '@/apis/instance';
 
 const TestPage = () => {
   const onClickButton = () => {
@@ -19,6 +21,11 @@ const TestPage = () => {
     setCheck(true);
   };
 
+  const [inputValue, setInputValue] = useState('');
+
+  const deleteUser = () => {
+    fetch.delete('/users/me ');
+  };
   return (
     <>
       <div className="title-md">버튼</div>
@@ -27,8 +34,8 @@ const TestPage = () => {
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
         <Button theme="primary">Primary Button</Button>
-        <Button theme="primary" rounded>
-          Primary Button Rounded
+        <Button theme="primary" rounded onClick={deleteUser}>
+          클릭하면 탈퇴
         </Button>
         <Button theme="primary" border>
           Primary w/Border
@@ -121,7 +128,21 @@ const TestPage = () => {
       <Checkbox checked={false} onChangeCheck={checkHandler} disabled={true}>
         disabled / not-checked
       </Checkbox>
-
+      <br />
+      <br />
+      <div className="title-md">텍스트 인풋</div>
+      <br />
+      <TextInput value={inputValue} setValue={setInputValue} />
+      <br />
+      <TextInput
+        value={inputValue}
+        setValue={setInputValue}
+        label={'라벨이 있는 인풋'}
+        type="email"
+        helpMessage="이메일을 입력하세요"
+      />
+      <br />
+      <TextInput value={'disabled'} setValue={setInputValue} disabled={true} />
       <br />
       <br />
       <br />
