@@ -26,6 +26,12 @@ type CreateOptions = {
   baseURL: string;
 } & Options;
 
+let token: string | null = '';
+
+if (typeof window !== 'undefined') {
+  token = localStorage.getItem('token');
+}
+
 class APIClient {
   private baseURL: string;
   private options: Options;
@@ -148,6 +154,10 @@ class APIClient {
   ): Promise<ApiResponse<T> | null> {
     const fullUrl = this.constructURL(url, options.queryParams);
 
+    const requestHeaders: HeadersInit = new Headers();
+    requestHeaders.set('Authorization', token ? token : (localStorage?.getItem('token') as string));
+    requestHeaders.set('Content-Type', 'application/json');
+    options.headers = requestHeaders;
     try {
       const response = await fetch(fullUrl, options);
 
@@ -189,6 +199,10 @@ class APIClient {
 
       console.error(`[APIClient] Error occurred (${errorCode}):`, `API_Url: ${fullUrl}`, message);
 
+      if (errorCode === 'JWT001') {
+        window.alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
+        localStorage.clear();
+      }
       throw new Error(message);
     }
   }
