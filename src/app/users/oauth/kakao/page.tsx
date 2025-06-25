@@ -17,25 +17,29 @@ const KakaoRedirectPage = () => {
 
     getKakaoProfile(code)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status.toString());
-        } else {
-          return response.json();
-        }
-      })
-      .then((data) => {
-        if (data.code === '200') {
+        const data = response && response.result;
+        if (data) {
+          store.setUserId(String(data?.id));
           store.setIsLoggedIn(true);
-          store.setUsername(data.result.name);
-          store.setUserKaKaoImage(data.result.image);
-          store.setIsUserRegistered(data.result.registered);
+          store.setUsername(data?.name);
+          store.setUserKaKaoImage(data?.image);
+          store.setIsUserRegistered(data?.registered);
 
-          router.push('/');
-        } else {
-          throw new Error();
+          localStorage.setItem('token', data?.accessToken);
+
+          if (data?.registered) {
+            router.push('/');
+          } else {
+            router.push('/users/join');
+          }
         }
       })
-      .catch((err) => console.log(err));
+      .catch((e) => {
+        console.log(e);
+        localStorage.clear();
+        window.alert('로그인 실패');
+        router.push('/');
+      });
   }, [code]);
   return <Loader />;
 };
