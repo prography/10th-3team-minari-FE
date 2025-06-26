@@ -17,6 +17,7 @@
   text-underline-position: from-font;
   letter-spacing: 0.2px;
   cursor: pointer;
+  margin-bottom: 12px;
 }
 
 .divider {
