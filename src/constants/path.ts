@@ -1,12 +1,13 @@
 const REHEARSAL = 'rehearsal';
-const SETTING = 'setting';
 const RESULT = 'result';
+const ME = 'me';
+const SEEDS = 'seeds';
 
 export const PATH = {
   ROOT: '/',
   REHEARSAL: `/${REHEARSAL}`,
-  REHEARSAL_SETTING: `/${REHEARSAL}/${SETTING}`,
-  REHEARSAL_RESULT: `/${REHEARSAL}/${RESULT}`,
+  RESULT: `/${RESULT}`,
+  ME_SEEDS: `/${ME}/${SEEDS}`,
 };
 
 export const OUT_LINK = {
