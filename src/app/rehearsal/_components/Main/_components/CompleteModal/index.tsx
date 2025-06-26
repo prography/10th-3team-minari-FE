@@ -3,6 +3,7 @@ import ProgressBar from './ProgressBar';
 import styles from './CompleteModal.module.css';
 import {useRouter} from 'next/navigation';
 import {useCompleteModal} from '@/contexts/CompleteModalProvider';
+import {PATH} from '@/constants/path';
 
 const CompleteModal = () => {
   const [percent, setPercent] = useState(0);
@@ -14,7 +15,7 @@ const CompleteModal = () => {
 
     if (percent >= 100) {
       handleClose();
-      router.push('/result');
+      router.push(PATH.RESULT);
       return;
     }
 
@@ -33,7 +34,7 @@ const CompleteModal = () => {
     }
   }, [percent, open, isUploaded]);
 
-  if (!open) return <></>;
+  if (!open) return null;
 
   return (
     <div className={styles.wrapper}>
