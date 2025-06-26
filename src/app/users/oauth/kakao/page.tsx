@@ -5,6 +5,7 @@ import {useUserStore} from '@/stores/userStore';
 import {useRouter} from 'next/navigation';
 import Loader from '@/components/Loader';
 import {getKakaoProfile} from '@/apis/user';
+import {setCookie} from '@/utils/cookies';
 
 const KakaoRedirectPage = () => {
   let code = '';
@@ -25,7 +26,7 @@ const KakaoRedirectPage = () => {
           store.setUserKaKaoImage(data?.image);
           store.setIsUserRegistered(data?.registered);
 
-          localStorage.setItem('token', data?.accessToken);
+          setCookie('token', data?.accessToken);
 
           if (data?.registered) {
             router.push('/');
@@ -35,7 +36,7 @@ const KakaoRedirectPage = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        console.log(e, '카카오 로그인 에러 발생');
         localStorage.clear();
         window.alert('로그인 실패');
         router.push('/');

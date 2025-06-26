@@ -1,4 +1,5 @@
 import {ErrorMessage} from './type';
+import {getCookie} from '@/utils/cookies';
 
 // import {redirect} from 'next/navigation';
 
@@ -25,12 +26,6 @@ type RequestOptions = Options & {
 type CreateOptions = {
   baseURL: string;
 } & Options;
-
-let token: string | null = '';
-
-if (typeof window !== 'undefined') {
-  token = localStorage.getItem('token');
-}
 
 class APIClient {
   private baseURL: string;
@@ -155,7 +150,9 @@ class APIClient {
     const fullUrl = this.constructURL(url, options.queryParams);
 
     const requestHeaders: HeadersInit = new Headers();
-    requestHeaders.set('Authorization', token ? token : (localStorage?.getItem('token') as string));
+
+    const token = await getCookie('token');
+    requestHeaders.set('Authorization', token as string);
     requestHeaders.set('Content-Type', 'application/json');
     options.headers = requestHeaders;
     try {
