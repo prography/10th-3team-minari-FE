@@ -35,7 +35,7 @@ const LayoutWrapper = ({children}: {children: ReactNode}) => {
           userStore.isLoggedIn ? (
             <Header.UserMenu userImage={userStore.userKakaoImage} />
           ) : (
-            <Header.LangingMenu />
+            <Header.LandingMenu />
           )
         }
       />

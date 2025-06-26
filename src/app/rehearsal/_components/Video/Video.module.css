@@ -13,6 +13,7 @@
   height: 100%;
   border-radius: var(--border-radius-lg);
   object-fit: cover;
+  transform: scaleX(-1);
 }
 
 .count_wrapper {
