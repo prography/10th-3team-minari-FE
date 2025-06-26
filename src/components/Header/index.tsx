@@ -57,9 +57,9 @@ const LandingMenu = () => {
   );
 };
 
-const UserMenu = ({userImage}: {userImage?: string}) => {
+const UserMenu = ({userImage, linkMyPage}: {userImage?: string; linkMyPage: boolean}) => {
   return (
-    <Link href="/">
+    <Link href={linkMyPage ? '/' : ''}>
       <Image
         src={userImage ? userImage : ''}
         alt="logo"
