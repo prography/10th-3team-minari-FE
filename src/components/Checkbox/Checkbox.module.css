@@ -1,0 +1,133 @@
+.wrapper {
+  height: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 24px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* 기본 체크박스 숨기기 */
+.input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* 커스텀 체크박스 생성 */
+.checkmark {
+  position: absolute;
+  /*top: 0;*/
+  left: 0;
+  height: 16px;
+  width: 16px;
+
+  border-radius: var(--border-radius-md, 4px);
+  border: var(--border-width-sm, 1px) solid var(--color-border-interactive-secondary, #737373);
+  background: var(--color-bg-primary, #fff);
+}
+
+/* unchecked && hovered */
+.container:hover input ~ .checkmark {
+  border-radius: var(--border-radius-md, 4px);
+  border: var(--border-width-sm, 1px) solid
+    var(--color-border-interactive-secondary-hovered, #525252);
+  background: var(--color-bg-interactive-secondary-hovered, #d4d4d4);
+}
+
+/* checked */
+.input:checked ~ .checkmark {
+  border-radius: var(--border-radius-md, 4px);
+  background: var(--color-bg-interactive-primary, #d8ff64);
+  border-color: var(--color-bg-interactive-primary, #d8ff64);
+}
+
+/* checkmark/indicator (unchecked) */
+.checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+/* checkmark/indicator (checked) */
+.input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* checkmark/indicator 커스텀 스타일 */
+.container .checkmark:after {
+  left: 5px;
+  width: 5px;
+  height: 11px;
+  border: solid var(--color-bg-inverse-bold);
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* checked && hovered */
+.container:hover .checkmark:after {
+  border: solid var(--color-bg-inverse-bolder);
+  border-width: 0 2px 2px 0;
+}
+.container:hover input:checked ~ .checkmark {
+  background: var(--color-bg-interactive-primary-hovered, #c5f900);
+  border-color: var(--color-bg-interactive-primary-hovered, #c5f900);
+}
+
+/* checked && pressed */
+.container:active input:checked ~ .checkmark {
+  background: var(--color-bg-interactive-primary-pressed, #bce700);
+  border-color: var(--color-bg-interactive-primary-pressed, #bce700);
+}
+
+/* disabled && not-checked: 박스 배경 + 테두리 */
+.input:disabled ~ .checkmark {
+  background: var(--color-bg-disabled);
+  border: 1px solid var(--color-border-disabled);
+}
+
+/* disabled && checked : 박스 배경 + 테두리 */
+.input:disabled:checked ~ .checkmark {
+  background: var(--color-bg-disabled);
+  border: 1px solid var(--color-bg-disabled);
+}
+
+/* disabled : 체크 마크 */
+.input:disabled:checked ~ .checkmark:after {
+  border-color: var(--color-border-disabled);
+}
+
+/* 체크박스 list -> 전체 체크 */
+.checkmark-indeterminate {
+  position: absolute;
+  /*top: 0;*/
+  left: 0;
+  height: 16px;
+  width: 16px;
+
+  border-radius: var(--border-radius-md, 4px);
+  border: var(--border-width-sm, 1px) solid var(--color-bg-interactive-primary);
+  background: var(--color-bg-interactive-primary);
+}
+.indeterminate {
+  width: 14px;
+  height: 14px;
+}
+.indeterminate hr {
+  border: 0;
+  border-top: 2px solid var(--color-bg-inverse-bold);
+  width: 12px;
+}

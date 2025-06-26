@@ -2,9 +2,12 @@ import styles from './MainPage.module.css';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
 import Button from '@/components/Button';
+import {useTag} from '@/hooks/queries/useTag';
 
 const MainPage = () => {
-  const KEYWORDS = ['키워드1', '키워드2', '키워드3'];
+  // const {questionId} = useQuestionId();
+  const {data} = useTag(5);
+  const CATEGORY = '브라우저';
 
   return (
     <div className={styles.container}>
@@ -15,10 +18,10 @@ const MainPage = () => {
         나에게 맞는 미나리를 선택하고, 풀어보세요!
       </div>
       <div className={styles['category__container']}>
-        <div className="title-sm">세부 카테고리</div>
+        <div className="title-sm">{CATEGORY}</div>
       </div>
       <div className={styles['keyword__wrapper']}>
-        {KEYWORDS.map((item, i) => (
+        {data?.result?.map((item, i) => (
           <div key={i} className={styles['keyword__container']}>
             <span className="label-lg">{item}</span>
           </div>

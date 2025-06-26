@@ -1,0 +1,9 @@
+.input__wrap {
+  display: flex;
+  gap: 12px;
+}
+
+.button__wrap {
+  height: 48px;
+  margin-top: 32px;
+}

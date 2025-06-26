@@ -5,6 +5,7 @@ import {useUserStore} from '@/stores/userStore';
 import {useRouter} from 'next/navigation';
 import Loader from '@/components/Loader';
 import {getKakaoProfile} from '@/apis/user';
+import {setCookie} from '@/utils/cookies';
 
 const KakaoRedirectPage = () => {
   let code = '';
@@ -17,21 +18,29 @@ const KakaoRedirectPage = () => {
 
     getKakaoProfile(code)
       .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.status.toString());
-        } else {
-          return response.json();
+        const data = response && response.result;
+        if (data) {
+          store.setUserId(String(data?.id));
+          store.setIsLoggedIn(true);
+          store.setUsername(data?.name);
+          store.setUserKaKaoImage(data?.image);
+          store.setIsUserRegistered(data?.registered);
+
+          setCookie('token', data?.accessToken);
+
+          if (data?.registered) {
+            router.push('/');
+          } else {
+            router.push('/users/join');
+          }
         }
       })
-      .then((data) => {
-        store.setIsLoggedIn(true);
-        store.setUsername(data.name);
-        store.setUserKaKaoImage(data.image);
-        store.setIsUserRegistered(data.registered);
-
+      .catch((e) => {
+        console.log(e, '카카오 로그인 에러 발생');
+        localStorage.clear();
+        window.alert('로그인 실패');
         router.push('/');
-      })
-      .catch((err) => console.log(err));
+      });
   }, [code]);
   return <Loader />;
 };

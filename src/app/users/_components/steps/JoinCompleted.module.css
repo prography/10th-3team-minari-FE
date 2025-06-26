@@ -1,0 +1,45 @@
+.container {
+  display: flex;
+  padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
+  align-items: flex-start;
+  gap: var(--spacing-12, 12px);
+  align-self: stretch;
+  border-radius: var(--border-radius-lg, 8px);
+  background: var(--color-bg-inverse-bolder, #262626);
+}
+
+.wrapper {
+  /*position: absolute;*/
+  /*max-width: 480px;*/
+}
+
+.bg-image__wrapper {
+  /*background-color: red;*/
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 0;
+  top: -82px;
+}
+.bg-image__wrapper > * {
+  border-bottom-right-radius: 8px;
+}
+
+.text-section {
+  width: 100%;
+  margin-left: 12px;
+}
+.text-section > div {
+  color: var(--color-text-interactive-inverse-white);
+}
+
+.title__wrap {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-profile__button {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}

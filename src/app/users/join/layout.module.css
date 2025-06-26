@@ -1,0 +1,16 @@
+.wrapper {
+  min-height: calc(100dvh - 144px);
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 468px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    width: 320px;
+  }
+}
