@@ -11,10 +11,27 @@ import Checkbox from '@/components/Checkbox';
 import {useState} from 'react';
 import TextInput from '@/components/TextInput';
 import {fetch} from '@/apis/instance';
+import Modal from '@/components/Modal';
+import {useModalStore} from '@/stores/modalStore';
 
 const TestPage = () => {
-  const onClickButton = () => {
-    window.alert('button clicked !!');
+  const {open: opneModal, close: closeModal} = useModalStore();
+
+  const handleClickOpenModal = () => {
+    opneModal(
+      <Modal
+        title="정말 계정을 탈퇴 하시겠어요?"
+        leftButton={
+          <Button onClick={closeModal} theme="secondary">
+            취소
+          </Button>
+        }
+        rightButton={<Button onClick={() => console.log('모달 클릭')}>계속</Button>}
+      >
+        <p>삭제하면 가지고 있는 모든 혜택이 사라져요.</p>
+        <p>진행 이후 7일 이내에 복구가 가능해요.</p>
+      </Modal>,
+    );
   };
   const [check, setCheck] = useState(false);
   const checkHandler = () => {
@@ -28,6 +45,7 @@ const TestPage = () => {
   };
   return (
     <>
+      <Button onClick={handleClickOpenModal}>open Modal</Button>
       <div className="title-md">버튼</div>
       <br />
       <div className="title-sm">text only</div>
@@ -89,7 +107,7 @@ const TestPage = () => {
       <div className="body-lg">오른쪽 아이콘 &apos;arrow-black&apos;</div>
       <div style={{display: 'flex', gap: '12px'}}>
         <Button iconRight={BlackArrow}>카카오 로그인</Button>
-        <Button iconRight={BlackArrow} onClick={onClickButton}>
+        <Button iconRight={BlackArrow} onClick={handleClickOpenModal}>
           클릭하면 ?
         </Button>
       </div>
