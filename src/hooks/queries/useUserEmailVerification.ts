@@ -8,7 +8,6 @@ export const useUserEmailVerification = (email: string) => {
   const [shouldFetch, setShouldFetch] = useState(false);
 
   const fetchPostEmailVerification = async () => {
-    console.log(localStorage.getItem('token'));
     const response = await postEmailVerification(email);
     if (response?.code === '200') {
       setIsError(false);
