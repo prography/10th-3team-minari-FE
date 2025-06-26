@@ -12,6 +12,8 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: string;
   helpMessage?: string;
   required?: boolean;
+  confirmMessage?: string;
+  confirmMessageShow?: boolean;
 }
 
 const TextInput = ({
@@ -23,7 +25,10 @@ const TextInput = ({
   type,
   helpMessage,
   required,
+  confirmMessage,
+  confirmMessageShow,
 }: TextInputProps) => {
+  const emailPattern = '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{1,}$';
   return (
     <div className={styles.wrapper}>
       <label htmlFor={`input-${label}`} className="label-lg">
@@ -35,6 +40,7 @@ const TextInput = ({
       <input
         id={`input-${label}`}
         type={type ? type : 'text'}
+        pattern={type === 'email' ? emailPattern : ''}
         disabled={disabled}
         className={styles.input}
         value={value}
@@ -45,6 +51,11 @@ const TextInput = ({
         <Image src={redX} alt={''} />
         {helpMessage}
       </span>
+      <div
+        className={`body-md ${confirmMessageShow ? styles['confirm-message'] : styles['confirm-message__hide']}`}
+      >
+        {confirmMessageShow ? `V ${confirmMessage}` : ''}
+      </div>
     </div>
   );
 };
