@@ -1,5 +1,5 @@
 import {ErrorMessage} from './type';
-import {getCookie} from '@/utils/cookies';
+import {deleteCookie, getCookie} from '@/utils/cookies';
 
 // import {redirect} from 'next/navigation';
 
@@ -207,9 +207,11 @@ class APIClient {
         `\n======================\n`,
       );
 
-      if (errorCode === 'JWT001') {
+      if (errorCode === 'JWT004') {
         window.alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
         localStorage.clear();
+        await deleteCookie('token');
+        window.location.href = '/';
       }
       throw new Error(message);
     }
