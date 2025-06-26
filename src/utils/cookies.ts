@@ -11,7 +11,7 @@ type CookieOptions = {
 export async function setCookie(
   key: string,
   value: string,
-  options: CookieOptions,
+  options?: CookieOptions,
 ): Promise<string> {
   return JSON.stringify((await cookies()).set(key, value, options));
 }
