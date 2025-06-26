@@ -71,7 +71,7 @@ const UserMenu = ({userImage}: {userImage?: string}) => {
   );
 };
 
-Header.LangingMenu = LandingMenu;
+Header.LandingMenu = LandingMenu;
 Header.UserMenu = UserMenu;
 
 export default Header;
