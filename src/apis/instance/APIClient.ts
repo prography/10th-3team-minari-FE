@@ -10,7 +10,7 @@ export type ApiResponse<T> = {
 
 export type ErrorResponse = {
   code: string;
-  result: null;
+  result: string | null;
 };
 
 type Options = Omit<RequestInit, 'body'>;
@@ -179,6 +179,7 @@ class APIClient {
       return responseData as ApiResponse<T>;
     } catch (error: unknown) {
       let errorCode = 'UNKNOWN';
+      let errorMessage = null;
 
       if (
         typeof error === 'object' &&
@@ -187,14 +188,24 @@ class APIClient {
         typeof (error as ErrorResponse).code === 'string'
       ) {
         errorCode = (error as ErrorResponse).code;
+        errorMessage = (error as ErrorResponse).result;
       }
 
       const message =
         errorCode in ErrorMessage
           ? ErrorMessage[errorCode as keyof typeof ErrorMessage]
-          : '알 수 없는 오류';
+          : errorMessage != null
+            ? errorMessage
+            : '알 수 없는 오류';
 
-      console.error(`[APIClient] Error occurred (${errorCode}):`, `API_Url: ${fullUrl}`, message);
+      console.error(
+        `======================`,
+        `\n[APIClient] Error occurred (${errorCode}):`,
+        `\n[API Method]: ${options.method}`,
+        `\n[API Url]: ${fullUrl}`,
+        `\n[Error Message]: ${message}`,
+        `\n======================\n`,
+      );
 
       if (errorCode === 'JWT001') {
         window.alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
