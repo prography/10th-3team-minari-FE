@@ -4,6 +4,9 @@ import {startAudioRecording, startVideoRecording, stopRecording} from '@/utils/r
 import {useRef, useState} from 'react';
 import {useFile} from './mutations/useFile';
 import {useRehearsal as useRehearsalInProvider} from '@/contexts/RehearsalProvider';
+import {useModalStore} from '@/stores/modalStore';
+import Button from '@/components/Button';
+import Modal from '@/components/Modal';
 
 type RecordingStatus = 'idle' | 'recording' | 'paused' | 'stopped';
 
@@ -18,6 +21,28 @@ const useRehearsal = () => {
   const {handleClose} = useCompleteModal();
   const fileMutation = useFile();
   const {handleIsSetting} = useRehearsalInProvider();
+  const {open: opneModal, close: closeModal} = useModalStore();
+
+  const handleErrorModal = () => {
+    opneModal(
+      <Modal
+        title="잠시 후 다시 도전해주세요"
+        rightButton={
+          <Button
+            onClick={() => {
+              handleIsSetting();
+              closeModal();
+            }}
+          >
+            계속
+          </Button>
+        }
+      >
+        <p>알 수 없는 오류가 발생했어요.</p>
+        <p>다시 한 번 도전해볼까요?</p>
+      </Modal>,
+    );
+  };
 
   const handleRearsalStart = () => {
     if (mediaStream) {
@@ -68,7 +93,7 @@ const useRehearsal = () => {
         onError: () => {
           setRecordingStatus('idle');
           handleClose();
-          handleIsSetting();
+          handleErrorModal();
         },
       },
     );
