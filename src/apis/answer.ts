@@ -14,8 +14,6 @@ export interface AnswerType {
 }
 
 export const getAnswer = async (userId: string, questionId: number) => {
-  const response = await fetch.get<AnswerType>(`/${userId}/questions/${questionId}`, {
-    cache: 'no-store',
-  });
+  const response = await fetch.get<AnswerType>(`/${userId}/questions/${questionId}`);
   return response;
 };
