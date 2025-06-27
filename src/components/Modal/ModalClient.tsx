@@ -6,7 +6,7 @@ import {createPortal} from 'react-dom';
 import styles from './Model.module.css';
 
 export const ModalClient = () => {
-  const {modal, isOpen, close} = useModalStore();
+  const {modal, isOpen, close, disableBackdropClick} = useModalStore();
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -23,6 +23,8 @@ export const ModalClient = () => {
   }, [isOpen]);
 
   const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (disableBackdropClick) return;
+
     if (modalRef.current === e.target) {
       close();
     }
