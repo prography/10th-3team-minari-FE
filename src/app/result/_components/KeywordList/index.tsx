@@ -1,7 +1,9 @@
-import type {ApiResponse} from '@/apis/instance/APIClient';
 import Keywrod from '../Keyword';
+import {useTag} from '@/hooks/queries/useTag';
 
-const KeywordList = ({tags}: {tags: ApiResponse<string[]> | null}) => {
+const KeywordList = () => {
+  const {data: tags} = useTag(6);
+
   return <>{tags?.result?.map((v, index) => <Keywrod key={`${v}-${index}`}>{v}</Keywrod>)}</>;
 };
 
