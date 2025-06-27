@@ -14,6 +14,8 @@ import ArrowLeft from '@/assets/icon/arrow-left.svg';
 import ArrowRight from '@/assets/icon/arrow-black.svg';
 import {useUserStore} from '@/stores/userStore';
 import JoinCompleted from '@/app/users/_components/steps/JoinCompleted';
+import Modal from '@/components/Modal';
+import {useModalStore} from '@/stores/modalStore';
 
 /*
  * 회원 가입
@@ -29,6 +31,7 @@ const JoinPage = () => {
 
   // 사용자 등록 api 호출
   const {isSuccess, isError, setShouldFetch, setData} = useUserJoin();
+  const {open} = useModalStore();
 
   // [이전], [다음] 버튼 페이지 넘기기
   const onClickGoNext = () => {
@@ -83,8 +86,21 @@ const JoinPage = () => {
       setStep(4);
     }
     if (isError) {
-      window.alert('회원가입 실패');
-      location.reload();
+      open(
+        <Modal
+          title="회원가입 실패"
+          rightButton={
+            <Button
+              onClick={() => {
+                location.reload();
+              }}
+            >
+              확인
+            </Button>
+          }
+        />,
+        true,
+      );
     }
   }, [isSuccess, isError]);
 
