@@ -1,8 +1,8 @@
 export default function NotFound() {
   return (
     <div style={{padding: '4rem', textAlign: 'center'}}>
-      <h1>404 - 페이지를 찾을 수 없습니다</h1>
-      <p>잘못된 경로이거나 존재하지 않는 페이지입니다.</p>
+      <h1>페이지를 찾을 수 없어요</h1>
+      <p>요청하신 페이지가 존재하지 않거나, 주소가 잘못되었어요.</p>
     </div>
   );
 }
