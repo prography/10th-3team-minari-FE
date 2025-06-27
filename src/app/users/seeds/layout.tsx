@@ -1,24 +1,29 @@
 import {useId} from 'react';
+import styles from './Seeds.module.css';
 
-const SeedsPage = () => {
+const SeedsLayout = ({children}: {children: React.ReactNode}) => {
   const id = useId();
   return (
     <>
       <h4 className="title-sm">MINARI SHOP</h4>
 
-      <div>
-        <span>씨앗 이용 정보</span>
-        <div>
+      <div className={styles.seeds_info}>
+        <span className="title-xs">씨앗 이용 정보</span>
+        <div className="body-lg">
           <span>보유중인 씨앗</span>
           <span>{} 개</span>
         </div>
       </div>
 
-      <div>
-        <span>유의사항</span>
-        <ul>
+      {children}
+
+      <div className={styles.note_wrapper}>
+        <span className="label-lg">유의사항</span>
+        <ul className={styles.note_list}>
           {Note.map((n, i) => (
-            <li key={`${id}_${i}`}>{n}</li>
+            <li key={`${id}_${i}`} className={`${styles.note_item} lable-sm`}>
+              {n}
+            </li>
           ))}
         </ul>
       </div>
@@ -39,4 +44,4 @@ const Note = [
   '무료씨앗은 구매 취소 및 환불 대상이 아닙니다. 따라서 충전 내역과 취소 내역의 쿠키 수량이 다를 수 있습니다.',
 ];
 
-export default SeedsPage;
+export default SeedsLayout;
