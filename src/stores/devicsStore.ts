@@ -18,18 +18,20 @@ type DeviceStore = {
 };
 
 export const useDeviceStore = create<DeviceStore>((set) => {
-  const fetchAndSetDevices = async () => {
-    const devices = await getDevices();
-    set({devices});
-    set({
-      selectDevice: {
-        videoInput: devices.videoInputDevices[0],
-        audioInput: devices.audioInputDevices[0],
-      },
-    });
-  };
+  if (typeof window !== 'undefined') {
+    const fetchAndSetDevices = async () => {
+      const devices = await getDevices();
+      set({devices});
+      set({
+        selectDevice: {
+          videoInput: devices.videoInputDevices[0],
+          audioInput: devices.audioInputDevices[0],
+        },
+      });
+    };
 
-  void fetchAndSetDevices();
+    void fetchAndSetDevices();
+  }
 
   return {
     devices: {videoInputDevices: [], audioInputDevices: []},
