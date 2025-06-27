@@ -2,11 +2,13 @@
 import styles from './JoinEmailVerification.module.css';
 import TextInput from '@/components/TextInput';
 import {useEffect, useState} from 'react';
+import {useModalStore} from '@/stores/modalStore';
 import Button from '@/components/Button';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
 import {useRouter} from 'next/navigation';
 import {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';
+import Modal from '@/components/Modal';
 
 const JoinEmailVerification = () => {
   const {joinForm, setJoinForm} = useUserJoinContext();
@@ -14,6 +16,7 @@ const JoinEmailVerification = () => {
   const [showVeriCode, setShowVeriCode] = useState(false);
   const router = useRouter();
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const {open} = useModalStore();
 
   // TODO 이메일발송, 코드검증 후 안내문구 추가
   // 이메일 발송 (인증번호)
@@ -26,8 +29,21 @@ const JoinEmailVerification = () => {
   };
   useEffect(() => {
     if (isError) {
-      window.alert('이메일 전송 에러');
-      router.push('/');
+      open(
+        <Modal
+          title="이메일 전송 에러"
+          rightButton={
+            <Button
+              onClick={() => {
+                router.push('/');
+              }}
+            >
+              확인
+            </Button>
+          }
+        />,
+        true,
+      );
     }
   }, [isError]);
 
@@ -37,8 +53,21 @@ const JoinEmailVerification = () => {
   };
   useEffect(() => {
     if (isCodeError) {
-      window.alert('인증번호 확인 실패');
-      router.push('/');
+      open(
+        <Modal
+          title="인증번호 확인 실패"
+          rightButton={
+            <Button
+              onClick={() => {
+                router.push('/');
+              }}
+            >
+              확인
+            </Button>
+          }
+        />,
+        true,
+      );
     }
     if (isCodeSuccess) {
       setJoinForm({...joinForm, email: email});
