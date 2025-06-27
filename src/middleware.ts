@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const protectedPaths = ['/rehearsal', '/result'];
 
   if (protectedPaths.some((path) => pathname.includes(path)) && !token) {
-    return NextResponse.rewrite(new URL('/not-found', request.url));
+    return NextResponse.rewrite(new URL('/401', request.url));
   }
 
   return NextResponse.next();
