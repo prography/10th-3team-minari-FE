@@ -7,14 +7,11 @@ import Clock from '@/assets/icon/clock-5-white.svg';
 import type {ApiResponse} from '@/apis/instance/APIClient';
 import type {AnswerType} from '@/apis/answer';
 import Time from '../Time';
+import {useContents} from '@/hooks/queries/useContents';
 
-const Question = ({
-  answer,
-  contents,
-}: {
-  answer: ApiResponse<AnswerType> | null;
-  contents: ApiResponse<string> | null;
-}) => {
+const Question = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
+  const {data: contents} = useContents(6);
+
   return (
     <div className={styles.wrapper}>
       <Image
