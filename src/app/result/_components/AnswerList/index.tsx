@@ -63,7 +63,9 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
 
   return (
     <>
-      <Button onClick={() => setSeeds((prev) => !prev)}>{`씨앗없을 경우 ${seeds}`}</Button>
+      <Button
+        onClick={() => setSeeds((prev) => !prev)}
+      >{`씨앗이 ${seeds ? '있' : '없'}을 경우`}</Button>
       {ResultList.map(({id, title, contents, withButton}, idx) => (
         <Fragment key={id}>
           <ListRow
