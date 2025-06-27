@@ -1,5 +1,6 @@
+import {redirect} from 'next/navigation';
 import {ErrorMessage} from './type';
-import {deleteCookie, getCookie} from '@/utils/cookies';
+import {getCookie} from '@/utils/cookies';
 
 // import {redirect} from 'next/navigation';
 
@@ -42,72 +43,45 @@ class APIClient {
   }
 
   public get<T>(url: string, options?: RequestOptions) {
-    const headers: Record<string, string> = {
-      ...(this.options.headers as Record<string, string>),
-      ...(options?.headers as Record<string, string>),
-    };
-
     return this.request<T>(url, {
       method: 'GET',
       ...this.options,
       ...options,
-      headers,
     });
   }
 
   public post<T, D = unknown>(url: string, data?: D, options?: RequestOptions) {
-    const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
-
-    const headers = this.buildHeaders(options?.headers, isFormData);
-
     return this.request<T>(url, {
       method: 'POST',
       ...this.options,
       ...options,
-      headers,
-      body: isFormData ? data : data ? JSON.stringify(data) : undefined,
+      body: data instanceof FormData ? data : data ? JSON.stringify(data) : undefined,
     });
   }
 
   public patch<T, D = unknown>(url: string, data?: D, options?: RequestOptions) {
-    const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
-
-    const headers = this.buildHeaders(options?.headers, isFormData);
-
     return this.request<T>(url, {
       method: 'PATCH',
       ...this.options,
       ...options,
-      headers,
-      body: isFormData ? data : data ? JSON.stringify(data) : undefined,
+      body: data instanceof FormData ? data : data ? JSON.stringify(data) : undefined,
     });
   }
 
   public put<T, D = unknown>(url: string, data?: D, options?: RequestOptions) {
-    const isFormData = typeof FormData !== 'undefined' && data instanceof FormData;
-
-    const headers = this.buildHeaders(options?.headers, isFormData);
-
     return this.request<T>(url, {
       method: 'PUT',
       ...this.options,
       ...options,
-      headers,
-      body: isFormData ? data : data ? JSON.stringify(data) : undefined,
+      body: data instanceof FormData ? data : data ? JSON.stringify(data) : undefined,
     });
   }
 
   public delete<T>(url: string, options?: RequestOptions) {
-    const headers: Record<string, string> = {
-      ...(this.options.headers as Record<string, string>),
-      ...(options?.headers as Record<string, string>),
-    };
-
     return this.request<T>(url, {
       method: 'DELETE',
       ...this.options,
       ...options,
-      headers,
     });
   }
 
@@ -149,26 +123,23 @@ class APIClient {
   ): Promise<ApiResponse<T> | null> {
     const fullUrl = this.constructURL(url, options.queryParams);
 
-    const requestHeaders: HeadersInit = new Headers();
-
+    const isFormData = options.body instanceof FormData;
     const token = await getCookie('token');
-    requestHeaders.set('Authorization', token as string);
-    requestHeaders.set('Content-Type', 'application/json');
-    options.headers = requestHeaders;
+
+    const headers = new Headers(this.buildHeaders(options.headers, isFormData));
+
+    if (token) {
+      headers.set('Authorization', `${token}`);
+    }
+
+    options.headers = headers;
+
     try {
       const response = await fetch(fullUrl, options);
 
       if (response.status === 204) {
         return null;
       }
-
-      // if (response.status >= 400) {
-      //   if (response.status === 401) {
-      //     redirect('/login');
-      //   }
-      //   const error: ErrorResponse = await response.json();
-      //   throw error;
-      // }
 
       const responseData = await response.json();
 
@@ -198,6 +169,17 @@ class APIClient {
             ? errorMessage
             : '알 수 없는 오류';
 
+      const jwtErrorPrefix = /^JWT\d{3}$/;
+
+      if (jwtErrorPrefix.test(errorCode)) {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('tokenExpired', {detail: message}));
+        } else {
+          redirect('/401');
+        }
+        throw new Error(message);
+      }
+
       console.error(
         `======================`,
         `\n[APIClient] Error occurred (${errorCode}):`,
@@ -207,12 +189,6 @@ class APIClient {
         `\n======================\n`,
       );
 
-      if (errorCode === 'JWT004') {
-        window.alert('토큰이 만료되었습니다. 다시 로그인해주세요.');
-        localStorage.clear();
-        await deleteCookie('token');
-        window.location.href = '/';
-      }
       throw new Error(message);
     }
   }
