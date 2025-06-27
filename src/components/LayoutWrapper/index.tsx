@@ -9,6 +9,7 @@ import useTheme from '@/hooks/useTheme';
 import {PATH} from '@/constants/path';
 import useMedia from '@/hooks/useMedia';
 import {useMediaStore} from '@/stores/mediaStore';
+import {TokenExpirationHandler} from '../TokenExpirationHandler';
 
 const LayoutWrapper = ({children}: {children: ReactNode}) => {
   const pathname = usePathname();
@@ -42,6 +43,7 @@ const LayoutWrapper = ({children}: {children: ReactNode}) => {
           )
         }
       />
+      <TokenExpirationHandler />
       <div className={!avoidWrapper ? `${styles.wrapper} ${styles[theme]}` : ''}>
         <div className={!avoidWrapper ? styles.container : ''}>{children}</div>
       </div>
