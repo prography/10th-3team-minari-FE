@@ -1,6 +1,6 @@
 const REHEARSAL = 'rehearsal';
 const RESULT = 'result';
-const USERS = 'USERS';
+const USERS = 'users';
 const SEEDS = 'seeds';
 
 export const PATH = {
