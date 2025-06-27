@@ -1,0 +1,7 @@
+.button {
+  padding: 8px;
+}
+
+.active {
+  border-bottom: 1.5px solid var(--color-border-secondary);
+}
