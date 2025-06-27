@@ -1,0 +1,30 @@
+.seeds_info {
+  background: #f0f0f0;
+  border-radius: 8;
+  padding: 16px;
+  margin-top: 32px;
+}
+
+.note_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.note_list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.note_item {
+  color: var(--color-text-disabled);
+}
+
+.nav_list {
+  display: flex;
+  gap: 32px;
+}
