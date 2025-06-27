@@ -79,6 +79,7 @@ const JoinPage = () => {
     if (isSuccess) {
       userStore.setUserEmail(joinForm.email ? joinForm.email : '');
       userStore.setUserDomain(joinForm.domain);
+      userStore.setIsUserRegistered(true);
       setStep(4);
     }
     if (isError) {
@@ -91,7 +92,7 @@ const JoinPage = () => {
     <>
       <div>
         <JoinPageTitle step={step} />
-        <div className={styles.contents}>
+        <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
           {step === 0 && <JoinAgreement />}
           {step === 1 && (
             <JoinReceiveNotification

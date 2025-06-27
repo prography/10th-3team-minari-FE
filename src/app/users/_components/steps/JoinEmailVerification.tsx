@@ -13,15 +13,15 @@ const JoinEmailVerification = () => {
   const [email, setEmail] = useState('');
   const [showVeriCode, setShowVeriCode] = useState(false);
   const router = useRouter();
-  const EMAIL_REGEX =
-    /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d](?:[a-z\d-]{0,61}[a-z\d])?(?:\.[a-z\d](?:[a-z\d-]{0,61}[a-z\d])?)*$/i;
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+  // TODO 이메일발송, 코드검증 후 안내문구 추가
   // 이메일 발송 (인증번호)
-  const {isError, setShouldFetch} = useUserEmailVerification(email);
-  const {code, setCode, setShouldFetchCode, isCodeError, isCodeSuccess} =
+  const {refetchEmailVerification, isError} = useUserEmailVerification(email);
+  const {refetchCodeVerification, code, setCode, isCodeError, isCodeSuccess} =
     useUserEmailCodeVerification();
   const onClickSendVerification = () => {
-    setShouldFetch(true);
+    refetchEmailVerification();
     setShowVeriCode(true);
   };
   useEffect(() => {
@@ -33,7 +33,7 @@ const JoinEmailVerification = () => {
 
   // 인증번호 검증
   const onClickConfirmVerification = () => {
-    setShouldFetchCode(true);
+    refetchCodeVerification();
   };
   useEffect(() => {
     if (isCodeError) {
@@ -46,8 +46,8 @@ const JoinEmailVerification = () => {
   }, [isCodeError, isCodeSuccess]);
 
   return (
-    <>
-      <div className={styles['input__wrap']}>
+    <div className={styles.container}>
+      <div className={`${styles['input__wrap']} pd-bottom-32`}>
         <TextInput
           label="이메일을 입력해주세요"
           required={true}
@@ -68,12 +68,13 @@ const JoinEmailVerification = () => {
         </div>
       </div>
       {showVeriCode && (
-        <div className={`${styles['input__wrap']} mg-top-32`}>
+        <div className={`${styles['input__wrap']}`}>
           <TextInput
             label="인증번호를 입력해주세요"
             required={true}
             value={code}
             setValue={setCode}
+            type="number"
           />
           <div className={styles['button__wrap']}>
             <Button theme="secondary" border onClick={onClickConfirmVerification}>
@@ -82,7 +83,7 @@ const JoinEmailVerification = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

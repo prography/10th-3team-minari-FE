@@ -7,9 +7,8 @@ export const useUserEmailCodeVerification = () => {
   const [code, setCode] = useState('');
   const [isCodeError, setIsCodeError] = useState<boolean>(false);
   const [isCodeSuccess, setIsCodeSuccess] = useState<boolean>(false);
-  const [shouldFetchCode, setShouldFetchCode] = useState(false);
 
-  const fetchPostEmailCodeVerification = async () => {
+  const refetchCodeVerification = async () => {
     const response = await postEmailCodeVerification(code);
     if (response?.code === '200') {
       setIsCodeError(false);
@@ -23,8 +22,8 @@ export const useUserEmailCodeVerification = () => {
 
   useQuery({
     queryKey: ['user-email-code-verification'],
-    queryFn: fetchPostEmailCodeVerification,
-    enabled: shouldFetchCode && code !== '',
+    queryFn: refetchCodeVerification,
+    enabled: false,
   });
 
   return {
@@ -32,6 +31,6 @@ export const useUserEmailCodeVerification = () => {
     setCode,
     isCodeError,
     isCodeSuccess,
-    setShouldFetchCode,
+    refetchCodeVerification,
   };
 };

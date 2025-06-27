@@ -5,9 +5,8 @@ import {useState} from 'react';
 // 이메일 인증번호 전송
 export const useUserEmailVerification = (email: string) => {
   const [isError, setIsError] = useState<boolean>(false);
-  const [shouldFetch, setShouldFetch] = useState(false);
 
-  const fetchPostEmailVerification = async () => {
+  const refetchEmailVerification = async () => {
     const response = await postEmailVerification(email);
     if (response?.code === '200') {
       setIsError(false);
@@ -19,12 +18,12 @@ export const useUserEmailVerification = (email: string) => {
 
   useQuery({
     queryKey: ['user-email-verification'],
-    queryFn: fetchPostEmailVerification,
-    enabled: shouldFetch && email !== null && email !== '',
+    queryFn: refetchEmailVerification,
+    enabled: false,
   });
 
   return {
+    refetchEmailVerification,
     isError,
-    setShouldFetch,
   };
 };

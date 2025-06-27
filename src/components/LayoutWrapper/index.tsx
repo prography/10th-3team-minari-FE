@@ -33,7 +33,10 @@ const LayoutWrapper = ({children}: {children: ReactNode}) => {
       <Header
         menu={
           userStore.isLoggedIn ? (
-            <Header.UserMenu userImage={userStore.userKakaoImage} />
+            <Header.UserMenu
+              userImage={userStore.userKakaoImage}
+              linkMyPage={userStore.isUserRegistered}
+            />
           ) : (
             <Header.LandingMenu />
           )

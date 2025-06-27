@@ -29,3 +29,7 @@ export async function setCookie(
 export async function getCookie(key: string) {
   return (await cookies()).get(key)?.value.toString();
 }
+
+export async function deleteCookie(key: string) {
+  (await cookies()).delete(key);
+}
