@@ -11,7 +11,7 @@ import Button from '@/components/Button';
 import {useRouter} from 'next/navigation';
 import {PATH} from '@/constants/path';
 
-const AnswerList = ({answer}: {answer: ApiResponse<AnswerType> | null}) => {
+const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   const router = useRouter();
   const {open: opneModal, close: closeModal} = useModalStore();
   const [seeds, setSeeds] = useState(false);
@@ -22,7 +22,7 @@ const AnswerList = ({answer}: {answer: ApiResponse<AnswerType> | null}) => {
   };
 
   const handleBuySeeds = () => {
-    router.push(PATH.ME_SEEDS);
+    router.push(PATH.UESRS_SEEDS);
     closeModal();
   };
 
