@@ -1,0 +1,41 @@
+.button {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-interactive-inverse-gray);
+  padding: 12px 32px;
+  border-radius: var(--border-radius-rounded);
+
+  &:hover {
+    background-color: var(--color-bg-interactive-secondary-hovered);
+    color: var(--color-text-interactive-secondary-hovered);
+  }
+
+  &:active {
+    background-color: var(--color-bg-interactive-secondary-pressed);
+    color: var(--color-text-interactive-secondary-pressed);
+  }
+}
+
+.active {
+  background-color: var(--color-bg-brand-subtle);
+  color: var(--color-text-interactive-secondary);
+
+  &:hover {
+    background-color: var(--color-bg-brand-main);
+    color: var(--color-text-interactive-secondary-hovered);
+  }
+
+  &:active {
+    background-color: var(--color-bg-brand-bold);
+    color: var(--color-text-interactive-secondary-pressed);
+  }
+}
+
+.nav {
+  background: var(--white);
+  padding: 4px;
+  display: flex;
+  border-radius: var(--border-radius-rounded);
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+}
