@@ -21,9 +21,9 @@ const MyPage = () => {
       {/*<div className="body-md">*/}
       {/*  내가 심은 날의 미나리를 클릭해서 나의 리허설 히스토리를 확인해요.*/}
       {/*</div>*/}
-      <div className="mg-top-20">
-        <MoreTab />
-      </div>
+        <div className="mg-top-20">
+            <MoreTab />
+        </div>
     </div>
   );
 };
