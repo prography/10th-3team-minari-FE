@@ -31,7 +31,7 @@ const JoinPage = () => {
 
   // 등록한 사용자 페이지 진입 시 예외처리
   useEffect(() => {
-    if (userStore.isUserRegistered) {
+    if (userStore.isUserRegistered && step === 0) {
       router.push('/');
     }
   }, [userStore.isUserRegistered]);
