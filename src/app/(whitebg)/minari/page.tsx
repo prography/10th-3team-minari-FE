@@ -1,3 +1,5 @@
+'use client';
+
 import styles from './Minari.module.css';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
