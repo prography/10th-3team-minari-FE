@@ -29,6 +29,13 @@ const JoinPage = () => {
   const userStore = useUserStore();
   const {step, setStep, nextButtonChecker, joinForm} = useUserJoinContext();
 
+  // 등록한 사용자 페이지 진입 시 예외처리
+  useEffect(() => {
+    if (userStore.isUserRegistered) {
+      router.push('/');
+    }
+  }, [userStore.isUserRegistered]);
+
   // 사용자 등록 api 호출
   const {setShouldFetch, setBody, isSuccess, isError} = useUserJoin();
   const {open} = useModalStore();
@@ -40,7 +47,7 @@ const JoinPage = () => {
     } else if (step === 1 && !joinForm.isSubscribed) {
       setStep(3);
     } else if (step === 3) {
-      // TODO jwt 적용 후 useId 삭제
+      // TODO jwt 적용 후 userId 삭제
       const userData = {
         ...joinForm,
         email: joinForm.isSubscribed ? joinForm.email : null,
