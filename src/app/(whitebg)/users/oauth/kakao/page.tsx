@@ -16,7 +16,7 @@ const KakaoRedirectPage = () => {
   const router = useRouter();
   const {open, close} = useModalStore();
   const onClickErrorModal = async () => {
-    await deleteCookie('token');
+    await deleteCookie('accessToken');
     close();
     router.push('/');
     setTimeout(() => {
@@ -37,7 +37,8 @@ const KakaoRedirectPage = () => {
           store.setUserKaKaoImage(data?.image);
           store.setIsUserRegistered(data?.registered);
 
-          setCookie('token', data?.accessToken);
+          setCookie('accessToken', data?.accessToken);
+          setCookie('refreshToken', data?.refreshToken);
 
           if (data?.registered) {
             router.push('/');

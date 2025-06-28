@@ -1,5 +1,6 @@
 import {fetch} from './instance';
 import {UserDomain, UserExperienceLevel} from '@/stores/userStore';
+import {getCookie} from '@/utils/cookies';
 
 export const loginKaKao = () => {
   const link = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_KEY}&scope=talk_message,profile_nickname,profile_image&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}`;
@@ -22,7 +23,8 @@ export const getKakaoProfile = async (code: string) => {
 
 // 토큰 재발급
 export const postRefreshToken = async () => {
-  fetch.post(`/users/token/refresh`, {refreshToken: token});
+  const token = await getCookie('refreshToken');
+  return fetch.post<TypeRefreshTokenResponse>(`/users/token/refresh`, {refreshToken: token});
 };
 
 // 회원가입 > 이메일 인증
@@ -72,10 +74,12 @@ export interface UsersReponse {
   name: string;
   image: string;
   seed: number;
+  domain: UserDomain;
 }
 
 export interface TypeKakaoLoginResponse {
   accessToken: string;
+  refreshToken: string;
   id: number;
   email: string;
   socialType: string;
@@ -84,6 +88,7 @@ export interface TypeKakaoLoginResponse {
   image: string;
   registered: boolean;
 }
+
 export interface TypeUserRegisterRequest {
   email: string | null;
   userId: string;
@@ -93,10 +98,16 @@ export interface TypeUserRegisterRequest {
   workExperienceLevel: UserExperienceLevel;
   domain: UserDomain;
 }
+
 export interface TypeUserRegisterResponse extends TypeUserRegisterRequest {
   id: number;
   socialId: number;
   name: string;
   image: string;
   isRegistered: boolean;
+}
+
+export interface TypeRefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
 }
