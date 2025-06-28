@@ -1,4 +1,4 @@
-import styles from '@/app/users/_components/join/JoinCompleted.module.css';
+import styles from './ProfileCard.module.css';
 import Image from 'next/image';
 import ProfileMinari from '@/assets/icon/profile-minari.svg';
 import Pen from '@/assets/icon/pen-gray.png';
