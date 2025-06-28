@@ -1,0 +1,4 @@
+.nav_list {
+  display: flex;
+  gap: 32px;
+}

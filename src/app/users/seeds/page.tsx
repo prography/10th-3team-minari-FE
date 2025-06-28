@@ -1,34 +1,48 @@
-'use client';
-
-import {useRouter} from 'next/navigation';
-import BuyTab from './_components/(tabs)/BuyTab';
-import HistoryTab from './_components/(tabs)/HistoryTab';
-import UsageTab from './_components/(tabs)/UsageTab';
-import TabButton from './_components/TabButton';
+import {useId} from 'react';
 import styles from './Seeds.module.css';
-import {useCurrentParams} from '@/hooks/useCurrentParams';
+import TabView from './_components/(tabs)/TabView';
 
-const SeedsPage = () => {
-  const router = useRouter();
-  const tab = useCurrentParams('tabs', 'buy');
-
+const SeedsLayout = () => {
+  const id = useId();
   return (
-    <div style={{marginTop: 16}}>
-      <nav className={styles.nav_list}>
-        {['buy', 'history', 'usage'].map((t) => (
-          <TabButton key={t} onClick={() => router.push(`?tabs=${t}`)} active={tab === t}>
-            {t === 'buy' ? '씨앗 사기' : t === 'history' ? '구입 내역' : '사용 내역'}
-          </TabButton>
-        ))}
-      </nav>
+    <>
+      <h4 className="title-sm">MINARI SHOP</h4>
 
-      <div style={{marginTop: 32}}>
-        {tab === 'buy' && <BuyTab />}
-        {tab === 'history' && <HistoryTab />}
-        {tab === 'usage' && <UsageTab />}
+      <div className={styles.seeds_info}>
+        <span className="title-xs">씨앗 이용 정보</span>
+        <div className="body-lg">
+          <span>보유중인 씨앗</span>
+          <span>{} 개</span>
+        </div>
       </div>
-    </div>
+
+      <TabView />
+
+      <div className={styles.note_wrapper}>
+        <span className="label-lg">유의사항</span>
+        <ul className={styles.note_list}>
+          {Note.map((n, i) => (
+            <li key={`${id}_${i}`} className={`${styles.note_item} lable-sm`}>
+              {n}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 };
 
-export default SeedsPage;
+const Note = [
+  '씨앗 구매에 대해서는 부가가치세가 부과되지 않습니다.',
+  '씨앗 구매 또는 사용 전 이용약관 동의가 필요합니다.',
+  '전용상품권 이용약관 >',
+  '결제 상세 내역은 (결제수단)페이 > 결제내역 메뉴에서 확인 가능합니다.',
+  '구매한 씨앗을 사용하여 PC/모바일 웹사이트에서 면접을 재시도할 수 있습니다.',
+  '씨앗은 무료씨앗부터 유효기간이 임박한 순으로 먼저 사용됩니다.',
+  '구매한 씨앗은 사용하지 않은 경우에 한해, 구매 후 7일 이내에 씨앗 사기 > 구입 내역 에서 직접 구매 취소할 수 있습니다.',
+  '충전일로부터 7일 이후에는 취소 수수료에 해당하는 금액을 공제하고 환불됩니다.',
+  '묶음 단위의 구매에서 일부 사용 후 환불 받으면, 사용 분에 대한 씨앗은 환불되지 않습니다.',
+  '무료씨앗은 구매 취소 및 환불 대상이 아닙니다. 따라서 충전 내역과 취소 내역의 쿠키 수량이 다를 수 있습니다.',
+];
+
+export default SeedsLayout;
