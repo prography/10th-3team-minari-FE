@@ -11,6 +11,7 @@ import {useTimer} from '@/contexts/TimerProvider';
 import {useNotepad} from '@/contexts/NotepadProvider';
 import {useVideoState} from '@/contexts/VideoStateProvider';
 import {useCompleteModal} from '@/contexts/CompleteModalProvider';
+import {useUserStore} from '@/stores/userStore';
 
 const Buttons = () => {
   const {
@@ -25,6 +26,7 @@ const Buttons = () => {
     useVideoState();
   const {handleOpen, memo} = useNotepad();
   const {handleOpen: ModalOpen} = useCompleteModal();
+  const {userId} = useUserStore();
 
   useEffect(() => {
     if (videoState === 'DONE' && recordingStatus !== 'recording') {
@@ -37,7 +39,7 @@ const Buttons = () => {
     if (seconds === 0) {
       handleStop();
       handleCountStop();
-      handleRearsalClose({userId: '1', questionId: 5, memo});
+      handleRearsalClose({userId, questionId: 5, memo});
     }
   }, [seconds, handleStop, handleCountStop, handleRearsalClose]);
 
@@ -60,7 +62,7 @@ const Buttons = () => {
   const stopClick = () => {
     handleStop();
     handleCountStop();
-    handleRearsalClose({userId: '1', questionId: 5, memo});
+    handleRearsalClose({userId, questionId: 5, memo});
     ModalOpen();
   };
 
