@@ -24,6 +24,7 @@ export const ModalClient = () => {
 
   useEffect(() => {
     if (!isOpen) return;
+    if (disableBackdropClick) return;
 
     history.pushState(null, '', location.href);
 
