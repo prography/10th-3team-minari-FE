@@ -14,7 +14,7 @@ import ArrowLeft from '@/assets/icon/arrow-left.svg';
 import ArrowRight from '@/assets/icon/arrow-black.svg';
 import {useUserStore} from '@/stores/userStore';
 import JoinCompleted from '@/app/users/_components/steps/JoinCompleted';
-import {useModalStore} from "@/stores/modalStore";
+import {useModalStore} from '@/stores/modalStore';
 import Modal from '@/components/Modal';
 
 /*
