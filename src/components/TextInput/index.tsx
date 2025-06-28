@@ -1,8 +1,13 @@
 import {InputHTMLAttributes} from 'react';
 import styles from './TextInput.module.css';
 import Image from 'next/image';
-import redX from '@/assets/icon/red-x.png';
+import errorIcon from '@/assets/icon/red-x.png';
+import successIcon from '@/assets/icon/check-success.svg';
 
+export interface HelpMessageType {
+  type: 'success' | 'error';
+  message: string;
+}
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   value: string;
   setValue: (value: string) => void;
@@ -14,7 +19,7 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   errorMsg?: string;
   patternMsg?: string;
   helpMsgShow?: boolean;
-  helpMsg?: string;
+  helpMsg?: HelpMessageType;
   required?: boolean;
 }
 
@@ -26,20 +31,18 @@ const TextInput = ({
   disabled,
   type,
   patternMsg,
-  errorMsgShow,
-  errorMsg,
   required,
   helpMsgShow,
   helpMsg,
 }: TextInputProps) => {
   const emailPattern = '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{1,}$';
-  const errorMsgFormat = (
-    <span className={`body-md ${styles['error-message']}`}>
-      <Image src={redX} alt={''} />
-      <span>{errorMsg}</span>
+  const msgIcon = helpMsg?.type === 'success' ? successIcon : errorIcon;
+  const helpMsgFormat = (
+    <span className={`body-md ${styles['help-message']} ${styles[`${helpMsg?.type}`]}`}>
+      <Image src={msgIcon} alt="" />
+      {helpMsg?.message}
     </span>
   );
-  const helpMsgFormat = <span className={`body-md ${styles['confirm-message']}`}>V {helpMsg}</span>;
 
   return (
     <div className={styles.wrapper}>
@@ -60,10 +63,9 @@ const TextInput = ({
         placeholder={placeholder}
       />
       <span className={`body-md ${styles.message}`}>
-        <Image src={redX} alt={''} />
+        <Image src={errorIcon} alt={''} />
         {patternMsg}
       </span>
-      {errorMsgShow && errorMsgFormat}
       {helpMsgShow && helpMsgFormat}
     </div>
   );

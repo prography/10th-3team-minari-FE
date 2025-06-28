@@ -76,13 +76,19 @@
   animation-fill-mode: forwards;
 }
 
-.error-message {
+.help-message {
   margin-top: 9px;
   display: flex;
   align-items: center;
 }
-.error-message > span {
+.help-message > span {
   margin-top: 2px;
+}
+
+.success {
+  color: var(--color-text-success);
+}
+.error {
   color: var(--color-text-danger);
 }
 
