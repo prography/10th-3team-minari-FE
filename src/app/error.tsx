@@ -1,3 +1,4 @@
+'use client';
 export default function ServerErrorPage() {
   return (
     <div style={{textAlign: 'center', padding: '4rem'}}>
