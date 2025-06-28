@@ -37,12 +37,12 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
 
   // 체크박스 관리
   const [checkItems, setCheckItems] = useState<Array<CheckItemType>>([
-    {id: '1', value: false, label: '(필수) STT를 위한 정보 수집에 동의합니다.', required: true},
+    {id: '1', value: false, label: '(필수) 서비스 개인정보 처리방침', required: true},
     {
       id: '2',
       value: false,
-      label: '(선택) 카메라 이용을 위한 정보 저장에 동의합니다.',
-      required: false,
+      label: '(필수) 서비스 이용약관',
+      required: true,
     },
   ]);
   const checkHandler = (value: boolean, id?: string) => {
@@ -77,15 +77,6 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
   const setIsSubscribed = (value: boolean) => {
     setJoinForm({...joinForm, isSubscribed: value});
   };
-  // useEffect(() => {
-  //   if (joinForm.isSubscribed !== null) {
-  //     if (joinForm.isSubscribed) {
-  //       setReceive(0);
-  //     } else {
-  //       setReceive(1);
-  //     }
-  //   }
-  // }, [joinForm.isSubscribed]);
 
   // [다음] 버튼 : 비활성화 처리
   const nextButtonChecker = () => {
