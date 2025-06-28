@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import styles from './Header.module.css';
 import Image from 'next/image';
@@ -8,6 +6,7 @@ import Link from 'next/link';
 import LogoImageBlack from '@/assets/logo-black.svg';
 import LogoImageWhite from '@/assets/logo-white.svg';
 import useTheme from '@/hooks/useTheme';
+import {OUT_LINK, PATH} from '@/constants/path';
 import {OUT_LINK} from '@/constants/path';
 import {useUserStore} from '@/stores/userStore';
 
@@ -20,7 +19,7 @@ const Header = () => {
   return (
     <div className={`${styles.wrapper} ${styles[`${theme}`]}`}>
       <div className={styles.container}>
-        <Link href="/">
+        <Link href={PATH.ROOT}>
           <Image src={logo} alt="logo" height={40} />
         </Link>
         <div>{userStore.isUserRegistered ? <UserMenu /> : <LandingMenu />}</div>
@@ -61,7 +60,7 @@ const UserMenu = () => {
   const userStore = useUserStore();
 
   return (
-    <Link href={userStore.isUserRegistered ? '/' : ''}>
+    <Link href={linkMyPage ? PATH.MY : ''}>
       <Image
         src={userStore.userKakaoImage}
         alt="logo"
