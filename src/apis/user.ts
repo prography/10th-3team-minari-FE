@@ -22,7 +22,7 @@ export const getKakaoProfile = async (code: string) => {
 
 // 회원가입 > 이메일 인증
 export const postEmailVerification = async (email: string) => {
-  const data = {to: email, redirectUri: process.env.NEXT_PUBLIC_EMAIL_REDIRECT + `?email=${email}`};
+  const data = {to: email, redirectUri: process.env.NEXT_PUBLIC_EMAIL_REDIRECT};
   try {
     const response = await fetch.post<string>(`/users/mail-verification`, data);
     return response;
@@ -38,16 +38,11 @@ export const postEmailCodeVerification = async (code: string) => {
 
 // 회원가입 > 사용자 등록
 export const postUserRegister = async (data: TypeUserRegisterRequest) => {
-  try {
-    const response = await fetch.post<{code: string; result: TypeUserRegisterResponse}>(
-      `/users/join`,
-      data,
-    );
-    console.log(response);
-    return response;
-  } catch (error) {
-    throw error;
-  }
+  const response = await fetch.post<{code: string; result: TypeUserRegisterResponse}>(
+    `/users/join`,
+    data,
+  );
+  return response;
 };
 
 export interface TypeKakaoLoginResponse {
@@ -63,7 +58,7 @@ export interface TypeKakaoLoginResponse {
 export interface TypeUserRegisterRequest {
   email: string | null;
   userId: string;
-  isSubscribed: boolean;
+  isSubscribed: boolean | null;
   emailSendTime?: string;
   studyExperienceLevel: UserExperienceLevel;
   workExperienceLevel: UserExperienceLevel;

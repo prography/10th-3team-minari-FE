@@ -14,8 +14,8 @@ import ArrowLeft from '@/assets/icon/arrow-left.svg';
 import ArrowRight from '@/assets/icon/arrow-black.svg';
 import {useUserStore} from '@/stores/userStore';
 import JoinCompleted from '@/app/users/_components/steps/JoinCompleted';
+import {useModalStore} from "@/stores/modalStore";
 import Modal from '@/components/Modal';
-import {useModalStore} from '@/stores/modalStore';
 
 /*
  * 회원 가입
@@ -27,25 +27,29 @@ import {useModalStore} from '@/stores/modalStore';
  * */
 const JoinPage = () => {
   const userStore = useUserStore();
-  const {step, setStep, nextButtonChecker, joinForm, setJoinForm} = useUserJoinContext();
+  const {step, setStep, nextButtonChecker, joinForm} = useUserJoinContext();
 
   // 사용자 등록 api 호출
-  const {isSuccess, isError, setShouldFetch, setData} = useUserJoin();
+  const {setShouldFetch, setBody, isSuccess, isError} = useUserJoin();
   const {open} = useModalStore();
 
   // [이전], [다음] 버튼 페이지 넘기기
-  const onClickGoNext = () => {
-    if (step === 1 && !joinForm.isSubscribed) {
-      setJoinForm({...joinForm, email: null});
+  const onClickGoNext = async () => {
+    if (step === 1 && joinForm.isSubscribed) {
+      setStep(2);
+    } else if (step === 1 && !joinForm.isSubscribed) {
       setStep(3);
     } else if (step === 3) {
-      // TODO jwt 적용 후 삭제
+      // TODO jwt 적용 후 useId 삭제
       const userData = {
         ...joinForm,
+        email: joinForm.isSubscribed ? joinForm.email : null,
         userId: userStore.userId,
         workExperienceLevel: joinForm.studyExperienceLevel,
       };
-      setData(userData);
+
+      // user 등록 api 호출
+      setBody(userData);
       setShouldFetch(true);
     } else {
       setStep(step + 1);
@@ -110,12 +114,7 @@ const JoinPage = () => {
         <JoinPageTitle step={step} />
         <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
           {step === 0 && <JoinAgreement />}
-          {step === 1 && (
-            <JoinReceiveNotification
-              receive={joinForm.isSubscribed}
-              setReceive={() => setJoinForm({...joinForm, isSubscribed: true})}
-            />
-          )}
+          {step === 1 && <JoinReceiveNotification />}
           {step === 2 && <JoinEmailVerification />}
           {step === 3 && <JoinExperience />}
           {step === 4 && (

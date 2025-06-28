@@ -2,77 +2,72 @@
 import styles from './JoinEmailVerification.module.css';
 import TextInput from '@/components/TextInput';
 import {useEffect, useState} from 'react';
-import {useModalStore} from '@/stores/modalStore';
 import Button from '@/components/Button';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
-import {useRouter} from 'next/navigation';
 import {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';
-import Modal from '@/components/Modal';
 
 const JoinEmailVerification = () => {
   const {joinForm, setJoinForm} = useUserJoinContext();
   const [email, setEmail] = useState('');
   const [showVeriCode, setShowVeriCode] = useState(false);
-  const router = useRouter();
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const {open} = useModalStore();
 
-  // TODO 이메일발송, 코드검증 후 안내문구 추가
   // 이메일 발송 (인증번호)
-  const {refetchEmailVerification, isError} = useUserEmailVerification(email);
-  const {refetchCodeVerification, code, setCode, isCodeError, isCodeSuccess} =
-    useUserEmailCodeVerification();
+  const {refetchEmailVerification} = useUserEmailVerification(email);
+  const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();
+
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailErrorMsgShow, setEmailErrorMsgShow] = useState(false);
   const onClickSendVerification = () => {
-    refetchEmailVerification();
-    setShowVeriCode(true);
+    setEmailSent(false);
+    setEmailErrorMsgShow(false);
+    refetchEmailVerification()
+      .then((response) => {
+        if (response?.code === '200') {
+          setShowVeriCode(true);
+          setEmailSent(true);
+        }
+      })
+      .catch(() => {
+        setEmailErrorMsgShow(true);
+      });
   };
   useEffect(() => {
-    if (isError) {
-      open(
-        <Modal
-          title="이메일 전송 에러"
-          rightButton={
-            <Button
-              onClick={() => {
-                router.push('/');
-              }}
-            >
-              확인
-            </Button>
-          }
-        />,
-        true,
-      );
+    if (joinForm.email !== null && joinForm.email !== '') {
+      setEmail(joinForm.email);
     }
-  }, [isError]);
+    if (emailErrorMsgShow) {
+      setEmailErrorMsgShow(false);
+    }
+  }, [email]);
 
   // 인증번호 검증
+  const [codeErrorMsg, setCodeErrorMsg] = useState('');
+  const [codeErrorMsgShow, setCodeErrorMsgShow] = useState(false);
+  const [codeSuccess, setCodeSuccess] = useState(false);
   const onClickConfirmVerification = () => {
-    refetchCodeVerification();
+    setCodeSuccess(false);
+    refetchCodeVerification()
+      .then((response) => {
+        if (response?.code === '200') {
+          setJoinForm({...joinForm, email: email});
+          setCodeSuccess(true);
+        }
+      })
+      .catch(() => {
+        setCodeErrorMsg('번호가 올바르지 않습니다');
+        setCodeErrorMsgShow(true);
+      });
   };
   useEffect(() => {
-    if (isCodeError) {
-      open(
-        <Modal
-          title="인증번호 확인 실패"
-          rightButton={
-            <Button
-              onClick={() => {
-                router.push('/');
-              }}
-            >
-              확인
-            </Button>
-          }
-        />,
-        true,
-      );
+    if (code?.length > 6) {
+      setCodeErrorMsg('번호형식이 올바르지 않습니다');
+      setCodeErrorMsgShow(true);
+    } else {
+      setCodeErrorMsgShow(false);
     }
-    if (isCodeSuccess) {
-      setJoinForm({...joinForm, email: email});
-    }
-  }, [isCodeError, isCodeSuccess]);
+  }, [code]);
 
   return (
     <div className={styles.container}>
@@ -81,9 +76,14 @@ const JoinEmailVerification = () => {
           label="이메일을 입력해주세요"
           required={true}
           type="email"
-          helpMessage="이메일을 입력하세요"
-          value={email}
+          errorMsg="발송 에러"
+          errorMsgShow={emailErrorMsgShow}
+          value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}
           setValue={setEmail}
+          patternMsg="이메일을 입력하세요"
+          helpMsg="메일이 발송되었어요"
+          helpMsgShow={emailSent}
+          disabled={joinForm.email !== null && joinForm.email !== ''}
         />
         <div className={styles['button__wrap']}>
           <Button
@@ -104,6 +104,11 @@ const JoinEmailVerification = () => {
             value={code}
             setValue={setCode}
             type="number"
+            errorMsg={codeErrorMsg}
+            errorMsgShow={codeErrorMsgShow}
+            helpMsg="인증이 완료되었어요"
+            helpMsgShow={codeSuccess}
+            disabled={codeSuccess}
           />
           <div className={styles['button__wrap']}>
             <Button theme="secondary" border onClick={onClickConfirmVerification}>

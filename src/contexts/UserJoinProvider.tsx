@@ -16,6 +16,7 @@ type ContextType = {
   checkAllHandler: (value: boolean) => void;
   checkAllIndeterminate: boolean;
   checkHandler: (value: boolean, id?: string) => void;
+  setIsSubscribed: (value: boolean) => void;
   nextButtonChecker: () => boolean;
 };
 const UserJoinContext = createContext<ContextType | null>(null);
@@ -27,7 +28,7 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
   const [joinForm, setJoinForm] = useState<TypeUserRegisterRequest>({
     email: '',
     userId: '',
-    isSubscribed: false,
+    isSubscribed: null,
     emailSendTime: 'AM_08',
     studyExperienceLevel: 'EMPTY',
     workExperienceLevel: 'EMPTY',
@@ -72,6 +73,20 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
     }
   }, [checkItems]);
 
+  // 라디오버튼 관리
+  const setIsSubscribed = (value: boolean) => {
+    setJoinForm({...joinForm, isSubscribed: value});
+  };
+  // useEffect(() => {
+  //   if (joinForm.isSubscribed !== null) {
+  //     if (joinForm.isSubscribed) {
+  //       setReceive(0);
+  //     } else {
+  //       setReceive(1);
+  //     }
+  //   }
+  // }, [joinForm.isSubscribed]);
+
   // [다음] 버튼 : 비활성화 처리
   const nextButtonChecker = () => {
     switch (step) {
@@ -80,6 +95,8 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
         return !checkRequired.every((item) => item.value);
       case 2:
         return joinForm.email === '';
+      case 3:
+        return joinForm.domain === 'EMPTY' || joinForm.studyExperienceLevel === 'EMPTY';
       default:
         return false;
     }
@@ -98,6 +115,7 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
       checkAll,
       checkAllIndeterminate,
       checkAllHandler,
+      setIsSubscribed,
       nextButtonChecker,
     }),
     [step, checkItems, checkAll, checkAllIndeterminate, joinForm],
