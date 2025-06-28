@@ -1,0 +1,342 @@
+Index: src/app/users/join/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport React, {useEffect} from 'react';\nimport JoinAgreement from '@/app/users/_components/steps/JoinAgreement';\nimport JoinReceiveNotification from '@/app/users/_components/steps/JoinReceiveNotification';\nimport JoinEmailVerification from '@/app/users/_components/steps/JoinEmailVerification';\nimport JoinExperience from '@/app/users/_components/steps/JoinExperience';\nimport {useUserJoin} from '@/hooks/queries/useUserJoin';\nimport {useRouter} from 'next/navigation';\nimport {useUserJoinContext} from '@/contexts/UserJoinProvider';\nimport JoinPageTitle from '@/app/users/_components/ui/JoinPageTitle';\nimport styles from './page.module.css';\nimport Button from '@/components/Button';\nimport ArrowLeft from '@/assets/icon/arrow-left.svg';\nimport ArrowRight from '@/assets/icon/arrow-black.svg';\nimport {useUserStore} from '@/stores/userStore';\nimport JoinCompleted from '@/app/users/_components/steps/JoinCompleted';\nimport Modal from '@/components/Modal';\nimport {useModalStore} from '@/stores/modalStore';\n\n/*\n * 회원 가입\n * step 00. 약관 동의\n * step 01. 메일 수신 동의\n * step 02-1. 이메일 인증\n * step 02-2. 이메일 인증 확인\n * step 03. 연차/파트 선택\n * */\nconst JoinPage = () => {\n  const userStore = useUserStore();\n  const {step, setStep, nextButtonChecker, joinForm} = useUserJoinContext();\n\n  // 등록한 사용자 페이지 진입 시 예외처리\n  useEffect(() => {\n    if (userStore.isUserRegistered) {\n      router.push('/');\n    }\n  }, [userStore.isUserRegistered]);\n\n  // 사용자 등록 api 호출\n  const {setShouldFetch, setBody, isSuccess, isError} = useUserJoin();\n  const {open} = useModalStore();\n\n  // [이전], [다음] 버튼 페이지 넘기기\n  const onClickGoNext = async () => {\n    if (step === 1 && joinForm.isSubscribed) {\n      setStep(2);\n    } else if (step === 1 && !joinForm.isSubscribed) {\n      setStep(3);\n    } else if (step === 3) {\n      // TODO jwt 적용 후 userId 삭제\n      const userData = {\n        ...joinForm,\n        email: joinForm.isSubscribed ? joinForm.email : null,\n        userId: userStore.userId,\n        workExperienceLevel: joinForm.studyExperienceLevel,\n      };\n\n      // user 등록 api 호출\n      setBody(userData);\n      setShouldFetch(true);\n    } else {\n      setStep(step + 1);\n    }\n  };\n  useEffect(() => {\n    if (isError) {\n      open(\n        <Modal\n          title=\"회원가입 실패\"\n          rightButton={\n            <Button\n              onClick={() => {\n                location.reload();\n              }}\n            >\n              확인\n            </Button>\n          }\n        />,\n        true,\n      );\n    }\n    if (isSuccess) {\n      userStore.setUserEmail(joinForm.email ? joinForm.email : '');\n      userStore.setUserDomain(joinForm.domain);\n      userStore.setIsUserRegistered(true);\n      setStep(4);\n    }\n  }, [isSuccess, isError]);\n\n  const goNextButton = (\n    <Button iconRight={ArrowRight} onClick={onClickGoNext} disabled={nextButtonChecker()}>\n      다음\n    </Button>\n  );\n\n  const onClickGoBack = () => {\n    if (step === 3 && !joinForm.isSubscribed) {\n      setStep(1);\n    } else {\n      setStep(step - 1);\n    }\n  };\n  const goBackButton = (\n    <Button theme=\"secondary\" iconLeft={ArrowLeft} onClick={onClickGoBack}>\n      이전\n    </Button>\n  );\n\n  const router = useRouter();\n  const goHomeButton = (\n    <Button iconRight={ArrowRight} onClick={() => router.push('/')}>\n      첫 미나리 심으러 가기\n    </Button>\n  );\n\n  return (\n    <>\n      <div>\n        <JoinPageTitle step={step} />\n        <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>\n          {step === 0 && <JoinAgreement />}\n          {step === 1 && <JoinReceiveNotification />}\n          {step === 2 && <JoinEmailVerification />}\n          {step === 3 && <JoinExperience />}\n          {step === 4 && (\n            <JoinCompleted\n              name={userStore.username}\n              email={userStore.userEmail}\n              domain={userStore.userDomain}\n            />\n          )}\n        </div>\n        <div className={styles.buttons}>\n          {step > 0 && step < 4 && goBackButton}\n          {step === 4 ? goHomeButton : goNextButton}\n        </div>\n      </div>\n    </>\n  );\n};\n\nexport default JoinPage;\n\nexport interface CheckItemType {\n  id: string;\n  value: boolean;\n  label: string;\n  required: boolean;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/join/page.tsx b/src/app/users/join/page.tsx
+--- a/src/app/users/join/page.tsx	(revision 21f08e60ccb9ffc811e70a7aa8c5527e81e98961)
++++ b/src/app/users/join/page.tsx	(date 1751121390429)
+@@ -16,7 +16,6 @@
+ import JoinCompleted from '@/app/users/_components/steps/JoinCompleted';
+ import Modal from '@/components/Modal';
+ import {useModalStore} from '@/stores/modalStore';
+-
+ /*
+  * 회원 가입
+  * step 00. 약관 동의
+@@ -31,7 +30,7 @@
+ 
+   // 등록한 사용자 페이지 진입 시 예외처리
+   useEffect(() => {
+-    if (userStore.isUserRegistered) {
++    if (userStore.isUserRegistered && step === 0) {
+       router.push('/');
+     }
+   }, [userStore.isUserRegistered]);
+Index: src/app/test/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport Button from '@/components/Button';\nimport IconButton from '@/components/IconButton';\nimport Instagram from '@/assets/icon/instagram.svg';\nimport Pause from '@/assets/icon/circle-pause.svg';\nimport BlackArrow from '@/assets/icon/arrow-black.svg';\nimport Refresh from '@/assets/icon/refresh-cw.svg';\nimport Stop from '@/assets/icon/circle-stop.svg';\nimport Loading from '@/assets/icon/loader-circle.svg';\nimport Checkbox from '@/components/Checkbox';\nimport {useState} from 'react';\nimport TextInput from '@/components/TextInput';\nimport {fetch} from '@/apis/instance';\nimport Modal from '@/components/Modal';\nimport {useModalStore} from '@/stores/modalStore';\n\nconst TestPage = () => {\n  const {open: opneModal, close: closeModal} = useModalStore();\n\n  const handleClickOpenModal = () => {\n    opneModal(\n      <Modal\n        title=\"정말 계정을 탈퇴 하시겠어요?\"\n        leftButton={\n          <Button onClick={closeModal} theme=\"secondary\">\n            취소\n          </Button>\n        }\n        rightButton={<Button onClick={() => console.log('모달 클릭')}>계속</Button>}\n      >\n        <p>삭제하면 가지고 있는 모든 혜택이 사라져요.</p>\n        <p>진행 이후 7일 이내에 복구가 가능해요.</p>\n      </Modal>,\n    );\n  };\n  const [check, setCheck] = useState(false);\n  const checkHandler = () => {\n    setCheck(true);\n  };\n\n  const [inputValue, setInputValue] = useState('');\n\n  const deleteUser = () => {\n    fetch.delete('/users/me ');\n  };\n  return (\n    <>\n      <Button onClick={handleClickOpenModal}>open Modal</Button>\n      <div className=\"title-md\">버튼</div>\n      <br />\n      <div className=\"title-sm\">text only</div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"primary\">Primary Button</Button>\n        <Button theme=\"primary\" rounded onClick={deleteUser}>\n          클릭하면 탈퇴\n        </Button>\n        <Button theme=\"primary\" border>\n          Primary w/Border\n        </Button>\n      </div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"primary\" disabled>\n          Primary Disabled\n        </Button>\n        <Button theme=\"primary\" border disabled>\n          Primary w/Border Disabled\n        </Button>\n      </div>\n      <br />\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"secondary\">Secondary Button</Button>\n        <Button theme=\"secondary\" border>\n          Secondary w/Border\n        </Button>\n      </div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"secondary\" disabled>\n          Secondary Disabled\n        </Button>\n        <Button theme=\"secondary\" border disabled>\n          Secondary w/Border Disabled\n        </Button>\n      </div>\n      <br />\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"white\">White Button</Button>\n        <Button theme=\"black\">Black Button</Button>\n      </div>\n      <br />\n      <br />\n      <div className=\"title-sm\">with icon</div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button iconLeft={Pause} theme=\"secondary\" iconRight={Loading} loading>\n          동일버튼 로딩ㅇ\n        </Button>\n        <Button iconLeft={Pause} theme=\"secondary\" iconRight={Loading} loading={false}>\n          동일버튼 로딩x\n        </Button>\n      </div>\n      <br />\n      <div className=\"body-lg\">오른쪽 아이콘 &apos;arrow-black&apos;</div>\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button iconRight={BlackArrow}>카카오 로그인</Button>\n        <Button iconRight={BlackArrow} onClick={handleClickOpenModal}>\n          클릭하면 ?\n        </Button>\n      </div>\n      <br />\n      <div className=\"body-lg\">왼쪽 아이콘</div>\n      <div className=\"body-lg\">refresh / pause / stop</div>\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button iconLeft={Refresh}>다시시작</Button>\n        <Button iconLeft={Pause}>일시정지</Button>\n        <Button iconLeft={Stop}>면접종료</Button>\n      </div>\n      <br />\n      <br />\n      <div className=\"title-sm\">아이콘 버튼</div>\n      <div style={{display: 'flex', gap: '12px'}}>\n        <IconButton icon={Instagram} />\n        <IconButton icon={Instagram} theme=\"secondary\" />\n        <IconButton icon={Instagram} theme=\"white\" />\n      </div>\n      <br />\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <IconButton icon={Loading} theme=\"primary\" loading />\n        <IconButton icon={Loading} theme=\"white\" />\n      </div>\n      <br />\n      <br />\n      <div className=\"title-md\">체크박스</div>\n      <br />\n      <Checkbox checked={check} onChangeCheck={checkHandler} setChecked={setCheck}>\n        클릭해서 체크 박스 테스트\n      </Checkbox>\n      <Checkbox checked={true} onChangeCheck={checkHandler} disabled={true}>\n        disabled / checked\n      </Checkbox>\n      <Checkbox checked={false} onChangeCheck={checkHandler} disabled={true}>\n        disabled / not-checked\n      </Checkbox>\n      <br />\n      <br />\n      <div className=\"title-md\">텍스트 인풋</div>\n      <br />\n      <TextInput value={inputValue} setValue={setInputValue} />\n      <br />\n      <TextInput\n        value={inputValue}\n        setValue={setInputValue}\n        label={'라벨이 있는 인풋'}\n        type=\"email\"\n      />\n      <br />\n      <TextInput value={'disabled'} setValue={setInputValue} disabled={true} />\n      <br />\n      <br />\n      <br />\n      <br />\n    </>\n  );\n};\n\nexport default TestPage;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/test/page.tsx b/src/app/test/page.tsx
+--- a/src/app/test/page.tsx	(revision 21f08e60ccb9ffc811e70a7aa8c5527e81e98961)
++++ b/src/app/test/page.tsx	(date 1751119918772)
+@@ -10,9 +10,9 @@
+ import Checkbox from '@/components/Checkbox';
+ import {useState} from 'react';
+ import TextInput from '@/components/TextInput';
+-import {fetch} from '@/apis/instance';
+ import Modal from '@/components/Modal';
+ import {useModalStore} from '@/stores/modalStore';
++import {getCookie} from "@/utils/cookies";
+ 
+ const TestPage = () => {
+   const {open: opneModal, close: closeModal} = useModalStore();
+@@ -40,8 +40,14 @@
+ 
+   const [inputValue, setInputValue] = useState('');
+ 
+-  const deleteUser = () => {
+-    fetch.delete('/users/me ');
++  const deleteUser = async () => {
++    const token = await getCookie('token') ? await getCookie('token') : null;
++      await fetch('https://www.minari.shop/admin/api/v1/users/me', {
++        method: "DELETE",
++        headers: {
++            Authorization: token ? token : '',
++        }
++    });
+   };
+   return (
+     <>
+Index: src/components/TextInput/TextInput.module.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.wrapper {\n  height: 115px;\n}\n\n.input {\n  display: flex;\n  width: 288px;\n  height: var(--spacing-48, 48px);\n  padding: 0 16px;\n  align-items: center;\n  gap: 10px;\n  flex-shrink: 0;\n  outline: none;\n  border-radius: var(--border-radius-lg, 8px);\n  border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);\n  background: var(--color-bg-primary, #fff);\n}\n\n.input:active,\n.input:focus {\n  border: var(--border-width-sm, 1px) solid\n    var(--color-border-interactive-secondary-hovered, #525252);\n}\n\n.input:hover {\n  border: var(--border-width-sm, 1px) solid\n    var(--color-border-interactive-secondary-hovered, #525252);\n}\n\n.input::placeholder {\n}\n\n.message {\n  display: none;\n}\n\n.input:disabled {\n  color: var(--color-text-disabled, #525252);\n  border: var(--border-width-sm, 1px) solid var(--color-border-disabled, #a3a3a3);\n  background: var(--color-bg-disabled, #d4d4d4);\n}\n\n.input:user-invalid {\n  border-radius: var(--border-radius-lg, 8px);\n  border: var(--border-width-sm, 1px) solid var(--color-border-interactive-danger, #fc1b45);\n  background: var(--color-bg-secondary, #fafafa);\n}\n\n.input:user-invalid ~ span {\n  margin-top: 9px;\n  display: flex;\n  align-items: center;\n  color: var(--color-text-danger);\n}\n\n.input:user-valid {\n  border-radius: var(--border-radius-lg, 8px);\n  border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);\n  background: var(--color-bg-secondary, #fafafa);\n}\n\n.confirm-message {\n  color: var(--color-text-success);\n  margin: 9px 0 0 9px;\n  display: flex;\n  align-items: center;\n\n  -moz-animation: cssAnimation 2s ease-in-out 2s forwards;\n  /* Firefox */\n  -webkit-animation: cssAnimation 2s ease-in-out 2s forwards;\n  /* Safari and Chrome */\n  -o-animation: cssAnimation 2s ease-in-out 2s forwards;\n  /* Opera */\n  animation: cssAnimation 2s ease-in-out 2s forwards;\n  -webkit-animation-fill-mode: forwards;\n  animation-fill-mode: forwards;\n}\n\n.error-message {\n  margin-top: 9px;\n  display: flex;\n  align-items: center;\n}\n.error-message > span {\n  margin-top: 2px;\n  color: var(--color-text-danger);\n}\n\n@keyframes cssAnimation {\n  to {\n    width: 0;\n    height: 0;\n    overflow: hidden;\n  }\n}\n@-webkit-keyframes cssAnimation {\n  to {\n    width: 0;\n    height: 0;\n    visibility: hidden;\n  }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/TextInput/TextInput.module.css b/src/components/TextInput/TextInput.module.css
+--- a/src/components/TextInput/TextInput.module.css	(revision 21f08e60ccb9ffc811e70a7aa8c5527e81e98961)
++++ b/src/components/TextInput/TextInput.module.css	(date 1751119440323)
+@@ -59,44 +59,28 @@
+   background: var(--color-bg-secondary, #fafafa);
+ }
+ 
+-.confirm-message {
+-  color: var(--color-text-success);
+-  margin: 9px 0 0 9px;
+-  display: flex;
+-  align-items: center;
+-
+-  -moz-animation: cssAnimation 2s ease-in-out 2s forwards;
+-  /* Firefox */
+-  -webkit-animation: cssAnimation 2s ease-in-out 2s forwards;
+-  /* Safari and Chrome */
+-  -o-animation: cssAnimation 2s ease-in-out 2s forwards;
+-  /* Opera */
+-  animation: cssAnimation 2s ease-in-out 2s forwards;
+-  -webkit-animation-fill-mode: forwards;
+-  animation-fill-mode: forwards;
+-}
+-
+-.error-message {
++.message {
+   margin-top: 9px;
+   display: flex;
+-  align-items: center;
++  align-items: flex-start;
+ }
+-.error-message > span {
++.message > span {
+   margin-top: 2px;
++  white-space: pre;
++}
++
++.success {
++  color: var(--color-text-success);
++}
++.error {
+   color: var(--color-text-danger);
+ }
+ 
+-@keyframes cssAnimation {
+-  to {
+-    width: 0;
+-    height: 0;
+-    overflow: hidden;
+-  }
++.pattern-message {
++  display: none;
+ }
+-@-webkit-keyframes cssAnimation {
+-  to {
+-    width: 0;
+-    height: 0;
+-    visibility: hidden;
+-  }
+-}
++
++.help-message {
++  display: flex;
++  white-space: pre;
++}
+\ No newline at end of file
+Index: src/app/users/_components/steps/JoinEmailVerification.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport styles from './JoinEmailVerification.module.css';\nimport TextInput from '@/components/TextInput';\nimport {useEffect, useState} from 'react';\nimport Button from '@/components/Button';\nimport {useUserJoinContext} from '@/contexts/UserJoinProvider';\nimport {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';\nimport {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';\n\nconst JoinEmailVerification = () => {\n  const {joinForm, setJoinForm} = useUserJoinContext();\n  const [email, setEmail] = useState('');\n  const [showVeriCode, setShowVeriCode] = useState(false);\n  const EMAIL_REGEX = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\n\n  // 이메일 발송 (인증번호)\n  const {refetchEmailVerification} = useUserEmailVerification(email);\n  const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();\n\n  const [emailSent, setEmailSent] = useState(false);\n  const [emailErrorMsgShow, setEmailErrorMsgShow] = useState(false);\n  const onClickSendVerification = () => {\n    setEmailSent(false);\n    setEmailErrorMsgShow(false);\n    refetchEmailVerification()\n      .then((response) => {\n        if (response?.code === '200') {\n          setShowVeriCode(true);\n          setEmailSent(true);\n        }\n      })\n      .catch(() => {\n        setEmailErrorMsgShow(true);\n      });\n  };\n  useEffect(() => {\n    if (joinForm.email !== null && joinForm.email !== '') {\n      setEmail(joinForm.email);\n    }\n    if (emailErrorMsgShow) {\n      setEmailErrorMsgShow(false);\n    }\n  }, [email]);\n\n  // 인증번호 검증\n  const [codeErrorMsg, setCodeErrorMsg] = useState('');\n  const [codeErrorMsgShow, setCodeErrorMsgShow] = useState(false);\n  const [codeSuccess, setCodeSuccess] = useState(false);\n  const onClickConfirmVerification = () => {\n    setCodeSuccess(false);\n    refetchCodeVerification()\n      .then((response) => {\n        if (response?.code === '200') {\n          setJoinForm({...joinForm, email: email});\n          setCodeSuccess(true);\n        }\n      })\n      .catch(() => {\n        setCodeErrorMsg('번호가 올바르지 않습니다');\n        setCodeErrorMsgShow(true);\n      });\n  };\n  useEffect(() => {\n    if (code?.length > 6) {\n      setCodeErrorMsg('번호형식이 올바르지 않습니다');\n      setCodeErrorMsgShow(true);\n    } else {\n      setCodeErrorMsgShow(false);\n    }\n  }, [code]);\n\n  return (\n    <div className={styles.container}>\n      <div className={`${styles['input__wrap']} pd-bottom-32`}>\n        <TextInput\n          label=\"이메일을 입력해주세요\"\n          required={true}\n          type=\"email\"\n          errorMsg=\"발송 에러\"\n          errorMsgShow={emailErrorMsgShow}\n          value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}\n          setValue={setEmail}\n          patternMsg=\"이메일을 입력하세요\"\n          helpMsg=\"메일이 발송되었어요\"\n          helpMsgShow={emailSent}\n          disabled={joinForm.email !== null && joinForm.email !== ''}\n        />\n        <div className={styles['button__wrap']}>\n          <Button\n            theme=\"secondary\"\n            border\n            disabled={!EMAIL_REGEX.test(email)}\n            onClick={onClickSendVerification}\n          >\n            인증\n          </Button>\n        </div>\n      </div>\n      {showVeriCode && (\n        <div className={`${styles['input__wrap']}`}>\n          <TextInput\n            label=\"인증번호를 입력해주세요\"\n            required={true}\n            value={code}\n            setValue={setCode}\n            type=\"number\"\n            errorMsg={codeErrorMsg}\n            errorMsgShow={codeErrorMsgShow}\n            helpMsg=\"인증이 완료되었어요\"\n            helpMsgShow={codeSuccess}\n            disabled={codeSuccess}\n          />\n          <div className={styles['button__wrap']}>\n            <Button theme=\"secondary\" border onClick={onClickConfirmVerification}>\n              인증\n            </Button>\n          </div>\n        </div>\n      )}\n    </div>\n  );\n};\n\nexport default JoinEmailVerification;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/steps/JoinEmailVerification.tsx b/src/app/users/_components/steps/JoinEmailVerification.tsx
+--- a/src/app/users/_components/steps/JoinEmailVerification.tsx	(revision 21f08e60ccb9ffc811e70a7aa8c5527e81e98961)
++++ b/src/app/users/_components/steps/JoinEmailVerification.tsx	(date 1751121261578)
+@@ -1,71 +1,122 @@
+ 'use client';
+ import styles from './JoinEmailVerification.module.css';
+ import TextInput from '@/components/TextInput';
+-import {useEffect, useState} from 'react';
++import React, {useEffect, useState} from 'react';
+ import Button from '@/components/Button';
+ import {useUserJoinContext} from '@/contexts/UserJoinProvider';
+ import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
+ import {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';
++import Toast, {ToastProps} from '@/components/Toast';
++import {useToastStore} from '@/stores/toastStore';
++
++export interface HelpMsgType {
++  show: boolean;
++  status: 'success' | 'error';
++  message: string;
++}
+ 
+ const JoinEmailVerification = () => {
+   const {joinForm, setJoinForm} = useUserJoinContext();
+   const [email, setEmail] = useState('');
+   const [showVeriCode, setShowVeriCode] = useState(false);
+   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
++  const {open} = useToastStore();
++  const openToast = ({title, description, type}: ToastProps) => {
++    open(<Toast title={title} description={description} type={type} />);
++  };
+ 
+   // 이메일 발송 (인증번호)
+   const {refetchEmailVerification} = useUserEmailVerification(email);
+   const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();
+ 
+-  const [emailSent, setEmailSent] = useState(false);
++  const [emailHelpMsg, setEmailHelpMsg] = useState<HelpMsgType>({
++    show: false,
++    status: 'success',
++    message: '',
++  });
+   const [emailErrorMsgShow, setEmailErrorMsgShow] = useState(false);
+   const onClickSendVerification = () => {
+-    setEmailSent(false);
++    setEmailHelpMsg({...emailHelpMsg, show: false});
+     setEmailErrorMsgShow(false);
+     refetchEmailVerification()
+       .then((response) => {
+         if (response?.code === '200') {
+           setShowVeriCode(true);
+-          setEmailSent(true);
++          setEmailHelpMsg({
++            show: true,
++            status: 'success',
++            message: '인증 메일이 전송되었어요.',
++          });
++          setTimeout(() => {
++            openWarningToast()
++          }, 6000)
+         }
+       })
+       .catch(() => {
+-        setEmailErrorMsgShow(true);
++        setEmailHelpMsg({
++          show: true,
++          status: 'error',
++          message: '앗 이런! 다시 한 번 시도해주세요.',
++        });
+       });
+   };
++
++  const openWarningToast = () => {
++    if (code === '') {
++      openToast({
++        title: '인증번호가 오지 않나요?\n인증버튼을 다시 눌러주세요.',
++        type: 'warning',
++      });
++    }
++  }
++
+   useEffect(() => {
+     if (joinForm.email !== null && joinForm.email !== '') {
+       setEmail(joinForm.email);
+     }
+-    if (emailErrorMsgShow) {
+-      setEmailErrorMsgShow(false);
++    if (emailHelpMsg.show) {
++      setEmailHelpMsg({...emailHelpMsg, show: false});
+     }
+   }, [email]);
+ 
+   // 인증번호 검증
+-  const [codeErrorMsg, setCodeErrorMsg] = useState('');
+-  const [codeErrorMsgShow, setCodeErrorMsgShow] = useState(false);
++  const [codeHelpMsg, setCodeHelpMsg] = useState<HelpMsgType>({
++    show: false,
++    status: 'success',
++    message: '',
++  });
+   const [codeSuccess, setCodeSuccess] = useState(false);
+   const onClickConfirmVerification = () => {
+     setCodeSuccess(false);
+     refetchCodeVerification()
+       .then((response) => {
+         if (response?.code === '200') {
++          setCodeSuccess(true);
+           setJoinForm({...joinForm, email: email});
+-          setCodeSuccess(true);
++          setCodeHelpMsg({
++            show: true,
++            status: 'success',
++            message: '인증이 완료되었습니다',
++          });
+         }
+       })
+       .catch(() => {
+-        setCodeErrorMsg('번호가 올바르지 않습니다');
+-        setCodeErrorMsgShow(true);
++        setCodeHelpMsg({
++          show: true,
++          status: 'error',
++          message: '번호가 올바르지 않습니다',
++        });
+       });
+   };
+   useEffect(() => {
+     if (code?.length > 6) {
+-      setCodeErrorMsg('번호형식이 올바르지 않습니다');
+-      setCodeErrorMsgShow(true);
++      setCodeHelpMsg({
++        show: true,
++        status: 'error',
++        message: '번호형식이 올바르지 않습니다',
++      });
+     } else {
+-      setCodeErrorMsgShow(false);
++      setCodeHelpMsg({...codeHelpMsg, show: false});
+     }
+   }, [code]);
+ 
+@@ -80,9 +131,8 @@
+           errorMsgShow={emailErrorMsgShow}
+           value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}
+           setValue={setEmail}
+-          patternMsg="이메일을 입력하세요"
+-          helpMsg="메일이 발송되었어요"
+-          helpMsgShow={emailSent}
++          patternMsg="이메일 형식이 올바르지 않습니다."
++          helpMsg={emailHelpMsg}
+           disabled={joinForm.email !== null && joinForm.email !== ''}
+         />
+         <div className={styles['button__wrap']}>
+@@ -104,10 +154,7 @@
+             value={code}
+             setValue={setCode}
+             type="number"
+-            errorMsg={codeErrorMsg}
+-            errorMsgShow={codeErrorMsgShow}
+-            helpMsg="인증이 완료되었어요"
+-            helpMsgShow={codeSuccess}
++            helpMsg={codeHelpMsg}
+             disabled={codeSuccess}
+           />
+           <div className={styles['button__wrap']}>
+Index: src/assets/icon/check-success.svg
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/assets/icon/check-success.svg b/src/assets/icon/check-success.svg
+new file mode 100644
+--- /dev/null	(date 1751108005931)
++++ b/src/assets/icon/check-success.svg	(date 1751108005931)
+@@ -0,0 +1,3 @@
++<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
++<path d="M18.1357 6.46994C18.4285 6.17711 18.9034 6.17724 19.1963 6.46994C19.4891 6.76284 19.4891 7.23761 19.1963 7.53048L10.0303 16.6975C9.88971 16.8379 9.69863 16.9171 9.49998 16.9172C9.35111 16.9171 9.20609 16.8725 9.08396 16.7912L8.96971 16.6975L4.80271 12.5305L4.75096 12.4738C4.51074 12.1794 4.5284 11.7446 4.80271 11.4699C5.0773 11.1954 5.51204 11.1779 5.80662 11.4182L5.86326 11.4699L9.499 15.1057L18.1357 6.46994Z" fill="#22C55E"/>
++</svg>
+Index: src/app/common.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>/* 폰트 및 typography */\n@font-face {\n  font-family: 'Pretendard';\n  font-weight: 45 920;\n  font-style: normal;\n  font-display: swap;\n  src: url('../assets/font/PretendardVariable.woff2') format('woff2-variations');\n}\n\n@font-face {\n  font-family: 'Paperlogy Light';\n  font-weight: 300;\n  font-style: normal;\n  font-display: swap;\n  src:\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.woff2')\n      format('woff2'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.woff') format('woff'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.otf')\n      format('opentype'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-3Light.ttf')\n      format('truetype');\n}\n@font-face {\n  font-family: 'Paperlogy Regular';\n  font-weight: 400;\n  font-style: normal;\n  font-display: swap;\n  src:\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff2')\n      format('woff2'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.woff')\n      format('woff'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.otf')\n      format('opentype'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-4Regular.ttf')\n      format('truetype');\n}\n@font-face {\n  font-family: 'Paperlogy Medium';\n  font-weight: 500;\n  font-style: normal;\n  font-display: swap;\n  src:\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.woff2')\n      format('woff2'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.woff') format('woff'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.otf')\n      format('opentype'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-5Medium.ttf')\n      format('truetype');\n}\n@font-face {\n  font-family: 'Paperlogy SemiBold';\n  font-weight: 600;\n  font-style: normal;\n  font-display: swap;\n  src:\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.woff2')\n      format('woff2'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.woff')\n      format('woff'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.otf')\n      format('opentype'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-6SemiBold.ttf')\n      format('truetype');\n}\n@font-face {\n  font-family: 'Paperlogy Bold';\n  font-weight: 700;\n  font-style: normal;\n  font-display: swap;\n  src:\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff2') format('woff2'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.woff') format('woff'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.otf')\n      format('opentype'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-7Bold.ttf')\n      format('truetype');\n}\n@font-face {\n  font-family: 'Paperlogy ExtraBold';\n  font-weight: 800;\n  font-style: normal;\n  font-display: swap;\n  src:\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.woff2')\n      format('woff2'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.woff')\n      format('woff'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.otf')\n      format('opentype'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-8ExtraBold.ttf')\n      format('truetype');\n}\n@font-face {\n  font-family: 'Paperlogy Black';\n  font-weight: 900;\n  font-style: normal;\n  font-display: swap;\n  src:\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.woff2')\n      format('woff2'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.woff') format('woff'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.otf')\n      format('opentype'),\n    url('https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy-9Black.ttf')\n      format('truetype');\n}\n\n.display-lg {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-1600);\n  font-weight: var(--font-weight-semibold);\n  line-height: var(--line-height-1900);\n  letter-spacing: -1.2px;\n  font-family: 'Paperlogy SemiBold', sans-serif;\n}\n.display-md {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-1100);\n  font-weight: var(--font-weight-medium);\n  line-height: var(--line-height-1500);\n  letter-spacing: -1px;\n  font-family: 'Paperlogy Medium', sans-serif;\n}\n.display-sm {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-900);\n  font-weight: var(--font-weight-semibold);\n  line-height: var(--line-height-1200);\n  letter-spacing: -0.6px;\n  font-family: 'Paperlogy SemiBold', sans-serif;\n}\n.title-lg {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-800);\n  font-weight: var(--font-weight-semibold);\n  line-height: var(--line-height-1050);\n  letter-spacing: -0.4px;\n  font-family: 'Paperlogy SemiBold', sans-serif;\n}\n.title-md {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-650);\n  font-weight: var(--font-weight-medium);\n  line-height: var(--line-height-900);\n  letter-spacing: -0.3px;\n  font-family: 'Paperlogy Medium', sans-serif;\n}\n.title-sm {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-550);\n  font-weight: var(--font-weight-medium);\n  line-height: var(--line-height-700);\n  letter-spacing: -0.2px;\n  font-family: 'Paperlogy Medium', sans-serif;\n}\n\n.title-xs {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-450);\n  font-weight: var(--font-weight-medium);\n  line-height: var(--line-height-700);\n  letter-spacing: -0.2px;\n  font-family: 'Paperlogy Medium', sans-serif;\n}\n.body-lg {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-400);\n  font-weight: var(--font-weight-regular);\n  line-height: var(--line-height-650);\n  letter-spacing: 0;\n}\n.body-md {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-350);\n  font-weight: var(--font-weight-regular);\n  line-height: var(--line-height-550);\n  letter-spacing: 0.1px;\n}\n.body-sm {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-325);\n  font-weight: var(--font-weight-regular);\n  line-height: var(--line-height-500);\n  letter-spacing: 0.2px;\n}\n.label-lg {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-400);\n  font-weight: var(--font-weight-semibold);\n  line-height: var(--line-height-600);\n  letter-spacing: 0.2px;\n}\n.label-md {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-300);\n  font-weight: var(--font-weight-medium);\n  line-height: var(--line-height-450);\n  letter-spacing: 0.2px;\n}\n.label-sm {\n  color: var(--color-text-secondary);\n  font-size: var(--font-size-275);\n  font-weight: var(--font-weight-medium);\n  line-height: var(--line-height-400);\n  letter-spacing: 0.2px;\n}\n\n@media screen and (max-width: 768px) {\n  .display-lg {\n    font-size: var(--font-size-1100);\n    line-height: var(--line-height-1400);\n    letter-spacing: -0.5px;\n  }\n  .display-md {\n    font-size: var(--font-size-900);\n    line-height: var(--line-height-1200);\n    letter-spacing: -0.4px;\n  }\n  .display-sm {\n    font-size: var(--font-size-650);\n    line-height: var(--line-height-1000);\n    letter-spacing: -0.3px;\n  }\n  .title-lg {\n    font-size: var(--font-size-600);\n    line-height: var(--line-height-800);\n    letter-spacing: -0.2px;\n  }\n  .title-md {\n    font-size: var(--font-size-500);\n    line-height: var(--line-height-700);\n    letter-spacing: -0.1px;\n  }\n  .title-sm {\n    color: var(--color-text-secondary);\n    font-size: var(--font-size-450);\n    line-height: var(--line-height-650);\n    letter-spacing: 0;\n  }\n}\n\n/* text color */\n.txt-tertiary {\n  color: var(--color-text-tertiary) !important;\n}\n\n.txt-primary {\n  color: var(--color-text-primary) !important;\n}\n\n.txt-white {\n  color: var(--color-text-white) !important;\n}\n\n.txt-brand {\n  color: var(--color-text-brand) !important;\n}\n\n.txt-secondary {\n  color: var(--color-text-secondary) !important;\n}\n\n.txt-danger {\n  color: var(--color-text-danger) !important;\n}\n\n.txt-inverse-gray {\n  color: var(--gray-400) !important;\n}\n\n/* margin & padding */\n.pd-left-24 {\n  padding-left: 24px;\n}\n\n.pd-top-40 {\n  padding-top: 40px;\n}\n.pd-bottom-32 {\n  padding-bottom: 32px;\n}\n\n.mg-left-4 {\n  margin-left: 4px;\n}\n.mg-left-13 {\n  margin-left: 13px;\n}\n\n.mg-right-4 {\n  margin-right: 4px;\n}\n.mg-right-8 {\n  margin-right: 8px;\n}\n.mg-right-13 {\n  margin-right: 13px;\n}\n.mg-right-16 {\n  margin-right: 16px;\n}\n\n.mg-bottom-8 {\n  margin-bottom: 8px;\n}\n.mg-bottom-12 {\n  margin-bottom: 12px;\n}\n.mg-bottom-20 {\n  margin-bottom: 20px;\n}\n\n.mg-top-4 {\n  margin-top: 4px;\n}\n.mg-top-8 {\n  margin-top: 8px;\n}\n.mg-top-16 {\n  margin-top: 16px;\n}\n.mg-top-32 {\n  margin-top: 32px;\n}\n\n.cp {\n  cursor: pointer;\n}\n.fx {\n  display: flex;\n}\n.fx-center {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n.fx-align-center {\n  display: flex;\n  align-items: center;\n}\n.fx-space-between {\n  display: flex;\n  justify-content: space-between;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/common.css b/src/app/common.css
+--- a/src/app/common.css	(revision 21f08e60ccb9ffc811e70a7aa8c5527e81e98961)
++++ b/src/app/common.css	(date 1751117180270)
+@@ -345,3 +345,7 @@
+   display: flex;
+   justify-content: space-between;
+ }
++
++.pre {
++  white-space: pre;
++}
+\ No newline at end of file
