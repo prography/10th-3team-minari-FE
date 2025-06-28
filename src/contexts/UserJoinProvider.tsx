@@ -84,6 +84,8 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
       case 0:
         const checkRequired = checkItems.filter((item) => item.required);
         return !checkRequired.every((item) => item.value);
+      case 1:
+        return joinForm.isSubscribed === null;
       case 2:
         return joinForm.email === '';
       case 3:
