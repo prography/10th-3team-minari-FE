@@ -1,30 +1,35 @@
 'use client';
 import styles from './page.module.css';
-import {useUserStore} from '@/stores/userStore';
-import Heatmap from '@/app/(graybg)/users/_components/my/Heatmap';
 import MoreTab from '@/app/(graybg)/users/_components/my/Tab/More';
 import InfoBox from '@/components/InfoBox';
 import ProfileCard from '@/app/(graybg)/users/_components/my/ProfileCard';
 import {useUsers} from '@/hooks/queries/useUsers';
 
 const MyPage = () => {
-  const userStore = useUserStore();
   const {data} = useUsers();
 
   return (
     <div className={styles.container}>
       <div className="mg-top-24">
         <InfoBox>
-          <ProfileCard name={data?.name} domain={data?.domain} email={data?.email} />
+          <ProfileCard
+            name={data?.name}
+            domain={data?.domain}
+            email={data?.email}
+            uuid={data?.uuid}
+          />
         </InfoBox>
       </div>
       {/*<div className="mg-top-24 title-sm">{userStore.username}님의 미나리밭</div>*/}
       {/*<div className="body-md">*/}
       {/*  내가 심은 날의 미나리를 클릭해서 나의 리허설 히스토리를 확인해요.*/}
       {/*</div>*/}
-        <div className="mg-top-20">
-            <MoreTab />
-        </div>
+      {/*<div className="mg-top-20">*/}
+      {/*  <Heatmap />*/}
+      {/*</div>*/}
+      <div className="mg-top-20">
+        <MoreTab />
+      </div>
     </div>
   );
 };

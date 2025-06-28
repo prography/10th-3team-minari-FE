@@ -1,14 +1,51 @@
 'use client';
 import styles from './More.module.css';
-import {useUserDelete} from '@/hooks/queries/useUserDelete';
+import {deleteUser} from '@/apis/user';
+import Toast from '@/components/Toast';
+import {useToastStore} from '@/stores/toastStore';
+import {deleteCookie} from '@/utils/cookies';
 
 const MoreTab = () => {
-  const {result, setShouldFetchDelete} = useUserDelete();
+  const toastStore = useToastStore();
+  const navigateHome = () => {
+    window.location.href = '/';
+  };
 
-  const onClickLogout = () => {};
-  const onClickWithdraw = () => {
-    setShouldFetchDelete(true);
-    console.log(result, 'result');
+  const onClickLogout = async () => {
+    toastStore.setTime(1000);
+    toastStore.open(<Toast title={'로그아웃 되었어요.'} />);
+    setTimeout(async () => {
+      localStorage.removeItem('user-storage');
+      await deleteCookie('accessToken');
+      await deleteCookie('refreshToken');
+      navigateHome();
+    }, 800);
+  };
+  const onClickWithdraw = async () => {
+    await deleteUser()
+      .then((response) => {
+        if (response?.code === '200') {
+          toastStore.setTime(2000);
+          toastStore.open(
+            <Toast
+              title={'탈퇴가 완료되었어요'}
+              description="그동안 미나리를 사랑해주셔서 감사합니다."
+            />,
+          );
+          setTimeout(async () => {
+            localStorage.removeItem('user-storage');
+            await deleteCookie('accessToken');
+            await deleteCookie('refreshToken');
+            navigateHome();
+          }, 1500);
+        }
+      })
+      .catch(() => {
+        toastStore.setTime(2000);
+        toastStore.open(
+          <Toast title={'탈퇴 실패'} description="앗 이런! 다시 한 번 시도해주세요." />,
+        );
+      });
   };
   return (
     <div className={styles['button-section']}>

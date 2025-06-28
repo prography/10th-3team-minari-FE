@@ -75,6 +75,7 @@ export interface UsersReponse {
   image: string;
   seed: number;
   domain: UserDomain;
+  uuid: string;
 }
 
 export interface TypeKakaoLoginResponse {

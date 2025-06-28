@@ -6,7 +6,7 @@ import {createPortal} from 'react-dom';
 import styles from './Toast.module.css';
 
 export const ToastClient = () => {
-  const {toast, isOpen, close} = useToastStore();
+  const {toast, isOpen, close, time} = useToastStore();
 
   const toastRef = useRef<HTMLDivElement>(null);
 
@@ -14,7 +14,7 @@ export const ToastClient = () => {
     if (isOpen) {
       setTimeout(() => {
         close();
-      }, 3000);
+      }, time);
     }
   }, [isOpen]);
 
