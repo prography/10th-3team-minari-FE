@@ -9,9 +9,10 @@ import KeywordList from './_components/KeywordList';
 import AnswerList from './_components/AnswerList';
 import Button from '@/components/Button';
 import {useAnswer} from '@/hooks/queries/useAnswer';
+import {QUESTION_ID} from '@/constants/questionId';
 
 const ReharsalResultPage = () => {
-  const {data: answer} = useAnswer(6);
+  const {data: answer} = useAnswer(QUESTION_ID);
 
   return (
     <div className={styles.wrapper}>
