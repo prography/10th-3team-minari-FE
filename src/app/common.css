@@ -345,3 +345,6 @@
   display: flex;
   justify-content: space-between;
 }
+.pre {
+  white-space: pre;
+}
