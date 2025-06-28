@@ -1,0 +1,10 @@
+.contents {
+  margin-top: 64px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 80px;
+  gap: 16px;
+}
