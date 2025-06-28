@@ -45,6 +45,23 @@ export const postUserRegister = async (data: TypeUserRegisterRequest) => {
   return response;
 };
 
+// 사용자 조희
+export const getUsers = async () => {
+  const response = await fetch.get<UsersReponse>(`/users/me`);
+
+  return response;
+};
+
+export interface UsersReponse {
+  id: number;
+  email: string;
+  socialType: string;
+  socialId: string;
+  name: string;
+  image: string;
+  seed: number;
+}
+
 export interface TypeKakaoLoginResponse {
   accessToken: string;
   id: number;
