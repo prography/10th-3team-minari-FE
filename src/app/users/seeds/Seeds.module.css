@@ -23,8 +23,3 @@
 .note_item {
   color: var(--color-text-disabled);
 }
-
-.nav_list {
-  display: flex;
-  gap: 32px;
-}
