@@ -3,7 +3,7 @@ import {create} from 'zustand';
 interface ModalStore {
   modal: React.ReactNode | null;
   isOpen: boolean;
-  open: (modal: React.ReactNode, disableBackdropClick: boolean) => void;
+  open: (modal: React.ReactNode, disableBackdropClick?: boolean) => void;
   close: () => void;
   change: (modal: React.ReactNode) => void;
   disableBackdropClick: boolean;
