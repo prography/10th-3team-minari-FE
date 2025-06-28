@@ -26,6 +26,10 @@ export default function Page() {
     loginKaKao();
   };
 
+  const onClickMinari = () => {
+    router.push('/minari');
+  };
+
   useEffect(() => {
     if (!store.isUserRegistered && store.isLoggedIn) {
       router.push('/users/join');
@@ -52,8 +56,12 @@ export default function Page() {
                 </div>
               </div>
               <div className="display-md mg-bottom-20">개발자의 여정</div>
-              <Button iconRight={BlackArrow} border onClick={onClickLogin}>
-                카카오 로그인
+              <Button
+                iconRight={BlackArrow}
+                border
+                onClick={store.isLoggedIn ? onClickMinari : onClickLogin}
+              >
+                {store.isLoggedIn ? '키워드 보러가기' : '카카오 로그인'}
               </Button>
             </div>
             <Image src={Person} alt="" className={styles['hero__image-person']} />
