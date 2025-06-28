@@ -2,7 +2,7 @@
 
 import {createContext, useContext, useEffect, useMemo, useState} from 'react';
 import {TypeUserRegisterRequest} from '@/apis/user';
-import {CheckItemType} from '@/app/users/join/page';
+import {CheckItemType} from '@/app/(whitebg)/users/join/page';
 
 type ContextType = {
   step: number;
