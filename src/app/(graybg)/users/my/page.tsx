@@ -1,9 +1,10 @@
 'use client';
 import styles from './page.module.css';
 import {useUserStore} from '@/stores/userStore';
-import MoreTab from '@/app/users/_components/my/Tab/More';
+import Heatmap from '@/app/(graybg)/users/_components/my/Heatmap';
+import MoreTab from '@/app/(graybg)/users/_components/my/Tab/More';
 import InfoBox from '@/components/InfoBox';
-import ProfileCard from '@/app/users/_components/my/ProfileCard';
+import ProfileCard from '@/app/(graybg)/users/_components/my/ProfileCard';
 import {useUsers} from '@/hooks/queries/useUsers';
 
 const MyPage = () => {
