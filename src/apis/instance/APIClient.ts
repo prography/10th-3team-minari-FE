@@ -124,12 +124,12 @@ class APIClient {
     const fullUrl = this.constructURL(url, options.queryParams);
 
     const isFormData = options.body instanceof FormData;
-    const token = await getCookie('token');
+    const accessToken = await getCookie('accessToken');
 
     const headers = new Headers(this.buildHeaders(options.headers, isFormData));
 
-    if (token) {
-      headers.set('Authorization', `${token}`);
+    if (accessToken) {
+      headers.set('Authorization', `${accessToken}`);
     }
 
     options.headers = headers;
