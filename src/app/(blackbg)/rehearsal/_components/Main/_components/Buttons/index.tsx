@@ -12,6 +12,7 @@ import {useNotepad} from '@/contexts/NotepadProvider';
 import {useVideoState} from '@/contexts/VideoStateProvider';
 import {useCompleteModal} from '@/contexts/CompleteModalProvider';
 import {useUserStore} from '@/stores/userStore';
+import {QUESTION_ID} from '@/constants/questionId';
 
 const Buttons = () => {
   const {
@@ -39,12 +40,14 @@ const Buttons = () => {
     if (seconds === 0) {
       handleStop();
       handleCountStop();
-      handleRearsalClose({userId, questionId: 5, memo});
+      handleRearsalClose({userId, questionId: QUESTION_ID, memo});
     }
   }, [seconds, handleStop, handleCountStop, handleRearsalClose]);
 
-  const startClick = () => {
-    handleCountStart();
+  const restartClick = () => {
+    handleRestart();
+    handleCountRestart();
+    handleRearsalRestart();
   };
 
   const pauseClick = () => {
@@ -53,32 +56,55 @@ const Buttons = () => {
     handleRearsalPause();
   };
 
-  const restartClick = () => {
-    handleRestart();
-    handleCountRestart();
-    handleRearsalRestart();
+  const startClick = () => {
+    handleCountStart();
   };
 
   const stopClick = () => {
     handleStop();
     handleCountStop();
-    handleRearsalClose({userId, questionId: 5, memo});
+    handleRearsalClose({userId, questionId: QUESTION_ID, memo});
     ModalOpen();
   };
+
+  const restartDisabled = videoState !== 'DONE';
+  const pauseDisabled = videoState !== 'DONE' && videoState !== 'STOP';
+  const startDisabled = videoState === 'DONE' || videoState === 'STOP';
+  const stopDisabled = videoState !== 'DONE';
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.control_buttons}>
-        <Button onClick={restartClick} iconRight={CircleArrowLeft} theme="secondary">
+        <Button
+          disabled={restartDisabled}
+          onClick={restartClick}
+          iconRight={CircleArrowLeft}
+          theme="secondary"
+        >
           처음부터
         </Button>
-        <Button onClick={pauseClick} iconRight={CirclePause} theme="secondary">
+        <Button
+          disabled={pauseDisabled}
+          onClick={pauseClick}
+          iconRight={CirclePause}
+          theme="secondary"
+        >
           일시정지
         </Button>
-        <Button onClick={startClick} iconRight={CirclePlay} theme="secondary">
+        <Button
+          disabled={startDisabled}
+          onClick={startClick}
+          iconRight={CirclePlay}
+          theme="secondary"
+        >
           시작
         </Button>
-        <Button onClick={stopClick} iconRight={CircleStop} theme="secondary">
+        <Button
+          disabled={stopDisabled}
+          onClick={stopClick}
+          iconRight={CircleStop}
+          theme="secondary"
+        >
           종료
         </Button>
       </div>
