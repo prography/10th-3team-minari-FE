@@ -6,7 +6,7 @@ import {createPortal} from 'react-dom';
 import styles from './Model.module.css';
 
 export const ModalClient = () => {
-  const {modal, isOpen, close, disableBackdropClick} = useModalStore();
+  const {modal, isOpen, close, disableBackdropClick, historyStackPush} = useModalStore();
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +24,7 @@ export const ModalClient = () => {
 
   useEffect(() => {
     if (!isOpen) return;
-    if (disableBackdropClick) return;
+    if (!historyStackPush) return;
 
     history.pushState(null, '', location.href);
 
