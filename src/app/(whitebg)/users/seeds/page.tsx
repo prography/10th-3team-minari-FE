@@ -5,7 +5,6 @@ import styles from './Seeds.module.css';
 import TabView from './_components/(tabs)/TabView';
 import Loader from '@/components/Loader';
 import InfoBox from '@/components/InfoBox';
-import Note from './_components/Note';
 import {useUsers} from '@/hooks/queries/useUsers';
 import Image from 'next/image';
 import Logo from '@/assets/minari-black.svg';
@@ -35,8 +34,6 @@ const SeedsLayout = () => {
           <TabView />
         </Suspense>
       </div>
-
-      <Note />
     </div>
   );
 };

@@ -5,6 +5,8 @@ import Header from './(table)/Header';
 import Body, {type TbType} from './(table)/Body';
 import {useCallback} from 'react';
 import {TB_COUNT, TB_PRICE} from '@/constants/seedTable';
+import Note from '../Note';
+import {NOTE_BUY} from '@/constants/note';
 
 const BuyTab = () => {
   const {open} = useModalStore();
@@ -48,6 +50,7 @@ const BuyTab = () => {
       {TbBuyDatasMake().map((tbs, idx) => (
         <Body key={idx} tbs={tbs} />
       ))}
+      <Note NoteData={NOTE_BUY} />
     </>
   );
 };
