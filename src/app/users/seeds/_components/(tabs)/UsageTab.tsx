@@ -1,8 +1,12 @@
+import Header from './(table)/Header';
+import Title from './(table)/Title';
+
 const UsageTab = () => {
   return (
-    <div>
-      <span className="title-xs">씨앗 모종 사용 내역</span>
-    </div>
+    <>
+      <Title>씨앗 사용 내역</Title>
+      <Header ths={['날짜', '씨앗', '갯수', '상태', '환불']} />
+    </>
   );
 };
 
