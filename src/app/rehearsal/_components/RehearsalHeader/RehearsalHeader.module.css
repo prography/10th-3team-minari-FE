@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   max-width: 100%;
-  padding: 16px 70px;
+  padding: 16px 0px;
   justify-content: space-between;
   align-items: flex-end;
 }
