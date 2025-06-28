@@ -23,7 +23,7 @@ const Header = () => {
         <Link href="/">
           <Image src={logo} alt="logo" height={40} />
         </Link>
-        <div>{userStore.isLoggedIn ? <UserMenu /> : <LandingMenu />}</div>
+        <div>{userStore.isUserRegistered ? <UserMenu /> : <LandingMenu />}</div>
       </div>
     </div>
   );
