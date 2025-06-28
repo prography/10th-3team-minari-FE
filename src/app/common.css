@@ -267,6 +267,10 @@
   color: var(--color-text-danger) !important;
 }
 
+.txt-disabled {
+  color: var(--color-text-disabled) !important;
+}
+
 .txt-inverse-gray {
   color: var(--gray-400) !important;
 }
