@@ -10,8 +10,9 @@ const JoinAgreement = () => {
   const {checkItems, checkAll, checkAllHandler, checkAllIndeterminate, checkHandler} =
     useUserJoinContext();
 
-  const onClickAgreement = () => {
-    window.open(OUT_LINK.AGREEMENTS);
+  const onClickAgreement = (no: string) => {
+    const link = `AGREEMENTS_${no}`;
+    window.open(OUT_LINK[`${link}`]);
   };
 
   return (
@@ -40,8 +41,8 @@ const JoinAgreement = () => {
           ))}
         </div>
         <div className={styles['agreements__wrap']}>
-          <div onClick={onClickAgreement}>약관보기</div>
-          <div onClick={onClickAgreement}>약관보기</div>
+          <div onClick={() => onClickAgreement('1')}>약관보기</div>
+          <div onClick={() => onClickAgreement('2')}>약관보기</div>
         </div>
       </div>
     </div>
