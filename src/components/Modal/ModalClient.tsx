@@ -22,6 +22,25 @@ export const ModalClient = () => {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+
+    history.pushState(null, '', location.href);
+
+    const handlePopState = () => {
+      close();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+      if (isOpen) {
+        history.back();
+      }
+    };
+  }, [isOpen, close]);
+
   const handleClickOutside = (e: React.MouseEvent<HTMLDivElement>) => {
     if (disableBackdropClick) return;
 
