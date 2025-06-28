@@ -10,10 +10,12 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   disabled?: boolean;
   type?: string;
-  helpMessage?: string;
+  errorMsgShow?: boolean;
+  errorMsg?: string;
+  patternMsg?: string;
+  helpMsgShow?: boolean;
+  helpMsg?: string;
   required?: boolean;
-  confirmMessage?: string;
-  confirmMessageShow?: boolean;
 }
 
 const TextInput = ({
@@ -23,12 +25,22 @@ const TextInput = ({
   label,
   disabled,
   type,
-  helpMessage,
+  patternMsg,
+  errorMsgShow,
+  errorMsg,
   required,
-  confirmMessage,
-  confirmMessageShow,
+  helpMsgShow,
+  helpMsg,
 }: TextInputProps) => {
   const emailPattern = '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{1,}$';
+  const errorMsgFormat = (
+    <span className={`body-md ${styles['error-message']}`}>
+      <Image src={redX} alt={''} />
+      <span>{errorMsg}</span>
+    </span>
+  );
+  const helpMsgFormat = <span className={`body-md ${styles['confirm-message']}`}>V {helpMsg}</span>;
+
   return (
     <div className={styles.wrapper}>
       <label htmlFor={`input-${label}`} className="label-lg">
@@ -49,13 +61,10 @@ const TextInput = ({
       />
       <span className={`body-md ${styles.message}`}>
         <Image src={redX} alt={''} />
-        {helpMessage}
+        {patternMsg}
       </span>
-      <div
-        className={`body-md ${confirmMessageShow ? styles['confirm-message'] : styles['confirm-message__hide']}`}
-      >
-        {confirmMessageShow ? `V ${confirmMessage}` : ''}
-      </div>
+      {errorMsgShow && errorMsgFormat}
+      {helpMsgShow && helpMsgFormat}
     </div>
   );
 };
