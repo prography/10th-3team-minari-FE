@@ -10,7 +10,6 @@ import Loading from '@/assets/icon/loader-circle.svg';
 import Checkbox from '@/components/Checkbox';
 import {useState} from 'react';
 import TextInput from '@/components/TextInput';
-import {fetch} from '@/apis/instance';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
 
@@ -40,9 +39,9 @@ const TestPage = () => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const deleteUser = () => {
-    fetch.delete('/users/me ');
-  };
+  // const deleteUser = () => {
+  //   fetch.delete('/users/me ');
+  // };
   return (
     <>
       <Button onClick={handleClickOpenModal}>open Modal</Button>
@@ -52,7 +51,7 @@ const TestPage = () => {
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
         <Button theme="primary">Primary Button</Button>
-        <Button theme="primary" rounded onClick={deleteUser}>
+        <Button theme="primary" rounded>
           클릭하면 탈퇴
         </Button>
         <Button theme="primary" border>
