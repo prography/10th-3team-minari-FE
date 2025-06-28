@@ -13,12 +13,10 @@ const MyPage = () => {
       <div className="body-md">
         내가 심은 날의 미나리를 클릭해서 나의 리허설 히스토리를 확인해요.
       </div>
-      <div className="mg-top-20">탭 영역2</div>
-      <div>
-        히트맵 <br />
-        <br />
+      <div className="mg-top-20">
         <Heatmap />
       </div>
+      <div></div>
     </div>
   );
 };
