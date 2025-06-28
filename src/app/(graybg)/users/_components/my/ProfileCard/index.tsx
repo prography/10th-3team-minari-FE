@@ -7,7 +7,7 @@ interface ProfileCardProps {
   name: string | undefined;
   domain: string | undefined;
   email: string | undefined;
-  uuid: string | undefined;
+  uuid?: string | undefined;
 }
 const ProfileCard = ({name, domain, email, uuid}: ProfileCardProps) => {
   return (
