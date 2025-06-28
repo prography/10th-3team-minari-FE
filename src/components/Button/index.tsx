@@ -1,6 +1,8 @@
 import styles from './Button.module.css';
 import Image, {type StaticImageData} from 'next/image';
 
+type paddingType = 'p-4-12' | 'p-12-16';
+
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   theme?: 'primary' | 'secondary' | 'white' | 'black';
@@ -10,6 +12,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   loading?: boolean;
   rounded?: boolean;
   shadow?: boolean;
+  size?: paddingType;
 }
 
 const Button = ({
@@ -21,6 +24,7 @@ const Button = ({
   rounded,
   loading,
   shadow,
+  size = 'p-12-16',
   ...restProps
 }: ButtonProps) => {
   const borderValid = border ? '-border' : '';
@@ -28,7 +32,7 @@ const Button = ({
 
   return (
     <button
-      className={`${styles.button} ${styles[themeClass]} ${rounded && styles.round} ${shadow && styles.shadow} label-lg`}
+      className={`${styles.button} ${styles[themeClass]} ${rounded && styles.round} ${shadow && styles.shadow} ${styles[size]} label-lg`}
       {...restProps}
     >
       {iconLeft != null ? (
