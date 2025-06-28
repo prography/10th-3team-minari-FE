@@ -2,9 +2,10 @@ import OptionGroup from './_components/OptionGroup';
 import RehearsalHeader from '../RehearsalHeader';
 import OnlyVideo from '../Video/OnlyVideo';
 import {useTag} from '@/hooks/queries/useTag';
+import {QUESTION_ID} from '@/constants/questionId';
 
 const SettingPage = () => {
-  const {randomKeyword} = useTag(5);
+  const {randomKeyword} = useTag(QUESTION_ID);
 
   return (
     <>

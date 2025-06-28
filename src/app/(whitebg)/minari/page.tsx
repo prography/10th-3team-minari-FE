@@ -5,10 +5,11 @@ import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
 import Button from '@/components/Button';
 import {useTag} from '@/hooks/queries/useTag';
+import {QUESTION_ID} from '@/constants/questionId';
 
 const MinariPage = () => {
   // const {questionId} = useQuestionId();
-  const {data} = useTag(5);
+  const {data} = useTag(QUESTION_ID);
   const CATEGORY = '브라우저';
 
   return (
