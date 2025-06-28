@@ -1,6 +1,7 @@
-import {useId} from 'react';
+import {Suspense, useId} from 'react';
 import styles from './Seeds.module.css';
 import TabView from './_components/(tabs)/TabView';
+import Loader from '@/components/Loader';
 
 const SeedsLayout = () => {
   const id = useId();
@@ -16,7 +17,9 @@ const SeedsLayout = () => {
         </div>
       </div>
 
-      <TabView />
+      <Suspense fallback={<Loader />}>
+        <TabView />
+      </Suspense>
 
       <div className={styles.note_wrapper}>
         <span className="label-lg">유의사항</span>
