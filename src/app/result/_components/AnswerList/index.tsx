@@ -1,6 +1,6 @@
 'use client';
 
-import {Fragment, useState} from 'react';
+import {Fragment} from 'react';
 import ListRow from '../ListRow';
 import Spacing from '@/components/Spacing';
 import type {AnswerType} from '@/apis/answer';
@@ -10,11 +10,12 @@ import Modal from '@/components/Modal';
 import Button from '@/components/Button';
 import {useRouter} from 'next/navigation';
 import {PATH} from '@/constants/path';
+import {useUsers} from '@/hooks/queries/useUsers';
 
 const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   const router = useRouter();
   const {open: opneModal, close: closeModal} = useModalStore();
-  const [seeds, setSeeds] = useState(false);
+  const {data} = useUsers();
 
   const handleReTry = () => {
     router.push(PATH.REHEARSAL);
@@ -29,15 +30,15 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   const handleClickOpenModal = () => {
     opneModal(
       <Modal
-        title={seeds ? '지금 답변이 아쉬우신가요?' : '앗 씨앗이 부족해요.'}
+        title={data?.seed ? '지금 답변이 아쉬우신가요?' : '앗 씨앗이 부족해요.'}
         rightButton={
-          <Button onClick={seeds ? handleReTry : handleBuySeeds}>
-            {seeds ? '다시 도전하기' : '씨앗 사러 가기'}
+          <Button onClick={data?.seed ? handleReTry : handleBuySeeds}>
+            {data?.seed ? '다시 도전하기' : '씨앗 사러 가기'}
           </Button>
         }
       >
         <p>더 멋진 답변을 준비할 수 있어요.</p>
-        <p>{seeds ? '씨앗 1개가 사용돼요.' : '씨앗을 사러 가볼까요?'}</p>
+        <p>{data?.seed ? '씨앗 1개가 사용돼요.' : '씨앗을 사러 가볼까요?'}</p>
       </Modal>,
     );
   };
@@ -63,9 +64,6 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
 
   return (
     <>
-      <Button
-        onClick={() => setSeeds((prev) => !prev)}
-      >{`씨앗이 ${seeds ? '있' : '없'}을 경우`}</Button>
       {ResultList.map(({id, title, contents, withButton}, idx) => (
         <Fragment key={id}>
           <ListRow
