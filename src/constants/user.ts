@@ -1,11 +1,11 @@
-import Exp0Inactive from '@/assets/icon/0-inactive.png';
-import Exp0Active from '@/assets/icon/0-active.png';
-import Exp1Inactive from '@/assets/icon/1-inactive.png';
-import Exp1Active from '@/assets/icon/1-active.png';
-import Exp2Inactive from '@/assets/icon/2-inactive.png';
-import Exp2Active from '@/assets/icon/2-active.png';
-import Exp3Inactive from '@/assets/icon/3-inactive.png';
-import Exp3Active from '@/assets/icon/3-active.png';
+import Exp0Inactive from '@/assets/icon/0-inactive.svg';
+import Exp0Active from '@/assets/icon/0-active.svg';
+import Exp1Inactive from '@/assets/icon/1-inactive.svg';
+import Exp1Active from '@/assets/icon/1-active.svg';
+import Exp2Inactive from '@/assets/icon/2-inactive.svg';
+import Exp2Active from '@/assets/icon/2-active.svg';
+import Exp3Inactive from '@/assets/icon/3-inactive.svg';
+import Exp3Active from '@/assets/icon/3-active.svg';
 
 export const USER_EXPERIENCES = [
   {
