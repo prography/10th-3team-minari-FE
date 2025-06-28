@@ -20,6 +20,11 @@ export const getKakaoProfile = async (code: string) => {
   }
 };
 
+// 토큰 재발급
+export const postRefreshToken = async () => {
+  fetch.post(`/users/token/refresh`, {refreshToken: token});
+};
+
 // 회원가입 > 이메일 인증
 export const postEmailVerification = async (email: string) => {
   const data = {to: email, redirectUri: process.env.NEXT_PUBLIC_EMAIL_REDIRECT};
@@ -50,6 +55,13 @@ export const getUsers = async () => {
   const response = await fetch.get<UsersReponse>(`/users/me`);
 
   return response;
+};
+
+// 사용자 로그아웃
+
+// 사용자 탈퇴
+export const deleteUser = async () => {
+  return await fetch.delete<string>(`/users/me`);
 };
 
 export interface UsersReponse {
