@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16, 16px);
+}
+
+.select-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-24, 24px);
+}

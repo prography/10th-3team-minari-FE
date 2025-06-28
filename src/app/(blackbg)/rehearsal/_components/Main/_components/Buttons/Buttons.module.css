@@ -1,0 +1,12 @@
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-self: stretch;
+}
+
+.control_buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16, 16px);
+}
