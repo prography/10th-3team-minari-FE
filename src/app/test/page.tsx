@@ -157,7 +157,6 @@ const TestPage = () => {
         setValue={setInputValue}
         label={'라벨이 있는 인풋'}
         type="email"
-        helpMessage="이메일을 입력하세요"
       />
       <br />
       <TextInput value={'disabled'} setValue={setInputValue} disabled={true} />
