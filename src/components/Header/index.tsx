@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import styles from './Header.module.css';
 import Image from 'next/image';
@@ -7,13 +9,11 @@ import LogoImageBlack from '@/assets/logo-black.svg';
 import LogoImageWhite from '@/assets/logo-white.svg';
 import useTheme from '@/hooks/useTheme';
 import {OUT_LINK} from '@/constants/path';
+import {useUserStore} from '@/stores/userStore';
 
-interface HeaderProps {
-  menu: React.ReactNode;
-}
-
-const Header = ({menu}: HeaderProps) => {
+const Header = () => {
   const theme = useTheme();
+  const userStore = useUserStore();
 
   const logo = theme === 'light' ? LogoImageBlack : LogoImageWhite;
 
@@ -23,7 +23,7 @@ const Header = ({menu}: HeaderProps) => {
         <Link href="/">
           <Image src={logo} alt="logo" height={40} />
         </Link>
-        <div>{menu}</div>
+        <div>{userStore.isLoggedIn ? <UserMenu /> : <LandingMenu />}</div>
       </div>
     </div>
   );
@@ -57,11 +57,13 @@ const LandingMenu = () => {
   );
 };
 
-const UserMenu = ({userImage, linkMyPage}: {userImage?: string; linkMyPage: boolean}) => {
+const UserMenu = () => {
+  const userStore = useUserStore();
+
   return (
-    <Link href={linkMyPage ? '/' : ''}>
+    <Link href={userStore.isUserRegistered ? '/' : ''}>
       <Image
-        src={userImage ? userImage : ''}
+        src={userStore.userKakaoImage}
         alt="logo"
         width={40}
         height={40}
@@ -70,8 +72,5 @@ const UserMenu = ({userImage, linkMyPage}: {userImage?: string; linkMyPage: bool
     </Link>
   );
 };
-
-Header.LandingMenu = LandingMenu;
-Header.UserMenu = UserMenu;
 
 export default Header;
