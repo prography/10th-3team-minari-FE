@@ -1,0 +1,9 @@
+.container {
+  background: var(--color-bg-secondary, #fafafa);
+  min-height: 100dvh;
+  padding: 40px 70px;
+}
+
+.tab {
+  /*background-color: red;*/
+}
