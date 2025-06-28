@@ -1,0 +1,70 @@
+Index: src/app/users/my/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport styles from './page.module.css';\nimport {useUserStore} from '@/stores/userStore';\nimport Heatmap from 'src/app/users/_components/my/Heatmap';\n\nconst MyPage = () => {\n  const userStore = useUserStore();\n  return (\n    <div className={styles.container}>\n      <div>탭 영역</div>\n      <div className=\"mg-top-24\">프로필 영역</div>\n      <div className=\"mg-top-24 title-sm\">{userStore.username}님의 미나리밭</div>\n      <div className=\"body-md\">\n        내가 심은 날의 미나리를 클릭해서 나의 리허설 히스토리를 확인해요.\n      </div>\n      <div className=\"mg-top-20\">\n        <Heatmap />\n      </div>\n      <div></div>\n    </div>\n  );\n};\n\nexport default MyPage;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/my/page.tsx b/src/app/users/my/page.tsx
+--- a/src/app/users/my/page.tsx	(revision 8c0972a3e53aeb85429f414a889e9ba632e58303)
++++ b/src/app/users/my/page.tsx	(date 1751134002131)
+@@ -2,6 +2,7 @@
+ import styles from './page.module.css';
+ import {useUserStore} from '@/stores/userStore';
+ import Heatmap from 'src/app/users/_components/my/Heatmap';
++import MoreTab from "@/app/users/_components/my/Tab/More";
+ 
+ const MyPage = () => {
+   const userStore = useUserStore();
+@@ -16,7 +17,9 @@
+       <div className="mg-top-20">
+         <Heatmap />
+       </div>
+-      <div></div>
++      <div>
++          <MoreTab />
++      </div>
+     </div>
+   );
+ };
+Index: src/app/users/_components/my/Tab/More/index.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/my/Tab/More/index.tsx b/src/app/users/_components/my/Tab/More/index.tsx
+new file mode 100644
+--- /dev/null	(date 1751134002128)
++++ b/src/app/users/_components/my/Tab/More/index.tsx	(date 1751134002128)
+@@ -0,0 +1,11 @@
++import styles from './More.module.css'
++
++const MoreTab = () => {
++    return (
++        <div className={styles['button-section']}>
++            
++        </div>
++    )
++};
++
++export default MoreTab;
+\ No newline at end of file
+Index: src/app/users/_components/my/Tab/More/More.module.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/my/Tab/More/More.module.css b/src/app/users/_components/my/Tab/More/More.module.css
+new file mode 100644
+--- /dev/null	(date 1751134002127)
++++ b/src/app/users/_components/my/Tab/More/More.module.css	(date 1751134002127)
+@@ -0,0 +1,8 @@
++.button-section {
++    display: flex;
++    padding: 0px var(--spacing-24, 24px);
++    justify-content: flex-end;
++    align-items: center;
++    gap: var(--spacing-16, 16px);
++    align-self: stretch;
++}
+\ No newline at end of file
