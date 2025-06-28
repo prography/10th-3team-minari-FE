@@ -1,15 +1,16 @@
 'use client';
 
-import {useSearchParams, useRouter} from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import BuyTab from './_components/(tabs)/BuyTab';
 import HistoryTab from './_components/(tabs)/HistoryTab';
 import UsageTab from './_components/(tabs)/UsageTab';
 import TabButton from './_components/TabButton';
 import styles from './Seeds.module.css';
+import {useCurrentParams} from '@/hooks/useCurrentParams';
 
 const SeedsPage = () => {
   const router = useRouter();
-  const tab = useSearchParams().get('tabs') ?? 'buy';
+  const tab = useCurrentParams('tabs', 'buy');
 
   return (
     <div style={{marginTop: 16}}>
