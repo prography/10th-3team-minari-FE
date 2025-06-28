@@ -1,51 +1,44 @@
-import {Suspense, useId} from 'react';
+'use client';
+
+import {Suspense} from 'react';
 import styles from './Seeds.module.css';
 import TabView from './_components/(tabs)/TabView';
 import Loader from '@/components/Loader';
+import InfoBox from '@/components/InfoBox';
+import Note from './_components/Note';
+import {useUsers} from '@/hooks/queries/useUsers';
+import Image from 'next/image';
+import Logo from '@/assets/minari-black.svg';
 
 const SeedsLayout = () => {
-  const id = useId();
+  const {data} = useUsers();
+
   return (
-    <>
-      <h4 className="title-sm">MINARI SHOP</h4>
-
-      <div className={styles.seeds_info}>
-        <span className="title-xs">씨앗 이용 정보</span>
-        <div className="body-lg">
-          <span>보유중인 씨앗</span>
-          <span>{} 개</span>
-        </div>
+    <div className={styles.wrapper}>
+      <div className={styles.title}>
+        <Image src={Logo} alt="logo" width={36} height={36} />
+        <h4 className="title-md">미나리샵</h4>
       </div>
 
-      <Suspense fallback={<Loader />}>
-        <TabView />
-      </Suspense>
+      <div className={styles.content}>
+        <InfoBox>
+          <div className={styles.seeds_info}>
+            <span className="title-sm txt-white">씨앗 이용 정보</span>
+            <div className={`${styles.seeds_info_flex} body-lg txt-white`}>
+              <span>{`${data?.name}님의 씨앗`}</span>
+              <span>{`${data?.seed} 개`}</span>
+            </div>
+          </div>
+        </InfoBox>
 
-      <div className={styles.note_wrapper}>
-        <span className="label-lg">유의사항</span>
-        <ul className={styles.note_list}>
-          {Note.map((n, i) => (
-            <li key={`${id}_${i}`} className={`${styles.note_item} lable-sm`}>
-              {n}
-            </li>
-          ))}
-        </ul>
+        <Suspense fallback={<Loader />}>
+          <TabView />
+        </Suspense>
       </div>
-    </>
+
+      <Note />
+    </div>
   );
 };
-
-const Note = [
-  '씨앗 구매에 대해서는 부가가치세가 부과되지 않습니다.',
-  '씨앗 구매 또는 사용 전 이용약관 동의가 필요합니다.',
-  '전용상품권 이용약관 >',
-  '결제 상세 내역은 (결제수단)페이 > 결제내역 메뉴에서 확인 가능합니다.',
-  '구매한 씨앗을 사용하여 PC/모바일 웹사이트에서 면접을 재시도할 수 있습니다.',
-  '씨앗은 무료씨앗부터 유효기간이 임박한 순으로 먼저 사용됩니다.',
-  '구매한 씨앗은 사용하지 않은 경우에 한해, 구매 후 7일 이내에 씨앗 사기 > 구입 내역 에서 직접 구매 취소할 수 있습니다.',
-  '충전일로부터 7일 이후에는 취소 수수료에 해당하는 금액을 공제하고 환불됩니다.',
-  '묶음 단위의 구매에서 일부 사용 후 환불 받으면, 사용 분에 대한 씨앗은 환불되지 않습니다.',
-  '무료씨앗은 구매 취소 및 환불 대상이 아닙니다. 따라서 충전 내역과 취소 내역의 쿠키 수량이 다를 수 있습니다.',
-];
 
 export default SeedsLayout;
