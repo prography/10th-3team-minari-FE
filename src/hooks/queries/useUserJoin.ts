@@ -1,43 +1,39 @@
 import {useQuery} from '@tanstack/react-query';
-import {postUserRegister, TypeUserRegisterRequest, TypeUserRegisterResponse} from '@/apis/user';
+import {postUserRegister, TypeUserRegisterRequest} from '@/apis/user';
 import {useState} from 'react';
-import {ApiResponse} from '@/apis/instance/APIClient';
 
 export const useUserJoin = () => {
-  const [data, setData] = useState<TypeUserRegisterRequest>({} as TypeUserRegisterRequest);
-  const [result, setResult] = useState<ApiResponse<TypeUserRegisterResponse>>();
+  const [body, setBody] = useState<TypeUserRegisterRequest>({} as TypeUserRegisterRequest);
+  const [shouldFetch, setShouldFetch] = useState(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
-  const [shouldFetch, setShouldFetch] = useState(false);
-
   const fetchPostUserRegister = async () => {
+    setIsSuccess(false);
+    setIsError(false);
+    let response;
     try {
-      const response = await postUserRegister(data);
-      console.log('response', response?.code);
-      if (response?.code) {
-        setResult(response.result as ApiResponse<TypeUserRegisterResponse>);
-        setIsSuccess(true);
-        setIsError(false);
-      }
-      return response;
-    } catch {
-      setShouldFetch(false);
-      setIsSuccess(false);
+      response = await postUserRegister(body);
+      setIsSuccess(true);
+    } catch (error) {
+      response = error;
       setIsError(true);
     }
+    return response;
   };
 
-  useQuery({
+  const result = useQuery({
     queryKey: ['user-join'],
-    queryFn: fetchPostUserRegister,
-    enabled: shouldFetch && data.email !== '',
+    queryFn: () => fetchPostUserRegister(),
+    enabled: shouldFetch && body.email !== '',
   });
+  const {data} = result;
 
   return {
-    result,
-    setData,
+    setBody,
+    setShouldFetch,
+    fetchPostUserRegister,
+    data,
     isSuccess,
     isError,
-    setShouldFetch,
   };
 };
