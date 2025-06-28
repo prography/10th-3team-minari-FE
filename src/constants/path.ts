@@ -2,12 +2,15 @@ const REHEARSAL = 'rehearsal';
 const RESULT = 'result';
 const USERS = 'users';
 const SEEDS = 'seeds';
+const MY = 'my';
 
 export const PATH = {
   ROOT: '/',
   REHEARSAL: `/${REHEARSAL}`,
   RESULT: `/${RESULT}`,
   UESRS_SEEDS: `/${USERS}/${SEEDS}`,
+  ME_SEEDS: `/${ME}/${SEEDS}`,
+  MY: `/${USERS}/${MY}`,
 };
 
 export const OUT_LINK: {[key: string]: string} = {

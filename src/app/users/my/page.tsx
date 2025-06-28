@@ -1,7 +1,6 @@
 'use client';
 import styles from './page.module.css';
 import {useUserStore} from '@/stores/userStore';
-import Heatmap from 'src/app/users/_components/my/Heatmap';
 import MoreTab from '@/app/users/_components/my/Tab/More';
 import InfoBox from '@/components/InfoBox';
 import ProfileCard from '@/app/users/_components/my/ProfileCard';
@@ -23,9 +22,6 @@ const MyPage = () => {
         내가 심은 날의 미나리를 클릭해서 나의 리허설 히스토리를 확인해요.
       </div>
       <div className="mg-top-20">
-        <Heatmap />
-      </div>
-      <div>
         <MoreTab />
       </div>
     </div>
