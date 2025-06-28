@@ -3,4 +3,6 @@
   --z-index-video: 100;
   --z-index-video-state: 200;
   --z-index-video-devics: 1000;
+  --z-index-info-box-flower: 10;
+  --z-index-info-box-content: 11;
 }
