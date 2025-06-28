@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  height: var(--spacing-2, 2px);
+  overflow: hidden;
+
+  border-radius: var(--border-radius-rounded, 999px);
+  background: var(--color-bg-disabled, #d4d4d4);
+}
+
+.filler {
+  height: 100%;
+  transition: width 0.5s ease-in-out;
+
+  border-radius: var(--border-radius-rounded, 999px);
+  background: var(--color-bg-inverse-bold, #525252);
+}
