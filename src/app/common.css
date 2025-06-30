@@ -150,7 +150,7 @@
 }
 .title-sm {
   color: var(--color-text-secondary);
-  font-size: var(--font-size-450);
+  font-size: var(--font-size-550);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-700);
   letter-spacing: -0.2px;
@@ -159,8 +159,8 @@
 
 .title-xs {
   color: var(--color-text-secondary);
-  font-size: var(--font-size-550);
-  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-450);
+  font-weight: var(--font-weight-medium);
   line-height: var(--line-height-700);
   letter-spacing: -0.2px;
   font-family: 'Paperlogy Medium', sans-serif;
@@ -259,6 +259,22 @@
   color: var(--color-text-brand) !important;
 }
 
+.txt-secondary {
+  color: var(--color-text-secondary) !important;
+}
+
+.txt-danger {
+  color: var(--color-text-danger) !important;
+}
+
+.txt-disabled {
+  color: var(--color-text-disabled) !important;
+}
+
+.txt-inverse-gray {
+  color: var(--gray-400) !important;
+}
+
 /* margin & padding */
 .pd-left-24 {
   padding-left: 24px;
@@ -267,9 +283,15 @@
 .pd-top-40 {
   padding-top: 40px;
 }
+.pd-bottom-32 {
+  padding-bottom: 32px;
+}
 
 .mg-left-4 {
   margin-left: 4px;
+}
+.mg-left-12 {
+  margin-left: 12px;
 }
 .mg-left-13 {
   margin-left: 13px;
@@ -288,6 +310,12 @@
   margin-right: 16px;
 }
 
+.mg-bottom-8 {
+  margin-bottom: 8px;
+}
+.mg-bottom-12 {
+  margin-bottom: 12px;
+}
 .mg-bottom-20 {
   margin-bottom: 20px;
 }
@@ -301,10 +329,38 @@
 .mg-top-16 {
   margin-top: 16px;
 }
+.mg-top-20 {
+  margin-top: 20px;
+}
+.mg-top-24 {
+  margin-top: 24px;
+}
 .mg-top-32 {
   margin-top: 32px;
+}
+.mg-top-40 {
+  margin-top: 40px;
 }
 
 .cp {
   cursor: pointer;
+}
+.fx {
+  display: flex;
+}
+.fx-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.fx-align-center {
+  display: flex;
+  align-items: center;
+}
+.fx-space-between {
+  display: flex;
+  justify-content: space-between;
+}
+.pre {
+  white-space: pre;
 }

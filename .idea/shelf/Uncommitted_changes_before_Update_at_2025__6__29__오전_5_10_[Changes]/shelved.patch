@@ -1,0 +1,483 @@
+Index: src/app/users/my/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport styles from './page.module.css';\nimport {useUserStore} from '@/stores/userStore';\nimport Heatmap from 'src/app/users/_components/my/Heatmap';\n\nconst MyPage = () => {\n  const userStore = useUserStore();\n  return (\n    <div className={styles.container}>\n      <div>탭 영역</div>\n      <div className=\"mg-top-24\">프로필 영역</div>\n      <div className=\"mg-top-24 title-sm\">{userStore.username}님의 미나리밭</div>\n      <div className=\"body-md\">\n        내가 심은 날의 미나리를 클릭해서 나의 리허설 히스토리를 확인해요.\n      </div>\n      <div className=\"mg-top-20\">\n        <Heatmap />\n      </div>\n      <div></div>\n    </div>\n  );\n};\n\nexport default MyPage;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/my/page.tsx b/src/app/users/my/page.tsx
+--- a/src/app/users/my/page.tsx	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/app/users/my/page.tsx	(date 1751135562928)
+@@ -2,13 +2,22 @@
+ import styles from './page.module.css';
+ import {useUserStore} from '@/stores/userStore';
+ import Heatmap from 'src/app/users/_components/my/Heatmap';
++import MoreTab from '@/app/users/_components/my/Tab/More';
++import InfoBox from "@/components/InfoBox";
++import ProfileCard from "@/app/users/_components/my/ProfileCard";
++import {useUsers} from "@/hooks/queries/useUsers";
+ 
+ const MyPage = () => {
+   const userStore = useUserStore();
++  const {data} = useUsers();
++
+   return (
+     <div className={styles.container}>
+-      <div>탭 영역</div>
+-      <div className="mg-top-24">프로필 영역</div>
++      <div className="mg-top-24">
++          <InfoBox>
++             <ProfileCard name={data?.name} domain={data?.domain} email={data?.email} />
++          </InfoBox>
++      </div>
+       <div className="mg-top-24 title-sm">{userStore.username}님의 미나리밭</div>
+       <div className="body-md">
+         내가 심은 날의 미나리를 클릭해서 나의 리허설 히스토리를 확인해요.
+@@ -16,7 +25,9 @@
+       <div className="mg-top-20">
+         <Heatmap />
+       </div>
+-      <div></div>
++      <div>
++        <MoreTab />
++      </div>
+     </div>
+   );
+ };
+Index: src/app/users/oauth/kakao/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\n\nimport {useEffect} from 'react';\nimport {useUserStore} from '@/stores/userStore';\nimport {useRouter} from 'next/navigation';\nimport Loader from '@/components/Loader';\nimport {getKakaoProfile} from '@/apis/user';\nimport {deleteCookie, setCookie} from '@/utils/cookies';\nimport Modal from '@/components/Modal';\nimport {useModalStore} from '@/stores/modalStore';\nimport Button from '@/components/Button';\n\nconst KakaoRedirectPage = () => {\n  let code = '';\n  const store = useUserStore();\n  const router = useRouter();\n  const {open, close} = useModalStore();\n  const onClickErrorModal = async () => {\n    await deleteCookie('token');\n    close();\n    router.push('/');\n    setTimeout(() => {\n      window.location.reload();\n    }, 1000);\n  };\n  // TODO Loading UI 확정 후 수정 & 예외처리 추가\n  useEffect(() => {\n    code = window.location.search.split('=')[1];\n\n    getKakaoProfile(code)\n      .then((response) => {\n        const data = response && response.result;\n        if (data) {\n          store.setUserId(String(data?.id));\n          store.setIsLoggedIn(true);\n          store.setUsername(data?.name);\n          store.setUserKaKaoImage(data?.image);\n          store.setIsUserRegistered(data?.registered);\n\n          setCookie('token', data?.accessToken);\n\n          if (data?.registered) {\n            router.push('/');\n          } else {\n            router.push('/users/join');\n          }\n        }\n      })\n      .catch((e) => {\n        console.log(e, '카카오 로그인 에러 발생');\n        localStorage.clear();\n        open(\n          <Modal\n            title=\"로그인 실패\"\n            rightButton={<Button onClick={onClickErrorModal}>확인</Button>}\n          />,\n          true,\n        );\n      });\n  }, [code]);\n  return <Loader />;\n};\n\nexport default KakaoRedirectPage;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/oauth/kakao/page.tsx b/src/app/users/oauth/kakao/page.tsx
+--- a/src/app/users/oauth/kakao/page.tsx	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/app/users/oauth/kakao/page.tsx	(date 1751140486032)
+@@ -16,7 +16,7 @@
+   const router = useRouter();
+   const {open, close} = useModalStore();
+   const onClickErrorModal = async () => {
+-    await deleteCookie('token');
++    await deleteCookie('accessToken');
+     close();
+     router.push('/');
+     setTimeout(() => {
+@@ -37,7 +37,8 @@
+           store.setUserKaKaoImage(data?.image);
+           store.setIsUserRegistered(data?.registered);
+ 
+-          setCookie('token', data?.accessToken);
++          setCookie('accessToken', data?.accessToken);
++          setCookie('refreshToken', data?.refreshToken);
+ 
+           if (data?.registered) {
+             router.push('/');
+Index: src/app/users/_components/join/JoinCompleted.module.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.container {\n  display: flex;\n  padding: var(--spacing-32, 32px) var(--spacing-24, 24px);\n  align-items: flex-start;\n  gap: var(--spacing-12, 12px);\n  align-self: stretch;\n  border-radius: var(--border-radius-lg, 8px);\n  background: var(--color-bg-inverse-bolder, #262626);\n}\n\n.wrapper {\n  /*position: absolute;*/\n  /*max-width: 480px;*/\n}\n\n.bg-image__wrapper {\n  /*background-color: red;*/\n  display: flex;\n  justify-content: flex-end;\n  position: relative;\n  bottom: 0;\n  top: -82px;\n}\n.bg-image__wrapper > * {\n  border-bottom-right-radius: 8px;\n}\n\n.text-section {\n  width: 100%;\n  margin-left: 12px;\n}\n.text-section > div {\n  color: var(--color-text-interactive-inverse-white);\n}\n\n.title__wrap {\n  display: flex;\n  gap: 12px;\n}\n\n.edit-profile__button {\n  display: flex;\n  align-items: center;\n  gap: 2px;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/join/JoinCompleted.module.css b/src/app/users/_components/join/JoinCompleted.module.css
+--- a/src/app/users/_components/join/JoinCompleted.module.css	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/app/users/_components/join/JoinCompleted.module.css	(date 1751134471456)
+@@ -1,3 +1,8 @@
++.wrapper {
++  /*position: absolute;*/
++  /*max-width: 480px;*/
++}
++
+ .container {
+   display: flex;
+   padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
+@@ -8,11 +13,6 @@
+   background: var(--color-bg-inverse-bolder, #262626);
+ }
+ 
+-.wrapper {
+-  /*position: absolute;*/
+-  /*max-width: 480px;*/
+-}
+-
+ .bg-image__wrapper {
+   /*background-color: red;*/
+   display: flex;
+Index: src/components/TokenExpirationHandler.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\n\nimport {useModalStore} from '@/stores/modalStore';\nimport {useEffect} from 'react';\nimport Modal from './Modal';\nimport Button from './Button';\nimport {deleteCookie} from '@/utils/cookies';\n\nexport function TokenExpirationHandler() {\n  const {open} = useModalStore();\n\n  useEffect(() => {\n    const handleTokenExpired = async () => {\n      localStorage.removeItem('user-storage');\n      await deleteCookie('token');\n      window.location.href = '/';\n    };\n\n    const eventListener = (e: Event) => {\n      const customEvent = e as CustomEvent<string>;\n      const errorMessage = customEvent.detail;\n\n      open(\n        <Modal\n          title=\"다시 로그인해주세요.\"\n          rightButton={<Button onClick={handleTokenExpired}>확인</Button>}\n        >\n          {errorMessage}\n        </Modal>,\n        true,\n      );\n    };\n\n    window.addEventListener('tokenExpired', eventListener);\n    return () => {\n      window.removeEventListener('tokenExpired', eventListener);\n    };\n  }, [open]);\n\n  return null;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/TokenExpirationHandler.tsx b/src/components/TokenExpirationHandler.tsx
+--- a/src/components/TokenExpirationHandler.tsx	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/components/TokenExpirationHandler.tsx	(date 1751141056937)
+@@ -11,24 +11,27 @@
+ 
+   useEffect(() => {
+     const handleTokenExpired = async () => {
+-      localStorage.removeItem('user-storage');
+-      await deleteCookie('token');
+-      window.location.href = '/';
++      // localStorage.removeItem('user-storage');
++      // await deleteCookie('accessToken');
++      // window.location.href = '/';
++      console.log('here !')
+     };
+ 
+     const eventListener = (e: Event) => {
+       const customEvent = e as CustomEvent<string>;
+       const errorMessage = customEvent.detail;
++      console.log('err', errorMessage);
+ 
+-      open(
+-        <Modal
+-          title="다시 로그인해주세요."
+-          rightButton={<Button onClick={handleTokenExpired}>확인</Button>}
+-        >
+-          {errorMessage}
+-        </Modal>,
+-        true,
+-      );
++
++      // open(
++      //   <Modal
++      //     title="다시 로그인해주세요."
++      //     rightButton={<Button onClick={handleTokenExpired}>확인</Button>}
++      //   >
++      //     {errorMessage}
++      //   </Modal>,
++      //   true,
++      // );
+     };
+ 
+     window.addEventListener('tokenExpired', eventListener);
+Index: src/apis/user.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {fetch} from './instance';\nimport {UserDomain, UserExperienceLevel} from '@/stores/userStore';\n\nexport const loginKaKao = () => {\n  const link = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_KEY}&scope=talk_message,profile_nickname,profile_image&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}`;\n  window.location.href = link;\n};\n\n// 카카오 로그인\nexport const getKakaoProfile = async (code: string) => {\n  const data = {\n    code,\n    redirectUri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT,\n  };\n  const response = await fetch.post<TypeKakaoLoginResponse>(`/users/oauth/kakao`, data);\n  if (response?.code === '200') {\n    return response;\n  } else {\n    throw response;\n  }\n};\n\n// 회원가입 > 이메일 인증\nexport const postEmailVerification = async (email: string) => {\n  const data = {to: email, redirectUri: process.env.NEXT_PUBLIC_EMAIL_REDIRECT};\n  try {\n    const response = await fetch.post<string>(`/users/mail-verification`, data);\n    return response;\n  } catch (error) {\n    throw error;\n  }\n};\n\n// 회원가입 > 인증번호 검증\nexport const postEmailCodeVerification = async (code: string) => {\n  return await fetch.post<string>('/users/mail-verification/verify', {authCode: code});\n};\n\n// 회원가입 > 사용자 등록\nexport const postUserRegister = async (data: TypeUserRegisterRequest) => {\n  const response = await fetch.post<{code: string; result: TypeUserRegisterResponse}>(\n    `/users/join`,\n    data,\n  );\n  return response;\n};\n\n// 사용자 조희\nexport const getUsers = async () => {\n  const response = await fetch.get<UsersReponse>(`/users/me`);\n\n  return response;\n};\n\nexport interface UsersReponse {\n  id: number;\n  email: string;\n  socialType: string;\n  socialId: string;\n  name: string;\n  image: string;\n  seed: number;\n}\n\nexport interface TypeKakaoLoginResponse {\n  accessToken: string;\n  id: number;\n  email: string;\n  socialType: string;\n  socialId: string;\n  name: string;\n  image: string;\n  registered: boolean;\n}\nexport interface TypeUserRegisterRequest {\n  email: string | null;\n  userId: string;\n  isSubscribed: boolean | null;\n  emailSendTime?: string;\n  studyExperienceLevel: UserExperienceLevel;\n  workExperienceLevel: UserExperienceLevel;\n  domain: UserDomain;\n}\nexport interface TypeUserRegisterResponse extends TypeUserRegisterRequest {\n  id: number;\n  socialId: number;\n  name: string;\n  image: string;\n  isRegistered: boolean;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/apis/user.ts b/src/apis/user.ts
+--- a/src/apis/user.ts	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/apis/user.ts	(date 1751141159245)
+@@ -20,6 +20,11 @@
+   }
+ };
+ 
++// 토큰 재발급
++export const postRefreshToken = async () => {
++  fetch.post(`/users/token/refresh`,{refreshToken: token})
++}
++
+ // 회원가입 > 이메일 인증
+ export const postEmailVerification = async (email: string) => {
+   const data = {to: email, redirectUri: process.env.NEXT_PUBLIC_EMAIL_REDIRECT};
+@@ -52,6 +57,13 @@
+   return response;
+ };
+ 
++// 사용자 로그아웃
++
++// 사용자 탈퇴
++export const deleteUser = async () => {
++  return await fetch.delete<string>(`/users/me`);
++}
++
+ export interface UsersReponse {
+   id: number;
+   email: string;
+Index: src/apis/instance/APIClient.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import {redirect} from 'next/navigation';\nimport {ErrorMessage} from './type';\nimport {getCookie} from '@/utils/cookies';\n\n// import {redirect} from 'next/navigation';\n\nexport type ApiResponse<T> = {\n  code: string;\n  result: T | null;\n};\n\nexport type ErrorResponse = {\n  code: string;\n  result: string | null;\n};\n\ntype Options = Omit<RequestInit, 'body'>;\n\ntype QueryParams<T = unknown> = {\n  [K in keyof T]?: string | number | boolean | null | undefined;\n};\n\ntype RequestOptions = Options & {\n  queryParams?: QueryParams;\n};\n\ntype CreateOptions = {\n  baseURL: string;\n} & Options;\n\nclass APIClient {\n  private baseURL: string;\n  private options: Options;\n\n  constructor(options?: CreateOptions) {\n    const {baseURL, ...rest} = options || {};\n    this.baseURL = baseURL || '';\n    this.options = rest;\n  }\n\n  public create(options?: CreateOptions) {\n    return new APIClient(options);\n  }\n\n  public get<T>(url: string, options?: RequestOptions) {\n    return this.request<T>(url, {\n      method: 'GET',\n      ...this.options,\n      ...options,\n    });\n  }\n\n  public post<T, D = unknown>(url: string, data?: D, options?: RequestOptions) {\n    return this.request<T>(url, {\n      method: 'POST',\n      ...this.options,\n      ...options,\n      body: data instanceof FormData ? data : data ? JSON.stringify(data) : undefined,\n    });\n  }\n\n  public patch<T, D = unknown>(url: string, data?: D, options?: RequestOptions) {\n    return this.request<T>(url, {\n      method: 'PATCH',\n      ...this.options,\n      ...options,\n      body: data instanceof FormData ? data : data ? JSON.stringify(data) : undefined,\n    });\n  }\n\n  public put<T, D = unknown>(url: string, data?: D, options?: RequestOptions) {\n    return this.request<T>(url, {\n      method: 'PUT',\n      ...this.options,\n      ...options,\n      body: data instanceof FormData ? data : data ? JSON.stringify(data) : undefined,\n    });\n  }\n\n  public delete<T>(url: string, options?: RequestOptions) {\n    return this.request<T>(url, {\n      method: 'DELETE',\n      ...this.options,\n      ...options,\n    });\n  }\n\n  private constructURL(url: string, queryParams?: RequestOptions) {\n    // baseURL과 url을 안전하게 붙이기 위해 슬래시 처리\n    const trimmedBase = this.baseURL.replace(/\\/+$/, '');\n    const trimmedUrl = url.replace(/^\\/+/, '');\n    const fullUrl = new URL(`${trimmedBase}/${trimmedUrl}`);\n\n    if (queryParams) {\n      const searchParams = new URLSearchParams();\n      for (const [key, value] of Object.entries(queryParams)) {\n        if (value != null) {\n          searchParams.append(key, String(value));\n        }\n      }\n      fullUrl.search = searchParams.toString();\n    }\n\n    return fullUrl.href;\n  }\n\n  private buildHeaders(overrides?: HeadersInit, skipContentType = false): HeadersInit {\n    const headers = {\n      ...(this.options.headers || {}),\n      ...(overrides || {}),\n    } as Record<string, string>;\n\n    if (skipContentType) {\n      delete headers['Content-Type'];\n    }\n\n    return headers;\n  }\n\n  private async request<T>(\n    url: string,\n    options: RequestInit & {queryParams?: QueryParams},\n  ): Promise<ApiResponse<T> | null> {\n    const fullUrl = this.constructURL(url, options.queryParams);\n\n    const isFormData = options.body instanceof FormData;\n    const token = await getCookie('token');\n\n    const headers = new Headers(this.buildHeaders(options.headers, isFormData));\n\n    if (token) {\n      headers.set('Authorization', `${token}`);\n    }\n\n    options.headers = headers;\n\n    try {\n      const response = await fetch(fullUrl, options);\n\n      if (response.status === 204) {\n        return null;\n      }\n\n      const responseData = await response.json();\n\n      if (!response.ok) {\n        throw responseData as ErrorResponse;\n      }\n\n      return responseData as ApiResponse<T>;\n    } catch (error: unknown) {\n      let errorCode = 'UNKNOWN';\n      let errorMessage = null;\n\n      if (\n        typeof error === 'object' &&\n        error !== null &&\n        'code' in error &&\n        typeof (error as ErrorResponse).code === 'string'\n      ) {\n        errorCode = (error as ErrorResponse).code;\n        errorMessage = (error as ErrorResponse).result;\n      }\n\n      const message =\n        errorCode in ErrorMessage\n          ? ErrorMessage[errorCode as keyof typeof ErrorMessage]\n          : errorMessage != null\n            ? errorMessage\n            : '알 수 없는 오류';\n\n      const jwtErrorPrefix = /^JWT\\d{3}$/;\n\n      if (jwtErrorPrefix.test(errorCode)) {\n        if (typeof window !== 'undefined') {\n          window.dispatchEvent(new CustomEvent('tokenExpired', {detail: message}));\n        } else {\n          redirect('/401');\n        }\n        throw new Error(message);\n      }\n\n      console.error(\n        `======================`,\n        `\\n[APIClient] Error occurred (${errorCode}):`,\n        `\\n[API Method]: ${options.method}`,\n        `\\n[API Url]: ${fullUrl}`,\n        `\\n[Error Message]: ${message}`,\n        `\\n======================\\n`,\n      );\n\n      throw new Error(message);\n    }\n  }\n}\n\nexport const apiClient = new APIClient();\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/apis/instance/APIClient.ts b/src/apis/instance/APIClient.ts
+--- a/src/apis/instance/APIClient.ts	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/apis/instance/APIClient.ts	(date 1751140481777)
+@@ -124,12 +124,12 @@
+     const fullUrl = this.constructURL(url, options.queryParams);
+ 
+     const isFormData = options.body instanceof FormData;
+-    const token = await getCookie('token');
++    const accessToken = await getCookie('accessToken');
+ 
+     const headers = new Headers(this.buildHeaders(options.headers, isFormData));
+ 
+-    if (token) {
+-      headers.set('Authorization', `${token}`);
++    if (accessToken) {
++      headers.set('Authorization', `${accessToken}`);
+     }
+ 
+     options.headers = headers;
+Index: src/app/test/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport Button from '@/components/Button';\nimport IconButton from '@/components/IconButton';\nimport Instagram from '@/assets/icon/instagram.svg';\nimport Pause from '@/assets/icon/circle-pause.svg';\nimport BlackArrow from '@/assets/icon/arrow-black.svg';\nimport Refresh from '@/assets/icon/refresh-cw.svg';\nimport Stop from '@/assets/icon/circle-stop.svg';\nimport Loading from '@/assets/icon/loader-circle.svg';\nimport Checkbox from '@/components/Checkbox';\nimport {useState} from 'react';\nimport TextInput from '@/components/TextInput';\nimport Modal from '@/components/Modal';\nimport {useModalStore} from '@/stores/modalStore';\n\nconst TestPage = () => {\n  const {open: opneModal, close: closeModal} = useModalStore();\n\n  const handleClickOpenModal = () => {\n    opneModal(\n      <Modal\n        title=\"정말 계정을 탈퇴 하시겠어요?\"\n        leftButton={\n          <Button onClick={closeModal} theme=\"secondary\">\n            취소\n          </Button>\n        }\n        rightButton={<Button onClick={() => console.log('모달 클릭')}>계속</Button>}\n      >\n        <p>삭제하면 가지고 있는 모든 혜택이 사라져요.</p>\n        <p>진행 이후 7일 이내에 복구가 가능해요.</p>\n      </Modal>,\n    );\n  };\n  const [check, setCheck] = useState(false);\n  const checkHandler = () => {\n    setCheck(true);\n  };\n\n  const [inputValue, setInputValue] = useState('');\n\n  // const deleteUser = () => {\n  //   fetch.delete('/users/me ');\n  // };\n  return (\n    <>\n      <Button onClick={handleClickOpenModal}>open Modal</Button>\n      <div className=\"title-md\">버튼</div>\n      <br />\n      <div className=\"title-sm\">text only</div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"primary\">Primary Button</Button>\n        <Button theme=\"primary\" rounded>\n          클릭하면 탈퇴\n        </Button>\n        <Button theme=\"primary\" border>\n          Primary w/Border\n        </Button>\n      </div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"primary\" disabled>\n          Primary Disabled\n        </Button>\n        <Button theme=\"primary\" border disabled>\n          Primary w/Border Disabled\n        </Button>\n      </div>\n      <br />\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"secondary\">Secondary Button</Button>\n        <Button theme=\"secondary\" border>\n          Secondary w/Border\n        </Button>\n      </div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"secondary\" disabled>\n          Secondary Disabled\n        </Button>\n        <Button theme=\"secondary\" border disabled>\n          Secondary w/Border Disabled\n        </Button>\n      </div>\n      <br />\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button theme=\"white\">White Button</Button>\n        <Button theme=\"black\">Black Button</Button>\n      </div>\n      <br />\n      <br />\n      <div className=\"title-sm\">with icon</div>\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button iconLeft={Pause} theme=\"secondary\" iconRight={Loading} loading>\n          동일버튼 로딩ㅇ\n        </Button>\n        <Button iconLeft={Pause} theme=\"secondary\" iconRight={Loading} loading={false}>\n          동일버튼 로딩x\n        </Button>\n      </div>\n      <br />\n      <div className=\"body-lg\">오른쪽 아이콘 &apos;arrow-black&apos;</div>\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button iconRight={BlackArrow}>카카오 로그인</Button>\n        <Button iconRight={BlackArrow} onClick={handleClickOpenModal}>\n          클릭하면 ?\n        </Button>\n      </div>\n      <br />\n      <div className=\"body-lg\">왼쪽 아이콘</div>\n      <div className=\"body-lg\">refresh / pause / stop</div>\n      <div style={{display: 'flex', gap: '12px'}}>\n        <Button iconLeft={Refresh}>다시시작</Button>\n        <Button iconLeft={Pause}>일시정지</Button>\n        <Button iconLeft={Stop}>면접종료</Button>\n      </div>\n      <br />\n      <br />\n      <div className=\"title-sm\">아이콘 버튼</div>\n      <div style={{display: 'flex', gap: '12px'}}>\n        <IconButton icon={Instagram} />\n        <IconButton icon={Instagram} theme=\"secondary\" />\n        <IconButton icon={Instagram} theme=\"white\" />\n      </div>\n      <br />\n      <br />\n      <div style={{display: 'flex', gap: '12px'}}>\n        <IconButton icon={Loading} theme=\"primary\" loading />\n        <IconButton icon={Loading} theme=\"white\" />\n      </div>\n      <br />\n      <br />\n      <div className=\"title-md\">체크박스</div>\n      <br />\n      <Checkbox checked={check} onChangeCheck={checkHandler} setChecked={setCheck}>\n        클릭해서 체크 박스 테스트\n      </Checkbox>\n      <Checkbox checked={true} onChangeCheck={checkHandler} disabled={true}>\n        disabled / checked\n      </Checkbox>\n      <Checkbox checked={false} onChangeCheck={checkHandler} disabled={true}>\n        disabled / not-checked\n      </Checkbox>\n      <br />\n      <br />\n      <div className=\"title-md\">텍스트 인풋</div>\n      <br />\n      <TextInput value={inputValue} setValue={setInputValue} />\n      <br />\n      <TextInput\n        value={inputValue}\n        setValue={setInputValue}\n        label={'라벨이 있는 인풋'}\n        type=\"email\"\n      />\n      <br />\n      <TextInput value={'disabled'} setValue={setInputValue} disabled={true} />\n      <br />\n      <br />\n      <br />\n      <br />\n    </>\n  );\n};\n\nexport default TestPage;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/test/page.tsx b/src/app/test/page.tsx
+--- a/src/app/test/page.tsx	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/app/test/page.tsx	(date 1751140481792)
+@@ -12,6 +12,7 @@
+ import TextInput from '@/components/TextInput';
+ import Modal from '@/components/Modal';
+ import {useModalStore} from '@/stores/modalStore';
++import {getCookie} from "@/utils/cookies";
+ 
+ const TestPage = () => {
+   const {open: opneModal, close: closeModal} = useModalStore();
+@@ -39,9 +40,16 @@
+ 
+   const [inputValue, setInputValue] = useState('');
+ 
+-  // const deleteUser = () => {
+-  //   fetch.delete('/users/me ');
+-  // };
++
++  const deleteUser = async () => {
++      const accessToken = await getCookie('accessToken');
++    await fetch('https://www.minari.shop/admin/api/v1/users/me ', {
++        method: 'DELETE',
++        headers: {
++            'Authorization': accessToken ? accessToken : '',
++        }
++    });
++  };
+   return (
+     <>
+       <Button onClick={handleClickOpenModal}>open Modal</Button>
+@@ -51,7 +59,7 @@
+       <br />
+       <div style={{display: 'flex', gap: '12px'}}>
+         <Button theme="primary">Primary Button</Button>
+-        <Button theme="primary" rounded>
++        <Button theme="primary" rounded onClick={deleteUser}>
+           클릭하면 탈퇴
+         </Button>
+         <Button theme="primary" border>
+Index: src/app/users/_components/my/Tab/More/More.module.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/my/Tab/More/More.module.css b/src/app/users/_components/my/Tab/More/More.module.css
+new file mode 100644
+--- /dev/null	(date 1751134011099)
++++ b/src/app/users/_components/my/Tab/More/More.module.css	(date 1751134011099)
+@@ -0,0 +1,8 @@
++.button-section {
++    display: flex;
++    padding: 0px var(--spacing-24, 24px);
++    justify-content: flex-end;
++    align-items: center;
++    gap: var(--spacing-16, 16px);
++    align-self: stretch;
++}
+\ No newline at end of file
+Index: src/app/users/_components/my/Tab/More/index.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/my/Tab/More/index.tsx b/src/app/users/_components/my/Tab/More/index.tsx
+new file mode 100644
+--- /dev/null	(date 1751139080754)
++++ b/src/app/users/_components/my/Tab/More/index.tsx	(date 1751139080754)
+@@ -0,0 +1,25 @@
++'use client';
++import styles from './More.module.css';
++import {useUserDelete} from "@/hooks/queries/useUserDelete";
++
++const MoreTab = () => {
++    const {result, setShouldFetchDelete} = useUserDelete();
++
++  const onClickLogout = () => {
++
++  };
++  const onClickWithdraw = () => {
++      setShouldFetchDelete(true);
++      console.log(result, 'result')
++  };
++  return (
++    <div className={styles['button-section']}>
++      <button className="body-lg txt-disabled" onClick={onClickLogout}>
++        로그아웃
++      </button>
++      <button className="body-lg txt-disabled" onClick={onClickWithdraw}>회원탈퇴</button>
++    </div>
++  );
++};
++
++export default MoreTab;
+Index: src/app/users/_components/my/ProfileCard/ProfileCard.module.css
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/my/ProfileCard/ProfileCard.module.css b/src/app/users/_components/my/ProfileCard/ProfileCard.module.css
+new file mode 100644
+--- /dev/null	(date 1751134471461)
++++ b/src/app/users/_components/my/ProfileCard/ProfileCard.module.css	(date 1751134471461)
+@@ -0,0 +1,40 @@
++.container {
++    display: flex;
++    padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
++    align-items: flex-start;
++    gap: var(--spacing-12, 12px);
++    align-self: stretch;
++    border-radius: var(--border-radius-lg, 8px);
++    background: var(--color-bg-inverse-bolder, #262626);
++}
++
++.bg-image__wrapper {
++    /*background-color: red;*/
++    display: flex;
++    justify-content: flex-end;
++    position: relative;
++    bottom: 0;
++    top: -82px;
++}
++.bg-image__wrapper > * {
++    border-bottom-right-radius: 8px;
++}
++
++.text-section {
++    width: 100%;
++    margin-left: 12px;
++}
++.text-section > div {
++    color: var(--color-text-interactive-inverse-white);
++}
++
++.title__wrap {
++    display: flex;
++    gap: 12px;
++}
++
++.edit-profile__button {
++    display: flex;
++    align-items: center;
++    gap: 2px;
++}
+\ No newline at end of file
+Index: src/app/users/_components/my/ProfileCard/index.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/my/ProfileCard/index.tsx b/src/app/users/_components/my/ProfileCard/index.tsx
+new file mode 100644
+--- /dev/null	(date 1751135492406)
++++ b/src/app/users/_components/my/ProfileCard/index.tsx	(date 1751135492406)
+@@ -0,0 +1,32 @@
++import styles from "@/app/users/_components/join/JoinCompleted.module.css";
++import Image from "next/image";
++import ProfileMinari from "@/assets/icon/profile-minari.svg";
++import Pen from "@/assets/icon/pen-gray.png";
++
++interface ProfileCardProps {
++    name: string | undefined;
++    domain: string | undefined;
++    email: string | undefined;
++}
++const ProfileCard = ({name, domain, email}: ProfileCardProps) => {
++    return (
++        <div className={styles.container}>
++            <div className="fx">
++                <Image src={ProfileMinari} alt=""/>
++                <div className={styles['text-section']}>
++                    <div className={styles['title__wrap']}>
++                        <div className="label-lg txt-white">{name}님</div>
++                        <div className={styles['edit-profile__button']}>
++                            <Image src={Pen} alt=""/>
++                            <span className="label-md txt-inverse-gray">프로필 수정</span>
++                        </div>
++                    </div>
++                    <div className="body-md">{domain} | 미나리 0일차</div>
++                    <div>{email}</div>
++                </div>
++            </div>
++        </div>
++    )
++}
++
++export default ProfileCard;
+\ No newline at end of file
+Index: src/app/users/_components/join/JoinCompleted.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import styles from './JoinCompleted.module.css';\nimport Image from 'next/image';\nimport ProfileMinari from '@/assets/icon/profile-minari.svg';\nimport GrayMinari from '@/assets/minari-gray-cut.svg';\nimport Pen from '@/assets/icon/pen-gray.png';\n\ninterface JoinCompletedProps {\n  name: string;\n  domain: string;\n  email: string;\n}\n\nconst JoinCompleted = ({name, domain, email}: JoinCompletedProps) => {\n  const selectedDomain = domain === 'FRONTEND' ? '프론트엔드' : '백엔드';\n  return (\n    <div className={styles.wrapper}>\n      <div className={styles.container}>\n        <div className=\"fx\">\n          <Image src={ProfileMinari} alt=\"\" />\n          <div className={styles['text-section']}>\n            <div className={styles['title__wrap']}>\n              <div className=\"label-lg txt-white\">{name}님</div>\n              <div className={styles['edit-profile__button']}>\n                <Image src={Pen} alt=\"\" />\n                <span className=\"label-md txt-inverse-gray\">프로필 수정</span>\n              </div>\n            </div>\n            <div className=\"body-md\">{selectedDomain} | 미나리 0일차</div>\n            <div>{email}</div>\n          </div>\n        </div>\n      </div>\n      <div className={styles['bg-image__wrapper']}>\n        <Image src={GrayMinari} alt=\"\" />\n      </div>\n    </div>\n  );\n};\n\nexport default JoinCompleted;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/join/JoinCompleted.tsx b/src/app/users/_components/join/JoinCompleted.tsx
+--- a/src/app/users/_components/join/JoinCompleted.tsx	(revision 9eedf4120eed3456c531b28cfe8f547671f66cd9)
++++ b/src/app/users/_components/join/JoinCompleted.tsx	(date 1751134599021)
+@@ -3,6 +3,7 @@
+ import ProfileMinari from '@/assets/icon/profile-minari.svg';
+ import GrayMinari from '@/assets/minari-gray-cut.svg';
+ import Pen from '@/assets/icon/pen-gray.png';
++import ProfileCard from "@/app/users/_components/my/ProfileCard";
+ 
+ interface JoinCompletedProps {
+   name: string;
+@@ -14,22 +15,7 @@
+   const selectedDomain = domain === 'FRONTEND' ? '프론트엔드' : '백엔드';
+   return (
+     <div className={styles.wrapper}>
+-      <div className={styles.container}>
+-        <div className="fx">
+-          <Image src={ProfileMinari} alt="" />
+-          <div className={styles['text-section']}>
+-            <div className={styles['title__wrap']}>
+-              <div className="label-lg txt-white">{name}님</div>
+-              <div className={styles['edit-profile__button']}>
+-                <Image src={Pen} alt="" />
+-                <span className="label-md txt-inverse-gray">프로필 수정</span>
+-              </div>
+-            </div>
+-            <div className="body-md">{selectedDomain} | 미나리 0일차</div>
+-            <div>{email}</div>
+-          </div>
+-        </div>
+-      </div>
++      <ProfileCard name={name} domain={selectedDomain} email={email} />
+       <div className={styles['bg-image__wrapper']}>
+         <Image src={GrayMinari} alt="" />
+       </div>
+Index: src/hooks/queries/useUserDelete.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/hooks/queries/useUserDelete.ts b/src/hooks/queries/useUserDelete.ts
+new file mode 100644
+--- /dev/null	(date 1751138933197)
++++ b/src/hooks/queries/useUserDelete.ts	(date 1751138933197)
+@@ -0,0 +1,18 @@
++import {useQuery} from '@tanstack/react-query';
++import {deleteUser} from '@/apis/user';
++import {useState} from 'react';
++
++export const useUserDelete = () => {
++  const [shouldFetchDelete, setShouldFetchDelete] = useState<boolean>(false);
++
++  const result = useQuery({
++    queryKey: ['user-delete'],
++    queryFn: () => deleteUser(),
++    enabled: shouldFetchDelete,
++  });
++
++  return {
++    setShouldFetchDelete,
++    result,
++  };
++};

@@ -1,3 +1,5 @@
+'use client';
+
 import {useMediaStore} from '@/stores/mediaStore';
 import {useEffect, useRef, useState} from 'react';
 

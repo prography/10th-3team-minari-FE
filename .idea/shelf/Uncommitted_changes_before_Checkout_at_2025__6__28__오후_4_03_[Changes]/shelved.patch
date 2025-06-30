@@ -1,0 +1,59 @@
+Index: src/app/users/oauth/kakao/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\n\nimport {useEffect} from 'react';\nimport {useUserStore} from '@/stores/userStore';\nimport {useRouter} from 'next/navigation';\nimport Loader from '@/components/Loader';\nimport {getKakaoProfile} from '@/apis/user';\nimport {setCookie} from '@/utils/cookies';\n\nconst KakaoRedirectPage = () => {\n  let code = '';\n  const store = useUserStore();\n  const router = useRouter();\n\n  // TODO Loading UI 확정 후 수정 & 예외처리 추가\n  useEffect(() => {\n    code = window.location.search.split('=')[1];\n\n    getKakaoProfile(code)\n      .then((response) => {\n        const data = response && response.result;\n        if (data) {\n          store.setUserId(String(data?.id));\n          store.setIsLoggedIn(true);\n          store.setUsername(data?.name);\n          store.setUserKaKaoImage(data?.image);\n          store.setIsUserRegistered(data?.registered);\n\n          setCookie('token', data?.accessToken);\n\n          if (data?.registered) {\n            router.push('/');\n          } else {\n            router.push('/users/join');\n          }\n        }\n      })\n      .catch((e) => {\n        console.log(e, '카카오 로그인 에러 발생');\n        localStorage.clear();\n        window.alert('로그인 실패');\n        router.push('/');\n      });\n  }, [code]);\n  return <Loader />;\n};\n\nexport default KakaoRedirectPage;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/oauth/kakao/page.tsx b/src/app/users/oauth/kakao/page.tsx
+--- a/src/app/users/oauth/kakao/page.tsx	(revision 68d3601997350ac5fd67b2200839f7abaebfa16d)
++++ b/src/app/users/oauth/kakao/page.tsx	(date 1751093739374)
+@@ -20,6 +20,8 @@
+       .then((response) => {
+         const data = response && response.result;
+         if (data) {
++          console.log('set is registered', data);
++          console.log('set is data?.registered', data?.registered);
+           store.setUserId(String(data?.id));
+           store.setIsLoggedIn(true);
+           store.setUsername(data?.name);
+Index: src/app/(home)/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport LandingPage from '@/app/(home)/_components/LandingPage';\nimport {useUserStore} from '@/stores/userStore';\nimport MainPage from '@/app/(home)/_components/MainPage';\nimport {useEffect, useState} from 'react';\nimport {useRouter} from 'next/navigation';\n\nexport default function Page() {\n  const store = useUserStore();\n  const [pageLoaded, setPageLoaded] = useState(false);\n\n  const router = useRouter();\n  useEffect(() => {\n    setPageLoaded(true);\n\n    if (!store.isUserRegistered && store.isLoggedIn) {\n      router.push('/users/join');\n    }\n  }, [store.isLoggedIn]);\n\n  return <>{pageLoaded && (store.isLoggedIn ? <MainPage /> : <LandingPage />)}</>;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/(home)/page.tsx b/src/app/(home)/page.tsx
+--- a/src/app/(home)/page.tsx	(revision 68d3601997350ac5fd67b2200839f7abaebfa16d)
++++ b/src/app/(home)/page.tsx	(date 1751093996599)
+@@ -12,7 +12,6 @@
+   const router = useRouter();
+   useEffect(() => {
+     setPageLoaded(true);
+-
+     if (!store.isUserRegistered && store.isLoggedIn) {
+       router.push('/users/join');
+     }
+Index: src/app/users/join/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport React, {useEffect} from 'react';\nimport JoinAgreement from '@/app/users/_components/steps/JoinAgreement';\nimport JoinReceiveNotification from '@/app/users/_components/steps/JoinReceiveNotification';\nimport JoinEmailVerification from '@/app/users/_components/steps/JoinEmailVerification';\nimport JoinExperience from '@/app/users/_components/steps/JoinExperience';\nimport {useUserJoin} from '@/hooks/queries/useUserJoin';\nimport {useRouter} from 'next/navigation';\nimport {useUserJoinContext} from '@/contexts/UserJoinProvider';\nimport JoinPageTitle from '@/app/users/_components/ui/JoinPageTitle';\nimport styles from './page.module.css';\nimport Button from '@/components/Button';\nimport ArrowLeft from '@/assets/icon/arrow-left.svg';\nimport ArrowRight from '@/assets/icon/arrow-black.svg';\nimport {useUserStore} from '@/stores/userStore';\nimport JoinCompleted from '@/app/users/_components/steps/JoinCompleted';\n\n/*\n * 회원 가입\n * step 00. 약관 동의\n * step 01. 메일 수신 동의\n * step 02-1. 이메일 인증\n * step 02-2. 이메일 인증 확인\n * step 03. 연차/파트 선택\n * */\nconst JoinPage = () => {\n  const userStore = useUserStore();\n  const {step, setStep, nextButtonChecker, joinForm, setJoinForm} = useUserJoinContext();\n\n  // 사용자 등록 api 호출\n  const {isSuccess, isError, setShouldFetch, setData} = useUserJoin();\n\n  // [이전], [다음] 버튼 페이지 넘기기\n  const onClickGoNext = () => {\n    if (step === 1 && !joinForm.isSubscribed) {\n      setJoinForm({...joinForm, email: null});\n      setStep(3);\n    } else if (step === 3) {\n      // TODO jwt 적용 후 삭제\n      const userData = {\n        ...joinForm,\n        userId: userStore.userId,\n        workExperienceLevel: joinForm.studyExperienceLevel,\n      };\n      setData(userData);\n      setShouldFetch(true);\n    } else {\n      setStep(step + 1);\n    }\n  };\n\n  const goNextButton = (\n    <Button iconRight={ArrowRight} onClick={onClickGoNext} disabled={nextButtonChecker()}>\n      다음\n    </Button>\n  );\n\n  const onClickGoBack = () => {\n    if (step === 3 && !joinForm.isSubscribed) {\n      setStep(1);\n    } else {\n      setStep(step - 1);\n    }\n  };\n  const goBackButton = (\n    <Button theme=\"secondary\" iconLeft={ArrowLeft} onClick={onClickGoBack}>\n      이전\n    </Button>\n  );\n\n  const router = useRouter();\n  const goHomeButton = (\n    <Button iconRight={ArrowRight} onClick={() => router.push('/')}>\n      첫 미나리 심으러 가기\n    </Button>\n  );\n\n  useEffect(() => {\n    if (isSuccess) {\n      userStore.setUserEmail(joinForm.email ? joinForm.email : '');\n      userStore.setUserDomain(joinForm.domain);\n      userStore.setIsUserRegistered(true);\n      setStep(4);\n    }\n    if (isError) {\n      window.alert('회원가입 실패');\n      location.reload();\n    }\n  }, [isSuccess, isError]);\n\n  return (\n    <>\n      <div>\n        <JoinPageTitle step={step} />\n        <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>\n          {step === 0 && <JoinAgreement />}\n          {step === 1 && (\n            <JoinReceiveNotification\n              receive={joinForm.isSubscribed}\n              setReceive={() => setJoinForm({...joinForm, isSubscribed: true})}\n            />\n          )}\n          {step === 2 && <JoinEmailVerification />}\n          {step === 3 && <JoinExperience />}\n          {step === 4 && (\n            <JoinCompleted\n              name={userStore.username}\n              email={userStore.userEmail}\n              domain={userStore.userDomain}\n            />\n          )}\n        </div>\n        <div className={styles.buttons}>\n          {step > 0 && step < 4 && goBackButton}\n          {step === 4 ? goHomeButton : goNextButton}\n        </div>\n      </div>\n    </>\n  );\n};\n\nexport default JoinPage;\n\nexport interface CheckItemType {\n  id: string;\n  value: boolean;\n  label: string;\n  required: boolean;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/join/page.tsx b/src/app/users/join/page.tsx
+--- a/src/app/users/join/page.tsx	(revision 68d3601997350ac5fd67b2200839f7abaebfa16d)
++++ b/src/app/users/join/page.tsx	(date 1751093982020)
+@@ -75,6 +75,11 @@
+     </Button>
+   );
+ 
++  useEffect(() => {
++    if (userStore.isUserRegistered) {
++      router.push('/');
++    }
++  }, [userStore.isUserRegistered]);
+   useEffect(() => {
+     if (isSuccess) {
+       userStore.setUserEmail(joinForm.email ? joinForm.email : '');

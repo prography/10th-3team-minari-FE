@@ -2,11 +2,19 @@
 .button {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   flex-shrink: 0;
   border-radius: var(--border-radius-lg);
-  padding: 12px 16px;
   cursor: pointer;
+}
+
+.p-12-16 {
+  padding: 12px 16px;
+}
+
+.p-4-12 {
+  padding: 4px 16px;
 }
 
 /* Primary 버튼 */
@@ -96,6 +104,25 @@
   background-color: var(--color-bg-disabled) !important;
 }
 
+/* Secondary 버튼 w/border */
+.white-border {
+  background-color: var(--color-bg-interactive-secondary);
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary);
+}
+.white-border:hover {
+  background-color: var(--color-bg-interactive-secondary-hovered) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary-hovered);
+}
+.white-border:active {
+  background-color: var(--color-bg-interactive-secondary-pressed) !important;
+  border: var(--border-width-md) solid var(--color-border-interactive-secondary-pressed);
+}
+.white-border:disabled {
+  color: var(--color-text-disabled) !important;
+  background-color: var(--color-bg-disabled) !important;
+  border: var(--border-width-md) solid var(--color-border-disabled) !important;
+}
+
 /* Black 버튼 */
 .black {
   color: var(--color-text-interactive-primary);
@@ -128,4 +155,12 @@
   to {
     transform: rotate(359deg);
   }
+}
+
+.shadow {
+  box-shadow:
+    0px var(--effect-shadow-2-cast-y, 1px) var(--effect-shadow-2-cast-blur, 2px) 0px
+      var(--color-effect-shadow-cast, rgba(0, 0, 0, 0.16)),
+    0px var(--effect-shadow-2-core-y, 0px) var(--effect-shadow-2-core-blur, 1px) 0px
+      var(--color-effect-shadow-core, rgba(0, 0, 0, 0.12));
 }

@@ -1,0 +1,108 @@
+.wrapper {
+  height: 115px;
+}
+
+.input {
+  display: flex;
+  width: 288px;
+  height: var(--spacing-48, 48px);
+  padding: 0 16px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  outline: none;
+  border-radius: var(--border-radius-lg, 8px);
+  border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
+  background: var(--color-bg-primary, #fff);
+}
+
+.input:active,
+.input:focus {
+  border: var(--border-width-sm, 1px) solid
+    var(--color-border-interactive-secondary-hovered, #525252);
+}
+
+.input:hover {
+  border: var(--border-width-sm, 1px) solid
+    var(--color-border-interactive-secondary-hovered, #525252);
+}
+
+.input::placeholder {
+}
+
+.message {
+  display: none;
+}
+
+.input:disabled {
+  color: var(--color-text-disabled, #525252);
+  border: var(--border-width-sm, 1px) solid var(--color-border-disabled, #a3a3a3);
+  background: var(--color-bg-disabled, #d4d4d4);
+}
+
+.input:user-invalid {
+  border-radius: var(--border-radius-lg, 8px);
+  border: var(--border-width-sm, 1px) solid var(--color-border-interactive-danger, #fc1b45);
+  background: var(--color-bg-secondary, #fafafa);
+}
+
+.input:user-invalid ~ span {
+  margin-top: 9px;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-danger);
+}
+
+.input:user-valid {
+  border-radius: var(--border-radius-lg, 8px);
+  border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
+  background: var(--color-bg-secondary, #fafafa);
+}
+
+.confirm-message {
+  color: var(--color-text-success);
+  margin: 9px 0 0 9px;
+  display: flex;
+  align-items: center;
+
+  -moz-animation: cssAnimation 2s ease-in-out 2s forwards;
+  /* Firefox */
+  -webkit-animation: cssAnimation 2s ease-in-out 2s forwards;
+  /* Safari and Chrome */
+  -o-animation: cssAnimation 2s ease-in-out 2s forwards;
+  /* Opera */
+  animation: cssAnimation 2s ease-in-out 2s forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.help-message {
+  margin-top: 9px;
+  display: flex;
+  align-items: center;
+}
+.help-message > span {
+  margin-top: 2px;
+}
+
+.success {
+  color: var(--color-text-success);
+}
+.error {
+  color: var(--color-text-danger);
+}
+
+@keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+}
+@-webkit-keyframes cssAnimation {
+  to {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}

@@ -1,0 +1,265 @@
+Index: src/components/Header/index.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\n\nimport React from 'react';\nimport styles from './Header.module.css';\nimport Image from 'next/image';\nimport MenuButton from '@/assets/icon/menu.svg';\nimport Link from 'next/link';\nimport LogoImageBlack from '@/assets/logo-black.svg';\nimport LogoImageWhite from '@/assets/logo-white.svg';\nimport useTheme from '@/hooks/useTheme';\nimport {OUT_LINK} from '@/constants/path';\nimport {useUserStore} from '@/stores/userStore';\n\nconst Header = () => {\n  const theme = useTheme();\n  const userStore = useUserStore();\n\n  const logo = theme === 'light' ? LogoImageBlack : LogoImageWhite;\n\n  return (\n    <div className={`${styles.wrapper} ${styles[`${theme}`]}`}>\n      <div className={styles.container}>\n        <Link href=\"/\">\n          <Image src={logo} alt=\"logo\" height={40} />\n        </Link>\n        <div>{userStore.isUserRegistered ? <UserMenu /> : <LandingMenu />}</div>\n      </div>\n    </div>\n  );\n};\n\nconst openFAQLink = () => {\n  window.open(OUT_LINK.FAQ);\n};\nconst openBlog = () => {\n  window.open(OUT_LINK.BLOG);\n};\n\nconst LandingMenu = () => {\n  return (\n    <>\n      <nav className={styles['menu-landing']}>\n        <Link href=\"/\" className=\"fx-center\">\n          <button className=\"label-md\">서비스 소개</button>\n        </Link>\n        <button className=\"label-md\" onClick={openFAQLink}>\n          문의사항\n        </button>\n        <button className=\"label-md\" onClick={openBlog}>\n          BLOG\n        </button>\n      </nav>\n      <nav className={styles['menu-landing-mobile']}>\n        <Image src={MenuButton} alt=\"menu-button\" />\n      </nav>\n    </>\n  );\n};\n\nconst UserMenu = () => {\n  const userStore = useUserStore();\n\n  return (\n    <Link href={userStore.isUserRegistered ? '/' : ''}>\n      <Image\n        src={userStore.userKakaoImage}\n        alt=\"logo\"\n        width={40}\n        height={40}\n        className={styles['user-image']}\n      />\n    </Link>\n  );\n};\n\nexport default Header;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/Header/index.tsx b/src/components/Header/index.tsx
+--- a/src/components/Header/index.tsx	(revision bee1872e74d7406581084c674be0891aab4e2738)
++++ b/src/components/Header/index.tsx	(date 1751142798249)
+@@ -1,5 +1,3 @@
+-'use client';
+-
+ import React from 'react';
+ import styles from './Header.module.css';
+ import Image from 'next/image';
+@@ -8,22 +6,24 @@
+ import LogoImageBlack from '@/assets/logo-black.svg';
+ import LogoImageWhite from '@/assets/logo-white.svg';
+ import useTheme from '@/hooks/useTheme';
+-import {OUT_LINK} from '@/constants/path';
+-import {useUserStore} from '@/stores/userStore';
++import {OUT_LINK, PATH} from '@/constants/path';
+ 
+-const Header = () => {
++interface HeaderProps {
++  menu: React.ReactNode;
++}
++
++const Header = ({menu}: HeaderProps) => {
+   const theme = useTheme();
+-  const userStore = useUserStore();
+ 
+   const logo = theme === 'light' ? LogoImageBlack : LogoImageWhite;
+ 
+   return (
+     <div className={`${styles.wrapper} ${styles[`${theme}`]}`}>
+       <div className={styles.container}>
+-        <Link href="/">
++        <Link href={PATH.ROOT}>
+           <Image src={logo} alt="logo" height={40} />
+         </Link>
+-        <div>{userStore.isUserRegistered ? <UserMenu /> : <LandingMenu />}</div>
++        <div>{menu}</div>
+       </div>
+     </div>
+   );
+@@ -57,13 +57,11 @@
+   );
+ };
+ 
+-const UserMenu = () => {
+-  const userStore = useUserStore();
+-
++const UserMenu = ({userImage, linkMyPage}: {userImage?: string; linkMyPage: boolean}) => {
+   return (
+-    <Link href={userStore.isUserRegistered ? '/' : ''}>
++    <Link href={linkMyPage ? PATH.MY : ''}>
+       <Image
+-        src={userStore.userKakaoImage}
++        src={userImage ? userImage : ''}
+         alt="logo"
+         width={40}
+         height={40}
+@@ -73,4 +71,7 @@
+   );
+ };
+ 
++Header.LandingMenu = LandingMenu;
++Header.UserMenu = UserMenu;
++
+ export default Header;
+Index: src/constants/path.ts
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>const REHEARSAL = 'rehearsal';\nconst RESULT = 'result';\nconst USERS = 'users';\nconst SEEDS = 'seeds';\n\nexport const PATH = {\n  ROOT: '/',\n  REHEARSAL: `/${REHEARSAL}`,\n  RESULT: `/${RESULT}`,\n  UESRS_SEEDS: `/${USERS}/${SEEDS}`,\n};\n\nexport const OUT_LINK: {[key: string]: string} = {\n  FAQ: 'https://button-shear-b28.notion.site/MINARI-21b31f010d1f8059be25e11819c8097b',\n  BLOG: 'https://velog.io/@official_minari/posts',\n  AGREEMENTS_1: 'https://button-shear-b28.notion.site/MINARI-20131f010d1f807b89ece82517780def',\n  AGREEMENTS_2: 'https://button-shear-b28.notion.site/MINARI-20131f010d1f8069b258c93a49c44675',\n} as const;\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/constants/path.ts b/src/constants/path.ts
+--- a/src/constants/path.ts	(revision bee1872e74d7406581084c674be0891aab4e2738)
++++ b/src/constants/path.ts	(date 1751142791102)
+@@ -2,11 +2,13 @@
+ const RESULT = 'result';
+ const USERS = 'users';
+ const SEEDS = 'seeds';
++const MY = 'my';
+ 
+ export const PATH = {
+   ROOT: '/',
+   REHEARSAL: `/${REHEARSAL}`,
+   RESULT: `/${RESULT}`,
++  MY: `/${USERS}/${MY}`,
+   UESRS_SEEDS: `/${USERS}/${SEEDS}`,
+ };
+ 
+Index: src/app/(whitebg)/users/join/page.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use client';\nimport React, {useEffect} from 'react';\nimport JoinAgreement from '@/app/(whitebg)/users/_components/steps/JoinAgreement';\nimport JoinReceiveNotification from '@/app/(whitebg)/users/_components/steps/JoinReceiveNotification';\nimport JoinEmailVerification from '@/app/(whitebg)/users/_components/steps/JoinEmailVerification';\nimport JoinExperience from '@/app/(whitebg)/users/_components/steps/JoinExperience';\nimport {useUserJoin} from '@/hooks/queries/useUserJoin';\nimport {useRouter} from 'next/navigation';\nimport {useUserJoinContext} from '@/contexts/UserJoinProvider';\nimport JoinPageTitle from '@/app/(whitebg)/users/_components/ui/JoinPageTitle';\nimport styles from './page.module.css';\nimport Button from '@/components/Button';\nimport ArrowLeft from '@/assets/icon/arrow-left.svg';\nimport ArrowRight from '@/assets/icon/arrow-black.svg';\nimport {useUserStore} from '@/stores/userStore';\nimport JoinCompleted from '@/app/(whitebg)/users/_components/steps/JoinCompleted';\nimport {useModalStore} from '@/stores/modalStore';\nimport Modal from '@/components/Modal';\n\n/*\n * 회원 가입\n * step 00. 약관 동의\n * step 01. 메일 수신 동의\n * step 02-1. 이메일 인증\n * step 02-2. 이메일 인증 확인\n * step 03. 연차/파트 선택\n * */\nconst JoinPage = () => {\n  const userStore = useUserStore();\n  const {step, setStep, nextButtonChecker, joinForm} = useUserJoinContext();\n\n  // 등록한 사용자 페이지 진입 시 예외처리\n  useEffect(() => {\n    if (userStore.isUserRegistered && step === 0) {\n      router.push('/');\n    }\n  }, [userStore.isUserRegistered]);\n\n  // 사용자 등록 api 호출\n  const {setShouldFetch, setBody, isSuccess, isError} = useUserJoin();\n  const {open} = useModalStore();\n\n  // [이전], [다음] 버튼 페이지 넘기기\n  const onClickGoNext = async () => {\n    if (step === 1 && joinForm.isSubscribed) {\n      setStep(2);\n    } else if (step === 1 && !joinForm.isSubscribed) {\n      setStep(3);\n    } else if (step === 3) {\n      // TODO jwt 적용 후 userId 삭제\n      const userData = {\n        ...joinForm,\n        email: joinForm.isSubscribed ? joinForm.email : null,\n        userId: userStore.userId,\n        workExperienceLevel: joinForm.studyExperienceLevel,\n      };\n\n      // user 등록 api 호출\n      setBody(userData);\n      setShouldFetch(true);\n    } else {\n      setStep(step + 1);\n    }\n  };\n\n  const goNextButton = (\n    <Button iconRight={ArrowRight} onClick={onClickGoNext} disabled={nextButtonChecker()}>\n      다음\n    </Button>\n  );\n\n  const onClickGoBack = () => {\n    if (step === 3 && !joinForm.isSubscribed) {\n      setStep(1);\n    } else {\n      setStep(step - 1);\n    }\n  };\n  const goBackButton = (\n    <Button theme=\"secondary\" iconLeft={ArrowLeft} onClick={onClickGoBack}>\n      이전\n    </Button>\n  );\n\n  const router = useRouter();\n  const goHomeButton = (\n    <Button iconRight={ArrowRight} onClick={() => router.push('/')}>\n      첫 미나리 심으러 가기\n    </Button>\n  );\n\n  useEffect(() => {\n    if (isSuccess) {\n      userStore.setUserEmail(joinForm.email ? joinForm.email : '');\n      userStore.setUserDomain(joinForm.domain);\n      userStore.setIsUserRegistered(true);\n      setStep(4);\n    }\n    if (isError) {\n      open(\n        <Modal\n          title=\"회원가입 실패\"\n          rightButton={\n            <Button\n              onClick={() => {\n                location.reload();\n              }}\n            >\n              확인\n            </Button>\n          }\n        />,\n        true,\n      );\n    }\n  }, [isSuccess, isError]);\n\n  return (\n    <>\n      <div>\n        <JoinPageTitle step={step} />\n        <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>\n          {step === 0 && <JoinAgreement />}\n          {step === 1 && <JoinReceiveNotification />}\n          {step === 2 && <JoinEmailVerification />}\n          {step === 3 && <JoinExperience />}\n          {step === 4 && (\n            <JoinCompleted\n              name={userStore.username}\n              email={userStore.userEmail}\n              domain={userStore.userDomain}\n            />\n          )}\n        </div>\n        <div className={styles.buttons}>\n          {step > 0 && step < 4 && goBackButton}\n          {step === 4 ? goHomeButton : goNextButton}\n        </div>\n      </div>\n    </>\n  );\n};\n\nexport default JoinPage;\n\nexport interface CheckItemType {\n  id: string;\n  value: boolean;\n  label: string;\n  required: boolean;\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/(whitebg)/users/join/page.tsx b/src/app/(whitebg)/users/join/page.tsx
+--- a/src/app/(whitebg)/users/join/page.tsx	(revision bee1872e74d7406581084c674be0891aab4e2738)
++++ b/src/app/(whitebg)/users/join/page.tsx	(date 1751142805907)
+@@ -1,5 +1,6 @@
+ 'use client';
+ import React, {useEffect} from 'react';
++<<<<<<< HEAD:src/app/(whitebg)/users/join/page.tsx
+ import JoinAgreement from '@/app/(whitebg)/users/_components/steps/JoinAgreement';
+ import JoinReceiveNotification from '@/app/(whitebg)/users/_components/steps/JoinReceiveNotification';
+ import JoinEmailVerification from '@/app/(whitebg)/users/_components/steps/JoinEmailVerification';
+@@ -8,12 +9,26 @@
+ import {useRouter} from 'next/navigation';
+ import {useUserJoinContext} from '@/contexts/UserJoinProvider';
+ import JoinPageTitle from '@/app/(whitebg)/users/_components/ui/JoinPageTitle';
++=======
++import JoinAgreement from '@/app/users/_components/join/JoinAgreement';
++import JoinReceiveNotification from '@/app/users/_components/join/JoinReceiveNotification';
++import JoinEmailVerification from '@/app/users/_components/join/JoinEmailVerification';
++import JoinExperience from '@/app/users/_components/join/JoinExperience';
++import {useUserJoin} from '@/hooks/queries/useUserJoin';
++import {useRouter} from 'next/navigation';
++import {useUserJoinContext} from '@/contexts/UserJoinProvider';
++import JoinPageTitle from '@/app/users/_components/join/JoinPageTitle';
++>>>>>>> origin/feat/마이페이지:src/app/users/join/page.tsx
+ import styles from './page.module.css';
+ import Button from '@/components/Button';
+ import ArrowLeft from '@/assets/icon/arrow-left.svg';
+ import ArrowRight from '@/assets/icon/arrow-black.svg';
+ import {useUserStore} from '@/stores/userStore';
++<<<<<<< HEAD:src/app/(whitebg)/users/join/page.tsx
+ import JoinCompleted from '@/app/(whitebg)/users/_components/steps/JoinCompleted';
++=======
++import JoinCompleted from '@/app/users/_components/join/JoinCompleted';
++>>>>>>> origin/feat/마이페이지:src/app/users/join/page.tsx
+ import {useModalStore} from '@/stores/modalStore';
+ import Modal from '@/components/Modal';
+ 
+Index: src/app/users/_components/join/JoinCompleted.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/app/users/_components/join/JoinCompleted.tsx b/src/app/users/_components/join/JoinCompleted.tsx
+new file mode 100644
+--- /dev/null	(date 1751142791099)
++++ b/src/app/users/_components/join/JoinCompleted.tsx	(date 1751142791099)
+@@ -0,0 +1,24 @@
++import styles from './JoinCompleted.module.css';
++import Image from 'next/image';
++import GrayMinari from '@/assets/minari-gray-cut.svg';
++import ProfileCard from '@/app/users/_components/my/ProfileCard';
++
++interface JoinCompletedProps {
++  name: string;
++  domain: string;
++  email: string;
++}
++
++const JoinCompleted = ({name, domain, email}: JoinCompletedProps) => {
++  const selectedDomain = domain === 'FRONTEND' ? '프론트엔드' : '백엔드';
++  return (
++    <div className={styles.wrapper}>
++      <ProfileCard name={name} domain={selectedDomain} email={email} />
++      <div className={styles['bg-image__wrapper']}>
++        <Image src={GrayMinari} alt="" />
++      </div>
++    </div>
++  );
++};
++
++export default JoinCompleted;
+Index: src/components/LayoutWrapper/index.tsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/components/LayoutWrapper/index.tsx b/src/components/LayoutWrapper/index.tsx
+new file mode 100644
+--- /dev/null	(date 1751142799510)
++++ b/src/components/LayoutWrapper/index.tsx	(date 1751142799510)
+@@ -0,0 +1,54 @@
++'use client';
++
++import {ReactNode, useEffect} from 'react';
++import styles from './LayoutWrapper.module.css';
++import Header from '@/components/Header';
++import {usePathname} from 'next/navigation';
++import {useUserStore} from '@/stores/userStore';
++import useTheme from '@/hooks/useTheme';
++import {PATH} from '@/constants/path';
++import useMedia from '@/hooks/useMedia';
++import {useMediaStore} from '@/stores/mediaStore';
++import {TokenExpirationHandler} from '../TokenExpirationHandler';
++
++const LayoutWrapper = ({children}: {children: ReactNode}) => {
++  const pathname = usePathname();
++  const userStore = useUserStore();
++  const theme = useTheme();
++  const {stopMedia} = useMedia();
++  const {mediaStreamStatus} = useMediaStore();
++
++  useEffect(() => {
++    const isAllowedPath = pathname === '/rehearsal' || pathname === '/rehearsal/setting';
++
++    if (!isAllowedPath && mediaStreamStatus === 'connected') {
++      stopMedia();
++    }
++  }, [pathname, stopMedia, mediaStreamStatus]);
++
++  // 랜딩 페이지 & 마이페이지는 LayoutWrapper 스타일 적용 x
++  const avoidWrapper = (pathname === PATH.ROOT && !userStore.isLoggedIn) || pathname === PATH.MY;
++
++  return (
++    <>
++      <Header
++        menu={
++          userStore.isLoggedIn ? (
++            <Header.UserMenu
++              userImage={userStore.userKakaoImage}
++              linkMyPage={userStore.isUserRegistered}
++            />
++          ) : (
++            <Header.LandingMenu />
++          )
++        }
++      />
++      <TokenExpirationHandler />
++      <div className={!avoidWrapper ? `${styles.wrapper} ${styles[theme]}` : ''}>
++        <div className={!avoidWrapper ? styles.container : ''}>{children}</div>
++      </div>
++    </>
++  );
++};
++
++export default LayoutWrapper;
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinCompleted.module.css b/src/app/users/_components/join/JoinCompleted.module.css
+rename from src/app/(whitebg)/users/_components/steps/JoinCompleted.module.css
+rename to src/app/users/_components/join/JoinCompleted.module.css
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinAgreement.module.css b/src/app/users/_components/join/JoinAgreement.module.css
+rename from src/app/(whitebg)/users/_components/steps/JoinAgreement.module.css
+rename to src/app/users/_components/join/JoinAgreement.module.css
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinExperience.module.css b/src/app/users/_components/join/JoinExperience.module.css
+rename from src/app/(whitebg)/users/_components/steps/JoinExperience.module.css
+rename to src/app/users/_components/join/JoinExperience.module.css
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinAgreement.tsx b/src/app/users/_components/join/JoinAgreement.tsx
+rename from src/app/(whitebg)/users/_components/steps/JoinAgreement.tsx
+rename to src/app/users/_components/join/JoinAgreement.tsx
+diff --git a/src/app/(whitebg)/users/_components/ui/JoinPageTitle.tsx b/src/app/users/_components/join/JoinPageTitle.tsx
+rename from src/app/(whitebg)/users/_components/ui/JoinPageTitle.tsx
+rename to src/app/users/_components/join/JoinPageTitle.tsx
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinEmailVerification.module.css b/src/app/users/_components/join/JoinEmailVerification.module.css
+rename from src/app/(whitebg)/users/_components/steps/JoinEmailVerification.module.css
+rename to src/app/users/_components/join/JoinEmailVerification.module.css
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinEmailVerification.tsx b/src/app/users/_components/join/JoinEmailVerification.tsx
+rename from src/app/(whitebg)/users/_components/steps/JoinEmailVerification.tsx
+rename to src/app/users/_components/join/JoinEmailVerification.tsx
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinReceiveNotification.tsx b/src/app/users/_components/join/JoinReceiveNotification.tsx
+rename from src/app/(whitebg)/users/_components/steps/JoinReceiveNotification.tsx
+rename to src/app/users/_components/join/JoinReceiveNotification.tsx
+diff --git a/src/app/(whitebg)/users/_components/steps/JoinExperience.tsx b/src/app/users/_components/join/JoinExperience.tsx
+rename from src/app/(whitebg)/users/_components/steps/JoinExperience.tsx
+rename to src/app/users/_components/join/JoinExperience.tsx

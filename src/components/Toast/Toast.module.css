@@ -1,0 +1,25 @@
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+}
+.container {
+  display: flex;
+  width: 280px;
+  padding: var(--spacing-16, 16px);
+  align-items: center;
+  gap: var(--spacing-8, 8px);
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: var(--border-radius-lg, 8px);
+
+  border: var(--border-width-lg, 2px) solid var(--color-border-secondary, #e5e5e5);
+  background: var(--color-bg-secondary, #fafafa);
+}
+
+.warning {
+  border: var(--border-width-lg, 2px) solid var(--color-border-warning, #facc15);
+  background: var(--color-bg-warning-subtle, #fef8e0);
+}
