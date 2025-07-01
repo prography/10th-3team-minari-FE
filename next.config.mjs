@@ -14,6 +14,11 @@ const nextConfig = {
         ],
     },
     output: "standalone",
+    experimental: {
+        serverActions: {
+            allowedOrigins: ['localhost:3000', 'minari-official.com']
+        }
+    }
 };
 
 export default nextConfig;
