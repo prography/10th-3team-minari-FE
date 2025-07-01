@@ -9,11 +9,9 @@ export const loginKaKao = () => {
 
 // 카카오 로그인
 export const getKakaoProfile = async (code: string) => {
-  const data = {
-    code,
-    redirectUri: process.env.NEXT_PUBLIC_KAKAO_REDIRECT,
-  };
-  const response = await fetch.post<TypeKakaoLoginResponse>(`/users/oauth/kakao`, data);
+  const response = await fetch.get<TypeKakaoLoginResponse>(
+    `/users/oauth/kakao?code=${code}&redirect-uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}`,
+  );
   if (response?.code === '200') {
     return response;
   } else {
