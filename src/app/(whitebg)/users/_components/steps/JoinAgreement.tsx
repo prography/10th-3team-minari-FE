@@ -10,11 +10,6 @@ const JoinAgreement = () => {
   const {checkItems, checkAll, checkAllHandler, checkAllIndeterminate, checkHandler} =
     useUserJoinContext();
 
-  const onClickAgreement = (no: string) => {
-    const link = `AGREEMENTS_${no}`;
-    window.open(OUT_LINK[`${link}`]);
-  };
-
   return (
     <div>
       <Checkbox
@@ -40,9 +35,14 @@ const JoinAgreement = () => {
             </div>
           ))}
         </div>
+
         <div className={styles['agreements__wrap']}>
-          <div onClick={() => onClickAgreement('1')}>약관보기</div>
-          <div onClick={() => onClickAgreement('2')}>약관보기</div>
+          <a href={OUT_LINK.개인정보_취급방침} target="_blank" rel="noopener noreferrer">
+            약관보기
+          </a>
+          <a href={OUT_LINK.이용약관} target="_blank" rel="noopener noreferrer">
+            약관보기
+          </a>
         </div>
       </div>
     </div>

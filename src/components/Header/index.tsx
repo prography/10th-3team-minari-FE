@@ -29,13 +29,6 @@ const Header = () => {
   );
 };
 
-const openFAQLink = () => {
-  window.open(OUT_LINK.FAQ);
-};
-const openBlog = () => {
-  window.open(OUT_LINK.BLOG);
-};
-
 const LandingMenu = () => {
   return (
     <>
@@ -43,12 +36,12 @@ const LandingMenu = () => {
         <Link href="/" className="fx-center">
           <button className="label-md">서비스 소개</button>
         </Link>
-        <button className="label-md" onClick={openFAQLink}>
+        <a href={OUT_LINK.FAQ} target="_blank" rel="noopener noreferrer" className="label-md">
           문의사항
-        </button>
-        <button className="label-md" onClick={openBlog}>
+        </a>
+        <a href={OUT_LINK.BLOG} target="_blank" rel="noopener noreferrer" className="label-md">
           BLOG
-        </button>
+        </a>
       </nav>
       <nav className={styles['menu-landing-mobile']}>
         <Image src={MenuButton} alt="menu-button" />
