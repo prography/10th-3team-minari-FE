@@ -41,6 +41,7 @@ const useRehearsal = () => {
         <p>알 수 없는 오류가 발생했어요.</p>
         <p>다시 한 번 도전해볼까요?</p>
       </Modal>,
+      true,
     );
   };
 
