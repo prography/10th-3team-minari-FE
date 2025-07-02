@@ -8,7 +8,6 @@ import styles from './Page.module.css';
 import Image from 'next/image';
 import Button from '@/components/Button';
 import TextSlider from './_components/TextSlider';
-import Footer from '@/components/Footer';
 import Minari from '@/assets/minari-black.svg';
 import Grass from '@/assets/image/grass.svg';
 import Highlight from '@/assets/image/highlight.png';
@@ -112,7 +111,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }
