@@ -7,6 +7,7 @@ import {ToastClient} from '@/components/Toast/ToastClient';
 import {MediaStreamEndHandler} from '@/components/MediaStreamEndHandler';
 import Header from '@/components/Header';
 import {TokenExpirationHandler} from '@/components/TokenExpirationHandler';
+import Footer from '@/components/Footer';
 
 export default function RootLayout({
   children,
@@ -27,6 +28,7 @@ export default function RootLayout({
           <MediaStreamEndHandler />
           <TokenExpirationHandler />
           {children}
+          <Footer />
         </Providers>
         <ToastClient />
         <ModalClient />
