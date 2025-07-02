@@ -1,8 +1,13 @@
+'use client';
+
 import React from 'react';
 import styles from './Spacing.module.css';
+import useTheme from '@/hooks/useTheme';
 
 const Spacing = () => {
-  return <div className={styles.wrapper} />;
+  const theme = useTheme();
+
+  return <div className={`${styles.wrapper} ${styles[`${theme}`]}`} />;
 };
 
 export default Spacing;
