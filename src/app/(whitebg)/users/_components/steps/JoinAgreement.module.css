@@ -3,7 +3,10 @@
   justify-content: space-between;
 }
 
-.agreements__wrap > div {
+.agreements__wrap > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   color: var(--color-text-tertiary, #525252);
   font-family: Pretendard, serif;
   font-size: 16px;
@@ -37,11 +40,5 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-  }
-
-  .agreements__wrap > div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
   }
 }
