@@ -12,10 +12,14 @@ interface JoinCompletedProps {
 const JoinCompleted = ({name, domain, email}: JoinCompletedProps) => {
   const selectedDomain = domain === 'FRONTEND' ? '프론트엔드' : '백엔드';
   return (
-    <div className={styles.wrapper}>
-      <ProfileCard name={name} domain={selectedDomain} email={email} />
-      <div className={styles['bg-image__wrapper']}>
-        <Image src={GrayMinari} alt="" />
+    <div>
+      <div className={styles['card__wrapper']}>
+        <ProfileCard name={name} domain={selectedDomain} email={email} />
+      </div>
+      <div className={styles['bg__wrap']}>
+        <div className={styles['bg-image__wrapper']}>
+          <Image src={GrayMinari} alt="" />
+        </div>
       </div>
     </div>
   );
