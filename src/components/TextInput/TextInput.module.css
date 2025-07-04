@@ -40,9 +40,15 @@
   background: var(--color-bg-disabled, #d4d4d4);
 }
 
-.input:user-invalid {
+.input-error {
   border-radius: var(--border-radius-lg, 8px);
   border: var(--border-width-sm, 1px) solid var(--color-border-interactive-danger, #fc1b45);
+  background: var(--color-bg-secondary, #fafafa);
+}
+
+.input-success {
+  border-radius: var(--border-radius-lg, 8px);
+  border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
   background: var(--color-bg-secondary, #fafafa);
 }
 
@@ -53,29 +59,10 @@
   color: var(--color-text-danger);
 }
 
-.input:user-valid {
-  border-radius: var(--border-radius-lg, 8px);
-  border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
-  background: var(--color-bg-secondary, #fafafa);
+.help-message__wrap {
+  background-color: green;
+  height: 24px;
 }
-
-.confirm-message {
-  color: var(--color-text-success);
-  margin: 9px 0 0 9px;
-  display: flex;
-  align-items: center;
-
-  -moz-animation: cssAnimation 2s ease-in-out 2s forwards;
-  /* Firefox */
-  -webkit-animation: cssAnimation 2s ease-in-out 2s forwards;
-  /* Safari and Chrome */
-  -o-animation: cssAnimation 2s ease-in-out 2s forwards;
-  /* Opera */
-  animation: cssAnimation 2s ease-in-out 2s forwards;
-  -webkit-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-}
-
 .help-message {
   margin-top: 9px;
   display: flex;
@@ -85,24 +72,9 @@
   margin-top: 2px;
 }
 
-.success {
+.help-message-success {
   color: var(--color-text-success);
 }
-.error {
+.help-message-error {
   color: var(--color-text-danger);
-}
-
-@keyframes cssAnimation {
-  to {
-    width: 0;
-    height: 0;
-    overflow: hidden;
-  }
-}
-@-webkit-keyframes cssAnimation {
-  to {
-    width: 0;
-    height: 0;
-    visibility: hidden;
-  }
 }
