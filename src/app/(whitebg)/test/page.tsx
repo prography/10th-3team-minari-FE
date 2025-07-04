@@ -12,7 +12,7 @@ import {useState} from 'react';
 import TextInput from '@/components/TextInput';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
-import {deleteCookie, getCookie} from '@/utils/cookies';
+import {getCookie} from '@/utils/cookies';
 
 const TestPage = () => {
   const {open: opneModal, close: closeModal} = useModalStore();
@@ -45,30 +45,22 @@ const TestPage = () => {
     fetch('https://www.minari.shop/admin/api/v1/users/me', {
       method: 'DELETE',
       headers: {
-        Authorization: token ? token : '',
+        Authorization: token,
       },
-    }).then((res) => {
-      if (res.ok) {
-        deleteCookie('access-token');
-        deleteCookie('refresh-token');
-        localStorage.clear();
-        window.location.href = '/';
-      }
     });
   };
   return (
     <>
-      <Button theme="primary" rounded onClick={deleteUser}>
-        ⭐️user 삭제️⭐️
-      </Button>
-      <br />
-      <br />
+      <Button onClick={handleClickOpenModal}>open Modal</Button>
       <div className="title-md">버튼</div>
       <br />
       <div className="title-sm">text only</div>
       <br />
       <div style={{display: 'flex', gap: '12px'}}>
         <Button theme="primary">Primary Button</Button>
+        <Button theme="primary" rounded onClick={deleteUser}>
+          클릭하면 탈퇴
+        </Button>
         <Button theme="primary" border>
           Primary w/Border
         </Button>
@@ -162,7 +154,6 @@ const TestPage = () => {
       </Checkbox>
       <br />
       <br />
-
       <div className="title-md">텍스트 인풋</div>
       <br />
       <TextInput value={inputValue} setValue={setInputValue} />
@@ -177,9 +168,6 @@ const TestPage = () => {
       <TextInput value={'disabled'} setValue={setInputValue} disabled={true} />
       <br />
       <br />
-      <div className="title-md">모달</div>
-      <br />
-      <Button onClick={handleClickOpenModal}>open Modal</Button>
       <br />
       <br />
     </>
