@@ -5,7 +5,7 @@ import {useUserStore} from '@/stores/userStore';
 import {useRouter} from 'next/navigation';
 import Loader from '@/components/Loader';
 import {getKakaoProfile} from '@/apis/user';
-import {deleteCookie} from '@/utils/cookies';
+import {deleteCookie, setCookie} from '@/utils/cookies';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
 import Button from '@/components/Button';
@@ -38,8 +38,8 @@ const KakaoRedirectPage = () => {
           store.setUserKaKaoImage(data?.image);
           store.setIsUserRegistered(data?.registered);
 
-          // setCookie('accessToken', data?.accessToken);
-          // setCookie('refreshToken', data?.refreshToken);
+          setCookie('access-token', data?.accessToken);
+          setCookie('refresh-token', data?.refreshToken);
 
           if (data?.registered) {
             router.push('/');
