@@ -4,6 +4,8 @@
 
 // import {redirect} from 'next/navigation';
 
+import {getCookie} from '@/utils/cookies';
+
 export type ApiResponse<T> = {
   code: string;
   result: T | null;
@@ -124,13 +126,13 @@ class APIClient {
     const fullUrl = this.constructURL(url, options.queryParams);
 
     const isFormData = options.body instanceof FormData;
-    // const accessToken = await getCookie('accessToken');
+    const accessToken = await getCookie('access-token');
 
     const headers = new Headers(this.buildHeaders(options.headers, isFormData));
 
-    // if (accessToken) {
-    //   headers.set('Authorization', `${accessToken}`);
-    // }
+    if (accessToken) {
+      headers.set('Authorization', `${accessToken}`);
+    }
 
     options.headers = headers;
 
