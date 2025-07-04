@@ -12,6 +12,7 @@ import {useState} from 'react';
 import TextInput from '@/components/TextInput';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
+import {getCookie} from '@/utils/cookies';
 
 const TestPage = () => {
   const {open: opneModal, close: closeModal} = useModalStore();
@@ -39,9 +40,15 @@ const TestPage = () => {
 
   const [inputValue, setInputValue] = useState('');
 
-  // const deleteUser = () => {
-  //   fetch.delete('/users/me ');
-  // };
+  const deleteUser = async () => {
+    const token = await getCookie('access-token');
+    fetch('https://www.minari.shop/admin/api/v1/users/me', {
+      method: 'DELETE',
+      headers: {
+        Authorization: token ? token : '',
+      },
+    });
+  };
   return (
     <>
       <Button onClick={handleClickOpenModal}>open Modal</Button>
@@ -54,7 +61,7 @@ const TestPage = () => {
         <Button theme="primary" rounded>
           클릭하면 탈퇴
         </Button>
-        <Button theme="primary" border>
+        <Button theme="primary" border onClick={deleteUser}>
           Primary w/Border
         </Button>
       </div>
