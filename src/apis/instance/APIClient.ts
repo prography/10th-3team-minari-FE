@@ -1,6 +1,8 @@
+// import {redirect} from 'next/navigation';
+// import {ErrorMessage} from './type';
 import {getCookie} from '@/utils/cookies';
-import {ErrorMessage} from '@/apis/instance/type';
-import {redirect} from 'next/navigation';
+
+// import {redirect} from 'next/navigation';
 
 export type ApiResponse<T> = {
   code: string;
@@ -122,7 +124,7 @@ class APIClient {
     const fullUrl = this.constructURL(url, options.queryParams);
 
     const isFormData = options.body instanceof FormData;
-    const accessToken = await getCookie('access-token');
+    const accessToken = await getCookie('accessToken');
 
     const headers = new Headers(this.buildHeaders(options.headers, isFormData));
 
@@ -147,47 +149,49 @@ class APIClient {
 
       return responseData as ApiResponse<T>;
     } catch (error: unknown) {
-      let errorCode = 'UNKNOWN';
-      let errorMessage = null;
-
-      if (
-        typeof error === 'object' &&
-        error !== null &&
-        'code' in error &&
-        typeof (error as ErrorResponse).code === 'string'
-      ) {
-        errorCode = (error as ErrorResponse).code;
-        errorMessage = (error as ErrorResponse).result;
-      }
-
-      const message =
-        errorCode in ErrorMessage
-          ? ErrorMessage[errorCode as keyof typeof ErrorMessage]
-          : errorMessage != null
-            ? errorMessage
-            : '알 수 없는 오류';
-
-      const jwtErrorPrefix = /^JWT\d{3}$/;
-
-      if (jwtErrorPrefix.test(errorCode)) {
-        if (typeof window !== 'undefined') {
-          window.dispatchEvent(new CustomEvent('tokenExpired', {detail: message}));
-        } else {
-          redirect('/401');
-        }
-        throw new Error(message);
-      }
-
-      console.error(
-        `======================`,
-        `\n[APIClient] Error occurred (${errorCode}):`,
-        `\n[API Method]: ${options.method}`,
-        `\n[API Url]: ${fullUrl}`,
-        `\n[Error Message]: ${message}`,
-        `\n======================\n`,
-      );
-
-      throw new Error(message);
+      console.log('error', error);
+      throw error;
+      // let errorCode = 'UNKNOWN';
+      // let errorMessage = null;
+      //
+      // if (
+      //   typeof error === 'object' &&
+      //   error !== null &&
+      //   'code' in error &&
+      //   typeof (error as ErrorResponse).code === 'string'
+      // ) {
+      //   errorCode = (error as ErrorResponse).code;
+      //   errorMessage = (error as ErrorResponse).result;
+      // }
+      //
+      // const message =
+      //   errorCode in ErrorMessage
+      //     ? ErrorMessage[errorCode as keyof typeof ErrorMessage]
+      //     : errorMessage != null
+      //       ? errorMessage
+      //       : '알 수 없는 오류';
+      //
+      // const jwtErrorPrefix = /^JWT\d{3}$/;
+      //
+      // if (jwtErrorPrefix.test(errorCode)) {
+      //   if (typeof window !== 'undefined') {
+      //     window.dispatchEvent(new CustomEvent('tokenExpired', {detail: message}));
+      //   } else {
+      //     redirect('/401');
+      //   }
+      //   throw new Error(message);
+      // }
+      //
+      // console.error(
+      //   `======================`,
+      //   `\n[APIClient] Error occurred (${errorCode}):`,
+      //   `\n[API Method]: ${options.method}`,
+      //   `\n[API Url]: ${fullUrl}`,
+      //   `\n[Error Message]: ${message}`,
+      //   `\n======================\n`,
+      // );
+      //
+      // throw new Error(message);
     }
   }
 }
