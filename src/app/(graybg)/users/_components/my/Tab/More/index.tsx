@@ -16,8 +16,8 @@ const MoreTab = () => {
     toastStore.open(<Toast title={'로그아웃 되었어요.'} />);
     setTimeout(async () => {
       localStorage.removeItem('user-storage');
-      await deleteCookie('accessToken');
-      await deleteCookie('refreshToken');
+      await deleteCookie('access-token');
+      await deleteCookie('refresh-token');
       navigateHome();
     }, 800);
   };
@@ -34,8 +34,8 @@ const MoreTab = () => {
           );
           setTimeout(async () => {
             localStorage.removeItem('user-storage');
-            await deleteCookie('accessToken');
-            await deleteCookie('refreshToken');
+            await deleteCookie('access-token');
+            await deleteCookie('refresh-token');
             navigateHome();
           }, 1500);
         }
