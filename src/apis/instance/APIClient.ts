@@ -2,6 +2,8 @@ import {getCookie} from '@/utils/cookies';
 import {ErrorMessage} from '@/apis/instance/type';
 import {redirect} from 'next/navigation';
 
+import {getCookie} from '@/utils/cookies';
+
 export type ApiResponse<T> = {
   code: string;
   result: T | null;
@@ -126,9 +128,9 @@ class APIClient {
 
     const headers = new Headers(this.buildHeaders(options.headers, isFormData));
 
-    // if (accessToken) {
-    //   headers.set('Authorization', `${accessToken}`);
-    // }
+    if (accessToken) {
+      headers.set('Authorization', `${accessToken}`);
+    }
 
     options.headers = headers;
 
