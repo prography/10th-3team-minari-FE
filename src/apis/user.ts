@@ -13,6 +13,8 @@ export const getKakaoProfile = async (code: string) => {
     `/users/oauth/kakao?code=${code}&redirect-uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}`,
   );
   if (response?.code === '200') {
+    console.log(response);
+
     return response;
   } else {
     throw response;
