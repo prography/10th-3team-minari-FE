@@ -1,6 +1,7 @@
 .wrapper {
-  /*position: absolute;*/
-  /*max-width: 480px;*/
+  background: var(--color-bg-inverse-bolder, #262626);
+  border-radius: var(--border-radius-lg, 8px);
+  height: 127px;
 }
 
 .container {
