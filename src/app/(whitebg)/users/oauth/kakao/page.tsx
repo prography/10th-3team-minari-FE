@@ -5,7 +5,7 @@ import {useUserStore} from '@/stores/userStore';
 import {useRouter} from 'next/navigation';
 import Loader from '@/components/Loader';
 import {getKakaoProfile} from '@/apis/user';
-import {deleteCookie, setCookie} from '@/utils/cookies';
+import {deleteCookie} from '@/utils/cookies';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
 import Button from '@/components/Button';
@@ -29,6 +29,7 @@ const KakaoRedirectPage = () => {
 
     getKakaoProfile(code)
       .then((response) => {
+        console.log('로그인 response ::', response);
         const data = response && response.result;
         if (data) {
           store.setUserId(String(data?.id));
@@ -37,8 +38,8 @@ const KakaoRedirectPage = () => {
           store.setUserKaKaoImage(data?.image);
           store.setIsUserRegistered(data?.registered);
 
-          setCookie('accessToken', data?.accessToken);
-          setCookie('refreshToken', data?.refreshToken);
+          // setCookie('accessToken', data?.accessToken);
+          // setCookie('refreshToken', data?.refreshToken);
 
           if (data?.registered) {
             router.push('/');
