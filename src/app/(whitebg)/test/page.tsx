@@ -45,7 +45,7 @@ const TestPage = () => {
     fetch('https://www.minari.shop/admin/api/v1/users/me', {
       method: 'DELETE',
       headers: {
-        Authorization: token,
+        Authorization: token ? token : '',
       },
     });
   };
