@@ -126,9 +126,9 @@ class APIClient {
 
     const headers = new Headers(this.buildHeaders(options.headers, isFormData));
 
-    if (accessToken) {
-      headers.set('Authorization', `${accessToken}`);
-    }
+    // if (accessToken) {
+    //   headers.set('Authorization', `${accessToken}`);
+    // }
 
     options.headers = headers;
 
