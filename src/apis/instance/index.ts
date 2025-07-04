@@ -10,5 +10,6 @@ export const fetch = apiClient.create({
   baseURL: API_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
+    credentials: 'include',
   },
 });
