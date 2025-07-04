@@ -17,7 +17,7 @@ const QRCodeModal = () => {
   const order = [
     {
       icon: Round1,
-      text: '송금 메모: {RanId} 적기!',
+      text: '송금 메모: ⭐️UUID⭐ 적기!',
     },
     {
       icon: Round2,
@@ -43,7 +43,10 @@ const QRCodeModal = () => {
         <span className="body-lg">최대 1시간 이내로 씨앗을 보내드릴게요.</span>
         <Image src={QRCode} alt="QR code" width={138} height={138} />
 
-        <span className="label-sm txt-tertiary">{`카카오톡 > 친구추가 > 사진보내기`}</span>
+        <span
+          style={{whiteSpace: 'pre'}}
+          className="label-sm txt-tertiary"
+        >{`UUID: 홈 → 오른쪽 상단 [프로필 사진] \n→ 내 이름 옆 글자 (ex. 귀여운사자87)`}</span>
 
         <ol className={styles.order_list}>
           {order.map(({icon, text}, i) => (
