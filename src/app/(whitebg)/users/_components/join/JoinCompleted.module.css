@@ -1,17 +1,28 @@
 .wrapper {
   background: var(--color-bg-inverse-bolder, #262626);
   border-radius: var(--border-radius-lg, 8px);
+  height: 127px;
+}
 
+.container {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-}
-
-.profile-card__wrap {
   padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
+  align-items: flex-start;
+  gap: var(--spacing-12, 12px);
+  align-self: stretch;
+  border-radius: var(--border-radius-lg, 8px);
+  background: var(--color-bg-inverse-bolder, #262626);
 }
 
-.bg-image > * {
+.bg-image__wrapper {
+  /*background-color: red;*/
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+  bottom: 0;
+  top: -82px;
+}
+.bg-image__wrapper > * {
   border-bottom-right-radius: 8px;
 }
 
