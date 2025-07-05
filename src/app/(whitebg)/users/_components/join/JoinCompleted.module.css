@@ -1,13 +1,10 @@
 .wrapper {
   background: var(--color-bg-inverse-bolder, #262626);
   border-radius: var(--border-radius-lg, 8px);
+
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-}
-
-.profile-card__wrap {
-  padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
 }
 
 .bg-image > * {
