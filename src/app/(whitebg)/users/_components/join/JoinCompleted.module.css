@@ -1,0 +1,31 @@
+.wrapper {
+  background: var(--color-bg-inverse-bolder, #262626);
+  border-radius: var(--border-radius-lg, 8px);
+
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.bg-image > * {
+  border-bottom-right-radius: 8px;
+}
+
+.text-section {
+  width: 100%;
+  margin-left: 12px;
+}
+.text-section > div {
+  color: var(--color-text-interactive-inverse-white);
+}
+
+.title__wrap {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-profile__button {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
