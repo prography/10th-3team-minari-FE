@@ -14,7 +14,7 @@ const JoinCompleted = ({name, domain, email}: JoinCompletedProps) => {
   return (
     <div className={styles.wrapper}>
       <ProfileCard name={name} domain={selectedDomain} email={email} />
-      <div className={styles['bg-image__wrapper']}>
+      <div className={styles['bg-image']}>
         <Image src={GrayMinari} alt="" />
       </div>
     </div>
