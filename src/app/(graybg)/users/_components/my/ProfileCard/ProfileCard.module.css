@@ -1,6 +1,7 @@
 .container {
   display: flex;
   padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
+  max-height: 118px;
   align-items: flex-start;
   gap: var(--spacing-12, 12px);
   align-self: stretch;
@@ -8,7 +9,6 @@
 }
 
 .bg-image__wrapper {
-  /*background-color: red;*/
   display: flex;
   justify-content: flex-end;
   position: relative;
