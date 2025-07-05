@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   background-color: var(--color-bg-inverse-bolder);
-  height: 100dvh;
+  min-height: 100dvh;
 }
 
 .container {
