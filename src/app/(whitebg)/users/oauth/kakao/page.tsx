@@ -29,7 +29,6 @@ const KakaoRedirectPage = () => {
 
     getKakaoProfile(code)
       .then((response) => {
-        console.log('로그인 response ::', response);
         const data = response && response.result;
         if (data) {
           store.setUserId(String(data?.id));
