@@ -7,6 +7,10 @@
   justify-content: space-between;
 }
 
+.profile-card__wrap {
+  padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
+}
+
 .bg-image > * {
   border-bottom-right-radius: 8px;
 }
