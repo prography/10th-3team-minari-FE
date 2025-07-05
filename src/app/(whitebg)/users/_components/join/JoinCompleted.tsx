@@ -13,7 +13,9 @@ const JoinCompleted = ({name, domain, email}: JoinCompletedProps) => {
   const selectedDomain = domain === 'FRONTEND' ? '프론트엔드' : '백엔드';
   return (
     <div className={styles.wrapper}>
-      <ProfileCard name={name} domain={selectedDomain} email={email} />
+      <div className={styles['profile-card__wrap']}>
+        <ProfileCard name={name} domain={selectedDomain} email={email} />
+      </div>
       <div className={styles['bg-image']}>
         <Image src={GrayMinari} alt="" />
       </div>
