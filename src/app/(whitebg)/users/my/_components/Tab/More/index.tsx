@@ -1,4 +1,3 @@
-'use client';
 import styles from './More.module.css';
 import {deleteUser} from '@/apis/user';
 import Toast from '@/components/Toast';
@@ -7,20 +6,19 @@ import Button from '@/components/Button';
 import ArrowRight from '@/assets/icon/arrow-black.svg';
 import {useRouter} from 'next/navigation';
 import {useModalStore} from '@/stores/modalStore';
-import React from 'react';
 import Modal from '@/components/Modal';
 import {useClearCache} from '@/hooks/useClearCache';
+import packageJson from 'package.json';
 
-const MoreTab = () => {
+const MoreTab = ({name}: {name: string | undefined}) => {
   const toastStore = useToastStore();
-  const router = useRouter();
   const {open, close} = useModalStore();
   const {clearCookies, goHome} = useClearCache();
+  const router = useRouter();
   const allClear = async () => {
     await clearCookies();
     goHome();
   };
-
   // 로그아웃
   const onClickLogout = async () => {
     toastStore.setTime(1000);
@@ -71,17 +69,39 @@ const MoreTab = () => {
       });
   };
 
+  // TODO 어드민 접근권한 로그인 시 추가
+  const admins = ['김주하', '최지원'];
   return (
-    <div className={styles['button-section']}>
-      <button className="body-lg txt-disabled" onClick={onClickLogout}>
-        로그아웃
-      </button>
-      <button className="body-lg txt-disabled" onClick={onClickWithdraw}>
-        회원탈퇴
-      </button>
-      <Button iconRight={ArrowRight} onClick={() => router.push('/admin')}>
-        어드민
-      </Button>
+    <div className={styles.container}>
+      <div className={styles['info-box']}>
+        <div className={styles['info-item']}>
+          <div className="body-lg txt-tertiary">버전 유형</div>
+          <div className="label-lg txt-primary">v.{packageJson.version}</div>
+        </div>
+        <hr className={styles.divider} />
+        <div className={styles['info-item']}>
+          <div className="body-lg txt-tertiary">약관 보기</div>
+          <div className="label-lg txt-primary">더보기</div>
+        </div>
+        <hr className={styles.divider} />
+        <div className={styles['info-item']}>
+          <div className="body-lg txt-tertiary">계정 정보</div>
+          <div className="label-lg txt-primary">-</div>
+        </div>
+      </div>
+      <div className={styles['button-section']}>
+        <button className="body-lg txt-disabled" onClick={onClickLogout}>
+          로그아웃
+        </button>
+        <button className="body-lg txt-disabled" onClick={onClickWithdraw}>
+          회원탈퇴
+        </button>
+        {admins.includes(name ? name : '') && (
+          <Button iconRight={ArrowRight} onClick={() => router.push('/admin')}>
+            어드민
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

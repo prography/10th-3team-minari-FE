@@ -54,7 +54,7 @@ const UserMenu = () => {
   const userStore = useUserStore();
 
   return (
-    <Link href={userStore.isUserRegistered ? PATH.MY_PAGE : ''}>
+    <Link href={userStore.isUserRegistered ? `${PATH.MY_PAGE}?tabs=info` : ''}>
       <Image
         src={userStore.userKakaoImage}
         alt="logo"
