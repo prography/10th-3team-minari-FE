@@ -25,7 +25,7 @@ const ProfileCard = ({name, domain, email, uuid}: ProfileCardProps) => {
             </div>
           </div>
           <div className="body-md">{domain} | 미나리 0일차</div>
-          <div>{email}</div>
+          <div className="body-sm">{email}</div>
         </div>
       </div>
     </div>

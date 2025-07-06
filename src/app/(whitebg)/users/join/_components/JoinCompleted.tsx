@@ -1,7 +1,7 @@
 import styles from './JoinCompleted.module.css';
 import Image from 'next/image';
 import GrayMinari from '@/assets/minari-gray-cut.svg';
-import ProfileCard from 'src/app/(graybg)/users/_components/ProfileCard';
+import ProfileCard from '@/app/(whitebg)/users/my/_components/ProfileCard';
 
 interface JoinCompletedProps {
   name: string;
