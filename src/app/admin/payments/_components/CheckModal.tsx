@@ -2,7 +2,7 @@ import Button from '@/components/Button';
 import Modal from '@/components/Modal';
 import React from 'react';
 import styles from './CheckModal.module.css';
-import {RewardFormType} from '@/app/payments/page';
+import {RewardFormType} from '@/app/admin/payments/page';
 
 interface CheckModalProps {
   form: RewardFormType;
@@ -13,7 +13,6 @@ const CheckModal = ({form, onClickRightButton, onClickLeftButton}: CheckModalPro
   return (
     <Modal
       title="정보가 맞는지 확인해주세요."
-      isCloseButton
       rightButton={<Button onClick={onClickRightButton}>지급</Button>}
       leftButton={
         <Button theme="secondary" onClick={onClickLeftButton}>
@@ -26,7 +25,7 @@ const CheckModal = ({form, onClickRightButton, onClickLeftButton}: CheckModalPro
         <div className="label-lg txt-00">리워드 지급</div>
         <div className={styles['reward-contents']}>
           <div className="body-sm">리워드 종류: 씨앗</div>
-          <div className="body-sm">UUID: {form.uuid}</div>
+          <div className="body-sm">UUID: {form.userUUID}</div>
           <div className="body-sm">씨앗 개수: {form.seed}</div>
           <div className="body-sm">지급 사유: {form.reason}</div>
         </div>

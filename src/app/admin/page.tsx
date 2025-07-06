@@ -8,7 +8,7 @@ const AdminHome = () => {
   };
   const router = useRouter();
   return (
-    <div>
+    <div style={{minHeight: 'calc(100dvh - 400px)'}}>
       <div className="fx-center mg-top-32 title-md">
         This is 어드민
         <br />

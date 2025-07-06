@@ -1,4 +1,4 @@
-export const MANAGER_OPTIONS = [
+export const ROLE_OPTIONS = [
   {id: 0, option: 'PO'},
   {id: 1, option: 'FE'},
   {id: 2, option: 'BE'},

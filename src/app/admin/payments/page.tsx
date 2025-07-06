@@ -4,17 +4,19 @@ import TextInput from '@/components/TextInput';
 import React, {useState} from 'react';
 import InputForm from '@/app/admin/payments/_components/InputForm';
 import SelectOption, {OptionType} from '@/components/SelectOption';
-import {MANAGER_OPTIONS, REASON_OPTIONS} from '@/constants/adminOptions';
+import {REASON_OPTIONS, ROLE_OPTIONS} from '@/constants/adminOptions';
 import Textarea from '@/components/Textarea';
 import Button from '@/components/Button';
 import {useModalStore} from '@/stores/modalStore';
 import CheckModal from '@/app/admin/payments/_components/CheckModal';
 import {postPayment} from '@/apis/payment';
+import Toast from '@/components/Toast';
+import {useToastStore} from '@/stores/toastStore';
 
 export interface RewardFormType {
-  uuid: string;
+  userUUID: string;
   seed: number;
-  manager: string;
+  role: string;
   reason: string;
   memo?: string;
 }
@@ -22,9 +24,9 @@ export interface RewardFormType {
 const PaymentsPage = () => {
   const {open, close} = useModalStore();
   const [rewardForm, setRewardForm] = useState<RewardFormType>({
-    uuid: '',
+    userUUID: '',
     seed: 0,
-    manager: '',
+    role: '',
     reason: '',
     memo: '',
   });
@@ -33,11 +35,11 @@ const PaymentsPage = () => {
   };
 
   // 옵션 선택 상태값 관리
-  const [selectedManager, setSelectedManager] = useState<OptionType>({id: '', option: ''});
+  const [selectedRole, setSelectedRole] = useState<OptionType>({id: '', option: ''});
   const [selectedReason, setSelectedReason] = useState<OptionType>({id: '', option: ''});
-  const onClickManagerOption = (id: string | number) => {
-    setSelectedManager(MANAGER_OPTIONS[Number(id)]);
-    updateRewardForm(MANAGER_OPTIONS[Number(id)].option, 'manager');
+  const onClickRoleOption = (id: string | number) => {
+    setSelectedRole(ROLE_OPTIONS[Number(id)]);
+    updateRewardForm(ROLE_OPTIONS[Number(id)].option, 'role');
   };
   const onClickReasonOption = (id: string | number) => {
     setSelectedReason(REASON_OPTIONS[Number(id)]);
@@ -53,15 +55,25 @@ const PaymentsPage = () => {
       />,
     );
   };
+  const toastStore = useToastStore();
   const onClickFetchPostPayment = () => {
-    postPayment(rewardForm).then((response) => {
-      console.log(response);
-    });
+    postPayment(rewardForm)
+      .then((response) => {
+        if (response?.code === '200') {
+          toastStore.setTime(2000);
+          toastStore.open(<Toast title={'지급 완료'} />);
+        }
+      })
+      .catch(() => {
+        toastStore.setTime(2000);
+        toastStore.open(<Toast title={'지급 실패.'} type="warning" />);
+      });
+    close();
   };
 
   const valueChecker = () => {
     const formValues = rewardForm;
-    delete formValues.memo;
+    if (formValues.memo === '') delete formValues.memo;
     return Object.values(formValues).some((value) => value === '');
   };
 
@@ -69,8 +81,8 @@ const PaymentsPage = () => {
     <PageLayout title="리워드 지급">
       <InputForm title="uuid.">
         <TextInput
-          value={rewardForm.uuid}
-          onChange={(e) => updateRewardForm(e.target.value, 'uuid')}
+          value={rewardForm.userUUID}
+          onChange={(e) => updateRewardForm(e.target.value, 'userUUID')}
         />
       </InputForm>
       <InputForm title="씨앗">
@@ -83,13 +95,13 @@ const PaymentsPage = () => {
       </InputForm>
       <InputForm title="담당자">
         <SelectOption
-          inputField={<SelectOption.InputFieldAdmin value={selectedManager.option} />}
+          inputField={<SelectOption.InputFieldAdmin value={selectedRole.option} />}
           height="48px"
           options={
             <SelectOption.OptionsAdmin
-              selectOption={selectedManager}
-              handleClick={onClickManagerOption}
-              options={MANAGER_OPTIONS}
+              selectOption={selectedRole}
+              handleClick={onClickRoleOption}
+              options={ROLE_OPTIONS}
             />
           }
         />
@@ -108,7 +120,10 @@ const PaymentsPage = () => {
         />
       </InputForm>
       <InputForm title="상세 메모">
-        <Textarea value={rewardForm.memo} setValue={(e) => updateRewardForm(e, 'memo')} />
+        <Textarea
+          value={rewardForm.memo}
+          onChange={(e) => updateRewardForm(e.target.value, 'memo')}
+        />
       </InputForm>
 
       <div className="mg-top-24 mg-left-100">
