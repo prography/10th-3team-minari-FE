@@ -24,7 +24,7 @@ const MyPage = () => {
 
       <div>
         {tab === 'info' && <InfoTab data={data ? data : null} />}
-        {tab === 'more' && <MoreTab name={data?.name} />}
+        {tab === 'more' && <MoreTab name={data?.name} kakaoEmail={''} />}
       </div>
     </div>
   );

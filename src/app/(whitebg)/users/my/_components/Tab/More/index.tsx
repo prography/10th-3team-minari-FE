@@ -9,8 +9,9 @@ import {useModalStore} from '@/stores/modalStore';
 import Modal from '@/components/Modal';
 import {useClearCache} from '@/hooks/useClearCache';
 import packageJson from 'package.json';
+import {OUT_LINK} from '@/constants/path';
 
-const MoreTab = ({name}: {name: string | undefined}) => {
+const MoreTab = ({name, kakaoEmail}: {name: string | undefined; kakaoEmail: string}) => {
   const toastStore = useToastStore();
   const {open, close} = useModalStore();
   const {clearCookies, goHome} = useClearCache();
@@ -69,6 +70,10 @@ const MoreTab = ({name}: {name: string | undefined}) => {
       });
   };
 
+  const onClickAgreement = () => {
+    window.open(OUT_LINK.약관전체);
+  };
+
   // TODO 어드민 접근권한 로그인 시 추가
   const admins = ['김주하', '최지원'];
   return (
@@ -81,12 +86,14 @@ const MoreTab = ({name}: {name: string | undefined}) => {
         <hr className={styles.divider} />
         <div className={styles['info-item']}>
           <div className="body-lg txt-tertiary">약관 보기</div>
-          <div className="label-lg txt-primary">더보기</div>
+          <div className="label-lg txt-primary cp" onClick={onClickAgreement}>
+            더보기
+          </div>
         </div>
         <hr className={styles.divider} />
         <div className={styles['info-item']}>
           <div className="body-lg txt-tertiary">계정 정보</div>
-          <div className="label-lg txt-primary">-</div>
+          <div className="label-lg txt-primary">{kakaoEmail}</div>
         </div>
       </div>
       <div className={styles['button-section']}>

@@ -1,0 +1,40 @@
+.container {
+  height: 34px;
+  /*padding: 0 12px;*/
+  cursor: pointer;
+  width: 100px;
+}
+
+.label__wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 34px;
+  gap: 4px;
+}
+
+.options__wrap {
+  z-index: 1;
+  position: relative;
+  padding: 4px 16px;
+  background-color: var(--color-bg-inverse-bold, #525252);
+  box-sizing: border-box;
+  width: 112px;
+  border-bottom-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.options {
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.options:first-child {
+  padding-top: 6px;
+  /*background-color: ;*/
+}
+
+.options:last-child {
+  padding-bottom: 6px;
+  /*background-color: ;*/
+}
