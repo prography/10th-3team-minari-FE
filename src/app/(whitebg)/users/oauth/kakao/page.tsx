@@ -37,8 +37,8 @@ const KakaoRedirectPage = () => {
           store.setUserKaKaoImage(data?.image);
           store.setIsUserRegistered(data?.registered);
 
-          setCookie('accessToken', data?.accessToken);
-          setCookie('refreshToken', data?.refreshToken);
+          setCookie('access-token', data?.accessToken);
+          setCookie('refresh-token', data?.refreshToken);
 
           if (data?.registered) {
             router.push('/');

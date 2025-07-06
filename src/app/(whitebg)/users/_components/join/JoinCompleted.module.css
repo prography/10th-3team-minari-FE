@@ -1,23 +1,17 @@
-.bg__wrap {
-  display: flex;
-  align-items: flex-end;
-  justify-content: flex-end;
+.wrapper {
   background: var(--color-bg-inverse-bolder, #262626);
   border-radius: var(--border-radius-lg, 8px);
-}
 
-.card__wrapper {
-  height: 100%;
-  position: relative;
-  bottom: -64px;
-  padding-left: 24px;
-}
-
-.bg-image__wrapper {
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-end;
+  justify-content: space-between;
 }
-.bg-image__wrapper > * {
+
+.profile-card__wrap {
+  padding: var(--spacing-32, 32px) var(--spacing-24, 24px);
+}
+
+.bg-image > * {
   border-bottom-right-radius: 8px;
 }
 

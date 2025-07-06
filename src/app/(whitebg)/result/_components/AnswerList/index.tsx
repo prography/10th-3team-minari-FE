@@ -55,11 +55,11 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
       title: '모범 답안',
       contents: answer?.result?.answer,
     },
-    {
-      id: 3,
-      title: '피드백',
-      contents: '',
-    },
+    // {
+    //   id: 3,
+    //   title: '피드백',
+    //   contents: '',
+    // },
   ];
 
   return (

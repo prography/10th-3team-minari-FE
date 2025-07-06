@@ -8,10 +8,11 @@ import type {AnswerType} from '@/apis/answer';
 import Time from '../Time';
 import {useContents} from '@/hooks/queries/useContents';
 import InfoBox from '@/components/InfoBox';
-import {QUESTION_ID} from '@/constants/questionId';
+import {useQuestionId} from '@/hooks/queries/useQuestionId';
 
 const Question = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
-  const {data: contents} = useContents(QUESTION_ID);
+  const {data: questionId} = useQuestionId();
+  const {data: contents} = useContents(questionId ?? 0);
 
   return (
     <InfoBox>

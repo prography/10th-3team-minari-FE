@@ -1,8 +1,6 @@
-import {redirect} from 'next/navigation';
-import {ErrorMessage} from './type';
 import {getCookie} from '@/utils/cookies';
-
-// import {redirect} from 'next/navigation';
+import {ErrorMessage} from '@/apis/instance/type';
+import {redirect} from 'next/navigation';
 
 export type ApiResponse<T> = {
   code: string;
@@ -124,7 +122,7 @@ class APIClient {
     const fullUrl = this.constructURL(url, options.queryParams);
 
     const isFormData = options.body instanceof FormData;
-    const accessToken = await getCookie('accessToken');
+    const accessToken = await getCookie('access-token');
 
     const headers = new Headers(this.buildHeaders(options.headers, isFormData));
 

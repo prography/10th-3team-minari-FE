@@ -8,7 +8,6 @@ import styles from './Page.module.css';
 import Image from 'next/image';
 import Button from '@/components/Button';
 import TextSlider from './_components/TextSlider';
-import Footer from '@/components/Footer';
 import Minari from '@/assets/minari-black.svg';
 import Grass from '@/assets/image/grass.svg';
 import Highlight from '@/assets/image/highlight.png';
@@ -16,6 +15,7 @@ import Person from '@/assets/image/hero_person.png';
 import DescImageOne from '@/assets/image/desc_image_1.svg';
 import DescImageTwo from '@/assets/image/desc_image_2.svg';
 import BlackArrow from '@/assets/icon/arrow-black.svg';
+import {getCookie} from '@/utils/cookies';
 
 export default function Page() {
   const store = useUserStore();
@@ -31,6 +31,12 @@ export default function Page() {
   };
 
   useEffect(() => {
+    getCookie('access-token').then((token) => {
+      if (!token && store.username) {
+        localStorage.clear();
+        location.reload();
+      }
+    });
     if (!store.isUserRegistered && store.isLoggedIn) {
       router.push('/users/join');
     }
@@ -112,7 +118,6 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

@@ -12,7 +12,7 @@ import {useNotepad} from '@/contexts/NotepadProvider';
 import {useVideoState} from '@/contexts/VideoStateProvider';
 import {useCompleteModal} from '@/contexts/CompleteModalProvider';
 import {useUserStore} from '@/stores/userStore';
-import {QUESTION_ID} from '@/constants/questionId';
+import {useQuestionId} from '@/hooks/queries/useQuestionId';
 
 const Buttons = () => {
   const {
@@ -27,6 +27,7 @@ const Buttons = () => {
     useVideoState();
   const {handleOpen, memo} = useNotepad();
   const {handleOpen: ModalOpen} = useCompleteModal();
+  const {data: questionId} = useQuestionId();
   const {userId} = useUserStore();
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const Buttons = () => {
     if (seconds === 0) {
       handleStop();
       handleCountStop();
-      handleRearsalClose({userId, questionId: QUESTION_ID, memo});
+      handleRearsalClose({userId, questionId: questionId ?? 0, memo});
     }
   }, [seconds, handleStop, handleCountStop, handleRearsalClose]);
 
@@ -63,7 +64,7 @@ const Buttons = () => {
   const stopClick = () => {
     handleStop();
     handleCountStop();
-    handleRearsalClose({userId, questionId: QUESTION_ID, memo});
+    handleRearsalClose({userId, questionId: questionId ?? 0, memo});
     ModalOpen();
   };
 

@@ -21,7 +21,7 @@ export const getKakaoProfile = async (code: string) => {
 
 // 토큰 재발급
 export const postRefreshToken = async () => {
-  const token = await getCookie('refreshToken');
+  const token = await getCookie('refresh-token');
   return fetch.post<TypeRefreshTokenResponse>(`/users/token/refresh`, {refreshToken: token});
 };
 

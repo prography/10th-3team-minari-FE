@@ -1,19 +1,19 @@
 'use client';
 import React, {useEffect} from 'react';
-import JoinAgreement from '@/app/(whitebg)/users/_components/steps/JoinAgreement';
-import JoinReceiveNotification from '@/app/(whitebg)/users/_components/steps/JoinReceiveNotification';
-import JoinEmailVerification from '@/app/(whitebg)/users/_components/steps/JoinEmailVerification';
-import JoinExperience from '@/app/(whitebg)/users/_components/steps/JoinExperience';
+import JoinAgreement from '@/app/(whitebg)/users/_components/join/JoinAgreement';
+import JoinReceiveNotification from '@/app/(whitebg)/users/_components/join/JoinReceiveNotification';
+import JoinEmailVerification from '@/app/(whitebg)/users/_components/join/JoinEmailVerification';
+import JoinExperience from '@/app/(whitebg)/users/_components/join/JoinExperience';
+import JoinCompleted from '@/app/(whitebg)/users/_components/join/JoinCompleted';
 import {useUserJoin} from '@/hooks/queries/useUserJoin';
 import {useRouter} from 'next/navigation';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
-import JoinPageTitle from '@/app/(whitebg)/users/_components/ui/JoinPageTitle';
+import JoinPageTitle from '@/app/(whitebg)/users/_components/join/JoinPageTitle';
 import styles from './page.module.css';
 import Button from '@/components/Button';
 import ArrowLeft from '@/assets/icon/arrow-left.svg';
 import ArrowRight from '@/assets/icon/arrow-black.svg';
 import {useUserStore} from '@/stores/userStore';
-import JoinCompleted from '@/app/(whitebg)/users/_components/steps/JoinCompleted';
 import {useModalStore} from '@/stores/modalStore';
 import Modal from '@/components/Modal';
 
