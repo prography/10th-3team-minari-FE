@@ -21,6 +21,7 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   helpMsgShow?: boolean;
   helpMsg?: HelpMessageType;
   required?: boolean;
+  unit?: string;
 }
 
 const TextInput = ({
