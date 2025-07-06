@@ -14,6 +14,7 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   helpMsg?: string;
   status?: InputStatusType;
   required?: boolean;
+  unit?: string;
 }
 
 const TextInput = ({
@@ -24,7 +25,8 @@ const TextInput = ({
   helpMsgShow,
   helpMsg,
   onChange,
-  status = 'plain',
+  status,
+  unit,
   ...restProps
 }: TextInputProps) => {
   const msgIcon = status === 'success' ? successIcon : errorIcon;
@@ -43,14 +45,21 @@ const TextInput = ({
           {required && <div className="txt-danger mg-left-4">*</div>}
         </div>
       </label>
-      <input
-        id={`input-${label}`}
-        type={type ? type : 'text'}
-        disabled={disabled}
-        className={styles.input}
-        onChange={onChange}
-        {...restProps}
-      />
+      <div className={styles['input__wrap']}>
+        <input
+          id={`input-${label}`}
+          type={type ? type : 'text'}
+          disabled={disabled}
+          className={`${styles.input} ${styles[`input-${status}`]}`}
+          onChange={onChange}
+          {...restProps}
+        />
+        {unit && (
+          <div className={styles.unit}>
+            <span className="body-lg txt-tertiary">{unit}</span>
+          </div>
+        )}
+      </div>
       <div className={styles['help-message__wrap']}>{helpMsgShow && helpMsgFormat}</div>
     </div>
   );

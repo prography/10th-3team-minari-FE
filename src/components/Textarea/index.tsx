@@ -2,17 +2,10 @@ import React from 'react';
 import styles from './Textarea.module.css';
 
 interface TextareaProps extends React.HTMLProps<HTMLTextAreaElement> {
-  setValue: (value: string) => void;
+  onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 }
-const Textarea = ({setValue, ...restProps}: TextareaProps) => {
-  return (
-    <textarea
-      type=""
-      className={styles.input}
-      {...restProps}
-      onChange={(e) => setValue(e.target.value)}
-    />
-  );
+const Textarea = ({onChange, ...restProps}: TextareaProps) => {
+  return <textarea type="" className={styles.input} {...restProps} onChange={onChange} />;
 };
 
 export default Textarea;

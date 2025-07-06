@@ -1,5 +1,5 @@
-.wrapper {
-  height: 115px;
+.input__wrap {
+  display: flex;
 }
 
 .input {
@@ -44,12 +44,26 @@
   border-radius: var(--border-radius-lg, 8px);
   border: var(--border-width-sm, 1px) solid var(--color-border-interactive-danger, #fc1b45);
   background: var(--color-bg-secondary, #fafafa);
+
+  &:hover {
+    border: var(--border-width-sm, 1px) solid var(--color-border-interactive-danger, #fc1b45);
+  }
+  &:focus {
+    border: var(--border-width-sm, 1px) solid var(--color-border-interactive-danger, #fc1b45);
+  }
 }
 
 .input-success {
   border-radius: var(--border-radius-lg, 8px);
   border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
   background: var(--color-bg-secondary, #fafafa);
+
+  &:hover {
+    border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
+  }
+  &:focus {
+    border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
+  }
 }
 
 .input:user-invalid ~ span {
@@ -60,21 +74,25 @@
 }
 
 .help-message__wrap {
-  background-color: green;
-  height: 24px;
+  height: 30px;
 }
 .help-message {
-  margin-top: 9px;
+  padding-top: 8px;
   display: flex;
   align-items: center;
 }
-.help-message > span {
-  margin-top: 2px;
-}
-
 .help-message-success {
   color: var(--color-text-success);
 }
 .help-message-error {
   color: var(--color-text-danger);
+}
+
+.unit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  position: relative;
+  left: -38px;
 }
