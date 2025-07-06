@@ -1,0 +1,23 @@
+.week-month-label {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 8px;
+}
+
+.week-month-label > div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.blocks__wrap {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2px;
+}
+
+.blocks {
+  height: 23px;
+  background-color: var(--color-bg-disabled);
+  border-radius: 2px;
+}

@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  height: 34px;
+  padding: var(--spacing-8, 8px) var(--spacing-12, 12px);
+  box-sizing: border-box;
+  align-items: center;
+  border-radius: var(--border-radius-md, 4px);
+  background: var(--color-bg-inverse-bold, #525252);
+  justify-content: space-between;
+}
+
+.text__wrap {
+  display: flex;
+  gap: 4px;
+}
