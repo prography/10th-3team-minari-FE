@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2964d027-d6f5-49f4-87b0-f42ea4660654" name="Changes" comment="feat: [마이페이지] 토큰 리프레시 / 삭제 api 추가" />
+    <list default="true" id="2964d027-d6f5-49f4-87b0-f42ea4660654" name="Changes" comment="feat: [마이페이지] 토큰 리프레시 / 삭제 api 추가">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,12 +26,12 @@
     &quot;assignee&quot;: &quot;deeondiary&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/prography/10th-3team-minari-FE.git&quot;,
-    &quot;accountId&quot;: &quot;d01cb53c-28f9-4a80-b7b7-b78f1283d179&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/prography/10th-3team-minari-FE.git",
+    "accountId": "de302f35-6617-4d9a-bb52-a4281ccbb064"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="ProjectErrors" />
   </component>
@@ -45,6 +47,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feat/환경변수추가",
     "last_opened_file_path": "/Users/jiwon/Desktop/projects/10th-3team-minari-FE/src/assets/icon",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -140,7 +143,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-WS-243.22562.112" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-WS-243.26053.12" />
       </set>
     </attachedChunks>
   </component>
