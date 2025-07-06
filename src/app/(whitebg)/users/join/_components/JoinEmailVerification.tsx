@@ -1,7 +1,7 @@
 'use client';
 import styles from './JoinEmailVerification.module.css';
-import TextInput, {HelpMessageType} from '@/components/TextInput';
-import {useEffect, useRef, useState} from 'react';
+import TextInput, {InputStatusType} from '@/components/TextInput';
+import React, {useEffect, useRef, useState} from 'react';
 import Button from '@/components/Button';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
@@ -15,12 +15,15 @@ const JoinEmailVerification = () => {
   const [showVeriCode, setShowVeriCode] = useState(false);
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // 이메일 발송 (인증번호)
-  const {refetchEmailVerification} = useUserEmailVerification(email);
-  const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();
-
   const [emailMsgShow, setEmailMsgShow] = useState(false);
-  const [emailMsg, setEmailMsg] = useState<HelpMessageType>({message: '', type: 'success'});
+  const [emailMsg, setEmailMsg] = useState('');
+  const [emailStatus, setEmailStatus] = useState<InputStatusType>();
+
+  // 이메일 발송 (인증번호)
+  const {fetchEmailVerification} = useUserEmailVerification({
+    email,
+  });
+  const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();
 
   const toastStore = useToastStore();
   const openToastWarning = () => {
@@ -31,25 +34,19 @@ const JoinEmailVerification = () => {
     }
   };
   const onClickSendVerification = () => {
-    refetchEmailVerification()
+    fetchEmailVerification()
       .then((response) => {
         if (response?.code === '200') {
           setShowVeriCode(true);
+          setEmailMsg('인증 메일이 전송되었어요.');
           setEmailMsgShow(true);
-          setEmailMsg({
-            type: 'success',
-            message: '인증 메일이 전송되었어요.',
-          });
-
           setTimeout(openToastWarning, 30000);
         }
       })
       .catch(() => {
+        setEmailStatus('error');
+        setEmailMsg('앗 이런! 다시 한 번 시도해주세요.');
         setEmailMsgShow(true);
-        setEmailMsg({
-          type: 'error',
-          message: '앗 이런! 다시 한 번 시도해주세요.',
-        });
       });
   };
   useEffect(() => {
@@ -63,8 +60,9 @@ const JoinEmailVerification = () => {
 
   // 인증번호 검증
   const [codeMsgShow, setCodeMsgShow] = useState(false);
-  const [codeMsg, setCodeMsg] = useState<HelpMessageType>({message: '', type: 'success'});
+  const [codeMsg, setCodeMsg] = useState<string>('');
   const [codeSuccess, setCodeSuccess] = useState(false);
+  const [codeStatus, setCodeStatus] = useState<InputStatusType>();
   const onClickConfirmVerification = () => {
     setCodeSuccess(false);
     setCodeMsgShow(false);
@@ -74,27 +72,21 @@ const JoinEmailVerification = () => {
           setJoinForm({...joinForm, email: email});
           setCodeSuccess(true);
           setCodeMsgShow(true);
-          setCodeMsg({
-            message: '인증이 완료되었습니다.',
-            type: 'success',
-          });
+          setCodeStatus('success');
+          setCodeMsg('인증이 완료되었습니다.');
         }
       })
       .catch(() => {
+        setCodeStatus('error');
+        setCodeMsg('번호가 올바르지 않습니다');
         setCodeMsgShow(true);
-        setCodeMsg({
-          message: '번호가 올바르지 않습니다',
-          type: 'error',
-        });
       });
   };
   useEffect(() => {
     if (code?.length > 6) {
+      setCodeStatus('error');
+      setCodeMsg('번호형식이 올바르지 않습니다');
       setCodeMsgShow(true);
-      setCodeMsg({
-        message: '번호형식이 올바르지 않습니다',
-        type: 'error',
-      });
     } else {
       setCodeMsgShow(false);
     }
@@ -105,16 +97,27 @@ const JoinEmailVerification = () => {
     codeRef.current = code;
   }, [code]);
 
+  useEffect(() => {
+    if (email !== '') {
+      if (!EMAIL_REGEX.test(email)) {
+        setEmailStatus('error');
+        setEmailMsg('이메일 형식으로 입력해주세요.');
+        setEmailMsgShow(true);
+      } else {
+        setEmailStatus('success');
+      }
+    }
+  }, [email]);
+
   return (
     <div className={styles.container}>
       <div className={`${styles['input__wrap']} pd-bottom-32`}>
         <TextInput
           label="이메일을 입력해주세요"
           required={true}
-          type="email"
           value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}
-          setValue={setEmail}
-          patternMsg="이메일을 입력하세요"
+          onChange={(e) => setEmail(e.target.value)}
+          status={emailStatus}
           helpMsgShow={emailMsgShow}
           helpMsg={emailMsg}
           disabled={joinForm.email !== null && joinForm.email !== ''}
@@ -123,7 +126,7 @@ const JoinEmailVerification = () => {
           <Button
             theme="secondary"
             border
-            disabled={!EMAIL_REGEX.test(email)}
+            disabled={!EMAIL_REGEX.test(email) || joinForm.email !== ''}
             onClick={onClickSendVerification}
           >
             전송
@@ -136,14 +139,20 @@ const JoinEmailVerification = () => {
             label="인증번호를 입력해주세요"
             required={true}
             value={code}
-            setValue={setCode}
+            onChange={(e) => setCode(e.target.value)}
             type="number"
+            status={codeStatus}
             helpMsg={codeMsg}
             helpMsgShow={codeMsgShow}
             disabled={codeSuccess}
           />
           <div className={styles['button__wrap']}>
-            <Button theme="secondary" border onClick={onClickConfirmVerification}>
+            <Button
+              theme="secondary"
+              border
+              disabled={joinForm.email !== ''}
+              onClick={onClickConfirmVerification}
+            >
               인증
             </Button>
           </div>
