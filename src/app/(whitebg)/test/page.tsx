@@ -9,7 +9,6 @@ import Stop from '@/assets/icon/circle-stop.svg';
 import Loading from '@/assets/icon/loader-circle.svg';
 import Checkbox from '@/components/Checkbox';
 import {useState} from 'react';
-import TextInput from '@/components/TextInput';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
 import {deleteCookie, getCookie} from '@/utils/cookies';
@@ -37,8 +36,6 @@ const TestPage = () => {
   const checkHandler = () => {
     setCheck(true);
   };
-
-  const [inputValue, setInputValue] = useState('');
 
   const deleteUser = async () => {
     const token = await getCookie('access-token');
@@ -160,21 +157,6 @@ const TestPage = () => {
       <Checkbox checked={false} onChangeCheck={checkHandler} disabled={true}>
         disabled / not-checked
       </Checkbox>
-      <br />
-      <br />
-
-      <div className="title-md">텍스트 인풋</div>
-      <br />
-      <TextInput value={inputValue} setValue={setInputValue} />
-      <br />
-      <TextInput
-        value={inputValue}
-        setValue={setInputValue}
-        label={'라벨이 있는 인풋'}
-        type="email"
-      />
-      <br />
-      <TextInput value={'disabled'} setValue={setInputValue} disabled={true} />
       <br />
       <br />
       <div className="title-md">모달</div>
