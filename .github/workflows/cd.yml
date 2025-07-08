@@ -94,6 +94,7 @@ jobs:
             docker image prune -f
 
       - name: Remove GitHub Actions IP
+        if: always()
         run: |
           aws ec2 revoke-security-group-ingress \
               --group-id ${{ secrets.AWS_SECURITY_GROUP_ID }} \
