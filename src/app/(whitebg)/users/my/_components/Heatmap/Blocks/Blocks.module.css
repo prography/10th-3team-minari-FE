@@ -20,4 +20,23 @@
   height: 23px;
   background-color: var(--color-bg-disabled);
   border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.done {
+  background-color: var(--color-bg-brand-main) !important;
+}
+
+.active {
+  border-radius: var(--border-radius-sm, 2px);
+  height: 21px;
+
+  /* elevation/shadow-4 */
+  box-shadow:
+    0 2px 4px 0 rgba(0, 0, 0, 0.16),
+    0 0 2px 0 rgba(0, 0, 0, 0.12);
+  border: var(--border-width-sm, 1px) solid
+    var(--color-border-interactive-secondary-pressed, #262626);
 }

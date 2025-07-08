@@ -10,9 +10,11 @@ import Modal from '@/components/Modal';
 import {useClearCache} from '@/hooks/useClearCache';
 import packageJson from 'package.json';
 import {OUT_LINK} from '@/constants/path';
+import {useUserHeatmapContext} from '@/contexts/UserHeatmapProvider';
 
-const MoreTab = ({name, kakaoEmail}: {name: string | undefined; kakaoEmail: string}) => {
+const MoreTab = () => {
   const toastStore = useToastStore();
+  const {userData} = useUserHeatmapContext();
   const {open, close} = useModalStore();
   const {clearCookies, goHome} = useClearCache();
   const router = useRouter();
@@ -93,7 +95,7 @@ const MoreTab = ({name, kakaoEmail}: {name: string | undefined; kakaoEmail: stri
         <hr className={styles.divider} />
         <div className={styles['info-item']}>
           <div className="body-lg txt-tertiary">계정 정보</div>
-          <div className="label-lg txt-primary">{kakaoEmail}</div>
+          <div className="label-lg txt-primary">-</div>
         </div>
       </div>
       <div className={styles['button-section']}>
@@ -103,7 +105,7 @@ const MoreTab = ({name, kakaoEmail}: {name: string | undefined; kakaoEmail: stri
         <button className="body-lg txt-disabled" onClick={onClickWithdraw}>
           회원탈퇴
         </button>
-        {admins.includes(name ? name : '') && (
+        {admins.includes(userData?.name ? userData?.name : '') && (
           <Button iconRight={ArrowRight} onClick={() => router.push('/admin')}>
             어드민
           </Button>
