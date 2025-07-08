@@ -5,16 +5,41 @@
   z-index: 9999;
 }
 
-.modal {
-  box-sizing: border-box;
-  position: fixed;
+.top {
   top: 30px;
   left: 50%;
   transform: translate(-50%);
-  background: var(--color-bg-primary);
-  padding: 24px;
-  border-radius: 8px;
+}
+
+.center {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sm {
   width: 320px;
+  padding: 24px;
+}
+
+.md {
+  width: 400px;
+  padding: 32px;
+}
+
+.lg {
+  width: 480px;
+  padding: 40px;
+}
+
+.modal {
+  box-sizing: border-box;
+  position: fixed;
+
+  background: var(--color-bg-primary);
+
+  border-radius: 8px;
+
   z-index: 10000;
   display: flex;
   flex-direction: column;
