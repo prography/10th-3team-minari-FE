@@ -17,3 +17,16 @@ export const getTag = async (questionId: number) => {
 
   return response;
 };
+
+export interface QuestionDetailType {
+  questionId: number;
+  content: string;
+  answer: string;
+  tag: Array<string>;
+  domain: string;
+}
+export const getQuestionDetail = async (questionId: number) => {
+  const response = await fetch.get<QuestionDetailType>(`/questions/${questionId}`);
+
+  return response;
+};
