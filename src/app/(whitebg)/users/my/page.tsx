@@ -7,26 +7,30 @@ import {useCurrentParams} from '@/hooks/useCurrentParams';
 import {useRouter} from 'next/navigation';
 import InfoTab from '@/app/(whitebg)/users/my/_components/Tab/Info';
 import {UserHeatmapProvider} from '@/contexts/UserHeatmapProvider';
+import {Suspense} from 'react';
+import Loader from '@/components/Loader';
 
 const MyPage = () => {
   const tab = useCurrentParams('tabs', 'buy');
   const router = useRouter();
 
   return (
-    <div className={styles.container}>
-      <TabButtonWrapper>
-        {['info', 'more'].map((t) => (
-          <TabButton key={t} onClick={() => router.push(`?tabs=${t}`)} active={tab === t}>
-            {t === 'info' ? '마이페이지' : '더보기'}
-          </TabButton>
-        ))}
-      </TabButtonWrapper>
+    <Suspense fallback={<Loader />}>
+      <div className={styles.container}>
+        <TabButtonWrapper>
+          {['info', 'more'].map((t) => (
+            <TabButton key={t} onClick={() => router.push(`?tabs=${t}`)} active={tab === t}>
+              {t === 'info' ? '마이페이지' : '더보기'}
+            </TabButton>
+          ))}
+        </TabButtonWrapper>
 
-      <UserHeatmapProvider>
-        {tab === 'info' && <InfoTab />}
-        {tab === 'more' && <MoreTab />}
-      </UserHeatmapProvider>
-    </div>
+        <UserHeatmapProvider>
+          {tab === 'info' && <InfoTab />}
+          {tab === 'more' && <MoreTab />}
+        </UserHeatmapProvider>
+      </div>
+    </Suspense>
   );
 };
 
