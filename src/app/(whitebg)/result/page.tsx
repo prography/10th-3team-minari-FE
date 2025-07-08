@@ -10,11 +10,14 @@ import AnswerList from './_components/AnswerList';
 import Button from '@/components/Button';
 import {useAnswer} from '@/hooks/queries/useAnswer';
 import {useQuestionId} from '@/hooks/queries/useQuestionId';
+import {useCurrentParams} from '@/hooks/useCurrentParams';
+import {useRouter} from 'next/navigation';
 
 const ReharsalResultPage = () => {
+  const params = useCurrentParams('quesId', '');
   const {data: questionId} = useQuestionId();
-  const {data: answer} = useAnswer(questionId ?? 0);
-
+  const {data: answer} = useAnswer(params !== '' ? (Number(params) ?? 0) : (questionId ?? 0));
+  const router = useRouter();
   return (
     <div className={styles.wrapper}>
       <div className={styles.core}>
@@ -35,7 +38,13 @@ const ReharsalResultPage = () => {
         </div>
       </div>
 
-      <Button theme="white" iconRight={ArrowBlack} border shadow>
+      <Button
+        theme="white"
+        iconRight={ArrowBlack}
+        border
+        shadow
+        onClick={() => router.push(`/users/my?tabs=info`)}
+      >
         내가 심은 미나리 보러가기
       </Button>
     </div>
