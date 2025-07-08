@@ -1,0 +1,14 @@
+.container {
+  margin-bottom: 40px;
+}
+
+.input__wrap {
+  display: flex;
+  gap: 12px;
+}
+
+.button__wrap {
+  height: 48px !important;
+  margin-top: 32px;
+  flex-shrink: 0;
+}

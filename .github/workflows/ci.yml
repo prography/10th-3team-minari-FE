@@ -35,6 +35,7 @@ jobs:
       - name: env setting
         run: |
           echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env
+          echo "NEXT_PUBLIC_API_URL_ADMIN=${{ secrets.NEXT_PUBLIC_API_URL_ADMIN }}" >> .env
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile

@@ -1,0 +1,165 @@
+'use client';
+import styles from './JoinEmailVerification.module.css';
+import TextInput, {InputStatusType} from '@/components/TextInput';
+import React, {useEffect, useRef, useState} from 'react';
+import Button from '@/components/Button';
+import {useUserJoinContext} from '@/contexts/UserJoinProvider';
+import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
+import {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';
+import {useToastStore} from '@/stores/toastStore';
+import Toast from '@/components/Toast';
+
+const JoinEmailVerification = () => {
+  const {joinForm, setJoinForm} = useUserJoinContext();
+  const [email, setEmail] = useState('');
+  const [showVeriCode, setShowVeriCode] = useState(false);
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  const [emailMsgShow, setEmailMsgShow] = useState(false);
+  const [emailMsg, setEmailMsg] = useState('');
+  const [emailStatus, setEmailStatus] = useState<InputStatusType>();
+
+  // 이메일 발송 (인증번호)
+  const {fetchEmailVerification} = useUserEmailVerification({
+    email,
+  });
+  const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();
+
+  const toastStore = useToastStore();
+  const openToastWarning = () => {
+    if (codeRef.current?.length === 0) {
+      toastStore.open(
+        <Toast title={'인증번호가 오지 않나요?\n인증버튼을 다시 눌러주세요.'} type="warning" />,
+      );
+    }
+  };
+  const onClickSendVerification = () => {
+    fetchEmailVerification()
+      .then((response) => {
+        if (response?.code === '200') {
+          setShowVeriCode(true);
+          setEmailMsg('인증 메일이 전송되었어요.');
+          setEmailMsgShow(true);
+          setTimeout(openToastWarning, 30000);
+        }
+      })
+      .catch(() => {
+        setEmailStatus('error');
+        setEmailMsg('앗 이런! 다시 한 번 시도해주세요.');
+        setEmailMsgShow(true);
+      });
+  };
+  useEffect(() => {
+    if (joinForm.email !== null && joinForm.email !== '') {
+      setEmail(joinForm.email);
+    }
+    if (emailMsgShow) {
+      setEmailMsgShow(false);
+    }
+  }, [email]);
+
+  // 인증번호 검증
+  const [codeMsgShow, setCodeMsgShow] = useState(false);
+  const [codeMsg, setCodeMsg] = useState<string>('');
+  const [codeSuccess, setCodeSuccess] = useState(false);
+  const [codeStatus, setCodeStatus] = useState<InputStatusType>();
+  const onClickConfirmVerification = () => {
+    setCodeSuccess(false);
+    setCodeMsgShow(false);
+    refetchCodeVerification()
+      .then((response) => {
+        if (response?.code === '200') {
+          setJoinForm({...joinForm, email: email});
+          setCodeSuccess(true);
+          setCodeMsgShow(true);
+          setCodeStatus('success');
+          setCodeMsg('인증이 완료되었습니다.');
+        }
+      })
+      .catch(() => {
+        setCodeStatus('error');
+        setCodeMsg('번호가 올바르지 않습니다');
+        setCodeMsgShow(true);
+      });
+  };
+  useEffect(() => {
+    if (code?.length > 6) {
+      setCodeStatus('error');
+      setCodeMsg('번호형식이 올바르지 않습니다');
+      setCodeMsgShow(true);
+    } else {
+      setCodeMsgShow(false);
+    }
+  }, [code]);
+
+  const codeRef = useRef<string>('');
+  useEffect(() => {
+    codeRef.current = code;
+  }, [code]);
+
+  useEffect(() => {
+    if (email !== '') {
+      if (!EMAIL_REGEX.test(email)) {
+        setEmailStatus('error');
+        setEmailMsg('이메일 형식으로 입력해주세요.');
+        setEmailMsgShow(true);
+      } else {
+        setEmailStatus('success');
+      }
+    }
+  }, [email]);
+
+  return (
+    <div className={styles.container}>
+      <div className={`${styles['input__wrap']} pd-bottom-32`}>
+        <TextInput
+          label="이메일을 입력해주세요"
+          required={true}
+          value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}
+          onChange={(e) => setEmail(e.target.value)}
+          status={emailStatus}
+          helpMsgShow={emailMsgShow}
+          helpMsg={emailMsg}
+          disabled={joinForm.email !== null && joinForm.email !== ''}
+        />
+        <div className={styles['button__wrap']}>
+          <Button
+            theme="secondary"
+            border
+            disabled={!EMAIL_REGEX.test(email) || joinForm.email !== ''}
+            onClick={onClickSendVerification}
+          >
+            전송
+          </Button>
+        </div>
+      </div>
+      {showVeriCode && (
+        <div className={`${styles['input__wrap']}`}>
+          <TextInput
+            label="인증번호를 입력해주세요"
+            required={true}
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            type="number"
+            status={codeStatus}
+            helpMsg={codeMsg}
+            helpMsgShow={codeMsgShow}
+            disabled={codeSuccess}
+          />
+          <div className={styles['button__wrap']}>
+            <Button
+              theme="secondary"
+              border
+              disabled={joinForm.email !== ''}
+              onClick={onClickConfirmVerification}
+            >
+              인증
+            </Button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default JoinEmailVerification;
