@@ -30,7 +30,6 @@ export const getMediaStream = async ({videoInput, audioInput}: GetMediaStreamPro
           // alert('선택한 입력 장치를 찾을 수 없습니다.\n기기가 연결되어 있는지 확인해주세요.');
           throw new Error('device-not-found');
         case 'OverconstrainedError':
-          alert();
           // '선택한 장치 조건을 만족하는 기기를 찾을 수 없습니다.\n올바른 장치를 선택했는지 확인해주세요.',
           throw new Error('device-not-found');
         case 'SecurityError':
