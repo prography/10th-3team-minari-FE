@@ -1,5 +1,4 @@
 'use client';
-
 import Spacing from '@/components/Spacing';
 import Question from './_components/Question';
 import ListRow from './_components/ListRow';
@@ -10,19 +9,26 @@ import AnswerList from './_components/AnswerList';
 import Button from '@/components/Button';
 import {useAnswer} from '@/hooks/queries/useAnswer';
 import {useQuestionId} from '@/hooks/queries/useQuestionId';
-import {useCurrentParams} from '@/hooks/useCurrentParams';
 import {useRouter} from 'next/navigation';
+import {useEffect, useState} from 'react';
 
 const ReharsalResultPage = () => {
-  const params = useCurrentParams('quesId', '');
+  const [queryId, setQueryId] = useState<string | null>(null);
   const {data: questionId} = useQuestionId();
-  const {data: answer} = useAnswer(params !== '' ? (Number(params) ?? 0) : (questionId ?? 0));
+  const {data: answer} = useAnswer(queryId ? (Number(queryId) ?? 0) : (questionId ?? 0));
   const router = useRouter();
+
+  let queryStr = '';
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      queryStr = window.location.search.split('=')[1];
+      setQueryId(queryStr);
+    }
+  }, [queryStr]);
   return (
     <div className={styles.wrapper}>
       <div className={styles.core}>
         <Question answer={answer} />
-
         <div className={styles.list}>
           <ListRow
             title={<ListRow.Title>이런 단어들이 포함되면 좋아요</ListRow.Title>}
