@@ -8,8 +8,9 @@ interface ProfileCardProps {
   domain: string | undefined;
   email: string | undefined;
   uuid?: string | undefined;
+  days?: number;
 }
-const ProfileCard = ({name, domain, email, uuid}: ProfileCardProps) => {
+const ProfileCard = ({name, domain, email, uuid, days}: ProfileCardProps) => {
   return (
     <div className={styles.container}>
       <div className="fx">
@@ -24,7 +25,9 @@ const ProfileCard = ({name, domain, email, uuid}: ProfileCardProps) => {
               <span className="label-md txt-inverse-gray">프로필 수정</span>
             </div>
           </div>
-          <div className="body-md">{domain} | 미나리 0일차</div>
+          <div className="body-md">
+            {domain} | 미나리 {days}일차
+          </div>
           <div className="body-sm">{email}</div>
         </div>
       </div>

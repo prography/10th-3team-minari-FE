@@ -6,12 +6,12 @@ import TabButtonWrapper from '@/components/TabButton/TabButtonWrapper';
 import {useCurrentParams} from '@/hooks/useCurrentParams';
 import {useRouter} from 'next/navigation';
 import InfoTab from '@/app/(whitebg)/users/my/_components/Tab/Info';
-import {useUsers} from '@/hooks/queries/useUsers';
+import {UserHeatmapProvider} from '@/contexts/UserHeatmapProvider';
 
 const MyPage = () => {
   const tab = useCurrentParams('tabs', 'buy');
   const router = useRouter();
-  const {data} = useUsers();
+
   return (
     <div className={styles.container}>
       <TabButtonWrapper>
@@ -22,10 +22,10 @@ const MyPage = () => {
         ))}
       </TabButtonWrapper>
 
-      <div>
-        {tab === 'info' && <InfoTab data={data ? data : null} />}
-        {tab === 'more' && <MoreTab name={data?.name} kakaoEmail={''} />}
-      </div>
+      <UserHeatmapProvider>
+        {tab === 'info' && <InfoTab />}
+        {tab === 'more' && <MoreTab />}
+      </UserHeatmapProvider>
     </div>
   );
 };

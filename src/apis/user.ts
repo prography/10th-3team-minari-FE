@@ -74,6 +74,7 @@ export interface UsersReponse {
   seed: number;
   domain: UserDomain;
   uuid: string;
+  dayCount: number;
 }
 
 export interface TypeKakaoLoginResponse {
