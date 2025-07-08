@@ -2,13 +2,39 @@
 
 import {useDeviceStore, type SelectDevice} from '@/stores/devicsStore';
 import {useMediaStore} from '@/stores/mediaStore';
+import {useModalStore} from '@/stores/modalStore';
 import {getDevices} from '@/utils/device';
 import {closeMediaStream, getMediaStream} from '@/utils/media';
 import {useCallback, useEffect} from 'react';
+import Modal from '@/components/Modal';
+import Button from '@/components/Button';
 
 const useMedia = () => {
   const {mediaStream, setMediaStream, mediaStreamStatus, setMediaStreamStatus} = useMediaStore();
   const {setSelectDevice, setDevices} = useDeviceStore();
+  const {open: opneModal, close: closeModal} = useModalStore();
+
+  const handleErrorModal = (title: string, content: React.ReactNode) => {
+    opneModal(
+      <Modal
+        title={title}
+        leftButton={
+          <Button
+            theme="secondary"
+            onClick={() => {
+              closeModal();
+            }}
+          >
+            확인
+          </Button>
+        }
+        rightButton={<Button onClick={() => {}}>자세히보기</Button>}
+      >
+        {content}
+      </Modal>,
+      true,
+    );
+  };
 
   const startMedia = useCallback(
     async (
@@ -46,12 +72,37 @@ const useMedia = () => {
         if (error instanceof Error) {
           if (error.message === 'permission-denied') {
             setMediaStreamStatus('permission-denied');
+            handleErrorModal(
+              '카메라 또는 마이크 접근이 차단됐어요.',
+              <>
+                <p>면접을 위해 브라우저에서 카메라와 마이크</p>
+                <p>모든 권한을 허용해주세요.</p>
+              </>,
+            );
           } else if (error.message === 'device-not-found') {
             setMediaStreamStatus('device-not-found');
+            handleErrorModal(
+              '기기(카메라, 마이크)를 찾을 수 없어요.',
+              <p>카메라나 마이크가 연결되어 있는지(존재하는지) 확인해주세요.</p>,
+            );
           } else if (error.message === 'insecure-context') {
             setMediaStreamStatus('insecure-context');
+            handleErrorModal(
+              '보안 연결이 필요해요.',
+              <>
+                <p>카메라와 마이크는 HTTPS 환경에서만 사용할 수 있어요.</p>
+                <p>보안 연결을 확인해주세요.</p>
+              </>,
+            );
           } else {
             setMediaStreamStatus('error');
+            handleErrorModal(
+              '알 수 없는 오류가 발생했어요.',
+              <>
+                <p>새로고침 후 다시 시도해주세요.</p>
+                <p>지속되면 고객센터로 문의해주세요.</p>
+              </>,
+            );
           }
         }
       }
