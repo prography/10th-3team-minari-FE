@@ -12,7 +12,6 @@ import {useState} from 'react';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
 import {deleteCookie, getCookie} from '@/utils/cookies';
-import {deleteCookie, getCookie} from '@/utils/cookies';
 
 const TestPage = () => {
   const {open: opneModal, close: closeModal} = useModalStore();
