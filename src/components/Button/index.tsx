@@ -13,6 +13,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   rounded?: boolean;
   shadow?: boolean;
   size?: paddingType;
+  full?: boolean;
 }
 
 const Button = ({
@@ -25,6 +26,7 @@ const Button = ({
   loading,
   shadow,
   size = 'p-12-16',
+  full,
   ...restProps
 }: ButtonProps) => {
   const borderValid = border ? '-border' : '';
@@ -32,7 +34,7 @@ const Button = ({
 
   return (
     <button
-      className={`${styles.button} ${styles[themeClass]} ${rounded && styles.round} ${shadow && styles.shadow} ${styles[size]} label-lg`}
+      className={`${styles.button} ${styles[themeClass]} ${rounded && styles.round} ${shadow && styles.shadow} ${styles[size]} ${full && styles.full} label-lg`}
       {...restProps}
     >
       {iconLeft != null ? (
