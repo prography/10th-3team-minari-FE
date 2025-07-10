@@ -2,39 +2,16 @@
 
 import {useDeviceStore, type SelectDevice} from '@/stores/devicsStore';
 import {useMediaStore} from '@/stores/mediaStore';
-import {useModalStore} from '@/stores/modalStore';
 import {getDevices} from '@/utils/device';
 import {closeMediaStream, getMediaStream} from '@/utils/media';
 import {useCallback, useEffect} from 'react';
-import Modal from '@/components/Modal';
-import Button from '@/components/Button';
+import {useErrorModal} from '@/components/Modal/hooks/useErrorModal';
+import {OUT_LINK} from '@/constants/path';
 
 const useMedia = () => {
   const {mediaStream, setMediaStream, mediaStreamStatus, setMediaStreamStatus} = useMediaStore();
   const {setSelectDevice, setDevices} = useDeviceStore();
-  const {open: opneModal, close: closeModal} = useModalStore();
-
-  const handleErrorModal = (title: string, content: React.ReactNode) => {
-    opneModal(
-      <Modal
-        title={title}
-        leftButton={
-          <Button
-            theme="secondary"
-            onClick={() => {
-              closeModal();
-            }}
-          >
-            확인
-          </Button>
-        }
-        rightButton={<Button onClick={() => {}}>자세히보기</Button>}
-      >
-        {content}
-      </Modal>,
-      true,
-    );
-  };
+  const {showErrorModalBasic, showErrorModalLeavePage} = useErrorModal();
 
   const startMedia = useCallback(
     async (
@@ -72,21 +49,24 @@ const useMedia = () => {
         if (error instanceof Error) {
           if (error.message === 'permission-denied') {
             setMediaStreamStatus('permission-denied');
-            handleErrorModal(
+            showErrorModalLeavePage(
               '기기 접근이 제한되었어요.',
               <>
                 <p>기기 설정에서 카메라와 마이크 접근을 허용해주세요.</p>
               </>,
+              {
+                content: '자세히보기',
+                page: OUT_LINK.미나리_사용방법,
+              },
             );
           } else if (error.message === 'device-not-found') {
             setMediaStreamStatus('device-not-found');
-            handleErrorModal(
+            showErrorModalBasic(
               '카메라 또는 마이크를 찾을 수 없어요.',
               <p>카메라와 마이크를 연결 가능한 환경인지 확인해주세요.</p>,
             );
           } else if (error.message === 'insecure-context') {
-            setMediaStreamStatus('insecure-context');
-            handleErrorModal(
+            showErrorModalBasic(
               '보안 연결이 필요해요.',
               <>
                 <p>카메라와 마이크는 HTTPS 환경에서만 사용할 수 있어요.</p>
@@ -95,12 +75,16 @@ const useMedia = () => {
             );
           } else {
             setMediaStreamStatus('error');
-            handleErrorModal(
+            showErrorModalLeavePage(
               '알 수 없는 오류가 발생했어요.',
               <>
                 <p>새로고침(Win+R) 후 다시 시도해주세요.</p>
                 <p>계속되면 고객센터에 말씀해주세요.</p>
               </>,
+              {
+                content: '문의하기',
+                page: OUT_LINK.FQA,
+              },
             );
           }
         }
