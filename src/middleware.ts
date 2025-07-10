@@ -5,7 +5,7 @@ export function middleware(request: NextRequest) {
 
   const {pathname} = request.nextUrl;
 
-  const protectedPaths = ['/rehearsal', '/result', '/minari'];
+  const protectedPaths = ['/rehearsal', '/minari'];
 
   if (protectedPaths.some((path) => pathname.includes(path)) && !token) {
     return NextResponse.rewrite(new URL('/401', request.url));
@@ -15,5 +15,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/rehearsal/:path*', '/result/:path*', '/minari/:path*'],
+  matcher: ['/rehearsal/:path*', '/minari/:path*'],
 };
