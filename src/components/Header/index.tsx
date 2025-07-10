@@ -10,6 +10,10 @@ import LogoImageWhite from '@/assets/logo-white.svg';
 import useTheme from '@/hooks/useTheme';
 import {OUT_LINK, PATH} from '@/constants/path';
 import {useUserStore} from '@/stores/userStore';
+import IconButton from '../IconButton';
+import Seeds from '@/assets/icon/seed.svg';
+import {useUsers} from '@/hooks/queries/useUsers';
+import {useRouter} from 'next/navigation';
 
 const Header = () => {
   const theme = useTheme();
@@ -52,17 +56,33 @@ const LandingMenu = () => {
 
 const UserMenu = () => {
   const userStore = useUserStore();
+  const {data} = useUsers();
+  const router = useRouter();
 
   return (
-    <Link href={userStore.isUserRegistered ? `${PATH.MY_PAGE}?tabs=info` : ''}>
-      <Image
-        src={userStore.userKakaoImage}
-        alt="logo"
-        width={40}
-        height={40}
-        className={styles['user-image']}
-      />
-    </Link>
+    <>
+      <nav className={styles['menu-user']}>
+        <div className={styles.seeds}>
+          <IconButton
+            theme="secondary"
+            icon={Seeds}
+            size="size-40"
+            onClick={() => router.push(PATH.UESRS_SEEDS)}
+          />
+          {data ? data.seed : 0}
+        </div>
+
+        <Link href={userStore.isUserRegistered ? `${PATH.MY_PAGE}?tabs=info` : ''}>
+          <Image
+            src={userStore.userKakaoImage}
+            alt="logo"
+            width={40}
+            height={40}
+            className={styles['user-image']}
+          />
+        </Link>
+      </nav>
+    </>
   );
 };
 
