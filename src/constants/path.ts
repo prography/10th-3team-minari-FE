@@ -21,4 +21,5 @@ export const OUT_LINK: {[key: string]: string} = {
   공지사항: 'https://button-shear-b28.notion.site/22331f010d1f80538f24cb456a7f6eff',
   약관전체:
     'https://button-shear-b28.notion.site/MINARI-20131f010d1f8021839ae73b9e51b1f4?source=copy_link',
+  미나리_사용방법: 'https://button-shear-b28.notion.site/22931f010d1f800189beee2ec5963412?pvs=74',
 } as const;
