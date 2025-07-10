@@ -8,6 +8,37 @@ import {MediaStreamEndHandler} from '@/components/MediaStreamEndHandler';
 import Header from '@/components/Header';
 import {TokenExpirationHandler} from '@/components/TokenExpirationHandler';
 import Footer from '@/components/Footer';
+import type {Metadata} from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    default: '미나리',
+    template: '미나리 | %s',
+  },
+  description: "미래의 나를 위한 리허설 '미나리'에서 기술 면접을 준비해보세요!",
+  keywords: '미나리, 미래의 나를 위한 리허설, 기술면접',
+  openGraph: {
+    title: '미나리 : 미래의 나를 위한 리허설',
+    description: '미래의 나를 위해 미나리에서 기술 면접을 준비해보새요.',
+    url: 'https://minari-official.com',
+    images: [
+      {
+        url: '@/assets/logo-black.svg',
+        alt: '미나리 로고',
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: 'ko_KR',
+    type: 'website',
+  },
+  // twitter: {
+  //   card: 'summary_large_image',
+  //   title: '트위터 카드 제목',
+  //   description: '트위터 카드 설명',
+  //   images: ['https://example.com/twitter-image.png'],
+  // },
+};
 
 export default function RootLayout({
   children,
