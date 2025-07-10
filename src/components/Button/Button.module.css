@@ -17,6 +17,10 @@
   padding: 4px 16px;
 }
 
+.p-4-8 {
+  padding: 4px 12px;
+}
+
 /* Primary 버튼 */
 .primary {
   background-color: var(--color-bg-interactive-primary);

@@ -1,7 +1,7 @@
 import styles from './Button.module.css';
 import Image, {type StaticImageData} from 'next/image';
 
-type paddingType = 'p-4-12' | 'p-12-16';
+type paddingType = 'p-4-12' | 'p-12-16' | 'p-4-8';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
