@@ -3,7 +3,7 @@
 import {useModalStore} from '@/stores/modalStore';
 import {useEffect, useRef} from 'react';
 import {createPortal} from 'react-dom';
-import styles from './Model.module.css';
+import styles from './Modal.module.css';
 
 export const ModalClient = () => {
   const {modal, isOpen, close, disableBackdropClick, historyStackPush} = useModalStore();
