@@ -26,6 +26,7 @@
   padding: 12px 16px;
   background: var(--color-bg-tertiary);
   border-radius: var(--border-radius-lg);
+  width: 272px;
 }
 
 .order_item {
