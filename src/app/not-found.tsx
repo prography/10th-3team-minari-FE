@@ -1,8 +1,27 @@
+import ErrorLayout from '@/components/ErrorLayout';
+import Button from '@/components/Button';
+
 export default function NotFound() {
+  const goHome = () => {
+    window.location.href = '/';
+  };
+
+  const goBack = () => {
+    window.history.back();
+  };
   return (
-    <div style={{padding: '4rem', textAlign: 'center'}}>
-      <h1>페이지를 찾을 수 없어요</h1>
-      <p>요청하신 페이지가 존재하지 않거나, 주소가 잘못되었어요.</p>
-    </div>
+    <ErrorLayout code={404}>
+      <div className="txt-secondary title-sm">앗.. 요청하신 페이지를 찾을 수 없습니다.</div>
+      <div className="txt-secondary title-sm">불편을 드려 죄송합니다.</div>
+
+      <div className="fx-align-center mg-top-20" style={{gap: '16px'}}>
+        <Button theme="secondary" border onClick={goBack}>
+          이전 페이지
+        </Button>
+        <Button border onClick={goHome}>
+          메인 페이지
+        </Button>
+      </div>
+    </ErrorLayout>
   );
 }
