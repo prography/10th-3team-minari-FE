@@ -73,17 +73,16 @@ const useMedia = () => {
           if (error.message === 'permission-denied') {
             setMediaStreamStatus('permission-denied');
             handleErrorModal(
-              '카메라 또는 마이크 접근이 차단됐어요.',
+              '기기 접근이 제한되었어요.',
               <>
-                <p>면접을 위해 브라우저에서 카메라와 마이크</p>
-                <p>모든 권한을 허용해주세요.</p>
+                <p>기기 설정에서 카메라와 마이크 접근을 허용해주세요.</p>
               </>,
             );
           } else if (error.message === 'device-not-found') {
             setMediaStreamStatus('device-not-found');
             handleErrorModal(
-              '기기(카메라, 마이크)를 찾을 수 없어요.',
-              <p>카메라나 마이크가 연결되어 있는지(존재하는지) 확인해주세요.</p>,
+              '카메라 또는 마이크를 찾을 수 없어요.',
+              <p>카메라와 마이크를 연결 가능한 환경인지 확인해주세요.</p>,
             );
           } else if (error.message === 'insecure-context') {
             setMediaStreamStatus('insecure-context');
@@ -99,8 +98,8 @@ const useMedia = () => {
             handleErrorModal(
               '알 수 없는 오류가 발생했어요.',
               <>
-                <p>새로고침 후 다시 시도해주세요.</p>
-                <p>지속되면 고객센터로 문의해주세요.</p>
+                <p>새로고침(Win+R) 후 다시 시도해주세요.</p>
+                <p>계속되면 고객센터에 말씀해주세요.</p>
               </>,
             );
           }
