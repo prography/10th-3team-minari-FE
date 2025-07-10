@@ -1,8 +1,6 @@
 'use client';
-import PageLayout from '@/app/admin/_components/PageLayout';
 import TextInput from '@/components/TextInput';
 import React, {useState} from 'react';
-import InputForm from '@/app/admin/payments/_components/InputForm';
 import SelectOption, {OptionType} from '@/components/SelectOption';
 import {REASON_OPTIONS, ROLE_OPTIONS} from '@/constants/adminOptions';
 import Textarea from '@/components/Textarea';
@@ -12,6 +10,8 @@ import CheckModal from '@/app/admin/payments/_components/CheckModal';
 import {postPayment} from '@/apis/payment';
 import Toast from '@/components/Toast';
 import {useToastStore} from '@/stores/toastStore';
+import PageLayout from '@/app/admin/_components';
+import InputForm from '@/app/admin/payments/_components/InputForm';
 
 export interface RewardFormType {
   userUUID: string;
