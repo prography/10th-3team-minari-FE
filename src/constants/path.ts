@@ -7,7 +7,7 @@ const SEEDS = 'seeds';
 export const PATH = {
   ROOT: '/',
   REHEARSAL: `/${REHEARSAL}`,
-  RESULT: `/${RESULT}`,
+  REHEARSAL_RESULT: `/${REHEARSAL}/${RESULT}`,
   UESRS_SEEDS: `/${USERS}/${SEEDS}`,
   MY_PAGE: `/${USERS}/${MY}`,
 };
