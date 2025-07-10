@@ -168,3 +168,7 @@
     0px var(--effect-shadow-2-core-y, 0px) var(--effect-shadow-2-core-blur, 1px) 0px
       var(--color-effect-shadow-core, rgba(0, 0, 0, 0.12));
 }
+
+.full {
+  width: 100% !important;
+}
