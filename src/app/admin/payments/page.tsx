@@ -1,6 +1,6 @@
 'use client';
 import TextInput from '@/components/TextInput';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import SelectOption, {OptionType} from '@/components/SelectOption';
 import {REASON_OPTIONS, ROLE_OPTIONS} from '@/constants/adminOptions';
 import Textarea from '@/components/Textarea';
@@ -12,12 +12,14 @@ import Toast from '@/components/Toast';
 import {useToastStore} from '@/stores/toastStore';
 import PageLayout from '@/app/admin/_components';
 import InputForm from '@/app/admin/payments/_components/InputForm';
+import {useProducts} from '@/hooks/queries/useProducts';
 
 export interface RewardFormType {
   userUUID: string;
-  seed: number;
+  seeds: number;
   role: string;
   reason: string;
+  productId: number;
   memo?: string;
 }
 
@@ -25,9 +27,10 @@ const PaymentsPage = () => {
   const {open, close} = useModalStore();
   const [rewardForm, setRewardForm] = useState<RewardFormType>({
     userUUID: '',
-    seed: 0,
+    seeds: 0,
     role: '',
     reason: '',
+    productId: 0,
     memo: '',
   });
   const updateRewardForm = (e: string | number, key: string) => {
@@ -77,6 +80,22 @@ const PaymentsPage = () => {
     return Object.values(formValues).some((value) => value === '');
   };
 
+  const [seedOptions, setSeedOptions] = useState<OptionType[]>([]);
+  const [selectedSeed, setSelectedSeed] = useState<OptionType>({id: '', option: ''});
+  const onClickSeedOption = (id: string | number) => {
+    const idx = seedOptions.findIndex((item) => item.id === id);
+    setSelectedSeed(seedOptions[idx]);
+    updateRewardForm(id, 'seeds');
+  };
+  const {data} = useProducts();
+  useEffect(() => {
+    const arr: OptionType[] = [];
+    data?.forEach((item) => {
+      arr.push({id: item.quantity, option: `씨앗 ${item.quantity}개 (${item.realPrice}원)`});
+    });
+    setSeedOptions(arr);
+  }, [data]);
+
   return (
     <PageLayout title="리워드 지급">
       <InputForm title="uuid.">
@@ -85,14 +104,27 @@ const PaymentsPage = () => {
           onChange={(e) => updateRewardForm(e.target.value, 'userUUID')}
         />
       </InputForm>
-      <InputForm title="씨앗">
-        <TextInput
-          type="number"
-          unit="개"
-          value={String(rewardForm.seed)}
-          onChange={(e) => updateRewardForm(e.target.value, 'seed')}
+      <InputForm title="가격">
+        <SelectOption
+          inputField={<SelectOption.InputFieldAdmin value={selectedSeed.option} />}
+          height="48px"
+          options={
+            <SelectOption.OptionsAdmin
+              selectOption={selectedSeed}
+              handleClick={onClickSeedOption}
+              options={seedOptions}
+            />
+          }
         />
       </InputForm>
+      {/*<InputForm title="">*/}
+      {/*  <TextInput*/}
+      {/*    type="number"*/}
+      {/*    unit="개"*/}
+      {/*    value={String(rewardForm.seeds)}*/}
+      {/*    onChange={(e) => updateRewardForm(e.target.value, 'seed')}*/}
+      {/*  />*/}
+      {/*</InputForm>*/}
       <InputForm title="담당자">
         <SelectOption
           inputField={<SelectOption.InputFieldAdmin value={selectedRole.option} />}
