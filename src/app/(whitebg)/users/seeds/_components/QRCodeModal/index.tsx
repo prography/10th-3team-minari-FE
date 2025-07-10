@@ -1,4 +1,3 @@
-// import Image from 'next/image';
 import {useId} from 'react';
 import styles from './QRCodeModal.module.css';
 import QRCode from '@/assets/qr-code.jpeg';
