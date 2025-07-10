@@ -30,18 +30,18 @@
   gap: 32px;
 }
 
-.right > ul {
+.right > div {
   display: flex;
   flex-direction: column;
   align-items: start;
 }
 
-.right li {
+.right span {
   margin-bottom: 12px;
 }
 
 .right button,
-.right a {
+.right li {
   color: var(--color-text-tertiary);
   font-size: var(--font-size-275);
   font-weight: var(--font-weight-medium);
