@@ -1,6 +1,7 @@
 import {useId} from 'react';
 import styles from './Body.module.css';
 import Button from '@/components/Button';
+import MinariBrand from '@/assets/minari-brand.svg';
 
 type TbState = 'text' | 'text-red' | 'text-disabled' | 'badge' | 'button';
 
@@ -33,7 +34,7 @@ const Body = ({tbs}: BodyProps) => {
       }
       case 'button': {
         return (
-          <Button theme="black" size="p-4-12" onClick={onClick}>
+          <Button iconLeft={MinariBrand} theme="black" size="p-4-12" onClick={onClick}>
             {text}
           </Button>
         );
