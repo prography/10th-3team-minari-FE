@@ -21,15 +21,15 @@ export default function Page() {
         <div className={styles['hero__container__wrap']}>
           <div className={styles['hero__container']}>
             <div className={styles['hero__text']}>
-              <div className="display-md">
+              <div className="display-md txt-primary">
                 미나리와 함께 <Image src={Minari} alt="" className="mg-left-4" width={34} />
               </div>
               <div className={styles['hero__text-split__wrap']}>
                 <div className={`${styles['hero__text-everyday']} display-md`}>
-                  <div>매일 한줄의 질문으로</div>
+                  <div className="txt-primary">매일 한줄의 질문으로</div>
                   <Image src={Highlight} alt="" className={styles['hero__text-everyday__img']} />
                 </div>
-                <div className={`${styles['hero__text-grows']} display-md`}>
+                <div className={`${styles['hero__text-grows']} display-md txt-primary`}>
                   자라나는
                   <Image src={Grass} alt="" className={styles['hero__text-grows__img']} />
                 </div>
@@ -37,7 +37,7 @@ export default function Page() {
               <div className="display-md mg-bottom-20">개발자의 여정</div>
               <MainButton />
             </div>
-            <Image src={Person} alt="" className={styles['hero__image-person']} />
+            <Image src={Person} alt="" className={styles['hero__image-person']} width={407} />
           </div>
         </div>
       </div>
