@@ -1,0 +1,13 @@
+.input {
+  font-size: var(--font-size-400);
+  display: flex;
+  width: 288px;
+  padding: 16px;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  outline: none;
+  border-radius: var(--border-radius-lg, 8px);
+  border: var(--border-width-sm, 1px) solid var(--color-border-secondary, #e5e5e5);
+  background: var(--color-bg-primary, #fff);
+}

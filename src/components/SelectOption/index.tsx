@@ -13,6 +13,7 @@ interface SelectOptionProps {
   label?: React.ReactNode;
   inputField: React.ReactNode;
   options: React.ReactNode;
+  height?: string;
 }
 
 interface LabelProps {
@@ -31,10 +32,10 @@ interface InputFieldDevicsProps extends React.InputHTMLAttributes<HTMLInputEleme
   type: 'videoInput' | 'audioInput';
 }
 
-const SelectOption = ({label, inputField, options}: SelectOptionProps) => {
+const SelectOption = ({label, inputField, options, height}: SelectOptionProps) => {
   return (
     <SelectOptionProvider>
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} style={{height: height}}>
         {label != null ? <>{label}</> : null}
         {inputField}
         {options}
@@ -175,10 +176,51 @@ const OptionsDevices = ({type}: {type: 'videoInputDevices' | 'audioInputDevices'
   );
 };
 
+/* 어드민 */
+const InputFieldAdmin = ({...restProps}: InputFieldProps) => {
+  const {handleOpen} = useSelectOption();
+
+  return (
+    <div className={styles['input-admin']} onClick={handleOpen}>
+      <input readOnly {...restProps} />
+      <Image src={ChevronDown} alt="icon" width={24} height={24} />
+    </div>
+  );
+};
+const OptionsAdmin = ({options, selectOption, handleClick}: OptionsProps) => {
+  const {open, handleClose} = useSelectOption();
+
+  const handleItemClick = (option: OptionType) => {
+    handleClick(option.id);
+    handleClose();
+  };
+
+  return (
+    <>
+      {open && (
+        <ul className={styles['options-admin']}>
+          {options.map(({id, option}) => (
+            <li key={id} onClick={() => handleItemClick({id, option})}>
+              {id === selectOption.id ? (
+                <Image src={Check} alt="icon" width={16} height={24} />
+              ) : (
+                <div className={styles['spacing-admin']} />
+              )}
+              <span className={`label-lg`}>{option}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+};
+
 SelectOption.Label = Label;
 SelectOption.InputField = InputField;
 SelectOption.Options = Options;
 SelectOption.OptionsDevices = OptionsDevices;
+SelectOption.OptionsAdmin = OptionsAdmin;
 SelectOption.InputFieldDevics = InputFieldDevics;
+SelectOption.InputFieldAdmin = InputFieldAdmin;
 
 export default SelectOption;

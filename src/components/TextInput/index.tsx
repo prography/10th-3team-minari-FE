@@ -4,44 +4,36 @@ import Image from 'next/image';
 import errorIcon from '@/assets/icon/red-x.png';
 import successIcon from '@/assets/icon/check-success.svg';
 
-export interface HelpMessageType {
-  type: 'success' | 'error';
-  message: string;
-}
+export type InputStatusType = 'success' | 'error' | 'plain';
+
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  value: string;
-  setValue: (value: string) => void;
-  placeholder?: string;
   label?: string;
   disabled?: boolean;
   type?: string;
-  errorMsgShow?: boolean;
-  errorMsg?: string;
-  patternMsg?: string;
   helpMsgShow?: boolean;
-  helpMsg?: HelpMessageType;
+  helpMsg?: string;
+  status?: InputStatusType;
   required?: boolean;
   unit?: string;
 }
 
 const TextInput = ({
-  value,
-  setValue,
-  placeholder,
   label,
   disabled,
   type,
-  patternMsg,
   required,
   helpMsgShow,
   helpMsg,
+  onChange,
+  status,
+  unit,
+  ...restProps
 }: TextInputProps) => {
-  const emailPattern = '[a-z0-9._%+\\-]+@[a-z0-9.\\-]+\\.[a-z]{1,}$';
-  const msgIcon = helpMsg?.type === 'success' ? successIcon : errorIcon;
+  const msgIcon = status === 'success' ? successIcon : errorIcon;
   const helpMsgFormat = (
-    <span className={`body-md ${styles['help-message']} ${styles[`${helpMsg?.type}`]}`}>
+    <span className={`body-md ${styles['help-message']} ${styles[`help-message-${status}`]}`}>
       <Image src={msgIcon} alt="" />
-      {helpMsg?.message}
+      {helpMsg}
     </span>
   );
 
@@ -53,21 +45,22 @@ const TextInput = ({
           {required && <div className="txt-danger mg-left-4">*</div>}
         </div>
       </label>
-      <input
-        id={`input-${label}`}
-        type={type ? type : 'text'}
-        pattern={type === 'email' ? emailPattern : ''}
-        disabled={disabled}
-        className={styles.input}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        placeholder={placeholder}
-      />
-      <span className={`body-md ${styles.message}`}>
-        <Image src={errorIcon} alt={''} />
-        {patternMsg}
-      </span>
-      {helpMsgShow && helpMsgFormat}
+      <div className={styles['input__wrap']}>
+        <input
+          id={`input-${label}`}
+          type={type ? type : 'text'}
+          disabled={disabled}
+          className={`${styles.input} ${styles[`input-${status}`]}`}
+          onChange={onChange}
+          {...restProps}
+        />
+        {unit && (
+          <div className={styles.unit}>
+            <span className="body-lg txt-tertiary">{unit}</span>
+          </div>
+        )}
+      </div>
+      <div className={styles['help-message__wrap']}>{helpMsgShow && helpMsgFormat}</div>
     </div>
   );
 };
