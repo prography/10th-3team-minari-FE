@@ -26,7 +26,7 @@ const CheckModal = ({form, onClickRightButton, onClickLeftButton}: CheckModalPro
         <div className={styles['reward-contents']}>
           <div className="body-sm">리워드 종류: 씨앗</div>
           <div className="body-sm">UUID: {form.userUUID}</div>
-          <div className="body-sm">씨앗 개수: {form.seed}</div>
+          <div className="body-sm">씨앗 개수: {form.seeds}</div>
           <div className="body-sm">지급 사유: {form.reason}</div>
         </div>
       </div>
