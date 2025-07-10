@@ -26,23 +26,34 @@ const Footer = () => {
           </div>
         </div>
         <div className={styles.right}>
-          <ul>
-            <li className="label-md">안내</li>
-            <a href={OUT_LINK.공지사항} target="_blank" rel="noopener noreferrer">
-              공지사항
-            </a>
-            <a href={OUT_LINK.FAQ} target="_blank" rel="noopener noreferrer">
-              FAQ
-            </a>
-
-            <a href={OUT_LINK.BLOG} target="_blank" rel="noopener noreferrer">
-              BLOG
-            </a>
-          </ul>
-          <ul>
-            <li className="label-md">문의하기</li>
-            <button>help.minari.com</button>
-          </ul>
+          <div>
+            <span className="label-md">안내</span>
+            <ul>
+              <li>
+                <a href={OUT_LINK.공지사항} target="_blank" rel="noopener noreferrer">
+                  공지사항
+                </a>
+              </li>
+              <li>
+                <a href={OUT_LINK.FAQ} target="_blank" rel="noopener noreferrer">
+                  FAQ
+                </a>
+              </li>
+              <li>
+                <a href={OUT_LINK.BLOG} target="_blank" rel="noopener noreferrer">
+                  BLOG
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <span className="label-md">문의하기</span>
+            <ul>
+              <li>
+                <span>help.minari.com</span>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
