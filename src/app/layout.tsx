@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   keywords: '미나리, 미래의 나를 위한 리허설, 기술면접',
   openGraph: {
     title: '미나리 : 미래의 나를 위한 리허설',
-    description: '미래의 나를 위해 미나리에서 기술 면접을 준비해보새요.',
+    description: '미래를 위해 미나리에서 기술 면접을 준비해보세요.',
     url: 'https://minari-official.com',
     images: [
       {
@@ -31,6 +31,15 @@ export const metadata: Metadata = {
     ],
     locale: 'ko_KR',
     type: 'website',
+  },
+  icons: {
+    icon: [
+      {url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png'},
+      {url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png'},
+      {url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png'},
+      {url: '/favicon.ico', type: 'image/x-icon'}, // fallback
+    ],
+    // apple: '/apple-touch-icon.png', - 180px / 180px 이 없음
   },
   // twitter: {
   //   card: 'summary_large_image',
