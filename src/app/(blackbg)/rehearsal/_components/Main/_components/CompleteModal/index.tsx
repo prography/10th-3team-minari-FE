@@ -15,7 +15,7 @@ const CompleteModal = () => {
 
     if (percent >= 100) {
       handleClose();
-      router.push(PATH.RESULT);
+      router.push(PATH.REHEARSAL_RESULT);
       return;
     }
 

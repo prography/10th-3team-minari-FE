@@ -17,7 +17,7 @@ const BlockDetail = () => {
 
   const router = useRouter();
   const onClickResult = () => {
-    router.push(`/result?quesId=${questionDetail?.questionId}`);
+    router.push(`${PATH.REHEARSAL_RESULT}?quesId=${questionDetail?.questionId}`);
   };
   const handleReTry = () => {
     router.push(PATH.REHEARSAL);
