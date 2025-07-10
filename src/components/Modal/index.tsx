@@ -1,4 +1,4 @@
-import styles from './Model.module.css';
+import styles from './Modal.module.css';
 
 interface ModalProps {
   title?: string;
