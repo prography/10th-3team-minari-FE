@@ -8,6 +8,11 @@ import Person from '@/assets/image/hero_person.png';
 import DescImageOne from '@/assets/image/desc_image_1.svg';
 import DescImageTwo from '@/assets/image/desc_image_2.svg';
 import MainButton from './MainButton';
+import type {Metadata} from 'next';
+
+export const metadata: Metadata = {
+  title: '미래의 나를 위한 리허설',
+};
 
 export default function Page() {
   return (

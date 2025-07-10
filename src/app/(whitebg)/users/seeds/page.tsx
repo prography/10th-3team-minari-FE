@@ -1,9 +1,7 @@
 'use client';
 
-import {Suspense} from 'react';
 import styles from './Seeds.module.css';
 import TabView from './_components/(tabs)/TabView';
-import Loader from '@/components/Loader';
 import InfoBox from '@/components/InfoBox';
 import {useUsers} from '@/hooks/queries/useUsers';
 import Image from 'next/image';
@@ -24,15 +22,13 @@ const SeedsLayout = () => {
           <div className={styles.seeds_info}>
             <span className="title-sm txt-white">씨앗 이용 정보</span>
             <div className={`${styles.seeds_info_flex} body-lg txt-white`}>
-              <span>{`${data?.name}님의 씨앗`}</span>
-              <span>{`${data?.seed} 개`}</span>
+              <span>{`${data ? data.name : ''}님의 씨앗`}</span>
+              <span>{`${data ? data.seed : 0} 개`}</span>
             </div>
           </div>
         </InfoBox>
 
-        <Suspense fallback={<Loader />}>
-          <TabView />
-        </Suspense>
+        <TabView />
       </div>
     </div>
   );

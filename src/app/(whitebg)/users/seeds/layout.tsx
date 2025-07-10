@@ -3,14 +3,14 @@ import Loader from '@/components/Loader';
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
-  title: '마이페이지',
+  title: '씨앗',
 };
 
-const MyPageLayout = ({children}: {children: React.ReactNode}) => {
+const SeedsLayout = ({children}: {children: React.ReactNode}) => {
   return (
     <Suspense fallback={<Loader />}>
       <div>{children}</div>
     </Suspense>
   );
 };
-export default MyPageLayout;
+export default SeedsLayout;
