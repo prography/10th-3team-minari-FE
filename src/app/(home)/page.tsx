@@ -1,12 +1,5 @@
-'use client';
-
-import {useUserStore} from '@/stores/userStore';
-import {useEffect} from 'react';
-import {useRouter} from 'next/navigation';
-import {loginKaKao} from '@/apis/user';
 import styles from './Page.module.css';
 import Image from 'next/image';
-import Button from '@/components/Button';
 import TextSlider from './_components/TextSlider';
 import Minari from '@/assets/minari-black.svg';
 import Grass from '@/assets/image/grass.svg';
@@ -14,34 +7,9 @@ import Highlight from '@/assets/image/highlight.png';
 import Person from '@/assets/image/hero_person.png';
 import DescImageOne from '@/assets/image/desc_image_1.svg';
 import DescImageTwo from '@/assets/image/desc_image_2.svg';
-import BlackArrow from '@/assets/icon/arrow-black.svg';
-import {getCookie} from '@/utils/cookies';
+import MainButton from './MainButton';
 
 export default function Page() {
-  const store = useUserStore();
-
-  const router = useRouter();
-
-  const onClickLogin = () => {
-    loginKaKao();
-  };
-
-  const onClickMinari = () => {
-    router.push('/minari');
-  };
-
-  useEffect(() => {
-    getCookie('access-token').then((token) => {
-      if (!token && store.username) {
-        localStorage.clear();
-        location.reload();
-      }
-    });
-    if (!store.isUserRegistered && store.isLoggedIn) {
-      router.push('/users/join');
-    }
-  }, [store.isLoggedIn]);
-
   return (
     <>
       <div className={styles['hero__grid']}>
@@ -62,13 +30,7 @@ export default function Page() {
                 </div>
               </div>
               <div className="display-md mg-bottom-20">개발자의 여정</div>
-              <Button
-                iconRight={BlackArrow}
-                border
-                onClick={store.isLoggedIn ? onClickMinari : onClickLogin}
-              >
-                {store.isLoggedIn ? '키워드 보러가기' : '카카오 로그인'}
-              </Button>
+              <MainButton />
             </div>
             <Image src={Person} alt="" className={styles['hero__image-person']} />
           </div>
