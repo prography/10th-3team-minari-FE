@@ -28,7 +28,7 @@ const QRCodeModalRefund = () => {
     },
     {
       icon: Round4,
-      text: '유저넘버 적어서 보내기!',
+      text: 'UUID 적어서 보내기!',
     },
   ];
 
