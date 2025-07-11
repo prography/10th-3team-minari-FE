@@ -117,26 +117,7 @@ const useMedia = () => {
 
     const checkTrackEnded = () => {
       setMediaStreamStatus('idle');
-      showErrorModalLeavePage({
-        title: '기기 접근이 제한되었어요.',
-        content: (
-          <>
-            <p>기기 설정에서 카메라와 마이크 접근을 허용해주세요.</p>
-          </>
-        ),
-        left: {
-          content: '자세히보기',
-          page: OUT_LINK.미나리_사용방법,
-        },
-        right: {
-          onClick: () => {
-            location.reload();
-          },
-        },
-        bgClick: true,
-      });
-      useMediaStore.getState().setMediaStreamStatus('error');
-      useMediaStore.getState().setMediaStream(null);
+      location.reload();
     };
 
     const tracks = mediaStream.getTracks();
