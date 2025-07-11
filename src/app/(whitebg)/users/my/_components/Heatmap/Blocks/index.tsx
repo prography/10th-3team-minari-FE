@@ -2,9 +2,12 @@ import styles from './Blocks.module.css';
 import {useUserHeatmapContext} from '@/contexts/UserHeatmapProvider';
 import Check from '@/assets/icon/check.svg';
 import Image from 'next/image';
+import {Tooltip} from 'react-tooltip';
+import {useDate} from '@/hooks/useDate';
 
 const Blocks = () => {
   const {blocks, onClickBlock} = useUserHeatmapContext();
+  const {dateFormatterKorean} = useDate();
   const weekLabel = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
 
   return (
@@ -16,6 +19,7 @@ const Blocks = () => {
           </div>
         ))}
       </div>
+      <Tooltip id="minari-tooltip" openOnClick />
       <div className={styles['blocks__wrap']}>
         {blocks?.map((block, index) => (
           <div
@@ -26,7 +30,12 @@ const Blocks = () => {
               onClickBlock(block);
             }}
           >
-            {block.active && <Image src={Check} alt="" />}
+            <a
+              data-tooltip-id="minari-tooltip"
+              data-tooltip-content={dateFormatterKorean(block.date)}
+            >
+              {block.active && <Image src={Check} alt="" />}
+            </a>
           </div>
         ))}
       </div>

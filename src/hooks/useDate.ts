@@ -71,6 +71,13 @@ export const useDate = () => {
     return date?.replaceAll('-', '.');
   };
 
+  const dateFormatterKorean = (date: string) => {
+    const year = date.split('-')[0];
+    const month = date.split('-')[1];
+    const day = date.split('-')[2];
+    return `${year}년 ${Number(month)}월 ${Number(day)}일`;
+  };
+
   return {
     currentYear,
     currentMonth,
@@ -83,5 +90,6 @@ export const useDate = () => {
     getWeekDates,
     putZero,
     dateFormatter,
+    dateFormatterKorean,
   };
 };
