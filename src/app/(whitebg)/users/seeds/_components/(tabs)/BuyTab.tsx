@@ -37,7 +37,7 @@ const BuyTab = () => {
   return (
     <>
       <Title>씨앗 사기</Title>
-      <Header ths={['씨앗', '갯수', '가격', '할인', '가격']} />
+      <Header ths={['씨앗', '개수', '가격', '할인', '가격']} />
       {TbBuyDatasMake().map((tbs, idx) => (
         <Body key={idx} tbs={tbs} />
       ))}
