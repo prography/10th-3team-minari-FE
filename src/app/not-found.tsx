@@ -1,6 +1,7 @@
 'use client';
 import ErrorLayout from '@/components/ErrorLayout';
 import Button from '@/components/Button';
+import {OUT_LINK} from '@/constants/path';
 
 export default function NotFound() {
   return (
@@ -9,7 +10,7 @@ export default function NotFound() {
       <div className="txt-secondary title-sm">불편을 드려 죄송합니다.</div>
 
       <div className="fx-align-center mg-top-20" style={{gap: '16px'}}>
-        <Button theme="secondary" border onClick={() => window.history.back()}>
+        <Button theme="secondary" border onClick={() => window.open(OUT_LINK.FAQ)}>
           이전 페이지
         </Button>
         <Button border onClick={() => (window.location.href = '/')}>
