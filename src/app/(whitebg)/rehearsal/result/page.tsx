@@ -3,13 +3,13 @@ import Spacing from '@/components/Spacing';
 import Question from './_components/Question';
 import ListRow from './_components/ListRow';
 import styles from './page.module.css';
-// import ArrowBlack from '@/assets/icon/arrow-black.svg';
+import ArrowBlack from '@/assets/icon/arrow-black.svg';
 import KeywordList from './_components/KeywordList';
 import AnswerList from './_components/AnswerList';
-// import Button from '@/components/Button';
+import Button from '@/components/Button';
 import {useAnswer} from '@/hooks/queries/useAnswer';
 import {useQuestionId} from '@/hooks/queries/useQuestionId';
-// import {useRouter} from 'next/navigation';
+import {useRouter} from 'next/navigation';
 import {useEffect, useState} from 'react';
 import {useSeeds} from '@/hooks/queries/useSeeds';
 
@@ -19,7 +19,7 @@ const ReharsalResultPage = () => {
   const {data: answer, refetch: answerRefetch} = useAnswer(
     queryId ? (Number(queryId) ?? 0) : (questionId ?? 0),
   );
-  // const router = useRouter();
+  const router = useRouter();
   const {refetch: seedsRefetch} = useSeeds();
 
   let queryStr = '';
@@ -54,7 +54,7 @@ const ReharsalResultPage = () => {
         </div>
       </div>
 
-      {/* <Button
+      <Button
         theme="white"
         iconRight={ArrowBlack}
         border
@@ -62,7 +62,7 @@ const ReharsalResultPage = () => {
         onClick={() => router.push(`/users/my?tabs=info`)}
       >
         내가 심은 미나리 보러가기
-      </Button> */}
+      </Button>
     </div>
   );
 };
