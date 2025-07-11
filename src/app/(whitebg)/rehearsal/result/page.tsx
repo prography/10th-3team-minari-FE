@@ -11,12 +11,16 @@ import {useAnswer} from '@/hooks/queries/useAnswer';
 import {useQuestionId} from '@/hooks/queries/useQuestionId';
 import {useRouter} from 'next/navigation';
 import {useEffect, useState} from 'react';
+import {useSeeds} from '@/hooks/queries/useSeeds';
 
 const ReharsalResultPage = () => {
   const [queryId, setQueryId] = useState<string | null>(null);
   const {data: questionId} = useQuestionId();
-  const {data: answer} = useAnswer(queryId ? (Number(queryId) ?? 0) : (questionId ?? 0));
+  const {data: answer, refetch: answerRefetch} = useAnswer(
+    queryId ? (Number(queryId) ?? 0) : (questionId ?? 0),
+  );
   const router = useRouter();
+  const {refetch: seedsRefetch} = useSeeds();
 
   let queryStr = '';
   useEffect(() => {
@@ -25,6 +29,12 @@ const ReharsalResultPage = () => {
       setQueryId(queryStr);
     }
   }, [queryStr]);
+
+  useEffect(() => {
+    seedsRefetch();
+    answerRefetch();
+  }, [seedsRefetch, answerRefetch]);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.core}>
