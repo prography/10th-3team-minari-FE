@@ -13,16 +13,3 @@
   flex-direction: column;
   gap: 40px;
 }
-
-.seeds_info {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-  z-index: var(--z-index-info-box-content);
-}
-
-.seeds_info_flex {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
