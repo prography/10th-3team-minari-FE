@@ -49,6 +49,23 @@ const PaymentsPage = () => {
     updateRewardForm(REASON_OPTIONS[Number(id)].option, 'reason');
   };
 
+  // 씨앗 옵션 생성 + 선택 상태값 관리
+  const [seedOptions, setSeedOptions] = useState<OptionType[]>([]);
+  const [selectedSeed, setSelectedSeed] = useState<OptionType>({id: '', option: ''});
+  const onClickSeedOption = (id: string | number) => {
+    const idx = seedOptions.findIndex((item) => item.id === id);
+    setSelectedSeed(seedOptions[idx]);
+    updateRewardForm(id, 'seeds');
+  };
+  const {data} = useProducts();
+  useEffect(() => {
+    const arr: OptionType[] = [];
+    data?.forEach((item) => {
+      arr.push({id: item.quantity, option: `씨앗 ${item.quantity}개 (${item.realPrice}원)`});
+    });
+    setSeedOptions(arr);
+  }, [data]);
+
   const onClickPayment = () => {
     open(
       <CheckModal
@@ -80,22 +97,6 @@ const PaymentsPage = () => {
     return Object.values(formValues).some((value) => value === '');
   };
 
-  const [seedOptions, setSeedOptions] = useState<OptionType[]>([]);
-  const [selectedSeed, setSelectedSeed] = useState<OptionType>({id: '', option: ''});
-  const onClickSeedOption = (id: string | number) => {
-    const idx = seedOptions.findIndex((item) => item.id === id);
-    setSelectedSeed(seedOptions[idx]);
-    updateRewardForm(id, 'seeds');
-  };
-  const {data} = useProducts();
-  useEffect(() => {
-    const arr: OptionType[] = [];
-    data?.forEach((item) => {
-      arr.push({id: item.quantity, option: `씨앗 ${item.quantity}개 (${item.realPrice}원)`});
-    });
-    setSeedOptions(arr);
-  }, [data]);
-
   return (
     <PageLayout title="리워드 지급">
       <InputForm title="uuid.">
@@ -117,14 +118,6 @@ const PaymentsPage = () => {
           }
         />
       </InputForm>
-      {/*<InputForm title="">*/}
-      {/*  <TextInput*/}
-      {/*    type="number"*/}
-      {/*    unit="개"*/}
-      {/*    value={String(rewardForm.seeds)}*/}
-      {/*    onChange={(e) => updateRewardForm(e.target.value, 'seed')}*/}
-      {/*  />*/}
-      {/*</InputForm>*/}
       <InputForm title="담당자">
         <SelectOption
           inputField={<SelectOption.InputFieldAdmin value={selectedRole.option} />}
