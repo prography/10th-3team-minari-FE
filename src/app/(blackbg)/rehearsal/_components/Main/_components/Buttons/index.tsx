@@ -42,6 +42,7 @@ const Buttons = () => {
       handleStop();
       handleCountStop();
       handleRearsalClose({userId, questionId: questionId ?? 0, memo});
+      ModalOpen();
     }
   }, [seconds, handleStop, handleCountStop, handleRearsalClose]);
 
