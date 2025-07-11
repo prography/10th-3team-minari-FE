@@ -43,6 +43,10 @@
   flex-grow: 1;
 }
 
+.tb6 {
+  flex-grow: 1;
+}
+
 .text_red {
   color: var(--color-text-danger);
 }
