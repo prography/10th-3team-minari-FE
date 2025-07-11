@@ -1,6 +1,6 @@
 .container {
   width: 100%;
-  height: var(--spacing-2, 2px);
+  height: var(--spacing-8, 8px);
   overflow: hidden;
 
   border-radius: var(--border-radius-rounded, 999px);
