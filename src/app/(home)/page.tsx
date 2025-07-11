@@ -7,7 +7,7 @@ import Highlight from '@/assets/image/highlight.png';
 import Person from '@/assets/image/hero_person.png';
 import DescImageOne from '@/assets/image/desc_image_1.svg';
 import DescImageTwo from '@/assets/image/desc_image_2.svg';
-import MainButton from './MainButton';
+import MainButton from './_components/MainButton';
 import type {Metadata} from 'next';
 
 export const metadata: Metadata = {
