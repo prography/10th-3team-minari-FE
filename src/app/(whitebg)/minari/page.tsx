@@ -1,18 +1,17 @@
-'use client';
-
 import styles from './Minari.module.css';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
 import Button from '@/components/Button';
-import {useTag} from '@/hooks/queries/useTag';
-import {useQuestionId} from '@/hooks/queries/useQuestionId';
 import Shape from '@/assets/icon/shapes.svg';
-import Tag from '@/assets/icon/tag.svg';
 import ArrowRight from '@/assets/icon/arrow-black.svg';
+import Tags from './_components/Tags';
+import type {Metadata} from 'next';
+
+export const metadata: Metadata = {
+  title: '미래의 나를 위한 리허설',
+};
 
 const MinariPage = () => {
-  const {data: questionId} = useQuestionId();
-  const {data} = useTag(questionId ?? 0);
   const CATEGORY = '브라우저';
 
   return (
@@ -28,19 +27,7 @@ const MinariPage = () => {
         </div>
         <div className={`label-lg txt-secondary ${styles.category}`}>{CATEGORY}</div>
       </div>
-      <div className={styles['keyword__wrapper']}>
-        <div>
-          <Image src={Tag} alt="tag" />
-          <span className="label-lg txt-tertiary mg-left-4">관련 키워드</span>
-        </div>
-        <div className={styles['keyword__container']}>
-          {data?.result?.map((item, i) => (
-            <div key={i} className={styles.keyword}>
-              <span className="label-lg">{item}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+      <Tags />
       <div className={styles['button__wrapper']}>
         <a href="/rehearsal" target="_blank" rel="noopener noreferrer">
           <Button border iconRight={ArrowRight}>
