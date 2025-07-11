@@ -17,8 +17,8 @@ export const getProductsSell = async () => {
 interface ProductsHistoryType {
   date: string;
   quantity: number;
+  remain: number;
   category: 'EVENT' | 'BUY';
-  status: 'DONE' | 'HOLDING';
   refund: boolean;
 }
 
