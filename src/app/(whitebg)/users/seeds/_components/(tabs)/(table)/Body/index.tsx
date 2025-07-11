@@ -46,7 +46,7 @@ const Body = ({tbs}: BodyProps) => {
         return (
           <Button
             disabled={disabled}
-            iconLeft={MinariBrand}
+            iconLeft={disabled ? MinariGray : MinariBrand}
             theme="black"
             size="p-4-12"
             onClick={onClick}
