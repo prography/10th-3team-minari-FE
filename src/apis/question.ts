@@ -18,6 +18,12 @@ export const getTag = async (questionId: number) => {
   return response;
 };
 
+export const getTagDetail = async (questionId: number) => {
+  const response = await fetch.get<string>(`/questions/${questionId}/tag/detail`);
+
+  return response;
+};
+
 export interface QuestionDetailType {
   questionId: number;
   content: string;
