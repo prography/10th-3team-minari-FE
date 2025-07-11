@@ -3,4 +3,13 @@
   justify-content: center;
   align-items: center;
   height: 48px !important;
+  gap: 12px;
+}
+
+.button__wrapper > button {
+  min-width: 180px !important;
+}
+
+.button__wrapper > a {
+  width: 180px !important;
 }
