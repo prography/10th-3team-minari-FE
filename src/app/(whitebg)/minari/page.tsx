@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 const MinariPage = () => {
   return (
     <div className={styles.container}>
-      <div className="title-lg">
-        오늘의 미나리 <Image src={Minari} alt="" className="mg-top-4" width={28} />
+      <div className="title-lg txt-primary">
+        오늘의 미나리 <Image src={Minari} alt="미나리 로고" width={36} height={36} />
       </div>
       <div className="title-xs mg-top-8 txt-secondary">지금 나에게 맞는 질문을 추천해드려요.</div>
       <Detail />
