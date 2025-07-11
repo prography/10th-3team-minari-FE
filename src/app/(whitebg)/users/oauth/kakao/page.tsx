@@ -52,8 +52,8 @@ const KakaoRedirectPage = () => {
         localStorage.clear();
         open(
           <Modal
-            title="로그인 실패"
-            rightButton={<Button onClick={onClickErrorModal}>확인</Button>}
+            title={`처음 뵙는 것 같아요.\n당~시인은 누구십니까?`}
+            rightButton={<Button onClick={onClickErrorModal}>나 소개하러 가기</Button>}
           />,
           true,
         );
