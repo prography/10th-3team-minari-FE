@@ -1,6 +1,6 @@
 'use client';
 
-import {Fragment} from 'react';
+import {Fragment, useEffect, useMemo} from 'react';
 import ListRow from '../ListRow';
 import Spacing from '@/components/Spacing';
 import type {AnswerType} from '@/apis/answer';
@@ -10,12 +10,16 @@ import Modal from '@/components/Modal';
 import Button from '@/components/Button';
 import {useRouter} from 'next/navigation';
 import {PATH} from '@/constants/path';
-import {useSeeds} from '@/hooks/queries/useSeeds';
+import {useAnswerEligibility} from '@/hooks/queries/useAnswerEligibility';
 
 const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   const router = useRouter();
   const {open: opneModal, close: closeModal} = useModalStore();
-  const {data} = useSeeds();
+  const {data, refetch} = useAnswerEligibility();
+
+  const isSeedLimitReached = useMemo(() => {
+    return data === 'LIMIT_REACHED' || data === 'UNKNOWN';
+  }, [data]);
 
   const handleReTry = async () => {
     router.push(PATH.REHEARSAL);
@@ -30,18 +34,22 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   const handleClickOpenModal = () => {
     opneModal(
       <Modal
-        title={data ? '지금 답변이 아쉬우신가요?' : '앗 씨앗이 부족해요.'}
+        title={isSeedLimitReached ? '앗! 씨앗이 부족해요.' : '지금 답변이 아쉬우신가요?'}
         rightButton={
-          <Button onClick={data ? handleReTry : handleBuySeeds}>
-            {data ? '다시 도전하기' : '씨앗 사러 가기'}
+          <Button onClick={isSeedLimitReached ? handleBuySeeds : handleReTry}>
+            {isSeedLimitReached ? '씨앗 사러 가기' : '다시 도전하기'}
           </Button>
         }
       >
         <p>더 멋진 답변을 준비할 수 있어요.</p>
-        <p>{data ? '결과가 나오면 씨앗 1개가 사용돼요.' : '씨앗을 사러 가볼까요?'}</p>
+        <p>{isSeedLimitReached ? '씨앗을 사러 가볼까요?' : '결과가 나오면 씨앗 1개가 사용돼요.'}</p>
       </Modal>,
     );
   };
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const ResultList = [
     {
