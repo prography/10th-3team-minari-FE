@@ -4,7 +4,7 @@ import {useMemo} from 'react';
 
 export const useMinariRecord = ({startDate, endDate}: {startDate: string; endDate: string}) => {
   const {data, refetch} = useQuery({
-    queryKey: ['minari-record', startDate, endDate],
+    queryKey: ['minari-record', 'startDate', startDate, 'endDate', endDate],
     queryFn: () => getMinariRecord({startDate, endDate}),
     enabled: !!startDate && !!endDate,
   });

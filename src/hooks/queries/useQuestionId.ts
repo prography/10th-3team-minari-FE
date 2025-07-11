@@ -6,7 +6,7 @@ export const useQuestionId = () => {
   const {userId} = useUserStore();
 
   return useQuery({
-    queryKey: ['questionId', userId],
+    queryKey: ['questionId', 'userId', userId],
     queryFn: () => getQuestionId(userId),
     enabled: !!userId,
     select: (res) => res?.result ?? null,

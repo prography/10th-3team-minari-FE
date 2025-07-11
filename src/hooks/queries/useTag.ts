@@ -5,7 +5,7 @@ import type {ApiResponse} from '@/apis/instance/APIClient';
 
 export const useTag = (questionId: number, initialData?: ApiResponse<string[]> | null) => {
   const result = useQuery({
-    queryKey: ['tag', questionId],
+    queryKey: ['tag', 'questionId', questionId],
     queryFn: () => getTag(questionId),
     enabled: !!questionId,
     initialData,
