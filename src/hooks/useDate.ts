@@ -61,7 +61,7 @@ export const useDate = () => {
 
   const putZero = (value: string) => {
     if (value?.length === 1) {
-      return '0' + Number(value);
+      return '0' + value;
     } else {
       return value;
     }
