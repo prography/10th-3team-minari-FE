@@ -21,6 +21,6 @@ export const getAnswer = async (userId: string, questionId: number) => {
 export type AnswerEligibilityType = 'FIRST' | 'SEED_REQUIRED' | 'LIMIT_REACHED' | 'UNKNOWN';
 
 export const getAnswerEligibility = async () => {
-  const response = await fetch.get(`/answer/eligibility`);
+  const response = await fetch.get<AnswerEligibilityType>(`/answer/eligibility`);
   return response;
 };
