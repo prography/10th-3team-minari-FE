@@ -29,3 +29,11 @@
     0px var(--effect-shadow-8-core-y, 0px) var(--effect-shadow-8-core-blur, 4px) 0px
       var(--color-effect-shadow-core, rgba(0, 0, 0, 0.12));
 }
+
+.title {
+  align-self: center;
+}
+
+.percent {
+  align-self: flex-end;
+}
