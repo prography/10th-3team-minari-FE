@@ -17,3 +17,10 @@ export const getAnswer = async (userId: string, questionId: number) => {
   const response = await fetch.get<AnswerType>(`/${userId}/questions/${questionId}`);
   return response;
 };
+
+export type AnswerEligibilityType = 'FIRST' | 'SEED_REQUIRED' | 'LIMIT_REACHED' | 'UNKNOWN';
+
+export const getAnswerEligibility = async () => {
+  const response = await fetch.get(`/answer/eligibility`);
+  return response;
+};
