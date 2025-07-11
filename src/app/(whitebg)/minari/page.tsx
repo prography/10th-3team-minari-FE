@@ -1,11 +1,10 @@
 import styles from './Minari.module.css';
 import Minari from '@/assets/minari-black.svg';
 import Image from 'next/image';
-import Button from '@/components/Button';
 import Shape from '@/assets/icon/shapes.svg';
-import ArrowRight from '@/assets/icon/arrow-black.svg';
 import Tags from './_components/Tags';
 import type {Metadata} from 'next';
+import MainButton from './_components/MainButton';
 
 export const metadata: Metadata = {
   title: '미래의 나를 위한 리허설',
@@ -28,13 +27,7 @@ const MinariPage = () => {
         <div className={`label-lg txt-secondary ${styles.category}`}>{CATEGORY}</div>
       </div>
       <Tags />
-      <div className={styles['button__wrapper']}>
-        <a href="/rehearsal" target="_blank" rel="noopener noreferrer">
-          <Button border iconRight={ArrowRight}>
-            면접 시작하기
-          </Button>
-        </a>
-      </div>
+      <MainButton />
     </div>
   );
 };

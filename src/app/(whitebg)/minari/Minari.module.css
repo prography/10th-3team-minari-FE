@@ -20,10 +20,3 @@
   border-radius: var(--border-radius-md);
   background: var(--color-bg-tertiary);
 }
-
-.button__wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 48px !important;
-}
