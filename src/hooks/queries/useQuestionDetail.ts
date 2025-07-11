@@ -4,7 +4,7 @@ import {getQuestionDetail} from '@/apis/question';
 
 export const useQuestionDetail = (questionId: number) => {
   const {data, refetch} = useQuery({
-    queryKey: ['question-detail', questionId],
+    queryKey: ['question-detail', 'questionId', questionId],
     queryFn: () => getQuestionDetail(questionId),
     enabled: !!questionId,
   });
