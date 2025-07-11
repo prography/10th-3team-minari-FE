@@ -109,6 +109,7 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
   // 블록 클릭
   const onClickBlock = (block: BlockType) => {
     const b = blocks;
+    console.log(window.pageXOffset);
     if (block.done) {
       const prevActive = b.findIndex((item) => item.active);
       if (prevActive > -1) {
