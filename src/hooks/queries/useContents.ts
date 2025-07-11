@@ -4,7 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 
 export const useContents = (questionId: number, initialData?: ApiResponse<string> | null) => {
   return useQuery({
-    queryKey: ['contents', questionId],
+    queryKey: ['contents', 'questionId', questionId],
     queryFn: () => getContents(questionId),
     enabled: !!questionId,
     initialData,

@@ -7,7 +7,7 @@ export const useAnswer = (questionId: number, initialData?: ApiResponse<AnswerTy
   const {userId} = useUserStore();
 
   return useQuery({
-    queryKey: ['answer', userId, questionId],
+    queryKey: ['answer', 'userId', userId, 'questionId', questionId],
     queryFn: () => getAnswer(userId, questionId),
     enabled: !!userId && !!questionId,
     initialData,
