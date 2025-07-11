@@ -12,8 +12,8 @@ import {OUT_LINK, PATH} from '@/constants/path';
 import {useUserStore} from '@/stores/userStore';
 import IconButton from '../IconButton';
 import Seeds from '@/assets/icon/seed.svg';
-import {useUsers} from '@/hooks/queries/useUsers';
 import {useRouter} from 'next/navigation';
+import {useSeeds} from '@/hooks/queries/useSeeds';
 
 const Header = () => {
   const theme = useTheme();
@@ -56,7 +56,7 @@ const LandingMenu = () => {
 
 const UserMenu = () => {
   const userStore = useUserStore();
-  const {data} = useUsers();
+  const {data} = useSeeds();
   const router = useRouter();
 
   return (
@@ -69,7 +69,7 @@ const UserMenu = () => {
             size="size-40"
             onClick={() => router.push(PATH.UESRS_SEEDS)}
           />
-          {data ? data.seed : 0}
+          {data ? data : 0}
         </div>
 
         <Link href={userStore.isUserRegistered ? `${PATH.MY_PAGE}?tabs=info` : ''}>
