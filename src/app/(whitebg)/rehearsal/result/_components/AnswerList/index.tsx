@@ -10,14 +10,14 @@ import Modal from '@/components/Modal';
 import Button from '@/components/Button';
 import {useRouter} from 'next/navigation';
 import {PATH} from '@/constants/path';
-import {useUsers} from '@/hooks/queries/useUsers';
+import {useSeeds} from '@/hooks/queries/useSeeds';
 
 const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   const router = useRouter();
   const {open: opneModal, close: closeModal} = useModalStore();
-  const {data} = useUsers();
+  const {data} = useSeeds();
 
-  const handleReTry = () => {
+  const handleReTry = async () => {
     router.push(PATH.REHEARSAL);
     closeModal();
   };
@@ -30,15 +30,15 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   const handleClickOpenModal = () => {
     opneModal(
       <Modal
-        title={data?.seed ? '지금 답변이 아쉬우신가요?' : '앗 씨앗이 부족해요.'}
+        title={data ? '지금 답변이 아쉬우신가요?' : '앗 씨앗이 부족해요.'}
         rightButton={
-          <Button onClick={data?.seed ? handleReTry : handleBuySeeds}>
-            {data?.seed ? '다시 도전하기' : '씨앗 사러 가기'}
+          <Button onClick={data ? handleReTry : handleBuySeeds}>
+            {data ? '다시 도전하기' : '씨앗 사러 가기'}
           </Button>
         }
       >
         <p>더 멋진 답변을 준비할 수 있어요.</p>
-        <p>{data?.seed ? '씨앗 1개가 사용돼요.' : '씨앗을 사러 가볼까요?'}</p>
+        <p>{data ? '결과가 나오면 씨앗 1개가 사용돼요.' : '씨앗을 사러 가볼까요?'}</p>
       </Modal>,
     );
   };
