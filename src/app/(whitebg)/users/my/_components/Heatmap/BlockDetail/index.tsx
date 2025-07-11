@@ -11,7 +11,7 @@ import {useModalStore} from '@/stores/modalStore';
 import {PATH} from '@/constants/path';
 
 const BlockDetail = () => {
-  const {questionDetail, selectedBlockDate, userData} = useUserHeatmapContext();
+  const {questionDetail, selectedBlockDate, isSeedLimitReached} = useUserHeatmapContext();
   const {dateFormatter} = useDate();
   const {open, close} = useModalStore();
 
@@ -28,18 +28,19 @@ const BlockDetail = () => {
     router.push(PATH.UESRS_SEEDS);
     close();
   };
+
   const onClickRetry = () => {
     open(
       <Modal
-        title={userData?.seed ? '지금 답변이 아쉬우신가요?' : '앗 씨앗이 부족해요.'}
+        title={isSeedLimitReached ? '앗! 씨앗이 부족해요.' : '지금 답변이 아쉬우신가요?'}
         rightButton={
-          <Button onClick={userData?.seed ? handleReTry : handleBuySeeds}>
-            {userData?.seed ? '다시 도전하기' : '씨앗 사러 가기'}
+          <Button onClick={isSeedLimitReached ? handleBuySeeds : handleReTry}>
+            {isSeedLimitReached ? '씨앗 사러 가기' : '다시 도전하기'}
           </Button>
         }
       >
         <p>더 멋진 답변을 준비할 수 있어요.</p>
-        <p>{userData?.seed ? '씨앗 1개가 사용돼요.' : '씨앗을 사러 가볼까요?'}</p>
+        <p>{isSeedLimitReached ? '씨앗을 사러 가볼까요?' : '결과가 나오면 씨앗 1개가 사용돼요.'}</p>
       </Modal>,
     );
   };
@@ -70,7 +71,7 @@ const BlockDetail = () => {
               <span className="body-md txt-secondary">결과 보러가기</span>
             </Button>
             <Button theme="black" size="p-4-8" onClick={onClickRetry}>
-              <span className="body-md txt-brand">다시 시도하기</span>
+              <span className="body-md txt-brand">다시 도전하기</span>
             </Button>
           </div>
         </div>
