@@ -12,7 +12,7 @@ import Toast from '@/components/Toast';
 import {useToastStore} from '@/stores/toastStore';
 import PageLayout from '@/app/admin/_components';
 import InputForm from '@/app/admin/payments/_components/InputForm';
-import {useProducts} from '@/hooks/queries/useProducts';
+import {useProductsSell} from '@/hooks/queries/useProductsSell';
 
 export interface RewardFormType {
   userUUID: string;
@@ -57,7 +57,7 @@ const PaymentsPage = () => {
     setSelectedSeed(seedOptions[idx]);
     updateRewardForm(id, 'seeds');
   };
-  const {data} = useProducts();
+  const {data} = useProductsSell();
   useEffect(() => {
     const arr: OptionType[] = [];
     data?.forEach((item) => {
