@@ -8,6 +8,7 @@ import {useQuestionDetail} from '@/hooks/queries/useQuestionDetail';
 import {QuestionDetailType} from '@/apis/question';
 import {useUsers} from '@/hooks/queries/useUsers';
 import {UsersReponse} from '@/apis/user';
+import {useAnswerEligibility} from '@/hooks/queries/useAnswerEligibility';
 
 export type BlockType = {
   index: number;
@@ -29,6 +30,7 @@ type ContextType = {
   questionDetail: QuestionDetailType | null;
   mapLoading: boolean;
   userData: UsersReponse | null | undefined;
+  isSeedLimitReached: boolean;
 };
 const UserHeatmapContext = createContext<ContextType | null>(null);
 
@@ -139,6 +141,14 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
     }
   }, [startDate, endDate, minariRecord]);
 
+  const {data, refetch: refetchEligibility} = useAnswerEligibility();
+  useEffect(() => {
+    refetchEligibility();
+  }, [refetchEligibility]);
+  const isSeedLimitReached = useMemo(() => {
+    return data === 'LIMIT_REACHED' || data === 'UNKNOWN';
+  }, [data]);
+
   const value = useMemo(
     () => ({
       heatmapTab,
@@ -154,6 +164,7 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
       selectedBlockDate,
       mapLoading,
       userData,
+      isSeedLimitReached,
     }),
     [heatmapTab, setDateOptions, selectedBarDateOption, barDateOptions, blocks],
   );
