@@ -24,10 +24,10 @@ const Body = ({tbs}: BodyProps) => {
         return <span>{text}</span>;
       }
       case 'text-red': {
-        return <span className={styles.text_red}>{text}</span>;
+        return <span className={styles.text_red} dangerouslySetInnerHTML={{__html: text}} />;
       }
       case 'text-disabled': {
-        return <span className={styles.text_disabled}>{text}</span>;
+        return <span className={styles.text_disabled} dangerouslySetInnerHTML={{__html: text}} />;
       }
       case 'badge': {
         return <div>{text}</div>;
