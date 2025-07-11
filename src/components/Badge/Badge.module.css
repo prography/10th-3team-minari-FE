@@ -1,0 +1,16 @@
+.badge {
+  display: flex;
+  padding: var(--spacing-4, 4px) var(--spacing-16, 16px) var(--spacing-4, 4px)
+    var(--spacing-12, 12px);
+  align-items: center;
+  gap: var(--spacing-8, 8px);
+  border-radius: var(--border-radius-rounded, 999px);
+  border: 1px solid var(--color-border-primary, #a3a3a3);
+  background: var(--color-bg-brand-subtle, #effec0);
+  color: var(--color-text-primary, #171717);
+}
+
+.disabled {
+  background: var(--color-bg-inverse-bolder, #262626) !important;
+  color: var(--color-text-interactive-inverse-gray, #a3a3a3) !important;
+}
