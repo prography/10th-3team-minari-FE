@@ -52,7 +52,7 @@ export const useDate = () => {
     const d = getFirstDateOfWeek(year, month, week);
     const arr = [];
     for (let i = 0; i < 7; i++) {
-      const date = d.toLocaleDateString().replaceAll(' ', '').split('.');
+      const date = d.toLocaleDateString('ko-KR').replaceAll(' ', '').split('.');
       arr.push(`${putZero(date[0])}-${putZero(date[1])}-${putZero(date[2])}`);
       d.setDate(d.getDate() + 1);
     }
