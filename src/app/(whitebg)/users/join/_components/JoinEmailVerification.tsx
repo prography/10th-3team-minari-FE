@@ -6,8 +6,6 @@ import Button from '@/components/Button';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
 import {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';
-import {useToastStore} from '@/stores/toastStore';
-import Toast from '@/components/Toast';
 
 const JoinEmailVerification = () => {
   const {joinForm, setJoinForm} = useUserJoinContext();
@@ -25,22 +23,20 @@ const JoinEmailVerification = () => {
   });
   const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();
 
-  const toastStore = useToastStore();
-  const openToastWarning = () => {
-    if (codeRef.current?.length === 0) {
-      toastStore.open(
-        <Toast title={'인증번호가 오지 않나요?\n인증버튼을 다시 눌러주세요.'} type="warning" />,
-      );
-    }
+  const showDelayedWarning = () => {
+    setEmailStatus('warning');
+    setEmailMsg('인증번호가 오지 않나요? 인증버튼을 다시 눌러주세요.');
+    setEmailMsgShow(true);
   };
   const onClickSendVerification = () => {
     fetchEmailVerification()
       .then((response) => {
         if (response?.code === '200') {
           setShowVeriCode(true);
+          setEmailStatus('success');
           setEmailMsg('인증 메일이 전송되었어요.');
           setEmailMsgShow(true);
-          setTimeout(openToastWarning, 30000);
+          setTimeout(showDelayedWarning, 3 * 60 * 1000);
         }
       })
       .catch(() => {
@@ -74,6 +70,7 @@ const JoinEmailVerification = () => {
           setCodeMsgShow(true);
           setCodeStatus('success');
           setCodeMsg('인증이 완료되었습니다.');
+          setEmailMsgShow(false);
         }
       })
       .catch(() => {
