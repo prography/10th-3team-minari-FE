@@ -19,7 +19,7 @@ const Blocks = () => {
           </div>
         ))}
       </div>
-      <Tooltip id="minari-tooltip" openOnClick />
+      <Tooltip id="minari-tooltip" opacity={1} style={{borderRadius: '8px'}} openOnClick />
       <div className={styles['blocks__wrap']}>
         {blocks?.map((block, index) => (
           <div
