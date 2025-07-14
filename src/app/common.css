@@ -364,3 +364,7 @@
 .pre {
   white-space: pre;
 }
+
+.underline {
+  text-decoration: underline;
+}
