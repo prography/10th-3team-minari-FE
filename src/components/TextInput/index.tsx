@@ -2,9 +2,10 @@ import {InputHTMLAttributes} from 'react';
 import styles from './TextInput.module.css';
 import Image from 'next/image';
 import errorIcon from '@/assets/icon/red-x.png';
+import warningIcon from '@/assets/icon/yellow-x.svg';
 import successIcon from '@/assets/icon/check-success.svg';
 
-export type InputStatusType = 'success' | 'error' | 'plain';
+export type InputStatusType = 'success' | 'error' | 'plain' | 'warning';
 
 interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -29,7 +30,8 @@ const TextInput = ({
   unit,
   ...restProps
 }: TextInputProps) => {
-  const msgIcon = status === 'success' ? successIcon : errorIcon;
+  const msgIcon =
+    status === 'success' ? successIcon : status === 'warning' ? warningIcon : errorIcon;
   const helpMsgFormat = (
     <span className={`body-md ${styles['help-message']} ${styles[`help-message-${status}`]}`}>
       <Image src={msgIcon} alt="" />
