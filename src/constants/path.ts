@@ -22,4 +22,5 @@ export const OUT_LINK: {[key: string]: string} = {
   약관전체:
     'https://button-shear-b28.notion.site/MINARI-20131f010d1f8021839ae73b9e51b1f4?source=copy_link',
   미나리_사용방법: 'https://button-shear-b28.notion.site/22931f010d1f800189beee2ec5963412?pvs=74',
+  사업자_정보확인: 'https://www.ftc.go.kr/bizCommPop.do?wrkr_no=5056700852',
 } as const;
