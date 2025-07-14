@@ -9,7 +9,7 @@ import InfoTab from '@/app/(whitebg)/users/my/_components/Tab/Info';
 import {UserHeatmapProvider} from '@/contexts/UserHeatmapProvider';
 
 const MyPage = () => {
-  const tab = useCurrentParams('tabs', 'buy');
+  const tab = useCurrentParams('tabs', 'info');
   const router = useRouter();
 
   return (
