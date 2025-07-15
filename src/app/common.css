@@ -353,6 +353,11 @@
   align-items: center;
   justify-content: center;
 }
+
+.fx-col {
+  display: flex;
+  flex-direction: column;
+}
 .fx-align-center {
   display: flex;
   align-items: center;
@@ -367,4 +372,27 @@
 
 .underline {
   text-decoration: underline;
+}
+
+.g-2 {
+  gap: 2px;
+}
+.g-4 {
+  gap: 4px;
+}
+.g-8 {
+  gap: 8px;
+}
+.g-12 {
+  gap: 12px;
+}
+.g-16 {
+  gap: 16px;
+}
+.g-24 {
+  gap: 24px;
+}
+
+.g-32 {
+  gap: 32px;
 }
