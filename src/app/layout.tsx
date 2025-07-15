@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import {TokenExpirationHandler} from '@/components/TokenExpirationHandler';
 import Footer from '@/components/Footer';
 import type {Metadata} from 'next';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: {
@@ -77,6 +78,11 @@ export default function RootLayout({
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ? process.env.NEXT_PUBLIC_GA_ID : ''} />
       <GoogleTagManager
         gtmId={process.env.NEXT_PUBLIC_GTM_ID ? process.env.NEXT_PUBLIC_GTM_ID : ''}
+      />
+      <Script
+        async
+        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_CA_PUB_ID}`}
+        crossOrigin="anonymous"
       />
     </html>
   );
