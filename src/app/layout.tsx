@@ -76,9 +76,9 @@ export default function RootLayout({
           <TokenExpirationHandler />
           {children}
           <Footer />
+          <ToastClient />
+          <ModalClient />
         </Providers>
-        <ToastClient />
-        <ModalClient />
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ? process.env.NEXT_PUBLIC_GA_ID : ''} />
       <GoogleTagManager
