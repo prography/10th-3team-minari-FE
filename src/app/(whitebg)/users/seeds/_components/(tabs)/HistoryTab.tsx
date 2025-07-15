@@ -6,12 +6,24 @@ import {useCallback, useMemo} from 'react';
 import type {TbType} from './(table)/Body';
 import {useModalStore} from '@/stores/modalStore';
 import {useProductsHistory} from '@/hooks/queries/useProductsHistory';
-import QRCodeModalRefund from '../QRCodeModal/QRCodeModalRefund';
 import Body from './(table)/Body';
+import {useUsers} from '@/hooks/queries/useUsers';
+import QRCodeModal from '../QRCodeModal';
 
 const HistoryTab = () => {
   const {open} = useModalStore();
   const {data} = useProductsHistory();
+  const {data: userData} = useUsers();
+
+  const order = useMemo(
+    () => [
+      '송금확인증 발급 or 송금내역 캡쳐하기',
+      'QR코드를 스캔하고',
+      '(1)번의 사진을 보낸 후',
+      `UUID/환불요청/씨앗 구매 개수/사용 개수 전송!`,
+    ],
+    [],
+  );
 
   const initialData = useMemo<TbType[][]>(() => [[{type: 'text', text: ''}]], []);
 
@@ -29,13 +41,22 @@ const HistoryTab = () => {
               text: '환불',
               disabled: value.refund,
               onClick: () => {
-                open(<QRCodeModalRefund />, false, true);
+                open(
+                  <QRCodeModal
+                    order={order}
+                    uuid={userData?.uuid ?? ''}
+                    title="구매 취소/환불이 필요하신가요?"
+                    subTitle="구매 후 7일 이내의 미사용 씨앗만 되어요."
+                  />,
+                  false,
+                  true,
+                );
               },
             },
           ];
         })
       : initialData;
-  }, [open, data, initialData]);
+  }, [open, data, initialData, order, userData]);
 
   return (
     <>
