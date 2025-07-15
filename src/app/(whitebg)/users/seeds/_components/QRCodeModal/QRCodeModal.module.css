@@ -7,11 +7,12 @@
 }
 
 .wrapper {
+  box-sizing: border-box;
   position: relative;
   width: 320px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   background-color: var(--color-bg-secondary);
@@ -20,6 +21,7 @@
 }
 
 .order_list {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   gap: 2px;
