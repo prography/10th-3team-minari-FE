@@ -10,6 +10,7 @@ import {TokenExpirationHandler} from '@/components/TokenExpirationHandler';
 import Footer from '@/components/Footer';
 import type {Metadata} from 'next';
 import Script from 'next/script';
+import * as process from 'node:process';
 
 export const metadata: Metadata = {
   title: {
@@ -62,6 +63,10 @@ export default function RootLayout({
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"
+        />
+        <meta
+          name="google-adsense-account"
+          content={process.env.NEXT_PUBLIC_CA_PUB_ID ? process.env.NEXT_PUBLIC_CA_PUB_ID : ''}
         />
       </head>
       <body>
