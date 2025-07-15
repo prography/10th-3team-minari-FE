@@ -1,3 +1,19 @@
+.container {
+  display: flex;
+  width: 100%;
+}
+
+.week-number-label {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin: 26px 4px 0 0;
+}
+.week-number-label > span {
+  width: 18px;
+  height: 24px;
+}
+
 .week-month-label {
   display: flex;
   justify-content: space-evenly;
@@ -8,6 +24,10 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+.blocks__area {
+  width: 100%;
 }
 
 .blocks__wrap {

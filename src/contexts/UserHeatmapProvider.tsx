@@ -9,10 +9,11 @@ import {QuestionDetailType} from '@/apis/question';
 import {useUsers} from '@/hooks/queries/useUsers';
 import {UsersReponse} from '@/apis/user';
 import {useAnswerEligibility} from '@/hooks/queries/useAnswerEligibility';
+import {monthLabel} from '@/constants/dates';
 
 export type BlockType = {
   index: number;
-  date: string;
+  date: string | string[];
   done: boolean;
   active: boolean;
   questionId: number;
@@ -24,6 +25,7 @@ type ContextType = {
   selectedBarDateOption: DateSelectorOptionType;
   onClickOption: (option: DateSelectorOptionType) => void;
   blocks: BlockType[];
+  monthBlocks: BlockType[][];
   onClickBlock: (block: BlockType) => void;
   minariRate: number | null;
   selectedBlockDate: string;
@@ -53,7 +55,8 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
     value: '',
   });
   const [blocks, setBlocks] = useState<BlockType[]>([]);
-  const [blockDates, setBlockDates] = useState<Array<string>>([]);
+  const [monthBlocks, setMonthBlocks] = useState<BlockType[][]>([]);
+  const [blockDates, setBlockDates] = useState<Array<string> | Array<Array<string>>>([]);
   const [startDate, setStartDate] = useState<string>('');
   const [endDate, setEndDate] = useState<string>('');
   const {refetch, minariRecord, minariRate} = useMinariRecord({startDate, endDate});
@@ -65,9 +68,15 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
   // 상단 바 날짜 셀렉트 박스 옵션 생성
   const setDateOptions = (year: number, month: number) => {
     const options = [] as DateSelectorOptionType[];
-    const weeks = weeksCount(year, month);
-    for (let i = 0; i < weeks; i++) {
-      options.push({value: i, label: `${month}월 ${i + 1}주차`});
+    if (heatmapTab === 1) {
+      monthLabel.forEach((month, index) => {
+        options.push({value: index + 1, label: month});
+      });
+    } else if (heatmapTab === 2) {
+      const weeks = weeksCount(year, month);
+      for (let i = 0; i < weeks; i++) {
+        options.push({value: i, label: `${month}월 ${i + 1}주차`});
+      }
     }
     setBarDateOptions(options);
   };
@@ -75,35 +84,72 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
   // 상단 바 날짜 셀렉트 박스 클릭 -> 블록 생성
   const onClickOption = (option: DateSelectorOptionType) => {
     setSelectedBarDateOption(option);
-    const selectedMonth = option.label.split(' ')[0].split('월')[0];
-    const selectedWeek = option.label.split(' ')[1].split('주차')[0];
-    dateSettings(currentYear, Number(selectedMonth), Number(selectedWeek));
+    if (heatmapTab === 1) {
+      dateSettings(currentYear, Number(option.value), 0);
+    } else if (heatmapTab === 2) {
+      const selectedMonth = option.label.split(' ')[0].split('월')[0];
+      const selectedWeek = option.label.split(' ')[1].split('주차')[0];
+      dateSettings(currentYear, Number(selectedMonth), Number(selectedWeek));
+    }
     createBlocks();
   };
 
   // 블록별 날짜 생성 & 조회 시작, 날짜 생성
   const dateSettings = (year: number, month: number, weekNo: number) => {
-    const datesArr = getWeekDates(year, month, weekNo);
-    setBlockDates(datesArr);
-    setStartDate(datesArr[0]);
-    setEndDate(datesArr[6]);
+    if (heatmapTab === 1) {
+      const datesArr = [];
+      const weeks = weeksCount(year, month);
+      for (let i = 0; i < weeks; i++) {
+        const weekDates = getWeekDates(year, month, i + 1);
+        datesArr.push(weekDates);
+      }
+      setBlockDates(datesArr);
+      setStartDate(datesArr[0][0]);
+      setEndDate(datesArr[weeks - 1][6]);
+    } else if (heatmapTab === 2) {
+      const datesArr = getWeekDates(year, month, weekNo);
+      setBlockDates(datesArr);
+      setStartDate(datesArr[0]);
+      setEndDate(datesArr[6]);
+    }
   };
 
   // 블록 생성
   const createBlocks = () => {
-    const arr = [];
-    for (let i = 0; i < 7; i++) {
-      if (minariRecord) {
-        arr.push({
-          index: i,
-          date: blockDates[i],
-          done: minariRecord[i].isExisted,
-          active: false,
-          questionId: minariRecord[i].questionId,
-        });
+    // const blockCount = heatmapTab === 1 ? daysOfMonth(currentYear, Number(selectedBarDateOption.value) + 2) : 7;
+    if (heatmapTab === 1) {
+      const arr: BlockType[][] = [];
+      blockDates.forEach((block) => {
+        const weekBlock = [];
+        for (let i = 0; i < 7; i++) {
+          if (minariRecord) {
+            weekBlock.push({
+              index: i,
+              date: block[i],
+              done: minariRecord[i].isExisted,
+              active: false,
+              questionId: minariRecord[i].questionId,
+            });
+          }
+        }
+        arr.push(weekBlock);
+      });
+      setMonthBlocks(arr);
+    } else if (heatmapTab === 2) {
+      const arr = [];
+      for (let i = 0; i < 7; i++) {
+        if (minariRecord) {
+          arr.push({
+            index: i,
+            date: blockDates[i],
+            done: minariRecord[i].isExisted,
+            active: false,
+            questionId: minariRecord[i].questionId,
+          });
+        }
       }
+      setBlocks(arr);
     }
-    setBlocks(arr);
   };
 
   // 블록 클릭
@@ -116,9 +162,10 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
         b[prevActive].active = false;
       }
       b[block.index].active = true;
+      const blockDate = b[block.index].date;
       setBlocks([...b]);
       setSelectedBlockQuesId(b[block.index].questionId);
-      setSelectedBlockDate(b[block.index].date);
+      setSelectedBlockDate(typeof blockDate === 'string' ? blockDate : '');
     }
   };
 
@@ -128,7 +175,7 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
     setMapLoading(true);
     setDateOptions(currentYear, currentMonth);
     dateSettings(currentYear, currentMonth, currentWeek);
-  }, []);
+  }, [heatmapTab]);
   useEffect(() => {
     const currentWeekNo = weekOfMonth(currentYear, currentMonth, currentDay);
     setSelectedBarDateOption(barDateOptions[currentWeekNo - 1]);
@@ -166,8 +213,9 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
       mapLoading,
       userData,
       isSeedLimitReached,
+      monthBlocks,
     }),
-    [heatmapTab, setDateOptions, selectedBarDateOption, barDateOptions, blocks],
+    [heatmapTab, setDateOptions, selectedBarDateOption, barDateOptions, blocks, monthBlocks],
   );
 
   return <UserHeatmapContext.Provider value={value}>{children}</UserHeatmapContext.Provider>;
