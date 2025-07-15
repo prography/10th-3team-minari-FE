@@ -1,7 +1,7 @@
 import './globals.css';
 import './common.css';
 import Providers from '@/contexts/Providers';
-import {GoogleAnalytics} from '@next/third-parties/google';
+import {GoogleAnalytics, GoogleTagManager} from '@next/third-parties/google';
 import {ModalClient} from '@/components/Modal/ModalClient';
 import {ToastClient} from '@/components/Toast/ToastClient';
 import {MediaStreamEndHandler} from '@/components/MediaStreamEndHandler';
@@ -75,6 +75,9 @@ export default function RootLayout({
         <ModalClient />
       </body>
       <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ? process.env.NEXT_PUBLIC_GA_ID : ''} />
+      <GoogleTagManager
+        gtmId={process.env.NEXT_PUBLIC_GTM_ID ? process.env.NEXT_PUBLIC_GTM_ID : ''}
+      />
     </html>
   );
 }
