@@ -1,7 +1,7 @@
 import styles from './ProfileCard.module.css';
 import Image from 'next/image';
 import ProfileMinari from '@/assets/icon/profile-minari.svg';
-import Pen from '@/assets/icon/pen-gray.png';
+// import Pen from '@/assets/icon/pen-gray.png';
 
 interface ProfileCardProps {
   name: string | undefined;
@@ -20,10 +20,10 @@ const ProfileCard = ({name, domain, email, uuid, days}: ProfileCardProps) => {
             <div className="label-lg txt-white">
               {name}님<span className="label-lg txt-inverse-gray mg-left-12">{uuid}</span>
             </div>
-            <div className={styles['edit-profile__button']}>
-              <Image src={Pen} alt="" />
-              <span className="label-md txt-inverse-gray">프로필 수정</span>
-            </div>
+            {/*<div className={styles['edit-profile__button']}>*/}
+            {/*  <Image src={Pen} alt="" />*/}
+            {/*  <span className="label-md txt-inverse-gray">프로필 수정</span>*/}
+            {/*</div>*/}
           </div>
           <div className="body-md">
             {domain} | 미나리 {days}일차
