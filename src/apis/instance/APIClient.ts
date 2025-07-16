@@ -176,6 +176,10 @@ class APIClient {
           redirect('/401');
         }
         throw new Error(message);
+      } else {
+        if (errorCode === 'C006') {
+          window.dispatchEvent(new CustomEvent('deletedUser', {detail: message}));
+        }
       }
 
       console.error(
