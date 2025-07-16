@@ -50,13 +50,15 @@ const KakaoRedirectPage = () => {
       .catch((e) => {
         console.log(e, '카카오 로그인 에러 발생');
         localStorage.clear();
-        open(
-          <Modal
-            title={`처음 뵙는 것 같아요.\n당~시인은 누구십니까?`}
-            rightButton={<Button onClick={onClickErrorModal}>나 소개하러 가기</Button>}
-          />,
-          true,
-        );
+        open({
+          modal: (
+            <Modal
+              title={`처음 뵙는 것 같아요.\n당~시인은 누구십니까?`}
+              rightButton={<Button onClick={onClickErrorModal}>나 소개하러 가기</Button>}
+            />
+          ),
+          disableBackdropClick: true,
+        });
       });
   }, [code]);
   return <Loader />;

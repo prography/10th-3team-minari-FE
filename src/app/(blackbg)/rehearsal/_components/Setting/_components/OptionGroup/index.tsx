@@ -37,15 +37,17 @@ const OptionGroup = () => {
   };
 
   const handleClickOpenModal = () => {
-    opneModal(
-      <Modal
-        title={'앗 씨앗이 부족해요.'}
-        rightButton={<Button onClick={handleBuySeeds}>{'씨앗 사러 가기'}</Button>}
-      >
-        <p>더 멋진 답변을 준비할 수 있어요.</p>
-        <p>{'씨앗을 사러 가볼까요?'}</p>
-      </Modal>,
-    );
+    opneModal({
+      modal: (
+        <Modal
+          title={'앗 씨앗이 부족해요.'}
+          rightButton={<Button onClick={handleBuySeeds}>{'씨앗 사러 가기'}</Button>}
+        >
+          <p>더 멋진 답변을 준비할 수 있어요.</p>
+          <p>{'씨앗을 사러 가볼까요?'}</p>
+        </Modal>
+      ),
+    });
   };
 
   return (
