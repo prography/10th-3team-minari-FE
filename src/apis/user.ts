@@ -64,6 +64,11 @@ export const deleteUser = async () => {
   return await fetch.delete<string>(`/users/me`);
 };
 
+// 사용자 탈퇴 복구
+export const activateUser = async () => {
+  return await fetch.post<string>(`/users/activate`);
+};
+
 export interface UsersReponse {
   id: number;
   email: string;
