@@ -17,10 +17,10 @@ export const metadata: Metadata = {
     default: '미나리',
     template: '미나리 | %s',
   },
-  description: "미래의 나를 위한 리허설 '미나리'에서 기술 면접을 준비해보세요!",
+  description: "'미나리'는 미래의 나를 위한 리허설 플랫폼입니다. 기술 면접을 연습해보세요!",
   keywords: '미나리, 미래의 나를 위한 리허설, 기술면접',
   openGraph: {
-    title: '미나리 : 미래의 나를 위한 리허설',
+    title: '미나리 | 미래의 나를 위한 리허설',
     description: '미래를 위해 미나리에서 기술 면접을 준비해보세요.',
     url: 'https://minari-official.com',
     images: [
