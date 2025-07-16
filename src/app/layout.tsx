@@ -64,10 +64,9 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"
         />
-        <meta
-          name="google-adsense-account"
-          content={process.env.NEXT_PUBLIC_CA_PUB_ID ? process.env.NEXT_PUBLIC_CA_PUB_ID : ''}
-        />
+        {process.env.NEXT_PUBLIC_CA_PUB_ID && (
+          <meta name="google-adsense-account" content={process.env.NEXT_PUBLIC_CA_PUB_ID} />
+        )}
       </head>
       <body>
         <Providers>
@@ -80,10 +79,10 @@ export default function RootLayout({
           <ModalClient />
         </Providers>
       </body>
-      <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID ? process.env.NEXT_PUBLIC_GA_ID : ''} />
-      <GoogleTagManager
-        gtmId={process.env.NEXT_PUBLIC_GTM_ID ? process.env.NEXT_PUBLIC_GTM_ID : ''}
-      />
+      {process.env.NEXT_PUBLIC_GA_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />}
+      {process.env.NEXT_PUBLIC_GTM_ID && (
+        <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
+      )}
       <Script
         async
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_CA_PUB_ID}`}
