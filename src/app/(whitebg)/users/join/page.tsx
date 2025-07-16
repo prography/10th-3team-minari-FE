@@ -96,22 +96,25 @@ const JoinPage = () => {
       userStore.setIsUserRegistered(true);
       setStep(4);
     }
+
     if (isError) {
-      open(
-        <Modal
-          title="회원가입 실패"
-          rightButton={
-            <Button
-              onClick={() => {
-                location.reload();
-              }}
-            >
-              확인
-            </Button>
-          }
-        />,
-        true,
-      );
+      open({
+        modal: (
+          <Modal
+            title="회원가입 실패"
+            rightButton={
+              <Button
+                onClick={() => {
+                  location.reload();
+                }}
+              >
+                확인
+              </Button>
+            }
+          />
+        ),
+        disableBackdropClick: true,
+      });
     }
   }, [isSuccess, isError]);
 

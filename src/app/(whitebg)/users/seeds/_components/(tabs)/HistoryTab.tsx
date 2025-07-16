@@ -41,16 +41,18 @@ const HistoryTab = () => {
               text: '환불',
               disabled: value.refund,
               onClick: () => {
-                open(
-                  <QRCodeModal
-                    order={order}
-                    uuid={userData?.uuid ?? ''}
-                    title="구매 취소/환불이 필요하신가요?"
-                    subTitle="구매 후 7일 이내의 미사용 씨앗만 되어요."
-                  />,
-                  false,
-                  true,
-                );
+                open({
+                  modal: (
+                    <QRCodeModal
+                      order={order}
+                      uuid={userData?.uuid ?? ''}
+                      title="구매 취소/환불이 필요하신가요?"
+                      subTitle="구매 후 7일 이내의 미사용 씨앗만 되어요."
+                    />
+                  ),
+                  disableBackdropClick: false,
+                  historyStackPush: true,
+                });
               },
             },
           ];

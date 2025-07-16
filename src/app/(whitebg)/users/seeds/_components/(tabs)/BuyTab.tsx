@@ -38,16 +38,18 @@ const BuyTab = () => {
               type: 'button',
               text: `${value.fakePrice}원`,
               onClick: () => {
-                open(
-                  <QRCodeModal
-                    order={order}
-                    uuid={userData?.uuid ?? ''}
-                    title="원하는 씨앗을 선택하셨나요?"
-                    subTitle="최대 1시간 이내로 씨앗을 보내드릴게요."
-                  />,
-                  false,
-                  true,
-                );
+                open({
+                  modal: (
+                    <QRCodeModal
+                      order={order}
+                      uuid={userData?.uuid ?? ''}
+                      title="원하는 씨앗을 선택하셨나요?"
+                      subTitle="최대 1시간 이내로 씨앗을 보내드릴게요."
+                    />
+                  ),
+                  disableBackdropClick: false,
+                  historyStackPush: true,
+                });
               },
             },
           ];
