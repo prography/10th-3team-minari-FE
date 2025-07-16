@@ -21,9 +21,13 @@ export default function Page() {
         <div className={styles['hero__container__wrap']}>
           <div className={styles['hero__container']}>
             <div className={styles['hero__text']}>
-              <div className="display-md txt-primary">
-                미나리와 함께 <Image src={Minari} alt="" className="mg-left-4" width={34} />
-              </div>
+              <h1
+                className="display-md txt-primary"
+                style={{display: 'flex', alignItems: 'center'}}
+              >
+                미나리와 함께
+                <Image src={Minari} alt="" className="mg-left-4" width={34} />
+              </h1>
               <div className={styles['hero__text-split__wrap']}>
                 <div className={`${styles['hero__text-everyday']} display-md`}>
                   <div className="txt-primary">매일 한줄의 질문으로</div>
@@ -46,7 +50,7 @@ export default function Page() {
         <div className={styles['desc-layout__container']}>
           <div className={styles['desc__container']}>
             <div className="title-sm">WHO ARE WE?</div>
-            <div className="display-sm mg-top-16">미래의 나를 위한 리허설</div>
+            <h2 className="display-sm mg-top-16">미래의 나를 위한 리허설</h2>
             <div className={styles['desc__image__wrap']}>
               <div>
                 <div
