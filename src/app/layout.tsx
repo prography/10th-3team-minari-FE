@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import type {Metadata} from 'next';
 import Script from 'next/script';
 import * as process from 'node:process';
+import {DeletedUserHandler} from '@/components/DeletedUserHandler';
 
 export const metadata: Metadata = {
   title: {
@@ -73,6 +74,7 @@ export default function RootLayout({
           <Header />
           <MediaStreamEndHandler />
           <TokenExpirationHandler />
+          <DeletedUserHandler />
           {children}
           <Footer />
           <ToastClient />
