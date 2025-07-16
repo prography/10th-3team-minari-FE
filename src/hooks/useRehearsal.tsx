@@ -24,25 +24,27 @@ const useRehearsal = () => {
   const {open: opneModal, close: closeModal} = useModalStore();
 
   const handleErrorModal = () => {
-    opneModal(
-      <Modal
-        title="잠시 후 다시 도전해주세요"
-        rightButton={
-          <Button
-            onClick={() => {
-              handleIsSetting();
-              closeModal();
-            }}
-          >
-            계속
-          </Button>
-        }
-      >
-        <p>알 수 없는 오류가 발생했어요.</p>
-        <p>다시 한 번 도전해볼까요?</p>
-      </Modal>,
-      true,
-    );
+    opneModal({
+      modal: (
+        <Modal
+          title="잠시 후 다시 도전해주세요"
+          rightButton={
+            <Button
+              onClick={() => {
+                handleIsSetting();
+                closeModal();
+              }}
+            >
+              계속
+            </Button>
+          }
+        >
+          <p>알 수 없는 오류가 발생했어요.</p>
+          <p>다시 한 번 도전해볼까요?</p>
+        </Modal>
+      ),
+      disableBackdropClick: true,
+    });
   };
 
   const handleRearsalStart = () => {

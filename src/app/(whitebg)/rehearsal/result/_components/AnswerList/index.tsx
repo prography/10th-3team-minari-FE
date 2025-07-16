@@ -32,19 +32,23 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
   };
 
   const handleClickOpenModal = () => {
-    opneModal(
-      <Modal
-        title={isSeedLimitReached ? '앗! 씨앗이 부족해요.' : '지금 답변이 아쉬우신가요?'}
-        rightButton={
-          <Button onClick={isSeedLimitReached ? handleBuySeeds : handleReTry}>
-            {isSeedLimitReached ? '씨앗 사러 가기' : '다시 도전하기'}
-          </Button>
-        }
-      >
-        <p>더 멋진 답변을 준비할 수 있어요.</p>
-        <p>{isSeedLimitReached ? '씨앗을 사러 가볼까요?' : '결과가 나오면 씨앗 1개가 사용돼요.'}</p>
-      </Modal>,
-    );
+    opneModal({
+      modal: (
+        <Modal
+          title={isSeedLimitReached ? '앗! 씨앗이 부족해요.' : '지금 답변이 아쉬우신가요?'}
+          rightButton={
+            <Button onClick={isSeedLimitReached ? handleBuySeeds : handleReTry}>
+              {isSeedLimitReached ? '씨앗 사러 가기' : '다시 도전하기'}
+            </Button>
+          }
+        >
+          <p>더 멋진 답변을 준비할 수 있어요.</p>
+          <p>
+            {isSeedLimitReached ? '씨앗을 사러 가볼까요?' : '결과가 나오면 씨앗 1개가 사용돼요.'}
+          </p>
+        </Modal>
+      ),
+    });
   };
 
   useEffect(() => {

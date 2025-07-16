@@ -20,15 +20,17 @@ export function TokenExpirationHandler() {
       const customEvent = e as CustomEvent<string>;
       const errorMessage = customEvent.detail;
 
-      open(
-        <Modal
-          title="다시 로그인해주세요."
-          rightButton={<Button onClick={handleTokenExpired}>확인</Button>}
-        >
-          {errorMessage}
-        </Modal>,
-        true,
-      );
+      open({
+        modal: (
+          <Modal
+            title="다시 로그인해주세요."
+            rightButton={<Button onClick={handleTokenExpired}>확인</Button>}
+          >
+            {errorMessage}
+          </Modal>
+        ),
+        disableBackdropClick: true,
+      });
     };
 
     window.addEventListener('tokenExpired', eventListener);

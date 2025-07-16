@@ -67,13 +67,15 @@ const PaymentsPage = () => {
   }, [data]);
 
   const onClickPayment = () => {
-    open(
-      <CheckModal
-        form={rewardForm}
-        onClickRightButton={onClickFetchPostPayment}
-        onClickLeftButton={close}
-      />,
-    );
+    open({
+      modal: (
+        <CheckModal
+          form={rewardForm}
+          onClickRightButton={onClickFetchPostPayment}
+          onClickLeftButton={close}
+        />
+      ),
+    });
   };
   const toastStore = useToastStore();
   const onClickFetchPostPayment = () => {

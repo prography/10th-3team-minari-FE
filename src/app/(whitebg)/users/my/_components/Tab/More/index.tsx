@@ -33,20 +33,22 @@ const MoreTab = () => {
 
   // 탈퇴 클릭 >> 확인 모달
   const onClickWithdraw = async () => {
-    open(
-      <Modal
-        title="정말 계정을 탈퇴 하시겠어요?"
-        leftButton={
-          <Button onClick={close} theme="secondary">
-            취소
-          </Button>
-        }
-        rightButton={<Button onClick={fetchDeleteUser}>계속</Button>}
-      >
-        <p>가지고 있는 모든 혜택이 사라져요.</p>
-        <p>진행 이후 7일 이내에 복구가 가능해요.</p>
-      </Modal>,
-    );
+    open({
+      modal: (
+        <Modal
+          title="정말 계정을 탈퇴 하시겠어요?"
+          leftButton={
+            <Button onClick={close} theme="secondary">
+              취소
+            </Button>
+          }
+          rightButton={<Button onClick={fetchDeleteUser}>계속</Button>}
+        >
+          <p>가지고 있는 모든 혜택이 사라져요.</p>
+          <p>진행 이후 7일 이내에 복구가 가능해요.</p>
+        </Modal>
+      ),
+    });
   };
 
   // 탈퇴
@@ -54,14 +56,16 @@ const MoreTab = () => {
     await deleteUser()
       .then((response) => {
         if (response?.code === '200') {
-          open(
-            <Modal
-              title="탈퇴가 정상적으로 완료되었습니다"
-              rightButton={<Button onClick={allClear}>처음으로</Button>}
-            >
-              <p>그동안 미나리를 이용해주셔서 감사합니다.</p>
-            </Modal>,
-          );
+          open({
+            modal: (
+              <Modal
+                title="탈퇴가 정상적으로 완료되었습니다"
+                rightButton={<Button onClick={allClear}>처음으로</Button>}
+              >
+                <p>그동안 미나리를 이용해주셔서 감사합니다.</p>
+              </Modal>
+            ),
+          });
         }
       })
       .catch(() => {
