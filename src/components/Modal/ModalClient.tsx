@@ -6,7 +6,8 @@ import {createPortal} from 'react-dom';
 import styles from './Modal.module.css';
 
 export const ModalClient = () => {
-  const {modal, isOpen, close, disableBackdropClick, historyStackPush} = useModalStore();
+  const {modal, isOpen, close, disableBackdropClick, historyStackPush, onBackdropClick} =
+    useModalStore();
 
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -46,6 +47,7 @@ export const ModalClient = () => {
     if (disableBackdropClick) return;
 
     if (modalRef.current === e.target) {
+      onBackdropClick?.();
       close();
     }
   };
