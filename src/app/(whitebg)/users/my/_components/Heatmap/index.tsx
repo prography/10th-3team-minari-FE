@@ -17,7 +17,9 @@ const Heatmap = () => {
       ) : (
         <>
           <TopBar />
-          <Blocks />
+          <div style={{overflow: 'auto'}}>
+            <Blocks />
+          </div>
           <BlockDetail />
         </>
       )}
