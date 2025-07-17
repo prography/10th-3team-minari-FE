@@ -1,4 +1,5 @@
 'use client';
+
 import Spacing from '@/components/Spacing';
 import Question from './_components/Question';
 import ListRow from './_components/ListRow';
@@ -10,10 +11,12 @@ import Button from '@/components/Button';
 import {useAnswer} from '@/hooks/queries/useAnswer';
 import {useQuestionId} from '@/hooks/queries/useQuestionId';
 import {useRouter} from 'next/navigation';
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useSeeds} from '@/hooks/queries/useSeeds';
+import usePromotionsModal from './hooks/usePromotionsModal';
 
 const ReharsalResultPage = () => {
+  const queryStrRef = useRef('');
   const [queryId, setQueryId] = useState<string | null>(null);
   const {data: questionId} = useQuestionId();
   const {data: answer, refetch: answerRefetch} = useAnswer(
@@ -21,14 +24,14 @@ const ReharsalResultPage = () => {
   );
   const router = useRouter();
   const {refetch: seedsRefetch} = useSeeds();
+  usePromotionsModal();
 
-  let queryStr = '';
   useEffect(() => {
-    if (typeof window !== undefined) {
-      queryStr = window.location.search.split('=')[1];
-      setQueryId(queryStr);
+    if (typeof window !== 'undefined') {
+      queryStrRef.current = window.location.search.split('=')[1];
+      setQueryId(queryStrRef.current);
     }
-  }, [queryStr]);
+  }, []);
 
   useEffect(() => {
     seedsRefetch();
