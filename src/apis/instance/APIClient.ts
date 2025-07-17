@@ -177,7 +177,7 @@ class APIClient {
         }
         throw new Error(message);
       } else {
-        if (errorCode === 'C006') {
+        if (errorCode === 'C006' && typeof window !== 'undefined') {
           window.dispatchEvent(new CustomEvent('deletedUser', {detail: message}));
         }
       }
