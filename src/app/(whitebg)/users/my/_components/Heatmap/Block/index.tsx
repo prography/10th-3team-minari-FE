@@ -6,13 +6,15 @@ import {BlockType} from '@/contexts/UserHeatmapProvider';
 
 interface BlockProps {
   block: BlockType;
+  height?: number;
   onClickBlock: (block: BlockType) => void;
 }
-const Block = ({block, onClickBlock}: BlockProps) => {
+const Block = ({block, height, onClickBlock}: BlockProps) => {
   const {dateFormatterKorean} = useDate();
 
   return (
     <div
+      style={{height: height ? `${height}px` : ''}}
       className={`${styles.blocks} ${block.done ? `${styles.done}` : ''} ${block.active ? `${styles.active}` : ''}`}
       onClick={() => {
         onClickBlock(block);
@@ -22,7 +24,9 @@ const Block = ({block, onClickBlock}: BlockProps) => {
         data-tooltip-id="minari-tooltip"
         data-tooltip-content={dateFormatterKorean(typeof block.date === 'string' ? block.date : '')}
       >
-        {block.active && <Image src={Check} alt="" />}
+        {block.active && (
+          <Image src={Check} alt="" width={height ? 14 : 23} height={height ? 14 : 23} />
+        )}
       </a>
     </div>
   );
