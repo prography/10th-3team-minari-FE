@@ -1,6 +1,14 @@
 .container {
   display: flex;
-  width: 100%;
+  overflow: auto;
+  max-width: 1140px;
+}
+
+.weekday-label {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 26px 4px 0 0;
 }
 
 .week-number-label {
@@ -30,6 +38,18 @@
   width: 100%;
 }
 
+.year-blocks__wrap {
+  display: flex;
+  gap: 2px;
+  padding-bottom: 14px;
+  overflow-x: auto;
+}
+.year-blocks {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
 .blocks__wrap {
   display: flex;
   justify-content: space-evenly;
@@ -43,6 +63,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
 }
 .blocks > a {
   height: 23px;
