@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     url: 'https://minari-official.com',
     images: [
       {
-        url: '/OG.png',
+        url: 'https://minari-official.com/OG.png',
         alt: '미나리 로고',
         width: 1200,
         height: 630,
