@@ -1,15 +1,10 @@
 .container {
-  display: flex;
   padding: var(--spacing-24, 24px);
-  justify-content: space-between;
-  align-items: flex-end;
-  gap: var(--spacing-8, 8px);
-  align-self: stretch;
   border-radius: var(--border-radius-lg, 8px);
   border: 1px solid var(--color-border-secondary, #e5e5e5);
   background: var(--color-bg-tertiary, #f5f5f5);
-
   margin-top: 32px;
+  box-sizing: border-box;
 }
 
 .title {
@@ -20,12 +15,13 @@
 
 .keywords__wrap {
   display: flex;
-  gap: 8px;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .keyword {
   flex-shrink: 0;
-  margin-top: 8px;
+  margin: 8px 8px 0 0;
   display: flex;
   height: 32px;
   box-sizing: border-box;
@@ -36,6 +32,16 @@
   border-radius: var(--border-radius-rounded, 999px);
   border: var(--border-width-md, 1.5px) solid var(--color-border-interactive-secondary, #737373);
   background: var(--color-bg-interactive-secondary, #fafafa);
+}
+
+.texts__wrap {
+  width: calc(100% - 250px);
+}
+
+.bottom-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .buttons__wrap {
