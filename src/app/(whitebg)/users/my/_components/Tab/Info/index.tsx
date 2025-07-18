@@ -8,13 +8,7 @@ const InfoTab = () => {
   return (
     <div className="mg-top-24">
       <InfoBox>
-        <ProfileCard
-          name={userData?.name}
-          domain={userData?.domain === 'FRONTEND' ? '프론트엔드' : '백엔드'}
-          email={userData?.email}
-          uuid={userData?.uuid}
-          days={userData?.dayCount}
-        />
+        <ProfileCard />
       </InfoBox>
       <div className="mg-top-24 title-sm">{userData?.name}님의 미나리밭</div>
       <div className="body-md">

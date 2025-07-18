@@ -124,13 +124,7 @@ const JoinPage = () => {
           {step === 1 && <JoinReceiveNotification />}
           {step === 2 && <JoinEmailVerification />}
           {step === 3 && <JoinExperience />}
-          {step === 4 && (
-            <JoinCompleted
-              name={userStore.username}
-              email={userStore.userEmail}
-              domain={userStore.userDomain}
-            />
-          )}
+          {step === 4 && <JoinCompleted domain={userStore.userDomain} />}
         </div>
         <div className={styles.buttons}>
           {step > 0 && step < 4 && goBackButton}
