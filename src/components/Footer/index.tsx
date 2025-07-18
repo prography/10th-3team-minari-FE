@@ -58,7 +58,7 @@ const Footer = () => {
             <span className="label-md">문의하기</span>
             <ul>
               <li>
-                <span>help.minari.com</span>
+                <span>help.minari@gmail.com</span>
               </li>
             </ul>
           </div>
