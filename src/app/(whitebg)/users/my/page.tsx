@@ -13,19 +13,21 @@ const MyPage = () => {
   const router = useRouter();
 
   return (
-    <div className={styles.container}>
-      <TabButtonWrapper>
-        {['info', 'more'].map((t) => (
-          <TabButton key={t} onClick={() => router.push(`?tabs=${t}`)} active={tab === t}>
-            {t === 'info' ? '마이페이지' : '더보기'}
-          </TabButton>
-        ))}
-      </TabButtonWrapper>
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <TabButtonWrapper>
+          {['info', 'more'].map((t) => (
+            <TabButton key={t} onClick={() => router.push(`?tabs=${t}`)} active={tab === t}>
+              {t === 'info' ? '마이페이지' : '더보기'}
+            </TabButton>
+          ))}
+        </TabButtonWrapper>
 
-      <UserHeatmapProvider>
-        {tab === 'info' && <InfoTab />}
-        {tab === 'more' && <MoreTab />}
-      </UserHeatmapProvider>
+        <UserHeatmapProvider>
+          {tab === 'info' && <InfoTab />}
+          {tab === 'more' && <MoreTab />}
+        </UserHeatmapProvider>
+      </div>
     </div>
   );
 };
