@@ -29,13 +29,13 @@ const TextSlider = () => {
     return (
       <span className={styles['slide-texts']}>
         <span className="body-lg pd-left-24">1등 개발자 취업도우미</span>
-        <Image src={MinariGray} alt="logo" />
+        <Image src={MinariGray} width={32} height={26} alt="logo" />
         <span className="body-lg">미래의 나를 위한 리허설 ㅣ 미나리</span>
-        <Image src={MinariGray} alt="logo" />
+        <Image src={MinariGray} width={32} height={26} alt="logo" />
         <span className="body-lg">매일 도착하는 질문을 통한 꾸준한 성장</span>
-        <Image src={MinariGray} alt="logo" />
+        <Image src={MinariGray} width={32} height={26} alt="logo" />
         <span className="body-lg">1등 개발자 취업도우미</span>
-        <Image src={MinariGray} alt="logo" />
+        <Image src={MinariGray} width={32} height={26} alt="logo" />
       </span>
     );
   };
@@ -43,11 +43,11 @@ const TextSlider = () => {
     return (
       <span className={styles['slide-texts']}>
         <span className="body-lg pd-left-24">미래의 나를 위한 리허설 ㅣ 미나리</span>
-        <Image src={MinariBlack} alt="logo" />
+        <Image src={MinariBlack} width={32} height={26} alt="logo" />
         <span className="body-lg">매일 도착하는 질문을 통한 꾸준한 성장</span>
-        <Image src={MinariBlack} alt="logo" />
+        <Image src={MinariBlack} width={32} height={26} alt="logo" />
         <span className="body-lg">1등 개발자 취업도우미</span>
-        <Image src={MinariBlack} alt="logo" />
+        <Image src={MinariBlack} width={32} height={26} alt="logo" />
       </span>
     );
   };
