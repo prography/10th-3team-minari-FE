@@ -45,6 +45,8 @@
 
 .user-image {
   border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1;
 }
 @media screen and (max-width: 768px) {
   .wrapper {
