@@ -49,30 +49,32 @@ const BlockDetail = () => {
     <>
       {selectedBlockDate != '' && questionDetail && (
         <div className={styles.container}>
-          <div>
-            <div className={styles.title}>
-              <Image src={Calendar} alt="calendar-image" />
-              <span className="txt-secondary body-sm">
-                {dateFormatter(selectedBlockDate)}의 질문 ∙{' '}
-                {questionDetail?.domain === 'FRONTEND' ? '프론트엔드' : '백엔드'}
-              </span>
-            </div>
-            <div className={styles['keywords__wrap']}>
-              {questionDetail?.tag.map((tag, index) => (
-                <div key={index} className={styles.keyword}>
-                  {tag}
-                </div>
-              ))}
-            </div>
-            <div className="txt-secondary label-lg mg-top-8">{questionDetail?.content}</div>
+          <div className={styles.title}>
+            <Image src={Calendar} alt="calendar-image" />
+            <span className="txt-secondary body-sm">
+              {dateFormatter(selectedBlockDate)}의 질문 ∙{' '}
+              {questionDetail?.domain === 'FRONTEND' ? '프론트엔드' : '백엔드'}
+            </span>
           </div>
-          <div className={styles['buttons__wrap']}>
-            <Button theme="white" border size="p-4-8" onClick={onClickResult}>
-              <span className="body-md txt-secondary">결과 보러가기</span>
-            </Button>
-            <Button theme="black" size="p-4-8" onClick={onClickRetry}>
-              <span className="body-md txt-brand">다시 도전하기</span>
-            </Button>
+          <div className={styles['keywords__wrap']}>
+            {questionDetail?.tag.map((tag, index) => (
+              <span key={index} className={styles.keyword}>
+                {tag}
+              </span>
+            ))}
+          </div>
+          <div className={styles['bottom-container']}>
+            <div className={styles['texts__wrap']}>
+              <div className="txt-secondary label-lg mg-top-8">{questionDetail?.content}</div>
+            </div>
+            <div className={styles['buttons__wrap']}>
+              <Button theme="white" border size="p-4-8" onClick={onClickResult}>
+                <span className="body-md txt-secondary">결과 보러가기</span>
+              </Button>
+              <Button theme="black" size="p-4-8" onClick={onClickRetry}>
+                <span className="body-md txt-brand">다시 도전하기</span>
+              </Button>
+            </div>
           </div>
         </div>
       )}
