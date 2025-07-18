@@ -80,8 +80,8 @@ export default function Page() {
                   <span>모범 답안 확인</span>
                 </div>
                 <div className="body-lg">
-                  <div className="txt-tertiary">면접을 준비 중이신가요?</div>
-                  <div className="txt-tertiary">미나리가 설정하신 시간에 원하시는 카테고리의</div>
+                  <div className="txt-tertiary">내 질문이 맞는지 잘 모르겠어도 걱정마세요!</div>
+                  <div className="txt-tertiary">미나리가 얼마나 적합하게 말했는지</div>
                   <div className="txt-tertiary">질문을 보내드려요!</div>
                 </div>
               </div>
