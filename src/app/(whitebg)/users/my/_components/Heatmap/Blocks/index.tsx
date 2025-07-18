@@ -39,7 +39,7 @@ const Blocks = () => {
             {arrayBlocks.map((weekBlock, index) => (
               <div className={styles['year-blocks']} key={index}>
                 {weekBlock.map((block, index) => (
-                  <div className={styles['year-blocks']} key={index} style={{width: '16px'}}>
+                  <div key={index}>
                     <Block block={block} height={16} onClickBlock={onClickBlock} />
                   </div>
                 ))}
