@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: '미나리 | 미래의 나를 위한 리허설',
     description: '미래를 위해 미나리에서 기술 면접을 준비해보세요.',
+    siteName: '미나리',
     url: 'https://minari-official.com',
     images: [
       {
@@ -41,6 +42,9 @@ export const metadata: Metadata = {
       {url: '/favicon-24x24.png', sizes: '24x24', type: 'image/png'},
       {url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png'},
       {url: '/favicon-40x40.png', sizes: '40x40', type: 'image/png'},
+      {url: '/favicon-48x48.png', sizes: '48x48', type: 'image/png'},
+      {url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png'},
+      {url: '/favicon-144x144.png', sizes: '144x144', type: 'image/png'},
       {url: '/favicon.ico', type: 'image/x-icon'}, // fallback
     ],
     // apple: '/apple-touch-icon.png', - 180px / 180px 이 없음
