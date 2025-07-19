@@ -39,7 +39,7 @@ const CompleteModal = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.modal}>
-        <span className={`${styles.title} title-sm`}>고생하셨어요!</span>
+        <span className="title-sm">고생하셨어요!</span>
         <span className="body-lg">
           오늘 면접 결과를 면밀히 분석하고 있어요. 잠시만 기다려주세요!
         </span>
