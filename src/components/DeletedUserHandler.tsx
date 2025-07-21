@@ -23,14 +23,18 @@ export function DeletedUserHandler() {
       await activateUser()
         .then((response) => {
           if (response?.code === '200') {
-            open(
-              <Modal
-                title="계정이 복구 되었어요"
-                rightButton={<Button onClick={() => (window.location.href = '/')}>처음으로</Button>}
-              >
-                <p>다시 미나리를 심으러 가볼까요?</p>
-              </Modal>,
-            );
+            open({
+              modal: (
+                <Modal
+                  title="계정이 복구 되었어요"
+                  rightButton={
+                    <Button onClick={() => (window.location.href = '/')}>처음으로</Button>
+                  }
+                >
+                  <p>다시 미나리를 심으러 가볼까요?</p>
+                </Modal>
+              ),
+            });
           }
         })
         .catch(() => {
@@ -42,18 +46,20 @@ export function DeletedUserHandler() {
     };
 
     const eventListener = () => {
-      open(
-        <Modal
-          title="탈퇴된 계정이에요. 다시 복구하시겠어요?"
-          leftButton={
-            <Button theme="secondary" onClick={goMain}>
-              취소
-            </Button>
-          }
-          rightButton={<Button onClick={fetchUserActivate}>계속</Button>}
-        ></Modal>,
-        true,
-      );
+      open({
+        modal: (
+          <Modal
+            title="탈퇴된 계정이에요. 다시 복구하시겠어요?"
+            leftButton={
+              <Button theme="secondary" onClick={goMain}>
+                취소
+              </Button>
+            }
+            rightButton={<Button onClick={fetchUserActivate}>계속</Button>}
+          ></Modal>
+        ),
+        disableBackdropClick: true,
+      });
     };
 
     window.addEventListener('deletedUser', eventListener);
