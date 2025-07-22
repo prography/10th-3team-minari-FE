@@ -5,6 +5,12 @@
 .input__wrap {
   display: flex;
   gap: 12px;
+  min-width: 280px;
+}
+
+.input {
+  width: 100%;
+  display: block;
 }
 
 .button__wrap {
