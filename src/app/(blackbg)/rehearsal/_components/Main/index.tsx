@@ -27,15 +27,17 @@ const MainPage = () => {
         />
 
         <NotepadProvider>
-          <div className={styles.notepad_video_buttons_wrapper}>
-            <div className={styles.video_buttons_wrapper}>
-              <VideoStateProvider>
-                <Video />
-                <Buttons />
-              </VideoStateProvider>
+          <VideoStateProvider>
+            <div className={styles.notepad_video_buttons_wrapper}>
+              <div className={styles.video_notepad_wrapper}>
+                <div style={{flex: 1}}>
+                  <Video />
+                </div>
+                <Notepad />
+              </div>
+              <Buttons />
             </div>
-            <Notepad />
-          </div>
+          </VideoStateProvider>
         </NotepadProvider>
       </TimerProvider>
     </CompleteModalProvider>
