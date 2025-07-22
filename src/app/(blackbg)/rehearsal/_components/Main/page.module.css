@@ -1,4 +1,4 @@
-.video_buttons_wrapper {
+.notepad_video_buttons_wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -6,7 +6,9 @@
   flex: 1;
 }
 
-.notepad_video_buttons_wrapper {
+.video_notepad_wrapper {
   display: flex;
+  align-items: stretch;
+  width: 100%;
   gap: var(--spacing-24, 24px);
 }
