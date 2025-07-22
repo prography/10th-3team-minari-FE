@@ -1,11 +1,26 @@
-.textarea {
+.wrapper {
   width: 267px;
   max-height: 100%;
-  resize: none;
-  outline: none;
-  color: #ffffff;
   padding: var(--spacing-16, 16px);
   border-radius: var(--border-radius-lg, 8px);
   border: var(--border-width-sm, 1px) solid var(--color-border-interactive-secondary, #737373);
   background: var(--color-bg-inverse-bold, #525252);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.textarea {
+  resize: none;
+  outline: none;
+  border: none;
+  background: var(--color-bg-inverse-bold, #525252);
+  flex: 1;
+  width: 100%;
 }
