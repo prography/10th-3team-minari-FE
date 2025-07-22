@@ -109,17 +109,19 @@ const JoinEmailVerification = () => {
   return (
     <div className={styles.container}>
       <div className={`${styles['input__wrap']} pd-bottom-32`}>
-        <TextInput
-          label="이메일을 입력해주세요"
-          placeholder="ex) minari@gmail.com"
-          required={true}
-          value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}
-          onChange={(e) => setEmail(e.target.value)}
-          status={emailStatus}
-          helpMsgShow={emailMsgShow}
-          helpMsg={emailMsg}
-          disabled={joinForm.email !== null && joinForm.email !== ''}
-        />
+        <div className={styles['input']}>
+          <TextInput
+            label="이메일을 입력해주세요"
+            placeholder="ex) minari@gmail.com"
+            required={true}
+            value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}
+            onChange={(e) => setEmail(e.target.value)}
+            status={emailStatus}
+            helpMsgShow={emailMsgShow}
+            helpMsg={emailMsg}
+            disabled={joinForm.email !== null && joinForm.email !== ''}
+          />
+        </div>
         <div className={styles['button__wrap']}>
           <Button
             theme="secondary"
@@ -133,18 +135,20 @@ const JoinEmailVerification = () => {
       </div>
       {showVeriCode && (
         <div className={`${styles['input__wrap']}`}>
-          <TextInput
-            label="인증번호를 입력해주세요"
-            placeholder="메일에 적힌 숫자 6자리를 입력해주세요."
-            required={true}
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            type="number"
-            status={codeStatus}
-            helpMsg={codeMsg}
-            helpMsgShow={codeMsgShow}
-            disabled={codeSuccess}
-          />
+          <div className={styles['input']}>
+            <TextInput
+              label="인증번호를 입력해주세요"
+              placeholder="메일에 적힌 숫자 6자리를 입력해주세요."
+              required={true}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              type="number"
+              status={codeStatus}
+              helpMsg={codeMsg}
+              helpMsgShow={codeMsgShow}
+              disabled={codeSuccess}
+            />
+          </div>
           <div className={styles['button__wrap']}>
             <Button
               theme="secondary"

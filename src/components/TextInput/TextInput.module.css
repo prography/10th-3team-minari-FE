@@ -1,10 +1,14 @@
 .input__wrap {
   display: flex;
+  width: 100%;
+  max-width: 404px;
 }
 
 .input {
+  width: 100%;
+  max-width: 404px;
   display: flex;
-  width: 288px;
+  box-sizing: border-box;
   height: var(--spacing-48, 48px);
   padding: 0 16px;
   align-items: center;

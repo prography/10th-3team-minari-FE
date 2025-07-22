@@ -21,7 +21,7 @@ const JoinAgreement = () => {
       </Checkbox>
       <hr className={styles.divider} />
       <div className={styles['checkbox__wrap']}>
-        <div>
+        <div style={{flexShrink: 0}}>
           {checkItems.map((item, index) => (
             <div key={index} className={styles['checkbox__container']}>
               <Checkbox

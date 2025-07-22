@@ -7,17 +7,6 @@
   z-index: var(--z-index-info-box-content);
 }
 
-.bg-image__wrapper {
-  display: flex;
-  justify-content: flex-end;
-  position: relative;
-  bottom: 0;
-  top: -82px;
-}
-.bg-image__wrapper > * {
-  border-bottom-right-radius: 8px;
-}
-
 .text-section {
   width: 100%;
   margin-left: 12px;

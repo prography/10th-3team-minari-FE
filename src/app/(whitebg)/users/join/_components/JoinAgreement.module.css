@@ -1,6 +1,8 @@
 .checkbox__wrap {
   display: flex;
   justify-content: space-between;
+  flex-shrink: 0;
+  min-width: 320px;
 }
 
 .agreements__wrap > a {
@@ -35,10 +37,10 @@
 
 @media screen and (max-width: 650px) {
   .checkbox__container {
-    height: 46px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
+    /*height: 46px;*/
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*align-items: flex-start;*/
+    /*justify-content: center;*/
   }
 }

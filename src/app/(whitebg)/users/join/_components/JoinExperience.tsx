@@ -31,7 +31,7 @@ const JoinExperience = () => {
               }
               alt=""
             />
-            <div className="label-lg">{item.label}</div>
+            <div className="label-lg pre">{item.label}</div>
           </div>
         ))}
       </div>
@@ -48,7 +48,7 @@ const JoinExperience = () => {
             className={styles[`select__item${joinForm.domain === item.value ? '-active' : ''}`]}
             onClick={() => onClickCard('domain', item.value as UserDomain)}
           >
-            <div className="label-lg">{item.label}</div>
+            <div className="label-lg pre">{item.label}</div>
           </div>
         ))}
       </div>
