@@ -23,15 +23,17 @@ function JoinPageTitle(props: {step: number}) {
     },
   ];
   return (
-    <>
-      <div className="fx-align-center">
-        <div className="title-md txt-primary">{pageTexts[props.step].title}</div>
-        <Image src={Minari} alt="" className="mg-left-4" width={28} />
+    <div>
+      <div className="fx">
+        <span className="title-md txt-primary pre">{pageTexts[props.step].title}</span>
+        <span className="fx-align-center">
+          <Image src={Minari} alt="" className="mg-left-4" width={28} />
+        </span>
       </div>
       <div className="body-lg txt-secondary mg-top-4" style={{whiteSpace: 'pre'}}>
         {pageTexts[props.step].desc}
       </div>
-    </>
+    </div>
   );
 }
 

@@ -120,19 +120,17 @@ const JoinPage = () => {
 
   return (
     <>
-      <div>
-        <JoinPageTitle step={step} />
-        <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
-          {step === 0 && <JoinAgreement />}
-          {step === 1 && <JoinReceiveNotification />}
-          {step === 2 && <JoinEmailVerification />}
-          {step === 3 && <JoinExperience />}
-          {step === 4 && <JoinCompleted domain={userStore.userDomain} />}
-        </div>
-        <div className={styles.buttons}>
-          {step > 0 && step < 4 && goBackButton}
-          {step === 4 ? goHomeButton : goNextButton}
-        </div>
+      <JoinPageTitle step={step} />
+      <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
+        {step === 0 && <JoinAgreement />}
+        {step === 1 && <JoinReceiveNotification />}
+        {step === 2 && <JoinEmailVerification />}
+        {step === 3 && <JoinExperience />}
+        {step === 4 && <JoinCompleted domain={userStore.userDomain} />}
+      </div>
+      <div className={styles.buttons}>
+        {step > 0 && step < 4 && goBackButton}
+        {step === 4 ? goHomeButton : goNextButton}
       </div>
     </>
   );
