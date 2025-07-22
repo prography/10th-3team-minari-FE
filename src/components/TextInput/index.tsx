@@ -34,7 +34,7 @@ const TextInput = ({
     status === 'success' ? successIcon : status === 'warning' ? warningIcon : errorIcon;
   const helpMsgFormat = (
     <span className={`body-md ${styles['help-message']} ${styles[`help-message-${status}`]}`}>
-      <Image src={msgIcon} alt="" />
+      {status !== 'plain' && <Image src={msgIcon} alt="" />}
       {helpMsg}
     </span>
   );
