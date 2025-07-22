@@ -15,7 +15,7 @@ const JoinEmailVerification = () => {
 
   const [emailMsgShow, setEmailMsgShow] = useState(false);
   const [emailMsg, setEmailMsg] = useState('');
-  const [emailStatus, setEmailStatus] = useState<InputStatusType>();
+  const [emailStatus, setEmailStatus] = useState<InputStatusType>('plain');
 
   // 이메일 발송 (인증번호)
   const {fetchEmailVerification} = useUserEmailVerification({
@@ -111,6 +111,7 @@ const JoinEmailVerification = () => {
       <div className={`${styles['input__wrap']} pd-bottom-32`}>
         <TextInput
           label="이메일을 입력해주세요"
+          placeholder="ex) minari@gmail.com"
           required={true}
           value={joinForm.email && joinForm.email !== '' ? joinForm.email : email}
           onChange={(e) => setEmail(e.target.value)}
@@ -134,6 +135,7 @@ const JoinEmailVerification = () => {
         <div className={`${styles['input__wrap']}`}>
           <TextInput
             label="인증번호를 입력해주세요"
+            placeholder="메일에 적힌 숫자 6자리를 입력해주세요."
             required={true}
             value={code}
             onChange={(e) => setCode(e.target.value)}
