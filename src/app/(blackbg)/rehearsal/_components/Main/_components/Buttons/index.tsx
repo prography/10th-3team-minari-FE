@@ -4,7 +4,7 @@ import CircleArrowLeft from '@/assets/icon/circle-arrow-left.svg';
 import CirclePause from '@/assets/icon/circle-pause.svg';
 import CirclePlay from '@/assets/icon/circle-play.svg';
 import CircleStop from '@/assets/icon/circle-stop.svg';
-import Pen from '@/assets/icon/pen.svg';
+import Save from '@/assets/icon/save.svg';
 import useRehearsal from '@/hooks/useRehearsal';
 import styles from './Buttons.module.css';
 import {useTimer} from '@/contexts/TimerProvider';
@@ -25,7 +25,7 @@ const Buttons = () => {
   const {seconds, handlePause, handleRestart, handleStart, handleStop} = useTimer();
   const {videoState, handleCountStart, handleCountPause, handleCountStop, handleCountRestart} =
     useVideoState();
-  const {handleOpen, memo} = useNotepad();
+  const {memo} = useNotepad();
   const {handleOpen: ModalOpen} = useCompleteModal();
   const {data: questionId} = useQuestionId();
   const {userId} = useUserStore();
@@ -80,7 +80,7 @@ const Buttons = () => {
         <Button
           disabled={restartDisabled}
           onClick={restartClick}
-          iconRight={CircleArrowLeft}
+          iconLeft={CircleArrowLeft}
           theme="secondary"
         >
           처음부터
@@ -88,7 +88,7 @@ const Buttons = () => {
         <Button
           disabled={pauseDisabled}
           onClick={pauseClick}
-          iconRight={CirclePause}
+          iconLeft={CirclePause}
           theme="secondary"
         >
           일시정지
@@ -96,23 +96,18 @@ const Buttons = () => {
         <Button
           disabled={startDisabled}
           onClick={startClick}
-          iconRight={CirclePlay}
+          iconLeft={CirclePlay}
           theme="secondary"
         >
           시작
         </Button>
-        <Button
-          disabled={stopDisabled}
-          onClick={stopClick}
-          iconRight={CircleStop}
-          theme="secondary"
-        >
+        <Button disabled={stopDisabled} onClick={stopClick} iconLeft={CircleStop} theme="secondary">
           종료
         </Button>
       </div>
 
-      <Button onClick={handleOpen} iconRight={Pen}>
-        메모
+      <Button iconLeft={Save} theme="secondary">
+        메모 저장
       </Button>
     </div>
   );
