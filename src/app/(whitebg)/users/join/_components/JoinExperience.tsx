@@ -2,20 +2,32 @@ import styles from './JoinExperience.module.css';
 import Image from 'next/image';
 import {UserExperienceLevel, UserDomain} from '@/stores/userStore';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
-import {USER_DOMAINS, USER_EXPERIENCES, USER_EXPERIENCES_EXISTENCE} from '@/constants/user';
+import {
+  USER_DOMAINS,
+  USER_EXPERIENCES_EXISTENCE,
+  USER_EXPERIENCES_STUDY,
+  USER_EXPERIENCES_WORK,
+} from '@/constants/user';
 import {useState} from 'react';
 
 const JoinExperience = () => {
   const {joinForm, setJoinForm} = useUserJoinContext();
-  const [hasExperience, setHasExperience] = useState<boolean | null>(null);
-  const onClickCard = (key: string, value: UserExperienceLevel | UserDomain) => {
-    setJoinForm({...joinForm, [key]: value});
+  const [hasExperience, setHasExperience] = useState<string | null>(null);
+  const onClickCard = (value: UserDomain) => {
+    setJoinForm({...joinForm, ['domain']: value});
   };
-  const onClickExperience = (value: boolean) => {
-    setHasExperience(value);
-    if (!value) {
-      setJoinForm({...joinForm, studyExperienceLevel: 'NONE'});
-    }
+
+  const selectedExperience =
+    hasExperience === 'WORK' ? 'workExperienceLevel' : 'studyExperienceLevel';
+  const notSelectedExperience =
+    hasExperience === 'WORK' ? 'studyExperienceLevel' : 'workExperienceLevel';
+  const experienceCard = hasExperience === 'STUDY' ? USER_EXPERIENCES_STUDY : USER_EXPERIENCES_WORK;
+  const onClickExperience = (value: UserExperienceLevel) => {
+    setJoinForm({
+      ...joinForm,
+      [`${selectedExperience}`]: value,
+      [`${notSelectedExperience}`]: 'NONE',
+    });
   };
   return (
     <div>
@@ -29,7 +41,7 @@ const JoinExperience = () => {
             key={index}
             style={{width: '50%'}}
             className={styles[`select__item${hasExperience === item.value ? '-active' : ''}`]}
-            onClick={() => onClickExperience(item.value)}
+            onClick={() => setHasExperience(item.value)}
           >
             <div className="label-lg pre">{item.label}</div>
           </div>
@@ -37,20 +49,20 @@ const JoinExperience = () => {
       </div>
       {hasExperience && (
         <div className={styles['select__wrap']}>
-          {USER_EXPERIENCES.map((item, index) => (
+          {experienceCard.map((item, index) => (
             <div
               key={index}
               style={{width: '25%'}}
-              className={
+              className={`${
                 styles[
-                  `select__item${joinForm.studyExperienceLevel === item.value ? '-active' : ''}`
+                  `select__item${joinForm[`${selectedExperience}`] === item.value ? '-active' : ''}`
                 ]
-              }
-              onClick={() => onClickCard('studyExperienceLevel', item.value as UserExperienceLevel)}
+              } ${styles['select__item-detail']}`}
+              onClick={() => onClickExperience(item.value as UserExperienceLevel)}
             >
               <Image
                 src={
-                  joinForm.studyExperienceLevel === item.value
+                  joinForm[`${selectedExperience}`] === item.value
                     ? item.imageActive
                     : item.imageInactive
                 }
@@ -72,7 +84,7 @@ const JoinExperience = () => {
             key={index}
             style={{width: '50%'}}
             className={styles[`select__item${joinForm.domain === item.value ? '-active' : ''}`]}
-            onClick={() => onClickCard('domain', item.value as UserDomain)}
+            onClick={() => onClickCard(item.value as UserDomain)}
           >
             <div className="label-lg pre">{item.label}</div>
           </div>
