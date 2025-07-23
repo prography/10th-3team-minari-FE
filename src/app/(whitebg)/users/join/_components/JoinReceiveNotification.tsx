@@ -1,6 +1,6 @@
 import RadioButton from '@/components/RadioButton';
 import Image from 'next/image';
-import EmailSample from '@/assets/image/email-sample.png';
+import EmailSample from '@/assets/image/email-sample.svg';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import {useEffect, useState} from 'react';
 
@@ -21,8 +21,8 @@ const JoinReceiveNotification = () => {
 
   return (
     <div>
-      <div className="fx-center">
-        <Image src={EmailSample} alt="" width={320} height={380} />
+      <div className="fx-center mg-top-32 mg-bottom-12">
+        <Image src={EmailSample} alt="" />
       </div>
       <RadioButton
         name="subscribe-true"
