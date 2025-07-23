@@ -319,6 +319,9 @@
 .mg-bottom-20 {
   margin-bottom: 20px;
 }
+.mg-bottom-64 {
+  margin-bottom: 64px;
+}
 
 .mg-top-4 {
   margin-top: 4px;
@@ -340,6 +343,9 @@
 }
 .mg-top-40 {
   margin-top: 40px;
+}
+.mg-top-64 {
+  margin-top: 64px;
 }
 
 .cp {

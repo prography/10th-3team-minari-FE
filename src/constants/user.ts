@@ -34,6 +34,11 @@ export const USER_EXPERIENCES = [
   },
 ] as const;
 
+export const USER_EXPERIENCES_EXISTENCE = [
+  {label: '실무 경험이 없어요', value: false},
+  {label: '실무 경험이 있어요', value: true},
+] as const;
+
 export const USER_DOMAINS = [
   {label: '프론트엔드', value: 'FRONTEND'},
   {label: '백엔드', value: 'BACKEND'},
