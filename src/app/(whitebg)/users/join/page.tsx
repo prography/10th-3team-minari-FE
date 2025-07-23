@@ -52,7 +52,6 @@ const JoinPage = () => {
         ...joinForm,
         email: joinForm.isSubscribed ? joinForm.email : null,
         userId: userStore.userId,
-        workExperienceLevel: joinForm.studyExperienceLevel,
       };
 
       // user 등록 api 호출
