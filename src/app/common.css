@@ -275,6 +275,10 @@
   color: var(--gray-400) !important;
 }
 
+.txt-black {
+  color: var(--color-text-black) !important;
+}
+
 /* margin & padding */
 .pd-left-24 {
   padding-left: 24px;
@@ -296,12 +300,18 @@
 .mg-left-13 {
   margin-left: 13px;
 }
+.mg-left-16 {
+  margin-left: 16px;
+}
 
 .mg-right-4 {
   margin-right: 4px;
 }
 .mg-right-8 {
   margin-right: 8px;
+}
+.mg-right-12 {
+  margin-right: 12px;
 }
 .mg-right-13 {
   margin-right: 13px;
@@ -316,8 +326,14 @@
 .mg-bottom-12 {
   margin-bottom: 12px;
 }
+.mg-bottom-16 {
+  margin-bottom: 16px;
+}
 .mg-bottom-20 {
   margin-bottom: 20px;
+}
+.mg-bottom-40 {
+  margin-bottom: 40px;
 }
 .mg-bottom-64 {
   margin-bottom: 64px;
