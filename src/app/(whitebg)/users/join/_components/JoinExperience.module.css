@@ -30,6 +30,7 @@
 }
 
 .select__item > div {
+  text-align: center;
   color: var(--color-text-tertiary);
 }
 
@@ -43,4 +44,9 @@
   border-radius: var(--border-radius-lg, 8px);
   border: var(--border-width-md, 1.5px) solid var(--color-border-interactive-primary, #c5f900);
   background: var(--color-bg-brand-subtle, #effec0);
+}
+
+.select__item-detail {
+  height: 120px;
+  text-align: center;
 }
