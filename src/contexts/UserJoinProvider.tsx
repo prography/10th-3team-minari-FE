@@ -1,8 +1,9 @@
 'use client';
 
-import {createContext, useContext, useEffect, useMemo, useState} from 'react';
+import {createContext, useContext, useMemo, useState} from 'react';
 import {TypeUserRegisterRequest} from '@/apis/user';
 import {CheckItemType} from '@/app/(whitebg)/users/join/page';
+import {useCheckbox} from '@/hooks/useCheckbox';
 
 type ContextType = {
   step: number;
@@ -36,7 +37,7 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
   });
 
   // 체크박스 관리
-  const [checkItems, setCheckItems] = useState<Array<CheckItemType>>([
+  const checkItemList = [
     {id: '1', value: false, label: '(필수) 서비스 개인정보 처리방침', required: true},
     {
       id: '2',
@@ -44,34 +45,9 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
       label: '(필수) 서비스 이용약관',
       required: true,
     },
-  ]);
-  const checkHandler = (value: boolean, id?: string) => {
-    if (id) {
-      const idx = checkItems.findIndex((item) => item.id === id);
-      checkItems[idx].value = value;
-      setCheckItems([...checkItems]);
-    }
-  };
-  // 약관 동의 체크박스 : 전체체크 상태관리
-  const [checkAll, setCheckAll] = useState<boolean>(false);
-  const [checkAllIndeterminate, setCheckAllIndeterminate] = useState<boolean>(false);
-  const checkAllHandler = (value: boolean) => {
-    checkItems.map((item) => (item.value = value));
-    setCheckAll(value);
-    setCheckAllIndeterminate(false);
-  };
-  useEffect(() => {
-    if (checkItems.every((item) => item.value)) {
-      setCheckAll(true);
-      setCheckAllIndeterminate(false);
-    } else if (checkItems.some((item) => item.value)) {
-      setCheckAll(false);
-      setCheckAllIndeterminate(true);
-    } else {
-      setCheckAll(false);
-      setCheckAllIndeterminate(false);
-    }
-  }, [checkItems]);
+  ];
+  const {checkAll, checkAllIndeterminate, checkItems, checkHandler, checkAllHandler} =
+    useCheckbox(checkItemList);
 
   // 라디오버튼 관리
   const setIsSubscribed = (value: boolean) => {

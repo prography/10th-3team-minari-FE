@@ -1,0 +1,22 @@
+.container {
+  padding: 40px 20px;
+}
+
+.seeds-info {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.contents-details {
+  margin: 16px 0 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.button__wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
