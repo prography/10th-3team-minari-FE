@@ -332,11 +332,11 @@
 .mg-bottom-20 {
   margin-bottom: 20px;
 }
-.mg-bottom-40 {
-  margin-bottom: 40px;
-}
 .mg-bottom-64 {
-  margin-bottom: 64px;
+    margin-bottom: 64px;
+}
+.mg-bottom-80 {
+  margin-bottom: 80px;
 }
 
 .mg-top-4 {
