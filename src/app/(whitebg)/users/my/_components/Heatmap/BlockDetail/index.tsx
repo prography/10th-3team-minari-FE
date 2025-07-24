@@ -1,6 +1,8 @@
 'use client';
 import styles from './BlockDetail.module.css';
 import Calendar from '@/assets/icon/calendar.svg';
+import Shapes from '@/assets/icon/shapes.svg';
+import Tag from '@/assets/icon/tag.svg';
 import Image from 'next/image';
 import {useUserHeatmapContext} from '@/contexts/UserHeatmapProvider';
 import {useDate} from '@/hooks/useDate';
@@ -54,18 +56,30 @@ const BlockDetail = () => {
       {selectedBlockDate != '' && questionDetail && (
         <div className={styles.container}>
           <div className={styles.title}>
-            <Image src={Calendar} alt="calendar-image" />
-            <span className="txt-secondary body-sm">
-              {dateFormatter(selectedBlockDate)}의 질문 ∙{' '}
-              {questionDetail?.domain === 'FRONTEND' ? '프론트엔드' : '백엔드'}
-            </span>
-          </div>
-          <div className={styles['keywords__wrap']}>
-            {questionDetail?.tag.map((tag, index) => (
-              <span key={index} className={styles.keyword}>
-                {tag}
+            <div className="fx-align-center">
+              <Image src={Calendar} alt="calendar-image" />
+              <span className="txt-secondary body-sm mg-left-4">
+                {dateFormatter(selectedBlockDate)}의 질문
               </span>
-            ))}
+            </div>
+            <div className={styles['domain-keywords__wrap']}>
+              <div className="fx-align-center pre">
+                <Image src={Shapes} alt="shape-image" />
+                <span className="label-md txt-tertiary mg-left-4">
+                  {questionDetail?.domain === 'FRONTEND' ? '프론트엔드' : '백엔드'}
+                </span>
+              </div>
+              <div className={styles['keywords__wrap']}>
+                <Image src={Tag} alt="tag-image" />
+                <div className={styles['keywords']}>
+                  {questionDetail?.tag.map((tag, index) => (
+                    <span key={index} className="label-md txt-tertiary">
+                      #{tag}{' '}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
           <div className={styles['bottom-container']}>
             <div className={styles['texts__wrap']}>
