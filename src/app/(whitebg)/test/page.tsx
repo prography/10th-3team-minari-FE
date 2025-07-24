@@ -41,7 +41,7 @@ const TestPage = () => {
 
   const deleteUser = async () => {
     const token = await getCookie('access-token');
-    fetch('https://www.minari.shop/admin/api/v1/users/me', {
+    fetch('https://www.minari.shop/api/v1/admin/users/me', {
       method: 'DELETE',
       headers: {
         Authorization: token ? token : '',
