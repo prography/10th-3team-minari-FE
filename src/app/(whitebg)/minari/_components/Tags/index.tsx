@@ -19,7 +19,7 @@ const Tags = () => {
       <div className={styles['keyword__container']}>
         {data?.result?.map((item, i) => (
           <div key={i} className={styles.keyword}>
-            <span className="label-lg">{item}</span>
+            <span className="label-lg txt-tertiary"># {item}</span>
           </div>
         ))}
       </div>
