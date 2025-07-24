@@ -11,6 +11,7 @@ export interface AnswerType {
   reply: string;
   createDate: string;
   runningTime: number;
+  memo: string;
 }
 
 export const getAnswer = async (userId: string, questionId: number) => {

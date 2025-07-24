@@ -82,7 +82,7 @@ const AnswerList = ({answer}: {answer?: ApiResponse<AnswerType> | null}) => {
             title={<ListRow.Title>{title}</ListRow.Title>}
             content={
               withButton ? (
-                <ListRow.ContentsAnswer onClick={handleClickOpenModal}>
+                <ListRow.ContentsAnswer memo={answer?.result?.memo} onClick={handleClickOpenModal}>
                   {contents}
                 </ListRow.ContentsAnswer>
               ) : (
