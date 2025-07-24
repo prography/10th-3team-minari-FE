@@ -13,7 +13,11 @@ const Notepad = () => {
       </span>
       <textarea
         className={`${styles.textarea} body-lg txt-white`}
-        placeholder="이 공간을 컨닝페이퍼처럼 사용해보세요!"
+        placeholder={`이 공간을 컨닝페이퍼처럼 사용해보세요!
+
+※ 작성한 메모는 종료 버튼을 누르면 자동으로 저장돼요.
+※ 메모는 1000자까지 쓸 수 있어요.
+        `}
         value={memo}
         onChange={handleChange}
       />
