@@ -7,6 +7,7 @@ import Highlight from '@/assets/image/highlight.png';
 import Person from '@/assets/image/hero_person.png';
 import DescImageOne from '@/assets/image/desc_image_1.svg';
 import DescImageTwo from '@/assets/image/desc_image_2.svg';
+import DescImageThree from '@/assets/image/desc_image_3.svg';
 import MainButton from './_components/MainButton';
 import type {Metadata} from 'next';
 
@@ -52,40 +53,66 @@ export default function Page() {
             <div className="title-sm">WHO ARE WE?</div>
             <h2 className="display-sm mg-top-16">미래의 나를 위한 리허설</h2>
             <div className={styles['desc__image__wrap']}>
-              <div>
+              <div className={styles['desc__image__container']}>
                 <div
                   className={styles['desc__image-black-container']}
                   style={{alignItems: 'flex-end'}}
                 >
                   <Image src={DescImageOne} alt="" />
                 </div>
-                <div className={`title-xs ${styles['desc__text-subtitle']}`}>Questions</div>
-                <div className={`title-lg ${styles['desc__text-title']}`}>
-                  <span>매일 도착하는</span>
-                  <span>카테고리별 면접 질문</span>
-                </div>
-                <div className="body-lg">
-                  <div className="txt-tertiary">면접을 준비 중이신가요?</div>
-                  <div className="txt-tertiary">미나리가 설정하신 시간에 원하시는 카테고리의</div>
-                  <div className="txt-tertiary">질문을 보내드려요!</div>
+                <div className={styles['desc__image__contents']}>
+                  <div className={`title-xs ${styles['desc__text-subtitle']}`}>Questions</div>
+                  <div className={`title-lg ${styles['desc__text-title']}`}>
+                    <span>매일 도착하는</span>
+                    <span>카테고리별 면접 질문</span>
+                  </div>
+                  <div className="body-lg">
+                    <div className="txt-tertiary">면접을 준비 중이신가요?</div>
+                    <div className="txt-tertiary">미나리가 설정하신 시간에 원하시는 카테고리의</div>
+                    <div className="txt-tertiary">질문을 보내드려요!</div>
+                  </div>
                 </div>
               </div>
-              <div>
+
+              <div className={styles['desc__image__container-reverse']}>
                 <div className={styles['desc__image-black-container']}>
                   <Image src={DescImageTwo} alt="" style={{maxWidth: '100%'}} />
                 </div>
-                <div className={`title-xs ${styles['desc__text-subtitle']}`}>Solutions</div>
-                <div className={`title-lg ${styles['desc__text-title']}`}>
-                  <span>질문 답변 적합도와</span>
-                  <span>모범 답안 확인</span>
+                <div className={styles['desc__image__contents']}>
+                  <div className={`title-xs ${styles['desc__text-subtitle']}`}>Solutions</div>
+                  <div className={`title-lg ${styles['desc__text-title']}`}>
+                    <span>실전 같이 생생한</span>
+                    <span>모의 면접 환경</span>
+                  </div>
+                  <div className="body-lg">
+                    <div className="txt-tertiary">미나리와 함께 실제 화상면접처럼</div>
+                    <div className="txt-tertiary">내 모습을 직접 보면서</div>
+                    <div className="txt-tertiary">질문에 답할 수 있어요.</div>
+                  </div>
                 </div>
-                <div className="body-lg">
-                  <div className="txt-tertiary">내 질문이 맞는지 잘 모르겠어도 걱정마세요!</div>
-                  <div className="txt-tertiary">미나리가 얼마나 적합하게 말했는지</div>
-                  <div className="txt-tertiary">질문을 보내드려요!</div>
+              </div>
+
+              <div className={styles['desc__image__container']}>
+                <div className={styles['desc__image-black-container']}>
+                  <Image src={DescImageThree} alt="" style={{maxWidth: '100%'}} />
+                </div>
+                <div className={styles['desc__image__contents']}>
+                  <div className={`title-xs ${styles['desc__text-subtitle']}`}>Solutions</div>
+                  <div className={`title-lg ${styles['desc__text-title']}`}>
+                    <span>나의 답변</span>
+                    <span>& 모범 답안 확인</span>
+                  </div>
+                  <div className="body-lg">
+                    <div className="txt-tertiary">내 질문이 맞는지 잘 모르겠어도 걱정마세요!</div>
+                    <div className="txt-tertiary">내가 말한 답변을 눈으로 확인하고</div>
+                    <div className="txt-tertiary">모범 답안을 통해 답변을 복기해요.</div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+          <div className="fx-center mg-bottom-80">
+            <MainButton />
           </div>
         </div>
       </div>
