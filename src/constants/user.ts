@@ -14,25 +14,25 @@ export const USER_EXPERIENCES_EXISTENCE = [
 
 export const USER_EXPERIENCES_WORK = [
   {
-    label: '외주/기업\n프로젝트\n 경험만 있어요',
+    label: '경력\n0년차',
     value: 'NONE',
     imageInactive: Exp0Inactive,
     imageActive: Exp0Active,
   },
   {
-    label: '경력 0년차',
+    label: '경력\n1~2년차',
     value: 'UNDER_1YEAR',
     imageInactive: Exp1Inactive,
     imageActive: Exp1Active,
   },
   {
-    label: '경력 1~3년차',
+    label: '경력\n3년차',
     value: 'UNDER_3YEAR',
     imageInactive: Exp2Inactive,
     imageActive: Exp2Active,
   },
   {
-    label: '4년차 이상',
+    label: '경력\n4년차 이상',
     value: 'OVER_3YEAR',
     imageInactive: Exp3Inactive,
     imageActive: Exp3Active,
@@ -47,19 +47,19 @@ export const USER_EXPERIENCES_STUDY = [
     imageActive: Exp0Active,
   },
   {
-    label: '고등학생\n~유관 전공\n 1~2학년',
+    label: '유관전공\n저학년',
     value: 'UNDER_1YEAR',
     imageInactive: Exp1Inactive,
     imageActive: Exp1Active,
   },
   {
-    label: '유관 전공\n3~4학년',
+    label: '유관전공\n고학년',
     value: 'UNDER_3YEAR',
     imageInactive: Exp2Inactive,
     imageActive: Exp2Active,
   },
   {
-    label: '졸업 \n~취준생',
+    label: '유관전공 졸업\n~취준생',
     value: 'OVER_3YEAR',
     imageInactive: Exp3Inactive,
     imageActive: Exp3Active,
