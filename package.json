@@ -1,6 +1,6 @@
 {
   "name": "prography-10th-3team-fe",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
