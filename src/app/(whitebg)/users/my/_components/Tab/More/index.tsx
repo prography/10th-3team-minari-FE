@@ -32,8 +32,6 @@ const MoreTab = () => {
     window.open(OUT_LINK.약관전체);
   };
 
-  // TODO 어드민 접근권한 로그인 시 추가
-  const admins = ['김주하', '최지원'];
   return (
     <div className={styles.container}>
       <div className={styles['info-box']}>
@@ -61,7 +59,7 @@ const MoreTab = () => {
         <button className="body-lg txt-disabled" onClick={() => router.push('/users/withdraw')}>
           회원탈퇴
         </button>
-        {admins.includes(userData?.name ? userData?.name : '') && (
+        {userData?.userRole === 'ADMIN' && (
           <Button iconRight={ArrowRight} onClick={() => router.push('/admin')}>
             어드민
           </Button>
