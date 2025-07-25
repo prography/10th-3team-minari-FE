@@ -11,8 +11,10 @@ export const NotepadProvider = ({children}: {children: React.ReactNode}) => {
   const [memo, setMemo] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    e.preventDefault();
-    setMemo(e.target.value);
+    const newValue = e.target.value;
+    if (newValue.length <= 1000) {
+      setMemo(newValue);
+    }
   };
 
   const value = useMemo(() => ({memo, handleChange}), [memo]);
