@@ -80,6 +80,7 @@ export interface UsersReponse {
   domain: UserDomain;
   uuid: string;
   dayCount: number;
+  userRole: 'USER' | 'ADMIN';
 }
 
 export interface TypeKakaoLoginResponse {
