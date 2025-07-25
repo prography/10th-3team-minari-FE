@@ -54,7 +54,7 @@ const usePromotionsModal = () => {
           }
         >
           <p>지금 본 면접은 어떠셨나요?</p>
-          <p>다시 한 번 진행하실 수 있도록 씨앗을 드릴게요.</p>
+          <p>오늘까지만 다시 해볼 수 있도록 씨앗을 드릴게요.</p>
         </Modal>
       ),
       onBackdropClick: () => localStorage.setItem(todayKey, 'true'),
