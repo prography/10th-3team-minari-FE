@@ -20,7 +20,7 @@ const usePromotionsModal = () => {
   const {username} = useUserStore();
 
   const isSeedLimitReached = useMemo(() => {
-    return data === 'LIMIT_REACHED' || data === 'UNKNOWN';
+    return data === 'LIMIT_REACHED' || data === 'SEED_REQUIRED';
   }, [data]);
 
   const promotionModal = useCallback(() => {
