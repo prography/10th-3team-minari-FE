@@ -39,9 +39,13 @@ const JoinEmailVerification = () => {
           setTimeout(showDelayedWarning, 3 * 60 * 1000);
         }
       })
-      .catch(() => {
+      .catch((error) => {
         setEmailStatus('error');
-        setEmailMsg('앗 이런! 다시 한 번 시도해주세요.');
+        if (error?.message === '이미 존재하는 이메일입니다.') {
+          setEmailMsg('이미 등록된 메일은 입력할 수 없어요.');
+        } else {
+          setEmailMsg('앗 이런! 다시 한 번 시도해주세요.');
+        }
         setEmailMsgShow(true);
       });
   };
