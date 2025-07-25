@@ -4,7 +4,7 @@ import CircleArrowLeft from '@/assets/icon/circle-arrow-left.svg';
 import CirclePause from '@/assets/icon/circle-pause.svg';
 import CirclePlay from '@/assets/icon/circle-play.svg';
 import CircleStop from '@/assets/icon/circle-stop.svg';
-import Save from '@/assets/icon/save.svg';
+// import Save from '@/assets/icon/save.svg';
 import useRehearsal from '@/hooks/useRehearsal';
 import styles from './Buttons.module.css';
 import {useTimer} from '@/contexts/TimerProvider';
@@ -106,9 +106,9 @@ const Buttons = () => {
         </Button>
       </div>
 
-      <Button iconLeft={Save} theme="secondary">
+      {/* <Button iconLeft={Save} theme="secondary">
         메모 저장
-      </Button>
+      </Button> */}
     </div>
   );
 };
