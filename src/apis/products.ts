@@ -18,7 +18,7 @@ interface ProductsHistoryType {
   date: string;
   quantity: number;
   remain: number;
-  category: 'EVENT' | 'BUY';
+  category: 'EVENT' | 'BUY' | 'EXPIRED';
   refund: boolean;
 }
 
