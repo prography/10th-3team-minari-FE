@@ -35,7 +35,10 @@ const HistoryTab = () => {
             {type: 'text', text: '씨앗'},
             {type: 'text', text: `${value.quantity}개`},
             {type: 'text', text: `${value.remain}개`},
-            {type: 'text', text: `${value.category === 'BUY' ? '구매' : '이벤트'}`},
+            {
+              type: 'text',
+              text: `${value.category === 'BUY' ? '구매' : value.category === 'EVENT' ? '이벤트' : '만료'}`,
+            },
             {
               type: 'button',
               text: '환불',
