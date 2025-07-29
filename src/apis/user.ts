@@ -3,7 +3,7 @@ import {UserDomain, UserExperienceLevel} from '@/stores/userStore';
 import {getCookie} from '@/utils/cookies';
 
 export const loginKaKao = () => {
-  const link = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_KEY}&scope=talk_message,profile_nickname,profile_image&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}`;
+  const link = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.NEXT_PUBLIC_KAKAO_KEY}&scope=talk_message,profile_nickname,profile_image&redirect_uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}&prompt=login`;
   window.location.href = link;
 };
 
