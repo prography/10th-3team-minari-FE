@@ -13,6 +13,14 @@
   display: block;
 }
 
+.timer {
+  position: relative;
+  top: -67px;
+  margin-right: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .button__wrap {
   height: 48px !important;
   margin-top: 32px;

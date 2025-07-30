@@ -6,11 +6,16 @@ import Button from '@/components/Button';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
 import {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';
+import {useDate} from '@/hooks/useDate';
 
 const JoinEmailVerification = () => {
   const {joinForm, setJoinForm} = useUserJoinContext();
   const [email, setEmail] = useState('');
   const [showVeriCode, setShowVeriCode] = useState(false);
+  const [triggerTimer, setTriggerTimer] = useState(false);
+  const TIMER_NUMBER = 180;
+  const [timerMin, setTimerMin] = useState('03');
+  const [timerSec, setTimerSec] = useState('00');
   const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const [emailMsgShow, setEmailMsgShow] = useState(false);
@@ -23,12 +28,35 @@ const JoinEmailVerification = () => {
   });
   const {refetchCodeVerification, code, setCode} = useUserEmailCodeVerification();
 
+  const [timer, setTimer] = useState(TIMER_NUMBER);
+  const {putZero} = useDate();
+  useEffect(() => {
+    if (triggerTimer) {
+      if (timer > 0) {
+        setTimeout(() => {
+          manipulateTimer(timer);
+        }, 1000);
+      } else {
+        showDelayedWarning();
+      }
+    }
+  }, [timer, triggerTimer]);
+  const manipulateTimer = (time: number) => {
+    setTimerMin(Math.floor((time - 1) / 60).toString());
+    setTimerSec((time - 1 - Math.floor((time - 1) / 60) * 60).toString());
+    setTimer((time) => time - 1);
+  };
+  const resetTimer = () => {
+    setTriggerTimer(false);
+    setTimer(TIMER_NUMBER);
+  };
   const showDelayedWarning = () => {
     setEmailStatus('warning');
     setEmailMsg('인증번호가 오지 않나요? 인증버튼을 다시 눌러주세요.');
     setEmailMsgShow(true);
   };
   const onClickSendVerification = () => {
+    resetTimer();
     fetchEmailVerification()
       .then((response) => {
         if (response?.code === '200') {
@@ -36,7 +64,7 @@ const JoinEmailVerification = () => {
           setEmailStatus('success');
           setEmailMsg('인증 메일이 전송되었어요.');
           setEmailMsgShow(true);
-          setTimeout(showDelayedWarning, 3 * 60 * 1000);
+          setTriggerTimer(true);
         }
       })
       .catch((error) => {
@@ -152,6 +180,11 @@ const JoinEmailVerification = () => {
               helpMsgShow={codeMsgShow}
               disabled={codeSuccess}
             />
+            <div className={styles.timer}>
+              <div className="body-lg txt-tertiary">
+                {putZero(timerMin)}:{putZero(timerSec)}
+              </div>
+            </div>
           </div>
           <div className={styles['button__wrap']}>
             <Button
