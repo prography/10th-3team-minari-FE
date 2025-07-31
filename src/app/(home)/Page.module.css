@@ -58,6 +58,14 @@
   bottom: 30px;
 }
 
+.seo {
+  height: 16px;
+  color: white;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
 .desc__container {
   padding: 80px 98px;
 }
