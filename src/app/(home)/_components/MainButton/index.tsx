@@ -33,7 +33,7 @@ const MainButton = () => {
   };
   return (
     <Button iconRight={BlackArrow} border onClick={store.isLoggedIn ? onClickMinari : onClickLogin}>
-      {store.isLoggedIn ? '키워드 보러가기' : '카카오 로그인'}
+      {store.isLoggedIn ? '리허설 시작하기' : '카카오 로그인'}
     </Button>
   );
 };

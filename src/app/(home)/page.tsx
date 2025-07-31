@@ -51,7 +51,10 @@ export default function Page() {
         <div className={styles['desc-layout__container']}>
           <div className={styles['desc__container']}>
             <div className="title-sm">WHO ARE WE?</div>
-            <h2 className="display-sm mg-top-16">미래의 나를 위한 리허설</h2>
+            <div className={styles.seo}>
+              리허설, 면접, 기술면접, 개발자 기술면접, 프론트엔드, 백엔드, 기술질문
+            </div>
+            <h2 className="display-sm">미래의 나를 위한 리허설</h2>
             <div className={styles['desc__image__wrap']}>
               <div className={styles['desc__image__container']}>
                 <div
@@ -67,9 +70,12 @@ export default function Page() {
                     <span>카테고리별 면접 질문</span>
                   </div>
                   <div className="body-lg">
-                    <div className="txt-tertiary">면접을 준비 중이신가요?</div>
-                    <div className="txt-tertiary">미나리가 설정하신 시간에 원하시는 카테고리의</div>
-                    <div className="txt-tertiary">질문을 보내드려요!</div>
+                    <div className="txt-tertiary">
+                      실제 면접에서 자주 출제되는 문제가 궁금하다면?
+                    </div>
+                    <div className="txt-tertiary">
+                      미나리가 매일 프론트엔드, 백엔드 기술 면접 질문을 보내드려요!
+                    </div>
                   </div>
                 </div>
               </div>
@@ -85,9 +91,8 @@ export default function Page() {
                     <span>모의 면접 환경</span>
                   </div>
                   <div className="body-lg">
-                    <div className="txt-tertiary">미나리와 함께 실제 화상면접처럼</div>
-                    <div className="txt-tertiary">내 모습을 직접 보면서</div>
-                    <div className="txt-tertiary">질문에 답할 수 있어요.</div>
+                    <div className="txt-tertiary">실제 화상 면접처럼 카메라와 마이크를 키고,</div>
+                    <div className="txt-tertiary">내 모습을 직접 보면서 기술질문에 답해요.</div>
                   </div>
                 </div>
               </div>
@@ -103,9 +108,8 @@ export default function Page() {
                     <span>& 모범 답안 확인</span>
                   </div>
                   <div className="body-lg">
-                    <div className="txt-tertiary">내 질문이 맞는지 잘 모르겠어도 걱정마세요!</div>
-                    <div className="txt-tertiary">내가 말한 답변을 눈으로 확인하고</div>
-                    <div className="txt-tertiary">모범 답안을 통해 답변을 복기해요.</div>
+                    <div className="txt-tertiary">내가 말한 답변을 눈으로 확인하고,</div>
+                    <div className="txt-tertiary">기술 질문을 한 군데에서 모아볼 수 있어요.</div>
                   </div>
                 </div>
               </div>
