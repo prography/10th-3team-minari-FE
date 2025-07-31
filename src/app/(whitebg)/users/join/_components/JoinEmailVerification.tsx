@@ -33,9 +33,10 @@ const JoinEmailVerification = () => {
   useEffect(() => {
     if (triggerTimer) {
       if (timer > 0) {
-        setTimeout(() => {
+        const timeoutId = setTimeout(() => {
           manipulateTimer(timer);
         }, 1000);
+        return () => clearTimeout(timeoutId);
       } else {
         showDelayedWarning();
       }
