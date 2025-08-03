@@ -12,6 +12,7 @@ import {useState} from 'react';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
 import {deleteCookie, getCookie} from '@/utils/cookies';
+import TossPaymentWidget from '@/components/TossPaymentWidget';
 
 const TestPage = () => {
   const {open: opneModal, close: closeModal} = useModalStore();
@@ -39,6 +40,12 @@ const TestPage = () => {
     setCheck(true);
   };
 
+  const tossModal = () => {
+    opneModal({
+      modal: <TossPaymentWidget />,
+    });
+  };
+
   const deleteUser = async () => {
     const token = await getCookie('access-token');
     fetch('https://www.minari.shop/api/v1/admin/users/me', {
@@ -57,6 +64,11 @@ const TestPage = () => {
   };
   return (
     <>
+      <Button theme="toss" onClick={tossModal}>
+        토스 페이먼츠로 결제하기
+      </Button>
+      <br />
+      <br />
       <Button theme="primary" rounded onClick={deleteUser}>
         ⭐️user 삭제️⭐️
       </Button>
