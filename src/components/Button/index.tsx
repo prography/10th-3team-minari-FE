@@ -5,7 +5,7 @@ type paddingType = 'p-4-12' | 'p-12-16' | 'p-4-8';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
-  theme?: 'primary' | 'secondary' | 'white' | 'black';
+  theme?: 'primary' | 'secondary' | 'white' | 'black' | 'toss';
   iconRight?: StaticImageData;
   iconLeft?: StaticImageData;
   border?: boolean;
