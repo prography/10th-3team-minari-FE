@@ -143,6 +143,22 @@
   background-color: var(--color-bg-disabled) !important;
 }
 
+/* toss 버튼 */
+.toss {
+  background-color: #3182f6;
+  color: #ffffff;
+}
+.toss:hover {
+  background-color: #1b64da !important;
+}
+.toss:active {
+  background-color: #044aca !important;
+}
+.toss:disabled {
+  background-color: #d6e4f9 !important;
+  color: #3182f6 !important;
+}
+
 /* 동그란 버튼 */
 .round {
   border-radius: var(--border-radius-rounded) !important;
