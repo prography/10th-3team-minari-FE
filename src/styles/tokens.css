@@ -327,4 +327,8 @@
   --border-width-md: var(--unit-1_5); /* 1.5px */
   --border-width-lg: var(--unit-2); /* 2px */
   --border-width-xl: var(--unit-4); /* 4px */
+
+  --breakpoint-sm: 320px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
 }
