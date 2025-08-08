@@ -1,8 +1,8 @@
 import {useModalStore} from '@/stores/modalStore';
-import QRCodeModal from '../QRCodeModal';
 import Title from './_components/(table)/Title';
 import Header from './_components/(table)/Header';
 import Body, {type TbType} from './_components/(table)/Body';
+// import QRCodeModal from '../QRCodeModal';
 import {useCallback, useMemo} from 'react';
 import Note from '../Note';
 import {NOTE_BUY} from '@/constants/note';
@@ -10,6 +10,7 @@ import {useProductsSell} from '@/hooks/queries/useProductsSell';
 import {useUsers} from '@/hooks/queries/useUsers';
 import LogoText from '@/components/LogoText';
 import Info from './_components/(table)/Info';
+import TossPaymentWidget from '@/components/TossPaymentWidget';
 
 const BuyTab = () => {
   const {open} = useModalStore();
@@ -34,22 +35,28 @@ const BuyTab = () => {
           return [
             {type: 'text', text: '씨앗'},
             {type: 'text', text: `${value.quantity}개`},
-            {type: 'text', text: `${value.realPrice}원`},
+            {type: 'text', text: `${value.fakePrice}원`},
             {type: 'text-red', text: `${value.message}`},
             {
               type: 'button',
-              text: `${value.fakePrice}원`,
+              text: `${value.realPrice}원`,
               onClick: () => {
+                console.log(value);
                 open({
                   modal: (
-                    <QRCodeModal
-                      order={order}
-                      uuid={userData?.uuid ?? ''}
-                      title="원하는 씨앗을 선택하셨나요?"
-                      subTitle="최대 1시간 이내로 씨앗을 보내드릴게요."
+                    <TossPaymentWidget
+                      orderId={`_GRKrwUl-Tslbgin660fW${value.productId}`}
+                      orderName={`씨앗 ${value.quantity}개`}
+                      price={value.realPrice}
+                      customerKey={`IC4jzlhz7Axz_FW7qVu-l${userData?.id}`}
                     />
+                    //  <QRCodeModal
+                    //     order={order}
+                    //     uuid={userData?.uuid ?? ''}
+                    //     title="원하는 씨앗을 선택하셨나요?"
+                    //     subTitle="최대 1시간 이내로 씨앗을 보내드릴게요."
+                    //   />
                   ),
-                  disableBackdropClick: false,
                   historyStackPush: true,
                 });
               },
