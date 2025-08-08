@@ -4,9 +4,15 @@ import Button from '@/components/Button';
 import styles from './TossPayment.module.css';
 
 const TOSS_CLIENT_KEY = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
-const TOSS_CUSTOMER_KEY = 'IC4jzlhz7Axz_FW7qVu-l';
 
-const TossPaymentWidget = () => {
+interface TossPaymentWidgetProps {
+  orderId: string;
+  orderName: string;
+  price: number;
+  customerKey: string;
+}
+
+const TossPaymentWidget = ({orderId, orderName, price, customerKey}: TossPaymentWidgetProps) => {
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
 
   useEffect(() => {
@@ -15,13 +21,14 @@ const TossPaymentWidget = () => {
         if (!TOSS_CLIENT_KEY) {
           throw new Error('TOSS_CLIENT_KEY을 환경변수에서 찾을 수 없습니다.');
         }
-        if (!TOSS_CUSTOMER_KEY) {
-          throw new Error('TOSS_CUSTOMER_KEY을 환경변수에서 찾을 수 없습니다.');
-        }
+
+        // if (!TOSS_CUSTOMER_KEY) {
+        //   throw new Error('TOSS_CUSTOMER_KEY을 환경변수에서 찾을 수 없습니다.');
+        // }
 
         const tossPayments = await loadTossPayments(TOSS_CLIENT_KEY);
         const tossWidgets = tossPayments.widgets({
-          customerKey: TOSS_CUSTOMER_KEY,
+          customerKey,
         });
         setWidgets(tossWidgets);
       } catch (e) {
@@ -30,7 +37,7 @@ const TossPaymentWidget = () => {
     }
 
     initializeTossWidgets();
-  }, []);
+  }, [customerKey]);
 
   useEffect(() => {
     async function renderWidgets() {
@@ -38,7 +45,7 @@ const TossPaymentWidget = () => {
 
       await widgets.setAmount({
         currency: 'KRW',
-        value: 10,
+        value: price,
       });
 
       await widgets.renderPaymentMethods({
@@ -51,7 +58,7 @@ const TossPaymentWidget = () => {
     }
 
     renderWidgets();
-  }, [widgets]);
+  }, [widgets, price]);
 
   return (
     <div className={styles.position}>
@@ -64,8 +71,10 @@ const TossPaymentWidget = () => {
           theme="toss"
           onClick={async function () {
             await widgets?.requestPayment({
-              orderId: '_GRKrwUl-Tslbgin660fW',
-              orderName: '토스 티셔츠 외 2건',
+              // orderId: '_GRKrwUl-Tslbgin660fW',
+              // orderName: '토스 티셔츠 외 2건',
+              orderId,
+              orderName,
               successUrl: window.location.origin + '/payment/success',
               failUrl: window.location.origin + '/payment/fail',
             });
