@@ -1,4 +1,4 @@
-.button__wrapper {
+.button_wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -6,10 +6,24 @@
   gap: 12px;
 }
 
-.button__wrapper > button {
-  min-width: 180px !important;
+.result_button {
+  width: 180px !important;
 }
 
-.button__wrapper > a {
+.button_wrapper > a {
   width: 180px !important;
+}
+
+@media screen and (max-width: 768px) {
+  .button_wrapper {
+    width: 100%;
+  }
+
+  .result_button {
+    width: 100% !important;
+  }
+
+  .button_wrapper > a {
+    width: 100% !important;
+  }
 }
