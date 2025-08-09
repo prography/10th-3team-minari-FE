@@ -81,16 +81,19 @@ const ContentsAnswer = ({
               '0px var(--effect-shadow-4-cast-y, 2px) var(--effect-shadow-4-cast-blur, 4px) 0px var(--color-effect-shadow-cast, rgba(0, 0, 0, 0.16)), 0px var(--effect-shadow-4-core-y, 0px) var(--effect-shadow-4-core-blur, 2px) 0px var(--color-effect-shadow-core, rgba(0, 0, 0, 0.12))',
           }}
         />
-        <Button
-          onClick={onClick}
-          theme="black"
-          iconRight={ArrowPrimary}
-          shadow
-          data-tooltip-id={TOOLTIP.REHEARSAL_RESTART}
-          data-tooltip-content="7/26까지 하루 한 번 무료!"
-        >
-          다시 도전하기
-        </Button>
+        <div className={styles.button_wrapper}>
+          <Button
+            onClick={onClick}
+            theme="black"
+            iconRight={ArrowPrimary}
+            shadow
+            data-tooltip-id={TOOLTIP.REHEARSAL_RESTART}
+            data-tooltip-content="7/26까지 하루 한 번 무료!"
+            full
+          >
+            다시 도전하기
+          </Button>
+        </div>
       </div>
     </div>
   );
