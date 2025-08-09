@@ -17,14 +17,16 @@ const MainButton = () => {
   }, [data]);
 
   return (
-    <div className={styles['button__wrapper']}>
+    <div className={styles.button_wrapper}>
       {isRetryAvailable && (
-        <Button border theme="secondary" onClick={() => router.push(PATH.REHEARSAL_RESULT)}>
-          결과보기
-        </Button>
+        <div className={styles.result_button}>
+          <Button full border theme="secondary" onClick={() => router.push(PATH.REHEARSAL_RESULT)}>
+            결과보기
+          </Button>
+        </div>
       )}
       <a href={PATH.REHEARSAL} target="_blank" rel="noopener noreferrer">
-        <Button border iconRight={ArrowRight} disabled={data === 'UNKNOWN'} full>
+        <Button full border iconRight={ArrowRight} disabled={data === 'UNKNOWN'}>
           {isRetryAvailable ? '다시 도전하기' : '면접 시작하기'}
         </Button>
       </a>
