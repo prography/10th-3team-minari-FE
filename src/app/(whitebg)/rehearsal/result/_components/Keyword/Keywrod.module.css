@@ -7,3 +7,17 @@
   border-radius: var(--border-radius-lg, 8px);
   background: var(--color-bg-inverse-bold, #525252);
 }
+
+.text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    min-width: 30px;
+  }
+}
