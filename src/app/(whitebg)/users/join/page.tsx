@@ -5,7 +5,7 @@ import JoinReceiveNotification from '@/app/(whitebg)/users/join/_components/Join
 import JoinEmailVerification from '@/app/(whitebg)/users/join/_components/JoinEmailVerification';
 import JoinExperience from '@/app/(whitebg)/users/join/_components/JoinExperience';
 import JoinCompleted from '@/app/(whitebg)/users/join/_components/JoinCompleted';
-import {useUserJoin} from '@/hooks/queries/useUserJoin';
+import {useUserJoin} from '@/hooks/mutations/useUserJoin';
 import {useRouter} from 'next/navigation';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import JoinPageTitle from '@/app/(whitebg)/users/join/_components/JoinPageTitle';
