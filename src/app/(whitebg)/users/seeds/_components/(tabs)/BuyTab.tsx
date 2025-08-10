@@ -64,6 +64,9 @@ const BuyTab = () => {
       {TbBuyDatasMake().map((tbs, idx) => (
         <Body key={idx} tbs={tbs} />
       ))}
+      <p style={{marginTop: '16px'}} className={`txt-disabled lable-sm`}>
+        *위 상품의 최대 이용 기간은 1년입니다.
+      </p>
       <Note NoteData={NOTE_BUY} />
     </>
   );
