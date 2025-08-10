@@ -44,8 +44,9 @@ const TestPage = () => {
     opneModal({
       modal: (
         <TossPaymentWidget
+          productId={1}
           orderName="토스 티셔츠 외 2건"
-          price={100}
+          amount={100}
           customerKey="IC4jzlhz7Axz_FW7qVu-l"
         />
       ),
