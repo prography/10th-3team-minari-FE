@@ -72,15 +72,16 @@ export const activateUser = async () => {
 export interface UsersReponse {
   id: number;
   email: string;
-  socialType: string;
+  socialType: 'KAKAO';
   socialId: string;
   name: string;
   image: string;
   seed: number;
-  domain: UserDomain;
   uuid: string;
-  dayCount: number;
+  domain: 'BACKEND' | 'FRONTEND' | 'CS ';
   userRole: 'USER' | 'ADMIN';
+  dayCount: number;
+  customerKeyForPG: string;
 }
 
 export interface TypeKakaoLoginResponse {
