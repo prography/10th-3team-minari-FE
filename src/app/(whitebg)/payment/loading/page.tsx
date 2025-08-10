@@ -1,10 +1,10 @@
 'use client';
 
-import {useTossPaymentConfirm} from '@/hooks/mutations/useTossPaymentConfirm';
 import {useSearchParams, useRouter} from 'next/navigation';
-import React, {useEffect} from 'react';
+import React, {Suspense, useEffect} from 'react';
+import {useTossPaymentConfirm} from '@/hooks/mutations/useTossPaymentConfirm';
 
-const PaymentloadingPage = () => {
+const PaymentloadingInner = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const {mutateAsync: prepareConfirm} = useTossPaymentConfirm({
@@ -23,24 +23,24 @@ const PaymentloadingPage = () => {
     (async () => {
       try {
         await prepareConfirm({
-          orderId: orderId,
-          paymentKey: paymentKey,
+          orderId,
+          paymentKey,
           amount: Number(amount),
         });
         router.replace('/payment/success');
-      } catch (e) {
-        console.error(e);
+      } catch {
         router.replace('/payment/fail');
-        return;
       }
     })();
-  }, [paymentKey, orderId, amount, router, prepareConfirm]);
+  }, [orderId, paymentKey, amount, router, prepareConfirm]);
 
-  return (
-    <div>
-      <h1>결제 진행중입니다.</h1>
-    </div>
-  );
+  return <h1>결제 진행중입니다.</h1>;
 };
 
-export default PaymentloadingPage;
+export default function PaymentloadingPage() {
+  return (
+    <Suspense fallback={<div>로딩중...</div>}>
+      <PaymentloadingInner />
+    </Suspense>
+  );
+}
