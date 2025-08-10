@@ -41,13 +41,13 @@ const BuyTab = () => {
               type: 'button',
               text: `${value.realPrice}원`,
               onClick: () => {
-                console.log(value);
                 open({
                   modal: (
                     <TossPaymentWidget
+                      productId={value.productId}
                       orderName={`씨앗 ${value.quantity}개`}
-                      price={value.realPrice}
-                      customerKey={`IC4jzlhz7Axz_FW7qVu-l${userData?.id}`}
+                      amount={value.realPrice}
+                      customerKey={userData?.customerKeyForPG}
                     />
                     //  <QRCodeModal
                     //     order={order}
