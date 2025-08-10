@@ -45,7 +45,6 @@ const BuyTab = () => {
                 open({
                   modal: (
                     <TossPaymentWidget
-                      orderId={`_GRKrwUl-Tslbgin660fW${value.productId}`}
                       orderName={`씨앗 ${value.quantity}개`}
                       price={value.realPrice}
                       customerKey={`IC4jzlhz7Axz_FW7qVu-l${userData?.id}`}

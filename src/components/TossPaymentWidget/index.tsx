@@ -2,17 +2,17 @@ import {useEffect, useState} from 'react';
 import {loadTossPayments, type TossPaymentsWidgets} from '@tosspayments/tosspayments-sdk';
 import Button from '@/components/Button';
 import styles from './TossPayment.module.css';
+import {getRandomString} from '@/utils/getRandomString';
 
 const TOSS_CLIENT_KEY = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
 
 interface TossPaymentWidgetProps {
-  orderId: string;
   orderName: string;
   price: number;
   customerKey: string;
 }
 
-const TossPaymentWidget = ({orderId, orderName, price, customerKey}: TossPaymentWidgetProps) => {
+const TossPaymentWidget = ({orderName, price, customerKey}: TossPaymentWidgetProps) => {
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const TossPaymentWidget = ({orderId, orderName, price, customerKey}: TossPayment
             await widgets?.requestPayment({
               // orderId: '_GRKrwUl-Tslbgin660fW',
               // orderName: '토스 티셔츠 외 2건',
-              orderId,
+              orderId: getRandomString(),
               orderName,
               successUrl: window.location.origin + '/payment/success',
               failUrl: window.location.origin + '/payment/fail',
