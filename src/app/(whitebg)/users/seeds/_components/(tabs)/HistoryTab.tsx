@@ -53,7 +53,6 @@ const HistoryTab = () => {
                       subTitle="구매 후 7일 이내의 미사용 씨앗만 되어요."
                     />
                   ),
-                  disableBackdropClick: false,
                   historyStackPush: true,
                 });
               },
