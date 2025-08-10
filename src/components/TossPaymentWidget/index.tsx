@@ -3,17 +3,21 @@ import {loadTossPayments, type TossPaymentsWidgets} from '@tosspayments/tosspaym
 import Button from '@/components/Button';
 import styles from './TossPayment.module.css';
 import {getRandomString} from '@/utils/getRandomString';
-
-const TOSS_CLIENT_KEY = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
+import {useTossPaymentPrepare} from '@/hooks/mutations/useTossPaymentPrepare';
 
 interface TossPaymentWidgetProps {
+  productId: number;
   orderName: string;
-  price: number;
-  customerKey: string;
+  amount: number;
+  customerKey?: string;
 }
 
-const TossPaymentWidget = ({orderName, price, customerKey}: TossPaymentWidgetProps) => {
+const TossPaymentWidget = ({productId, orderName, amount, customerKey}: TossPaymentWidgetProps) => {
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
+  const TOSS_CLIENT_KEY = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
+  const {mutateAsync: preparePayment} = useTossPaymentPrepare({
+    onError: (err) => console.error(err),
+  });
 
   useEffect(() => {
     async function initializeTossWidgets() {
@@ -22,14 +26,16 @@ const TossPaymentWidget = ({orderName, price, customerKey}: TossPaymentWidgetPro
           throw new Error('TOSS_CLIENT_KEY을 환경변수에서 찾을 수 없습니다.');
         }
 
-        // if (!TOSS_CUSTOMER_KEY) {
-        //   throw new Error('TOSS_CUSTOMER_KEY을 환경변수에서 찾을 수 없습니다.');
-        // }
+        if (!customerKey) {
+          throw new Error('TOSS_CUSTOMER_KEY을 환경변수에서 찾을 수 없습니다.');
+        }
 
         const tossPayments = await loadTossPayments(TOSS_CLIENT_KEY);
+
         const tossWidgets = tossPayments.widgets({
           customerKey,
         });
+
         setWidgets(tossWidgets);
       } catch (e) {
         console.error('TossPayments 초기화 실패:', e);
@@ -37,7 +43,7 @@ const TossPaymentWidget = ({orderName, price, customerKey}: TossPaymentWidgetPro
     }
 
     initializeTossWidgets();
-  }, [customerKey]);
+  }, [customerKey, TOSS_CLIENT_KEY]);
 
   useEffect(() => {
     async function renderWidgets() {
@@ -45,7 +51,7 @@ const TossPaymentWidget = ({orderName, price, customerKey}: TossPaymentWidgetPro
 
       await widgets.setAmount({
         currency: 'KRW',
-        value: price,
+        value: amount,
       });
 
       await widgets.renderPaymentMethods({
@@ -58,7 +64,30 @@ const TossPaymentWidget = ({orderName, price, customerKey}: TossPaymentWidgetPro
     }
 
     renderWidgets();
-  }, [widgets, price]);
+  }, [widgets, amount]);
+
+  const handleClickPayment = async () => {
+    try {
+      const orderId = getRandomString();
+
+      // 1) 결제 준비 API 호출
+      await preparePayment({
+        productId,
+        orderId,
+        amount,
+      });
+
+      // 2) 결제 위젯 호출
+      await widgets?.requestPayment({
+        orderId,
+        orderName,
+        successUrl: window.location.origin + '/payment/loading',
+        failUrl: window.location.origin + '/payment/fail',
+      });
+    } catch (err) {
+      console.error('결제 준비 실패:', err);
+    }
+  };
 
   return (
     <div className={styles.position}>
@@ -66,20 +95,7 @@ const TossPaymentWidget = ({orderName, price, customerKey}: TossPaymentWidgetPro
         <div id="payment-method" />
         <div id="agreement" />
 
-        <Button
-          full
-          theme="toss"
-          onClick={async function () {
-            await widgets?.requestPayment({
-              // orderId: '_GRKrwUl-Tslbgin660fW',
-              // orderName: '토스 티셔츠 외 2건',
-              orderId: getRandomString(),
-              orderName,
-              successUrl: window.location.origin + '/payment/success',
-              failUrl: window.location.origin + '/payment/fail',
-            });
-          }}
-        >
+        <Button full theme="toss" onClick={handleClickPayment}>
           결제하기
         </Button>
       </div>
