@@ -240,6 +240,9 @@
     line-height: var(--line-height-650);
     letter-spacing: 0;
   }
+  .label-lg {
+    font-size: var(--font-size-300);
+  }
 }
 
 /* text color */
