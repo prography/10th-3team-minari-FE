@@ -35,6 +35,12 @@
   margin-bottom: 12px;
 }
 
+@media screen and (max-width: 1024px) {
+  .agreements__wrap > a {
+    font-size: var(--font-size-300);
+  }
+}
+
 @media screen and (max-width: 650px) {
   .checkbox__container {
     /*height: 46px;*/
