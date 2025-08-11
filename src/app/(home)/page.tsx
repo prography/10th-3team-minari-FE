@@ -40,7 +40,9 @@ export default function Page() {
                 </div>
               </div>
               <div className="display-md mg-bottom-20">개발자의 여정</div>
-              <MainButton />
+              <div className={styles['main-button']}>
+                <MainButton />
+              </div>
             </div>
             <Image src={Person} alt="" className={styles['hero__image-person']} width={407} />
           </div>
@@ -115,8 +117,10 @@ export default function Page() {
               </div>
             </div>
           </div>
-          <div className="fx-center mg-bottom-80">
-            <MainButton />
+          <div className={styles['main-button-2__wrap']}>
+            <div className={styles['main-button-2']}>
+              <MainButton />
+            </div>
           </div>
         </div>
       </div>
