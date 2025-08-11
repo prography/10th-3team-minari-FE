@@ -32,7 +32,12 @@ const MainButton = () => {
     router.push('/minari');
   };
   return (
-    <Button iconRight={BlackArrow} border onClick={store.isLoggedIn ? onClickMinari : onClickLogin}>
+    <Button
+      iconRight={BlackArrow}
+      border
+      onClick={store.isLoggedIn ? onClickMinari : onClickLogin}
+      full
+    >
       {store.isLoggedIn ? '리허설 시작하기' : '카카오 로그인'}
     </Button>
   );
