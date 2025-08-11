@@ -32,7 +32,7 @@ const JoinPage = () => {
   // 등록한 사용자 페이지 진입 시 예외처리
   useEffect(() => {
     if (userStore.isUserRegistered && step === 0) {
-      router.push('/');
+      // router.push('/');
     }
   }, [userStore.isUserRegistered]);
 
@@ -118,20 +118,22 @@ const JoinPage = () => {
   }, [isSuccess, isError]);
 
   return (
-    <>
-      <JoinPageTitle step={step} />
-      <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
-        {step === 0 && <JoinAgreement />}
-        {step === 1 && <JoinReceiveNotification />}
-        {step === 2 && <JoinEmailVerification />}
-        {step === 3 && <JoinExperience />}
-        {step === 4 && <JoinCompleted domain={userStore.userDomain} />}
+    <div className={styles.wrapper}>
+      <div>
+        <JoinPageTitle step={step} />
+        <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
+          {step === 0 && <JoinAgreement />}
+          {step === 1 && <JoinReceiveNotification />}
+          {step === 2 && <JoinEmailVerification />}
+          {step === 3 && <JoinExperience />}
+          {step === 4 && <JoinCompleted domain={userStore.userDomain} />}
+        </div>
       </div>
       <div className={styles.buttons}>
         {step > 0 && step < 4 && goBackButton}
         {step === 4 ? goHomeButton : goNextButton}
       </div>
-    </>
+    </div>
   );
 };
 
