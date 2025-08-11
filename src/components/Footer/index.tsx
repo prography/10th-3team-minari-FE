@@ -17,18 +17,21 @@ const Footer = () => {
           <Image src={Logo} alt="logo" />
           <div className={styles.info}>
             <span>Copyright ⓒ Confirm. All Rights Reserved</span>
-            <span>사업자등록번호 : 505-67-00852 대표 : 김주하</span>
-            <span>
-              호스팅서비스 : 컨퍼미 통신판매업 신고번호 : 제2025-경기파주-2477호
-              <a
-                className="mg-left-4 underline"
-                href={OUT_LINK.사업자_정보확인}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                사업자 정보 확인
-              </a>
-            </span>
+            <span>사업자등록번호 : 505-67-00852 | 대표 : 김주하</span>
+            <div className={styles['info-detail']}>
+              <div>호스팅서비스 : 컨퍼미</div>
+              <div>
+                통신판매업 신고번호 : 제2025-경기파주-2477호
+                <a
+                  className="mg-left-4 underline"
+                  href={OUT_LINK.사업자_정보확인}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  사업자 정보 확인
+                </a>
+              </div>
+            </div>
             <span>경기도 파주시 미래로 422, 10층 (야당동, 한빛마을 1단지)</span>
             <span>TEL: 010-8518-5507</span>
           </div>
