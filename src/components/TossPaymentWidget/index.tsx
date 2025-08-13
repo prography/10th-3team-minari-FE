@@ -10,9 +10,16 @@ interface TossPaymentWidgetProps {
   orderName: string;
   amount: number;
   customerKey?: string;
+  successEndponint?: string;
 }
 
-const TossPaymentWidget = ({productId, orderName, amount, customerKey}: TossPaymentWidgetProps) => {
+const TossPaymentWidget = ({
+  productId,
+  orderName,
+  amount,
+  customerKey,
+  successEndponint = '/payment/loading',
+}: TossPaymentWidgetProps) => {
   const [widgets, setWidgets] = useState<TossPaymentsWidgets | null>(null);
   const TOSS_CLIENT_KEY = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY;
   const {mutateAsync: preparePayment} = useTossPaymentPrepare({
@@ -81,7 +88,7 @@ const TossPaymentWidget = ({productId, orderName, amount, customerKey}: TossPaym
       await widgets?.requestPayment({
         orderId,
         orderName,
-        successUrl: window.location.origin + '/payment/loading',
+        successUrl: window.location.origin + successEndponint + `?productId=${productId}`,
         failUrl: window.location.origin + '/payment/fail',
       });
     } catch (err) {
