@@ -59,12 +59,16 @@ const MoreTab = () => {
         <button className="body-lg txt-disabled" onClick={() => router.push('/users/withdraw')}>
           회원탈퇴
         </button>
-        {userData?.userRole === 'ADMIN' && (
-          <Button iconRight={ArrowRight} onClick={() => router.push('/admin')}>
-            어드민
-          </Button>
-        )}
       </div>
+      {userData?.userRole === 'ADMIN' && (
+        <div className={styles['admin-button__wrap']}>
+          <div className={styles['admin-button']}>
+            <Button full iconRight={ArrowRight} onClick={() => router.push('/admin')}>
+              어드민
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
