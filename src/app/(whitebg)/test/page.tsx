@@ -48,6 +48,7 @@ const TestPage = () => {
           orderName="토스 티셔츠 외 2건"
           amount={100}
           customerKey="IC4jzlhz7Axz_FW7qVu-l"
+          successEndponint="/test/jsonparam"
         />
       ),
     });
