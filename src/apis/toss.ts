@@ -37,9 +37,9 @@ interface TossPaymentKey {
   paymentKey: string;
 }
 
-type TossPaymentPreparePostType = TossPayment;
+export type TossPaymentPreparePostType = TossPayment;
 
-type TossPaymentConfirmPostType = TossPayment & TossPaymentKey;
+export type TossPaymentConfirmPostType = TossPayment & TossPaymentKey;
 
 type TossPaymentsGetType = TossPaymentKey;
 
