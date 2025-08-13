@@ -1,16 +1,16 @@
 import styles from './Seeds.module.css';
 import TabView from './_components/(tabs)/TabView';
-import Image from 'next/image';
-import Logo from '@/assets/minari-black.svg';
 import SeedInfoBox from './_components/SeedInfoBox';
+import LogoText from '@/components/LogoText';
 
 const SeedsLayout = () => {
   return (
     <div className={styles.wrapper}>
-      <div className={styles.title}>
-        <Image src={Logo} alt="logo" width={36} height={36} />
-        <h4 className="title-md">미나리샵</h4>
-      </div>
+      <h4 className={styles.title}>
+        <LogoText logoSize={36} className="title-md txt-primary">
+          미나리샵
+        </LogoText>
+      </h4>
 
       <div className={styles.content}>
         <SeedInfoBox />

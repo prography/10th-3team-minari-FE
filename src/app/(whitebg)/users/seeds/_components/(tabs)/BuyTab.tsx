@@ -8,6 +8,8 @@ import Note from '../Note';
 import {NOTE_BUY} from '@/constants/note';
 import {useProductsSell} from '@/hooks/queries/useProductsSell';
 import {useUsers} from '@/hooks/queries/useUsers';
+import LogoText from '@/components/LogoText';
+import styles from './Tabs.module.css';
 
 const BuyTab = () => {
   const {open} = useModalStore();
@@ -60,14 +62,15 @@ const BuyTab = () => {
   return (
     <>
       <Title>씨앗 사기</Title>
-      <Header ths={['씨앗', '개수', '가격', '할인', '가격']} />
-      {TbBuyDatasMake().map((tbs, idx) => (
-        <Body key={idx} tbs={tbs} />
-      ))}
-      <p style={{marginTop: '16px'}} className={`txt-disabled lable-sm`}>
-        *위 상품의 최대 이용 기간은 1년입니다.
-      </p>
-      <Note NoteData={NOTE_BUY} />
+
+      <div className={styles.wrapper}>
+        <Header ths={['씨앗', '개수', '가격', '할인', '가격']} />
+        {TbBuyDatasMake().map((tbs, idx) => (
+          <Body key={idx} tbs={tbs} />
+        ))}
+        <LogoText>위 상품의 최대 이용 기간은 1년입니다.</LogoText>
+        <Note NoteData={NOTE_BUY} />
+      </div>
     </>
   );
 };
