@@ -3,9 +3,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 20px;
 }
 
 .container {
-  max-width: 884px;
+  max-width: 946px;
   width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .wrapper {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 0;
+  }
 }
