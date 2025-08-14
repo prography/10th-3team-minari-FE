@@ -1,9 +1,9 @@
 import {useQuery} from '@tanstack/react-query';
-import {postUserRegister, TypeUserRegisterRequest} from '@/apis/user';
+import {postUserRegister, UserRegisterRequestType} from '@/apis/user';
 import {useState} from 'react';
 
 export const useUserJoin = () => {
-  const [body, setBody] = useState<TypeUserRegisterRequest>({} as TypeUserRegisterRequest);
+  const [body, setBody] = useState<UserRegisterRequestType>({} as UserRegisterRequestType);
   const [shouldFetch, setShouldFetch] = useState(false);
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);

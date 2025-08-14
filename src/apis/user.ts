@@ -9,7 +9,7 @@ export const loginKaKao = () => {
 
 // 카카오 로그인
 export const getKakaoProfile = async (code: string) => {
-  const response = await fetch.get<TypeKakaoLoginResponse>(
+  const response = await fetch.get<KakaoLoginResponseType>(
     `/users/oauth/kakao?code=${code}&redirect-uri=${process.env.NEXT_PUBLIC_KAKAO_REDIRECT}`,
   );
   if (response?.code === '200') {
@@ -22,7 +22,7 @@ export const getKakaoProfile = async (code: string) => {
 // 토큰 재발급
 export const postRefreshToken = async () => {
   const token = await getCookie('refresh-token');
-  return fetch.post<TypeRefreshTokenResponse>(`/users/token/refresh`, {refreshToken: token});
+  return fetch.post<RefreshTokenResponseType>(`/users/token/refresh`, {refreshToken: token});
 };
 
 // 회원가입 > 이메일 인증
@@ -42,8 +42,8 @@ export const postEmailCodeVerification = async (code: string) => {
 };
 
 // 회원가입 > 사용자 등록
-export const postUserRegister = async (data: TypeUserRegisterRequest) => {
-  const response = await fetch.post<{code: string; result: TypeUserRegisterResponse}>(
+export const postUserRegister = async (data: UserRegisterRequestType) => {
+  const response = await fetch.post<{code: string; result: UserRegisterResponseType}>(
     `/users/join`,
     data,
   );
@@ -52,7 +52,7 @@ export const postUserRegister = async (data: TypeUserRegisterRequest) => {
 
 // 사용자 조희
 export const getUsers = async () => {
-  const response = await fetch.get<UsersReponse>(`/users/me`);
+  const response = await fetch.get<UserResponseType>(`/users/me`);
 
   return response;
 };
@@ -69,7 +69,7 @@ export const activateUser = async () => {
   return await fetch.post<string>(`/users/activate`);
 };
 
-export interface UsersReponse {
+export interface UserResponseType {
   id: number;
   email: string;
   socialType: 'KAKAO';
@@ -84,7 +84,7 @@ export interface UsersReponse {
   customerKeyForPG: string;
 }
 
-export interface TypeKakaoLoginResponse {
+export interface KakaoLoginResponseType {
   accessToken: string;
   refreshToken: string;
   id: number;
@@ -96,7 +96,7 @@ export interface TypeKakaoLoginResponse {
   registered: boolean;
 }
 
-export interface TypeUserRegisterRequest {
+export interface UserRegisterRequestType {
   email: string | null;
   userId: string;
   isSubscribed: boolean | null;
@@ -106,7 +106,7 @@ export interface TypeUserRegisterRequest {
   domain: UserDomain;
 }
 
-export interface TypeUserRegisterResponse extends TypeUserRegisterRequest {
+export interface UserRegisterResponseType extends UserRegisterRequestType {
   id: number;
   socialId: number;
   name: string;
@@ -114,7 +114,7 @@ export interface TypeUserRegisterResponse extends TypeUserRegisterRequest {
   isRegistered: boolean;
 }
 
-export interface TypeRefreshTokenResponse {
+export interface RefreshTokenResponseType {
   accessToken: string;
   refreshToken: string;
 }

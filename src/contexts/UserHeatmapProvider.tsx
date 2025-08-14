@@ -7,7 +7,7 @@ import {useMinariRecord} from '@/hooks/queries/useMinariRecord';
 import {useQuestionDetail} from '@/hooks/queries/useQuestionDetail';
 import {QuestionDetailType} from '@/apis/question';
 import {useUsers} from '@/hooks/queries/useUsers';
-import {UsersReponse} from '@/apis/user';
+import {UserResponseType} from '@/apis/user';
 import {useAnswerEligibility} from '@/hooks/queries/useAnswerEligibility';
 import {monthLabel} from '@/constants/dates';
 
@@ -32,7 +32,7 @@ type ContextType = {
   selectedBlockDate: string;
   questionDetail: QuestionDetailType | null;
   mapLoading: boolean;
-  userData: UsersReponse | null | undefined;
+  userData: UserResponseType | null | undefined;
   isSeedLimitReached: boolean;
 };
 const UserHeatmapContext = createContext<ContextType | null>(null);

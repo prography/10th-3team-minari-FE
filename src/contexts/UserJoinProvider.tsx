@@ -1,7 +1,7 @@
 'use client';
 
 import {createContext, useContext, useMemo, useState} from 'react';
-import {TypeUserRegisterRequest} from '@/apis/user';
+import {UserRegisterRequestType} from '@/apis/user';
 import {CheckItemType} from '@/app/(whitebg)/users/join/page';
 import {useCheckbox} from '@/hooks/useCheckbox';
 
@@ -10,8 +10,8 @@ type ContextType = {
   setStep: (step: number) => void;
   disableNext: boolean;
   setDisableNext: (value: boolean) => void;
-  joinForm: TypeUserRegisterRequest;
-  setJoinForm: (joinForm: TypeUserRegisterRequest) => void;
+  joinForm: UserRegisterRequestType;
+  setJoinForm: (joinForm: UserRegisterRequestType) => void;
   checkItems: CheckItemType[];
   checkAll: boolean;
   checkAllHandler: (value: boolean) => void;
@@ -26,7 +26,7 @@ export const UserJoinProvider = ({children}: {children: React.ReactNode}) => {
   const [step, setStep] = useState(0);
   const [disableNext, setDisableNext] = useState(false);
 
-  const [joinForm, setJoinForm] = useState<TypeUserRegisterRequest>({
+  const [joinForm, setJoinForm] = useState<UserRegisterRequestType>({
     email: '',
     userId: '',
     isSubscribed: null,
