@@ -21,9 +21,11 @@ const BlockTab = () => {
             onClick={() => onClickTab(tab.id)}
             className={`${heatmapTab === tab.id ? `${styles.active}` : ''} ${styles.tab}`}
           >
-            <span className={`label-md ${heatmapTab === tab.id ? 'txt-primary' : 'txt-tertiary'}`}>
+            <button
+              className={`label-md ${heatmapTab === tab.id ? 'txt-primary' : 'txt-tertiary'}`}
+            >
               {tab.tab}
-            </span>
+            </button>
           </div>
         ))}
       </div>
