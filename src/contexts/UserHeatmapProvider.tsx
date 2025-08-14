@@ -133,7 +133,7 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
       setStartDate(datesArr[0][0]);
       setEndDate(datesArr[weeks - 1][6]);
     } else if (heatmapTab === 2) {
-      const datesArr = getWeekDates(year, month, weekNo);
+      const datesArr = getWeekDates(year, month, weekNo - 1);
       setBlockDates(datesArr);
       setStartDate(datesArr[0]);
       setEndDate(datesArr[6]);
@@ -181,18 +181,29 @@ export const UserHeatmapProvider = ({children}: {children: React.ReactNode}) => 
     }
   };
 
+  const [prevClickedBlockArrIndex, setPrevClickedBlockArrIndex] = useState<number>(-1);
   // 블록 클릭
   const onClickBlock = (block: BlockType) => {
     let b;
     if (heatmapTab !== 2 && typeof block.date === 'string') {
       b = arrayBlocks[block.totalIndex];
+      setPrevClickedBlockArrIndex(block.totalIndex);
     } else {
       b = blocks;
     }
     if (block.done) {
-      const prevActive = b.findIndex((item) => item.active);
-      if (prevActive > -1) {
-        b[prevActive].active = false;
+      if (heatmapTab === 2) {
+        const prevActive = b.findIndex((item) => item.active);
+        if (prevActive > -1) {
+          b[prevActive].active = false;
+        }
+      } else {
+        if (prevClickedBlockArrIndex > -1) {
+          const prevActive = blocks.findIndex((item) => item.active);
+          if (prevActive > -1) {
+            blocks[prevActive].active = false;
+          }
+        }
       }
       b[block.index].active = true;
       const blockDate = b[block.index].date;
