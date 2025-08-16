@@ -1,15 +1,14 @@
 import {NOTE_HISTORY} from '@/constants/note';
 import Note from '../Note';
-import Header from './(table)/Header';
-import Title from './(table)/Title';
+import Header from './_components/(table)/Header';
+import Title from './_components/(table)/Title';
 import {useCallback, useMemo} from 'react';
-import type {TbType} from './(table)/Body';
+import type {TbType} from './_components/(table)/Body';
 import {useModalStore} from '@/stores/modalStore';
 import {useProductsHistory} from '@/hooks/queries/useProductsHistory';
-import Body from './(table)/Body';
+import Body from './_components/(table)/Body';
 import {useUsers} from '@/hooks/queries/useUsers';
 import QRCodeModal from '../QRCodeModal';
-import styles from './Tabs.module.css';
 
 const HistoryTab = () => {
   const {open} = useModalStore();
@@ -67,13 +66,13 @@ const HistoryTab = () => {
   return (
     <>
       <Title>씨앗 히스토리</Title>
-      <div className={styles.wrapper}>
+      <div>
         <Header ths={['날짜', '종류', '구매수량', '남은 개수', '유형', '환불 여부']} />
         {TbBuyDatasMake().map((tbs, idx) => (
           <Body key={idx} tbs={tbs} />
         ))}
-        <Note NoteData={NOTE_HISTORY} />
       </div>
+      <Note NoteData={NOTE_HISTORY} />
     </>
   );
 };

@@ -1,15 +1,15 @@
 import {useModalStore} from '@/stores/modalStore';
 import QRCodeModal from '../QRCodeModal';
-import Title from './(table)/Title';
-import Header from './(table)/Header';
-import Body, {type TbType} from './(table)/Body';
+import Title from './_components/(table)/Title';
+import Header from './_components/(table)/Header';
+import Body, {type TbType} from './_components/(table)/Body';
 import {useCallback, useMemo} from 'react';
 import Note from '../Note';
 import {NOTE_BUY} from '@/constants/note';
 import {useProductsSell} from '@/hooks/queries/useProductsSell';
 import {useUsers} from '@/hooks/queries/useUsers';
 import LogoText from '@/components/LogoText';
-import styles from './Tabs.module.css';
+import Info from './_components/(table)/Info';
 
 const BuyTab = () => {
   const {open} = useModalStore();
@@ -61,16 +61,16 @@ const BuyTab = () => {
 
   return (
     <>
+      <Info />
       <Title>씨앗 사기</Title>
-
-      <div className={styles.wrapper}>
+      <div>
         <Header ths={['씨앗', '개수', '가격', '할인', '가격']} />
         {TbBuyDatasMake().map((tbs, idx) => (
           <Body key={idx} tbs={tbs} />
         ))}
-        <LogoText>위 상품의 최대 이용 기간은 1년입니다.</LogoText>
-        <Note NoteData={NOTE_BUY} />
       </div>
+      <LogoText>위 상품의 최대 이용 기간은 1년입니다.</LogoText>
+      <Note NoteData={NOTE_BUY} />
     </>
   );
 };
