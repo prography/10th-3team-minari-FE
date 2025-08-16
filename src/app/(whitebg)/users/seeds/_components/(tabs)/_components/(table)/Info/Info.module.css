@@ -1,0 +1,21 @@
+.wrapper {
+  display: flex;
+  padding: var(--spacing-12, 12px);
+  align-items: center;
+  gap: var(--spacing-32, 32px);
+
+  border-radius: var(--border-radius-lg, 8px);
+  background: var(--color-bg-brand-subtle, #effec0);
+}
+
+.seed {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon {
+  padding: var(--spacing-4, 4px);
+  border-radius: var(--border-radius-rounded, 999px);
+  background: var(--color-bg-primary, #fff);
+}
