@@ -6,11 +6,11 @@ import LogoText from '@/components/LogoText';
 const SeedsLayout = () => {
   return (
     <div className={styles.wrapper}>
-      <h4 className={styles.title}>
-        <LogoText logoSize={36} className="title-md txt-primary">
+      <div className={styles.title}>
+        <LogoText logoSize={36} className={'title-md txt-primary'} as="h4">
           미나리샵
         </LogoText>
-      </h4>
+      </div>
 
       <div className={styles.content}>
         <SeedInfoBox />
