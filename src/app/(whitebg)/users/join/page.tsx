@@ -16,6 +16,7 @@ import ArrowRight from '@/assets/icon/arrow-black.svg';
 import {useUserStore} from '@/stores/userStore';
 import {useModalStore} from '@/stores/modalStore';
 import Modal from '@/components/Modal';
+import {trackMixpanel} from '@/utils/mixpanel';
 
 /*
  * 회원 가입
@@ -90,6 +91,7 @@ const JoinPage = () => {
 
   useEffect(() => {
     if (isSuccess) {
+      trackMixpanel({name: '미나리 회원가입 완료'});
       userStore.setUserEmail(joinForm.email ? joinForm.email : '');
       userStore.setUserDomain(joinForm.domain);
       userStore.setIsUserRegistered(true);
