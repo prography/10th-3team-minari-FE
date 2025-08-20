@@ -4,8 +4,8 @@ import TextInput, {InputStatusType} from '@/components/TextInput';
 import React, {useEffect, useRef, useState} from 'react';
 import Button from '@/components/Button';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
-import {useUserEmailVerification} from '@/hooks/queries/useUserEmailVerification';
-import {useUserEmailCodeVerification} from '@/hooks/queries/useUserEmailCodeVerification';
+import {useUserEmailVerification} from '@/hooks/mutations/useUserEmailVerification';
+import {useUserEmailCodeVerification} from '@/hooks/mutations/useUserEmailCodeVerification';
 import {useDate} from '@/hooks/useDate';
 
 const JoinEmailVerification = () => {

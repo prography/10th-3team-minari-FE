@@ -5,7 +5,7 @@ import JoinReceiveNotification from '@/app/(whitebg)/users/join/_components/Join
 import JoinEmailVerification from '@/app/(whitebg)/users/join/_components/JoinEmailVerification';
 import JoinExperience from '@/app/(whitebg)/users/join/_components/JoinExperience';
 import JoinCompleted from '@/app/(whitebg)/users/join/_components/JoinCompleted';
-import {useUserJoin} from '@/hooks/queries/useUserJoin';
+import {useUserJoin} from '@/hooks/mutations/useUserJoin';
 import {useRouter} from 'next/navigation';
 import {useUserJoinContext} from '@/contexts/UserJoinProvider';
 import JoinPageTitle from '@/app/(whitebg)/users/join/_components/JoinPageTitle';
@@ -33,7 +33,7 @@ const JoinPage = () => {
   // 등록한 사용자 페이지 진입 시 예외처리
   useEffect(() => {
     if (userStore.isUserRegistered && step === 0) {
-      router.push('/');
+      // router.push('/');
     }
   }, [userStore.isUserRegistered]);
 
@@ -120,20 +120,22 @@ const JoinPage = () => {
   }, [isSuccess, isError]);
 
   return (
-    <>
-      <JoinPageTitle step={step} />
-      <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
-        {step === 0 && <JoinAgreement />}
-        {step === 1 && <JoinReceiveNotification />}
-        {step === 2 && <JoinEmailVerification />}
-        {step === 3 && <JoinExperience />}
-        {step === 4 && <JoinCompleted domain={userStore.userDomain} />}
+    <div className={styles.wrapper}>
+      <div>
+        <JoinPageTitle step={step} />
+        <div className={styles.contents} style={{marginTop: step === 1 ? 10 : ''}}>
+          {step === 0 && <JoinAgreement />}
+          {step === 1 && <JoinReceiveNotification />}
+          {step === 2 && <JoinEmailVerification />}
+          {step === 3 && <JoinExperience />}
+          {step === 4 && <JoinCompleted domain={userStore.userDomain} />}
+        </div>
       </div>
       <div className={styles.buttons}>
         {step > 0 && step < 4 && goBackButton}
         {step === 4 ? goHomeButton : goNextButton}
       </div>
-    </>
+    </div>
   );
 };
 

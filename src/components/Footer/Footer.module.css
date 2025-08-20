@@ -74,8 +74,35 @@
   line-height: var(--line-height-400);
 }
 
+.info-detail {
+  display: flex;
+}
+
 @media screen and (max-width: 768px) {
+  .wrapper {
+    padding: 40px 20px !important;
+  }
   .container {
-    padding: 40px 20px;
+    padding: 0 !important;
+    flex-direction: column !important;
+    gap: 16px;
+  }
+  .info-detail {
+    flex-direction: column;
+  }
+  .right div {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+  .right ul {
+    display: flex;
+    gap: 6px;
+  }
+  .right li {
+    margin-bottom: 0;
+  }
+  .right span {
+    margin-bottom: 0;
   }
 }
