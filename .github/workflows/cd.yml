@@ -1,9 +1,9 @@
 name: Deploy to ec2
 on:
   push:
-    branches: ['main']
+    branches: [ 'main' ]
   pull_request:
-    branches: ['main']
+    branches: [ 'main' ]
 
 jobs:
   push_to_dockerhub:
@@ -32,6 +32,7 @@ jobs:
           echo "NEXT_PUBLIC_CA_PUB_ID=${{ secrets.NEXT_PUBLIC_CA_PUB_ID }}" >> .env
           echo "NEXT_PUBLIC_EMAIL_REDIRECT=${{ secrets.NEXT_PUBLIC_EMAIL_REDIRECT }}" >> .env
           echo "NEXT_PUBLIC_API_URL_ADMIN=${{ secrets.NEXT_PUBLIC_API_URL_ADMIN }}" >> .env
+          echo "NEXT_PUBLIC_MIXPANEL_TOKEN=${{ secrets.NEXT_PUBLIC_MIXPANEL_TOKEN }}" >> .env
         env:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
           NEXT_PUBLIC_KAKAO_REDIRECT: ${{ secrets.NEXT_PUBLIC_KAKAO_REDIRECT }}
@@ -41,6 +42,7 @@ jobs:
           NEXT_PUBLIC_CA_PUB_ID: ${{ secrets.NEXT_PUBLIC_CA_PUB_ID }}
           NEXT_PUBLIC_EMAIL_REDIRECT: ${{ secrets.NEXT_PUBLIC_EMAIL_REDIRECT }}
           NEXT_PUBLIC_API_URL_ADMIN: ${{ secrets.NEXT_PUBLIC_API_URL_ADMIN }}
+          NEXT_PUBLIC_MIXPANEL_TOKEN: ${{ secrets.NEXT_PUBLIC_MIXPANEL_TOKEN }}
 
       - name: build and push
         uses: docker/build-push-action@v3
