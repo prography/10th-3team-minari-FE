@@ -17,6 +17,7 @@ import Toast from '@/components/Toast';
 import {useModalStore} from '@/stores/modalStore';
 import {useClearCache} from '@/hooks/useClearCache';
 import {useToastStore} from '@/stores/toastStore';
+import {trackMixpanel} from '@/lib/mixpanelClient';
 
 const WithdrawPage = () => {
   const {data} = useUsers();
@@ -66,6 +67,7 @@ const WithdrawPage = () => {
     await deleteUser()
       .then((response) => {
         if (response?.code === '200') {
+          trackMixpanel({name: '회원탈퇴'});
           open({
             modal: (
               <Modal

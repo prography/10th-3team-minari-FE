@@ -8,6 +8,9 @@ import {
   type Query,
 } from '@tanstack/react-query';
 import {ReactQueryDevtools} from '@tanstack/react-query-devtools';
+import {useEffect} from 'react';
+import {initMixpanel} from '@/lib/mixpanelClient';
+import process from 'node:process';
 
 const queryClientOptions = {
   defaultOptions: {
@@ -50,11 +53,14 @@ export function getQueryClient() {
 
 export default function Providers({children}: {children: React.ReactNode}) {
   const queryClient = getQueryClient();
+  useEffect(() => {
+    initMixpanel();
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
       {children}
-      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={false} />}
+      {process.env.NODE_ENV === 'development' && <ReactQueryDevtools initialIsOpen={true} />}
     </QueryClientProvider>
   );
 }
