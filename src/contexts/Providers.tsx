@@ -1,5 +1,6 @@
 import React from 'react';
 import ClientProviders from './ClientProviders';
+import MixpanelProvider from '@/contexts/MixpanelProvider';
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -8,7 +9,9 @@ interface ProvidersProps {
 const Providers = ({children}: ProvidersProps) => {
   return (
     <>
-      <ClientProviders>{children}</ClientProviders>
+      <ClientProviders>
+        <MixpanelProvider>{children}</MixpanelProvider>
+      </ClientProviders>
     </>
   );
 };
