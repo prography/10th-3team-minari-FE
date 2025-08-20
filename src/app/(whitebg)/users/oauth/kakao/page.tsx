@@ -9,6 +9,7 @@ import {deleteCookie, setCookie} from '@/utils/cookies';
 import Modal from '@/components/Modal';
 import {useModalStore} from '@/stores/modalStore';
 import Button from '@/components/Button';
+import {trackMixpanel} from '@/utils/mixpanel';
 
 const KakaoRedirectPage = () => {
   let code = '';
@@ -42,7 +43,12 @@ const KakaoRedirectPage = () => {
 
           if (data?.registered) {
             router.push('/');
+            trackMixpanel({
+              name: '로그인',
+              options: {'로그인 타입': '카카오'},
+            });
           } else {
+            trackMixpanel({name: '미나리 회원가입 페이지 이동'});
             router.push('/users/join');
           }
         }
